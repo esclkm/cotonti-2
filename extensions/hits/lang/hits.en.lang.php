@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for Hits Plugin
+ * English Language File for Hits
  *
  * @package Hits
  * @version 0.9.0

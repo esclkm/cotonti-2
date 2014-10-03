@@ -9,9 +9,8 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-// Modules and plugins checked by default
-$default_modules = array('index', 'page', 'users', 'rss');
-$default_plugins = array('ckeditor', 'cleaner', 'html', 'htmlpurifier', 'ipsearch', 'mcaptcha', 'news', 'search');
+// Extensions checked by default
+$default_modules = array('index', 'page', 'users', 'rss', 'ckeditor', 'cleaner', 'html', 'htmlpurifier', 'ipsearch', 'mcaptcha', 'news', 'search');
 
 $step = empty($_SESSION['cot_inst_lang']) ? 0 : (int) $cfg['new_install'];
 
@@ -75,18 +74,6 @@ switch ($step)
 				if ($val)
 				{
 					$selected_modules[] = $key;
-				}
-			}
-		}
-		$install_plugins = cot_import('install_plugins', 'P', 'ARR', 0, false, true);
-		$selected_plugins = array();
-		if (is_array($install_plugins))
-		{
-			foreach ($install_plugins as $key => $val)
-			{
-				if ($val)
-				{
-					$selected_plugins[] = $key;
 				}
 			}
 		}
@@ -280,11 +267,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			$install = true;
 			foreach ($selected_modules as $ext)
 			{
-				$install &= cot_extension_dependencies_statisfied($ext, true, $selected_modules, $selected_plugins);
-			}
-			foreach ($selected_plugins as $ext)
-			{
-				$install &= cot_extension_dependencies_statisfied($ext, false, $selected_modules, $selected_plugins);
+				$install &= cot_extension_dependencies_statisfied($ext, $selected_modules);
 			}
 
 			if ($install && !cot_error_found())
@@ -313,19 +296,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				$selected_modules = cot_install_sort_extensions($selected_modules, true);
 				foreach ($selected_modules as $ext)
 				{
-					if (!cot_extension_install($ext, true))
+					if (!cot_extension_install($ext))
                     {
                         cot_error("Installing $ext module has failed");
                     }
 				}
-				$selected_plugins = cot_install_sort_extensions($selected_plugins, false);
-				foreach ($selected_plugins as $ext)
-				{
-					if (!cot_extension_install($ext, false))
-                    {
-                        cot_error("Installing $ext plugin has failed");
-                    }
-				}
+
 			}
 			break;
 		case 5:
@@ -582,8 +558,7 @@ switch ($step)
 		));
 	case 4:
 		// Extensions
-		cot_install_parse_extensions('Module', $default_modules, $selected_modules);
-		cot_install_parse_extensions('Plugin', $default_plugins, $selected_plugins);
+		cot_install_parse_extensions($default_modules, $selected_modules);
 		break;
 	case 5:
 		// End credits
@@ -625,33 +600,29 @@ function cot_install_config_replace(&$file_contents, $config_name, $config_value
 /**
  * Parses extensions selection section
  *
- * @param string $ext_type Extension type: 'Module' or 'Plugin'
  * @param array $default_list A list of recommended extensions (checked by default)
  * @param array $selected_list A list of previously selected extensions
  */
-function cot_install_parse_extensions($ext_type, $default_list = array(), $selected_list = array())
+function cot_install_parse_extensions($default_list = array(), $selected_list = array())
 {
 	global $t, $cfg, $L;
-	$ext_type_lc = strtolower($ext_type);
-	$ext_type_uc = strtoupper($ext_type);
 
-	$ext_list = cot_extension_list_info($cfg["{$ext_type_lc}s_dir"]);
+	$ext_list = cot_extension_list_info($cfg["extensions_dir"]);
 
-	$ext_type_lc == 'plugin' ? uasort($ext_list, 'cot_extension_catcmp') : ksort($ext_list);
+	uasort($ext_list, 'cot_extension_catcmp');
 
 	$prev_cat = '';
-	$block_name = $ext_type_lc == 'plugin' ? "{$ext_type_uc}_CAT.{$ext_type_uc}_ROW" : "{$ext_type_uc}_ROW";
 	foreach ($ext_list as $f => $info)
 	{
 		if (is_array($info))
 		{
 			$code = $f;
-			if ($ext_type_lc == 'plugin' && $prev_cat != $info['Category'])
+			if ($prev_cat != $info['Category'])
 			{
 				if ($prev_cat != '')
 				{
 					// Render previous category
-					$t->parse("MAIN.STEP_4.{$ext_type_uc}_CAT");
+					$t->parse("MAIN.STEP_4.EXT_CAT");
 				}
 				// Assign a new one
 				$prev_cat = $info['Category'];
@@ -689,27 +660,26 @@ function cot_install_parse_extensions($ext_type, $default_list = array(), $selec
 			{
 				$checked = in_array($code, $default_list);
 			}
-			$type = $ext_type == 'Module' ? 'module' : 'plug';
 			$L['info_name'] = '';
 			$L['info_desc'] = '';
-			if (file_exists(cot_langfile($code, $type)))
+			if (file_exists(cot_langfile($code, 'module')))
 			{
-				include cot_langfile($code, $type);
+				include cot_langfile($code, 'module');
 			}
 			$t->assign(array(
-				"{$ext_type_uc}_ROW_CHECKBOX" => cot_checkbox($checked, "install_{$ext_type_lc}s[$code]"),
-				"{$ext_type_uc}_ROW_TITLE" => empty($L['info_name']) ? $info['Name'] : $L['info_name'],
-				"{$ext_type_uc}_ROW_DESCRIPTION" => empty($L['info_desc']) ? $info['Description'] : $L['info_desc'],
-				"{$ext_type_uc}_ROW_REQUIRES" => $requires,
-				"{$ext_type_uc}_ROW_RECOMMENDS" => $recommends
+				"EXT_ROW_CHECKBOX" => cot_checkbox($checked, "install_extensions[$code]"),
+				"EXT_ROW_TITLE" => empty($L['info_name']) ? $info['Name'] : $L['info_name'],
+				"EXT_ROW_DESCRIPTION" => empty($L['info_desc']) ? $info['Description'] : $L['info_desc'],
+				"EXT_ROW_REQUIRES" => $requires,
+				"EXT_ROW_RECOMMENDS" => $recommends
 			));
-			$t->parse("MAIN.STEP_4.$block_name");
+			$t->parse("MAIN.STEP_4.EXT_CAT.EXT_ROW");
 		}
 	}
-	if ($ext_type_lc == 'plugin' && $prev_cat != '')
+	if ($prev_cat != '')
 	{
 		// Render last category
-		$t->parse("MAIN.STEP_4.{$ext_type_uc}_CAT");
+		$t->parse("MAIN.STEP_4.EXT_CAT");
 	}
 }
 

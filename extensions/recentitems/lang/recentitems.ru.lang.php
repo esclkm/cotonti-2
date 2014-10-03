@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for RecentItems Plugin
+ * Russian Language File for RecentItems Extension
  *
  * @package recentitems
  * @version 0.7.0

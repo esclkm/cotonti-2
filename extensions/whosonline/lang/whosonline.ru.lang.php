@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for WhosOnline Plugin
+ * Russian Language File for WhosOnline Extension
  *
  * @package whosonline
  * @author Cotonti Team
@@ -17,7 +17,7 @@ $L['cfg_maxusersperpage_hint'] = 'установите 0 для вывода в�
 $L['info_desc'] = 'Вывод списка пользователей онлайн на главной и отдельной страницах, отслеживание действий пользователей на сайте';
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['WhosOnline'] = 'Сейчас онлайн';

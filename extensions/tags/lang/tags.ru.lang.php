@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for Tags Plugin
+ * Russian Language File for Tags Extension
  *
  * @package tags
  * @version 0.7.0
@@ -18,7 +18,7 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['info_desc'] = 'Теги &mdash; метки для контента с облаком, поиском и API';
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['plu_title'] = 'Теги';

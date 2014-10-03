@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for Hiddengroups Plugin
+ * English Language File for Hiddengroups
  *
  * @package hiddengroups
  * @version 1.0

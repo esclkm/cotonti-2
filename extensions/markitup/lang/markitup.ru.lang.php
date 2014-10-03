@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for MarkItUp Plugin
+ * Russian Language File for MarkItUp Extension
  *
  * @package markitup
  * @version 0.7.0
@@ -17,6 +17,6 @@ defined('COT_CODE') or die('Wrong URL.');
 
 $L['cfg_autorefresh'] = 'Включить автообновление предпросмотра';
 $L['cfg_chili'] = 'Включить тэги Chili';
-$L['cfg_skin'] = 'Скин редактора (plugins/markitup/skins/ИМЯ_СКИНА)';
+$L['cfg_skin'] = 'Скин редактора (extensions/markitup/skins/ИМЯ_СКИНА)';
 
 $L['info_desc'] = 'Редактор ББ-кодов/HTML-контента на базе jQuery. Следует включать только один редактор контента, иначе могут возникнуть конфликты.';

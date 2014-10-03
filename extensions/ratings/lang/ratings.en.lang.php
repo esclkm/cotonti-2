@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for Ratings Plugin
+ * English Language File for Ratings Extension
  *
  * @package ratings
  * @version 0.7.0
@@ -24,7 +24,7 @@ $L['info_desc'] = 'One-click star ratings using jQuery';
 $L['cfg_enable_ratings'] = 'Enable ratings';
 $L['cfg_ratings_allowchange'] = 'Allow ratings to be changed?';
 $L['cfg_ratings_allowchange_hint'] = 'If enabled it will allow users to change their rating.';
-$L['cfg_css'] = 'Use plugin CSS';
+$L['cfg_css'] = 'Use extension CSS';
 
 /**
  * Extension Admin

@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for Search Plugin
+ * Russian Language File for Search Extension
  *
  * @package search
  * @version 0.7.0
@@ -12,7 +12,7 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['plu_search'] = 'Поиск';

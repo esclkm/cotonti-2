@@ -155,7 +155,7 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 	// Update modules
 	foreach (array('forums', 'index', 'page', 'pfs', 'pm', 'polls', 'users') as $code)
 	{
-		$ret = cot_extension_install($code, true, true);
+		$ret = cot_extension_install($code, true);
 		if ($ret === false)
 		{
 			cot_error(cot_rc('ext_update_error', array(
@@ -165,7 +165,6 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 		}
 	}
 
-	// Update installed Siena plugins and uninstall Genoa plugins
 	$res = $db->query("SELECT DISTINCT(pl_code) FROM $db_extensions
 		WHERE pl_module = 0");
 	while ($row = $res->fetch(PDO::FETCH_NUM))
@@ -176,7 +175,7 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 		{
 			// Update
 			cot_extension_add($code, $info['Name'], '0.0.0', true);
-			cot_extension_install($code, false, true);
+			cot_extension_install($code, true);
 		}
 		else
 		{
@@ -204,9 +203,6 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 			cot_extension_install('urleditor');
 		}
 	}
-
-	// Install userimages plugin
-	cot_extension_install('userimages');
 
 	// Update config theme and scheme
 	$config_contents = file_get_contents($file['config']);
@@ -270,13 +266,13 @@ elseif (!cot_error_found())
 	}
 	$new_rev = cot_apply_patches("./setup/$branch", $rev);
 
-	// Update installed modules and plugins
+	// Update installed extensions
 	$updated_ext = false;
 	if(count($cot_modules)>0)
 	{
 		foreach ($cot_modules as $code => $mod)
 		{
-			$ret = cot_extension_install($code, true, true);
+			$ret = cot_extension_install($code, true);
 			if ($ret === true)
 			{
 				$updated_ext = true;
@@ -285,24 +281,6 @@ elseif (!cot_error_found())
 			{
 				cot_error(cot_rc('ext_update_error', array(
 					'type' => $L['Module'],
-					'name' => $code
-				)));
-			}
-		}
-	}
-	if(count($cot_modules)>0)
-	{
-		foreach ($cot_modules as $code => $plug)
-		{
-			$ret = cot_extension_install($code, false, true);
-			if ($ret === true)
-			{
-				$updated_ext = true;
-			}
-			elseif ($ret === false)
-			{
-				cot_error(cot_rc('ext_update_error', array(
-					'type' => $L,
 					'name' => $code
 				)));
 			}

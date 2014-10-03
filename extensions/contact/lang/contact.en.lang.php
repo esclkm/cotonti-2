@@ -40,7 +40,7 @@ $L['contact_sent'] = 'Last reply';
 $L['contact_nosubject'] = 'No subject';
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['contact_title'] = 'Contact us';

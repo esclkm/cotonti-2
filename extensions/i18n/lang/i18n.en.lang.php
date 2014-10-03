@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for Content Internationalization Plugin
+ * English Language File for Content Internationalization Extension
  *
  * @package i18n
  * @version 0.7.0
@@ -23,7 +23,7 @@ $L['cfg_rewrite_hint'] = 'Requires manual .htaccess update';
 
 $L['info_desc'] = 'Localization tool for pages, categories, tags, etc. enabling multilanguage support';
 
-// Plugin strings
+// Extension strings
 
 $L['i18n_adding'] = 'Adding new translation';
 $L['i18n_editing'] = 'Editing a translation';

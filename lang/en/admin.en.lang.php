@@ -71,7 +71,7 @@ $L['core_parser'] = &$L['Parser'];
 $L['core_performance'] = 'Performance';
 $L['core_performance_desc'] = 'Gzip compression, resource consolidation, enable Ajax and jQuery';
 $L['core_pfs'] = &$L['PFS'];
-$L['core_plug'] = &$L['Plugins'];
+$L['core_plug'] = &$L['Extensions'];
 $L['core_pm'] = &$L['Private_Messages'];
 $L['core_polls'] = &$L['Polls'];
 $L['core_rss'] = &$L['RSS_Feeds'];
@@ -303,24 +303,23 @@ $L['ext_config_updated'] = 'Updated configuration options';
 $L['ext_config_struct_error'] = 'Structure configuration setup failed';
 $L['ext_config_struct_installed'] = 'Installed structure configuration';
 $L['ext_config_struct_updated'] = 'Updated structure configuration options';
-$L['ext_dependency_error'] = '{$dep_type} &quot;{$dep_name}&quot; required by {$type} &quot;{$name}&quot; is neither installed nor selected for installation';
+$L['ext_dependency_error'] = 'Extension &quot;{$dep_name}&quot; required by &quot;{$name}&quot; is neither installed nor selected for installation';
 $L['ext_dependency_uninstall_error'] = '{$type} &quot;{$name}&quot; requires this extension and should be uninstalled first';
 $L['ext_executed_php'] = 'Executed PHP handler part: {$ret}';
 $L['ext_executed_sql'] = 'Executed SQL handler part: {$ret}';
-$L['ext_installing'] = 'Installing {$type} &quot;{$name}&quot;';
+$L['ext_installing'] = 'Installing extension &quot;{$name}&quot;';
 $L['ext_invalid_format'] = 'This is not a valid Cotonti >= 0.9 extension. Please contact the developer';
-$L['ext_old_format'] = 'This is old Genoa/Seditio plugin. It may work incorrectly or not work at all.';
 $L['ext_patch_applied'] = 'Applied patch {$f}: {$msg}';
 $L['ext_patch_error'] = 'Error applying patch {$f}: {$msg}';
 $L['ext_requires_modules'] = 'Requires modules';
 $L['ext_recommends_modules'] = 'Recommends modules';
 $L['ext_setup_not_found'] = 'Setup file is not found: {$path}';
 $L['ext_uninstall_confirm'] = 'Are you sure you want to uninstall this extension? Any data linked to the extension will be removed and cannot be recovered.<br/><a href="{$url}">Yes, uninstall and remove data.</a>';
-$L['ext_uninstalling'] = 'Uninstalling {$type} &quot;{$name}&quot;';
-$L['ext_up2date'] = '{$type} &quot;{$name}&quot; is up to date';
+$L['ext_uninstalling'] = 'Uninstalling extension &quot;{$name}&quot;';
+$L['ext_up2date'] = 'Extension &quot;{$name}&quot; is up to date';
 $L['ext_update_error'] = 'Failed updating {$type} &quot;{$name}&quot;';
-$L['ext_updated'] = '{$type} &quot;{$name}&quot; has been updated to version {$ver}';
-$L['ext_updating'] = 'Updating {$type} &quot;{$name}&quot;';
+$L['ext_updated'] = 'Extension &quot;{$name}&quot; has been updated to version {$ver}';
+$L['ext_updating'] = 'Updating extension &quot;{$name}&quot;';
 
 /**
  * Extension categories
@@ -431,14 +430,14 @@ $L['adm_opt_install'] = 'Install';
 $L['adm_opt_install_explain'] = 'This will make a new install of this extension';
 $L['adm_opt_pause'] = 'Pause';
 $L['adm_opt_pauseall'] = 'Pause all';
-$L['adm_opt_pauseall_explain'] = 'This will pause (disable) all the plugin parts.';
+$L['adm_opt_pauseall_explain'] = 'This will pause (disable) all the extension parts.';
 $L['adm_opt_update'] = 'Update';
 $L['adm_opt_update_explain'] = 'This will update extension configuration and data if extension files on disk have been updated already';
 $L['adm_opt_uninstall'] = 'Un-install';
 $L['adm_opt_uninstall_explain'] = 'This will disable all the parts of the extension and remove all of its data and configuration, but won\'t physically remove the files.';
 $L['adm_opt_unpause'] = 'Un-pause';
 $L['adm_opt_unpauseall'] = 'Un-pause all';
-$L['adm_opt_unpauseall_explain'] = 'This will un-pause (enable) all the plugin parts.';
+$L['adm_opt_unpauseall_explain'] = 'This will un-pause (enable) all the extension parts.';
 
 $L['adm_opt_setup_missing'] = 'Error: setup file missing!';
 
@@ -450,7 +449,7 @@ $L['adm_only_installed'] = 'Installed';
 $L['adm_hook_changed'] = 'Warning! This file is not proper registered in DB or had changed after install.<br />';
 $L['adm_hook_notregistered'] = ' — Hook(s): <b>{$hooks}</b> not registered<br />';
 $L['adm_hook_notfound'] = ' — Hook(s): <b>{$hooks}</b> registered but not found in file<br />';
-$L['adm_hook_updatenote'] = 'Please update plugin with «<b>update</b>» button above. And than reload the page.';
+$L['adm_hook_updatenote'] = 'Please update extension with «<b>update</b>» button above. And than reload the page.';
 
 /**
  * Tools Section

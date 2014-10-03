@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for HTML Plugin
+ * Russian Language File for HTML
  *
  * @package html
  * @author Cotonti Team

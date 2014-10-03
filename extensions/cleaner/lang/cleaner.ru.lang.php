@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for Cleaner Plugin
+ * Russian Language File for Cleaner
  *
  * @package cleaner
  * @version 0.7.0

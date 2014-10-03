@@ -139,7 +139,7 @@ if ($m == 'edit' && $id > 0)
 		}
 	}
 	$t->assign(array(
-		'COMMENTS_TITLE' => $plugin_title,
+		'COMMENTS_TITLE' => $extension_title,
 		'COMMENTS_TITLE_URL' => cot_url('module', 'e=comments')
 	));
 	$t->parse('MAIN.COMMENTS_TITLE');

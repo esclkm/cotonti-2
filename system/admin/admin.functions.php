@@ -129,11 +129,6 @@ function cot_get_extensionparams($code, $is_module = false)
 		if ($exists)
 		{
 			$info = cot_infoget($ext_info, 'COT_EXT');
-			if (!$info && cot_extension_active('genoa'))
-			{
-				// Try to load old format info
-				$info = cot_infoget($ext_info, 'SED_EXTPLUGIN');
-			}
 			$name = $info['Name'];
 			$desc = $info['Desc'];
 		}

@@ -60,7 +60,7 @@ if (!COT_AJAX)
 			{
 				if ($k['pl_code'] == $editor && cot_auth('plug', $k['pl_code'], 'R'))
 				{
-					include $cfg['plugins_dir'] . '/' . $k['pl_file'];
+					include $cfg['extensions_dir'] . '/' . $k['pl_file'];
 					break;
 				}
 			}

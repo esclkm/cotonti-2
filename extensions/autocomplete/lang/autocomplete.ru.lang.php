@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for Autocomplete Plugin
+ * Russian Language File for Autocomplete
  *
  * @package autocomplete
  * @version 0.7.0
@@ -26,7 +26,7 @@ $L['cfg_autocomplete_hint'] = '0 - отключает автодополнени
 $L['cfg_css'] = 'Использовать CSS стили плагина';
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['plu_title'] = 'Автодополнение';

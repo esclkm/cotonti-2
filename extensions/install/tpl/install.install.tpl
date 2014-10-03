@@ -109,19 +109,7 @@
 				<!-- BEGIN: STEP_4 -->
 					<input type="hidden" name="step" value="4" />
 					<ul class="step_4">
-						<li class="title"><span class="modules">{PHP.L.Modules}</span></li>
-						<!-- BEGIN: MODULE_ROW -->
-						<li>
-							{MODULE_ROW_CHECKBOX}
-							<strong>{MODULE_ROW_TITLE}</strong>
-							<p>{MODULE_ROW_DESCRIPTION}</p>
-							{MODULE_ROW_REQUIRES}
-							{MODULE_ROW_RECOMMENDS}
-						</li>
-						<!-- END: MODULE_ROW -->
-					</ul>
-					<ul class="step_4">
-						<li class="title"><span class="plugins">{PHP.L.Plugins}</span></li>
+						<li class="title"><span class="plugins">{PHP.L.Extensions}</span></li>
 						<!-- BEGIN: EXT_CAT -->
 							<li class="extcat">{EXT_CAT_TITLE}</li>
 							<!-- BEGIN: EXT_ROW -->

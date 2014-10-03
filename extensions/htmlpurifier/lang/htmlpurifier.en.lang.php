@@ -1,6 +1,6 @@
 <?php
 /**
- * English language file for HTML Purifier plugin
+ * English language file for HTML Purifier extension
  *
  * @package htmlpurifier
  * @version 0.7.0

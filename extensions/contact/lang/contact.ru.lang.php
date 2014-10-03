@@ -40,7 +40,7 @@ $L['contact_sent'] = 'Последний ответ';
 $L['contact_nosubject'] = 'Без темы';
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['contact_title'] = 'Обратная связь';

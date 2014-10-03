@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for Sitemap plugin
+ * English Language File for Sitemap extension
  *
  * @package sitemap
  * @author Cotonti Team

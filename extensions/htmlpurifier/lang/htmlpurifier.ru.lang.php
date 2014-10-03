@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian language file for HTML Purifier plugin
+ * Russian language file for HTML Purifier extension
  *
  * @package htmlpurifier
  * @version 0.7.0

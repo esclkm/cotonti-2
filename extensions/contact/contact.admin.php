@@ -7,7 +7,7 @@
   ==================== */
 
 /**
- * Admin interface for Contact plugin
+ * Admin interface for Contact
  *
  * @package contact
  * @version 2.1.0

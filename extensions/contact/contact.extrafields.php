@@ -21,7 +21,7 @@ require_once cot_incfile('contact', 'module');
 
 $extra_whitelist[$db_contact] = array(
 	'name' => $db_contact,
-	'caption' => $L['Plugin'].' Contact',
+	'caption' => $L['Extension'].' Contact',
 	'type' => 'module',
 	'code' => 'contact',
 	'tags' => array(

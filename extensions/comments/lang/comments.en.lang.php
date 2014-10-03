@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for Comments Plugin
+ * English Language File for Comments
  *
  * @package comments
  * @version 0.7.0

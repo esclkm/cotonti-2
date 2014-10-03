@@ -11,12 +11,6 @@
 
 (defined('COT_CODE') && defined('COT_ADMIN')) or die('Wrong URL.');
 
-if (!defined('SED_CODE'))
-{
-	// For Sed plugins
-	define('SED_CODE', true);
-}
-
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('admin', 'a');
 cot_block($usr['isadmin']);
 
@@ -34,20 +28,9 @@ $sort = cot_import('sort', 'G', 'ALP');
 
 if (empty($mod))
 {
-	if (empty($pl))
+	if (!empty($a) && $a != 'hooks')
 	{
-		if (!empty($a) && $a != 'hooks')
-		{
-			cot_die();
-		}
-	}
-	else
-	{
-		$is_module = false;
-		$code = $pl;
-		$arg = 'pl';
-		$dir = $cfg['plugins_dir'];
-		$type = 'plug';
+		cot_die();
 	}
 }
 else
@@ -86,14 +69,6 @@ switch($a)
 		{
 			$old_ext_format = false;
 			$info = cot_infoget($ext_info, 'COT_EXT');
-
-			if (!$info && cot_extension_active('genoa'))
-			{
-				// Try to load old format info
-				$info = cot_infoget($ext_info, 'SED_EXTPLUGIN');
-								$old_ext_format = true;
-				cot_message('ext_old_format', 'warning');
-			}
 		}
 		else
 		{
@@ -105,15 +80,14 @@ switch($a)
 		{
 			case 'install':
 				$installed_modules = $db->query("SELECT ct_code FROM $db_core WHERE ct_plug = 0")->fetchAll(PDO::FETCH_COLUMN);
-				$installed_plugins = $db->query("SELECT ct_code FROM $db_core WHERE ct_plug = 1")->fetchAll(PDO::FETCH_COLUMN);
-				$dependencies_satisfied = cot_extension_dependencies_statisfied($code, $is_module, $installed_modules, $installed_plugins);
+				$dependencies_satisfied = cot_extension_dependencies_statisfied($code, $installed_modules);
 				if ($dependencies_satisfied)
 				{
-					$result = cot_extension_install($code, $is_module);
+					$result = cot_extension_install($code);
 				}
 			break;
 			case 'update':
-				$result = cot_extension_install($code, $is_module, true, true);
+				$result = cot_extension_install($code, true, true);
 				break;
 			case 'uninstall':
 				/* === Hook  === */
@@ -135,11 +109,6 @@ switch($a)
 						if (file_exists($dep_ext_info))
 						{
 							$dep_info = cot_infoget($dep_ext_info, 'COT_EXT');
-							if (!$dep_info && cot_extension_active('genoa'))
-							{
-								// Try to load old format info
-								$dep_info = cot_infoget($dep_ext_info, 'SED_EXTPLUGIN');
-							}
 							$dep_field = 'Requires';
 							if (in_array($code, explode(',', $dep_info[$dep_field])))
 							{
@@ -154,7 +123,7 @@ switch($a)
 
 					if ($dependencies_satisfied)
 					{
-						$result = cot_extension_uninstall($code, $is_module);
+						$result = cot_extension_uninstall($code);
 					}
 					$adminpath[] = $L['adm_opt_uninstall'];
 				}
@@ -235,11 +204,6 @@ switch($a)
 			{
 				$extplugin_file = $dir . '/' . $code . '/' . $x;
 				$info_file = cot_infoget($extplugin_file, 'COT_EXT');
-				if (!$info_file && cot_extension_active('genoa'))
-				{
-					// Try to load old format info
-					$info_file = cot_infoget($extplugin_file, 'SED_EXTPLUGIN');
-				}
 				$info_part = preg_match("#^$code\.([\w\.]+).php$#", $x, $mt) ? $mt[1] : 'main';
 				$Hooks = explode(',', str_replace(' ', '', $info_file['Hooks']));
 				// check for not registered Hooks
@@ -528,11 +492,6 @@ switch($a)
 						if (file_exists($dep_ext_info))
 						{
 							$dep_info = cot_infoget($dep_ext_info, 'COT_EXT');
-							if (!$dep_info && cot_extension_active('genoa'))
-							{
-								// Try to load old format info
-								$dep_info = cot_infoget($dep_ext_info, 'SED_EXTPLUGIN');
-							}
 						}
 						else
 						{

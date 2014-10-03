@@ -31,7 +31,7 @@ extrafilters=09:radio::1:Show extrafilters on main search page
 ==================== */
 
 /**
- * Search plugin
+ * Search extension
  *
  * @package search
  * @version 0.7.0

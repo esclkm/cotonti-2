@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for HTML Plugin
+ * English Language File for HTML
  *
  * @package html
  * @author Cotonti Team

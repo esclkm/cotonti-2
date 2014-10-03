@@ -126,7 +126,7 @@ if ($a == 'check')
 	}
 
 	/**
-	 * Sets user selection criteria for authentication. Override this string in your plugin
+	 * Sets user selection criteria for authentication. Override this string in your extension
 	 * hooking into users.auth.check.query to provide other authentication methods.
 	 */
 	$user_select_condition = (!$validating) ? "user_password=".$db->quote($rmdpass)." AND $login_param=".$db->quote($rusername) : "user_lostpass=".$db->quote($v);

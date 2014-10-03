@@ -6,7 +6,7 @@ Hooks=rc
 ==================== */
 
 /**
- * Header file for Autocomplete plugin
+ * Header file for Autocomplete
  *
  * @package autocomplete
  * @version 0.8.0

@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for Content Internationalization Plugin
+ * Russian Language File for Content Internationalization Extension
  *
  * @package i18n
  * @version 0.7.0
@@ -23,7 +23,7 @@ $L['cfg_rewrite_hint'] = 'Требует ручного обновления .ht
 
 $L['info_desc'] = 'Поддержка многоязычного контента в ядре и расширениях';
 
-// Plugin strings
+// Extension strings
 
 $L['i18n_adding'] = 'Добавление нового перевода';
 $L['i18n_editing'] = 'Редактирование перевода';

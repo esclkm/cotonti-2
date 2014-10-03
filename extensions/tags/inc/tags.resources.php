@@ -1,6 +1,6 @@
 <?php
 /**
- * Resource strings for tags plugin
+ * Resource strings for tags extension
  *
  * @package tags
  * @version 0.7.0

@@ -94,13 +94,9 @@ switch ($msg)
 		if (!empty($m))
 		{
 			// Load module or plugin langfile
-			if (file_exists(cot_langfile($m, 'module')))
+			if (file_exists(cot_langfile($m, 'extension')))
 			{
-				include cot_langfile($m, 'module');
-			}
-			elseif (file_exists(cot_langfile($m, 'plug')))
-			{
-				include cot_langfile($m, 'plug');
+				include cot_langfile($m, 'extension');
 			}
 		}
 		$lng = cot_import('lng', 'G', 'ALP');

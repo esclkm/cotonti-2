@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for Ratings Plugin
+ * Russian Language File for Ratings Extension
  *
  * @package ratings
  * @version 0.7.0

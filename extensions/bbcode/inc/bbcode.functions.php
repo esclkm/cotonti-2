@@ -360,7 +360,7 @@ function cot_smilies($res)
 		foreach($cot_smilies as $k => $v)
 		{
 			$res = str_replace($v['code'],
-				sed_rc('img_smilie', array('src' => 'images/smilies/' . $v['file'], 'name' => $v['lang'])), $res);
+				cot_rc('img_smilie', array('src' => 'images/smilies/' . $v['file'], 'name' => $v['lang'])), $res);
 		}
 	}
 	return $res;

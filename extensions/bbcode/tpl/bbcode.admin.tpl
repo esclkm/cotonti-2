@@ -9,7 +9,7 @@
 					<td class="coltop width35">{PHP.L.Name} / {PHP.L.adm_bbcodes_mode} / {PHP.L.Enabled} / {PHP.L.adm_bbcodes_container}</td>
 					<td class="coltop width20">{PHP.L.adm_bbcodes_pattern}</td>
 					<td class="coltop width20">{PHP.L.adm_bbcodes_replacement}</td>
-					<td class="coltop width15">{PHP.L.Plugin} / {PHP.L.adm_bbcodes_priority} / {PHP.L.adm_bbcodes_postrender}</td>
+					<td class="coltop width15">{PHP.L.Extension} / {PHP.L.adm_bbcodes_priority} / {PHP.L.adm_bbcodes_postrender}</td>
 					<td class="coltop width10">{PHP.L.Action}</td>
 				</tr>
 <!-- BEGIN: ADMIN_BBCODE_ROW -->

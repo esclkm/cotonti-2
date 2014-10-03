@@ -6,7 +6,7 @@ Hooks=ajax
 ==================== */
 
 /**
- * Users Names file for Autocomplete plugin
+ * Users Names file for Autocomplete
  *
  * @package autocomplete
  * @version 0.8.0

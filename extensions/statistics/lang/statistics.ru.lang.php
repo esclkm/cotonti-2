@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for Statistics Plugin
+ * Russian Language File for Statistics Extension
  *
  * @package statistics
  * @version 0.7.0
@@ -14,7 +14,7 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['info_desc'] = 'Простая статистика посещений для небольших сайтов';
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['Statistics'] = 'Статистика';

@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for Sitemap plugin
+ * Russian Language File for Sitemap extension
  *
  * @package sitemap
  * @author Cotonti Team

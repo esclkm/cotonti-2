@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for News Plugin
+ * English Language File for News Extension
  *
  * @package news
  * @version 0.7.0
@@ -32,7 +32,7 @@ $L['Maincat']='Main news category';
 $L['Addcat']='Additional news categories';
 $L['NewsCount']='News per page';
 $L['Template']='Template';
-$L['Template_help']='If additional news category template does not exits in {YOUR_SKIN}/plugins folder, system will use main news template';
+$L['Template_help']='If additional news category template does not exits in {YOUR_SKIN} folder, system will use main news template';
 $L['Newscat_exists']='This news category has already been chosen. Please choose another one or delete this category';
 $L['Unsetadd']= 'Do not use additional category if it is same as main category';
 $L['Newsautocut']='Post length limit';

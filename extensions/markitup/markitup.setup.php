@@ -17,7 +17,7 @@ Lock_members=12345A
 [END_COT_EXT]
 
 [BEGIN_COT_EXT_CONFIG]
-skin=01:string::markitup:Skin of editor (plugins/markitup/skins/xxxxx)
+skin=01:string::markitup:Skin of editor (extensions/markitup/skins/xxxxx)
 autorefresh=02:radio::0:Enable preview auto-refresh
 chili=03:radio::0:Enable Chili tags
 [END_COT_EXT_CONFIG]

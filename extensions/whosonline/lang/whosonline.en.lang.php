@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for WhosOnline Plugin
+ * English Language File for WhosOnline Extension
  *
  * @package whosonline
  * @author Cotonti Team
@@ -17,7 +17,7 @@ $L['cfg_maxusersperpage_hint'] = 'Set to 0 for no limitations';
 $L['info_desc'] = 'Outputs online visitors on index and standalone page with user activity tracking on site';
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['WhosOnline'] = 'Who\'s Online';

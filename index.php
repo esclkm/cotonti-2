@@ -85,7 +85,7 @@ require_once $cfg['system_dir'] . '/cotemplate.php';
 // Bootstrap
 require_once $cfg['system_dir'] . '/common.php';
 
-// Support for ajax and popup hooked plugins
+// Support for ajax and popup hooked extensions
 if (empty($_GET['e']) && !empty($_GET['r']))
 {
 	$_GET['e'] = $_GET['r'];
@@ -100,7 +100,6 @@ if (empty($_GET['e']))
 {
 	// Default environment for index module
 	define('COT_MODULE', true);
-	$env['type'] = 'module';
 	$env['ext'] = 'index';
 }
 else
@@ -108,38 +107,15 @@ else
 	$found = false;
 	if (preg_match('`^\w+$`', $_GET['e']))
 	{
-		$module_found = false;
-		$plugin_found = false;
 		if (file_exists($cfg['extensions_dir'] . '/' . $_GET['e']) && isset($cot_modules[$_GET['e']]))
-		{
-			$module_found = true;
-			$found = true;
-		}
-
-		if ($module_found && $plugin_found)
 		{
 			// Need to query the db to check which one is installed
 			$res = $db->query("SELECT ct_plug FROM $db_core WHERE ct_code = ? LIMIT 1", $_GET['e']);
 			if ($res->rowCount() == 1)
 			{
-				if ((int)$res->fetchColumn())
-				{
-					$module_found = false;
-				}
-				else
-				{
-					$plugin_found = false;
-				}
+				$found = true;
+				define('COT_MODULE', true);
 			}
-			else
-			{
-				$found = false;
-			}
-		}
-		if ($module_found)
-		{
-			$env['type'] = 'module';
-			define('COT_MODULE', true);
 		}
 	}
 	if ($found)
@@ -153,8 +129,32 @@ else
 		exit;
 	}
 }
+/*************************************/
+// Input import
 
+$req_files = array();
+$req_files[] = cot_incfile($extname, 'extension', 'resources');
+$req_files[] = cot_incfile($extname, 'extension', 'functions');
+
+foreach ($req_files as $req_file)
+{
+	if (file_exists($req_file))
+	{
+		require_once $req_file;
+	}
+}
 
 // Load the requested extension
-require_once $cfg['extensions_dir'] . '/' . $env['ext'] . '/' . $env['ext'] . '.php';
+if(!empty($_GET['r']))
+{
+	$ext_display_header = false;
+	$exthook = 'standalone';
+	require_once $cfg['extensions_dir'] . '/' . $env['ext'] . '/' . $env['ext'] . '.php';
+}
+else 
+{
+	$ext_display_header = true;
+	$exthook = 'ajax';
+	require_once $cfg['extensions_dir'] . '/' . $env['ext'] . '/' . $env['ext'] . '.ajax.php';
+}
 

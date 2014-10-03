@@ -1,6 +1,6 @@
 <?php
 /**
- * Russian Language File for Hits Plugin
+ * Russian Language File for Hits
  *
  * @package Hits
  * @version 0.9.0

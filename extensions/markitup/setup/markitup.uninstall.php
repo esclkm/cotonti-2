@@ -13,7 +13,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if (cot_extension_active('bbcode'))
 {
-	// Remove plugin bbcodes
+	// Remove extensions bbcodes
 	require_once cot_incfile('bbcode', 'module');
 
 	cot_bbcode_remove(0, 'markitup');

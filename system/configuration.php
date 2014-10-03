@@ -79,13 +79,13 @@ define('COT_CONFIG_TYPE_CUSTOM', 8);
  *     )
  * );
  *
- * cot_config_add('test', $config_options, 'module');
+ * cot_config_add('test', $config_options);
  * </code>
  *
  * @param string $name Extension name (code)
  * @param array $options An associative array of configuration entries.
  * Each entry of the arrray has the following keys:
- * 'name' => Option name, alphanumeric and _. Must be unique for a module/plugin
+ * 'name' => Option name, alphanumeric and _. Must be unique for a extension
  * 'type' => Option type, see COT_CONFIG_TYPE_* constants
  * 'default' => Default and initial value, by default is an empty string
  * 'variants' => A comma separated (without spaces) list of possible values,
@@ -93,24 +93,15 @@ define('COT_CONFIG_TYPE_CUSTOM', 8);
  * 'order' => A string that determines position of the option in the list,
  * 		e.g. '04'. Or will be assigned automatically if omitted
  * 'text' => Textual description. It is usually omitted and stored in langfiles
- * @param mixed $is_module Flag indicating if it is module or  Extension Config
  * @param string $category Structure category code. Only for per-category config options
  * @param string $donor Extension name for extension-to-extension config implantations
  * @return bool Operation status
  * @global CotDB $db
  */
-function cot_config_add($name, $options, $is_module = false, $category = '', $donor = '')
+function cot_config_add($name, $options, $category = '', $donor = '')
 {
 	global $db, $cfg, $db_config;
 	$cnt = count($options);
-	if (is_bool($is_module))
-	{
-		$type = $is_module ? 'module' : 'plug';
-	}
-	else
-	{
-		$type = !in_array($is_module, array('plug', 'core')) ? 'module' : $is_module;
-	}
 	// Check the arguments
 	if (!$cnt)
 	{
@@ -122,7 +113,7 @@ function cot_config_add($name, $options, $is_module = false, $category = '', $do
 	{
 		$opt = $options[$i];
 		$option_set[] = array(
-			'config_owner' => $type,
+			'config_owner' => 'module',
 			'config_cat' => $name,
 			'config_subcat' => $category,
 			'config_order' => isset($opt['order']) ? $opt['order'] : str_pad($i, 2, 0, STR_PAD_LEFT),
@@ -189,7 +180,7 @@ function cot_config_implanted($acceptor, $donor)
  * Loads config structure from database into an array
  *
  * @param string $name Extension code
- * @param mixed $is_module TRUE if module, FALSE if plugin
+ * @param mixed $is_module TRUE if module, FALSE if extension
  * @param string $category Structure category code. Only for per-category config options
  * @param string $donor Extension name for extension-to-extension config implantations
  * @return array Config options structure
@@ -236,24 +227,15 @@ function cot_config_load($name, $is_module = false, $category = '', $donor = '')
  *
  * @param string $name Extension code
  * @param array $options Configuration entries
- * @param mixed $is_module TRUE if module, FALSE if plugin
  * @param string $category Structure category code. Only for per-category config options
  * @param string $donor Extension name for extension-to-extension config implantations
  * @return int Number of entries updated
  * @global CotDB $db
  */
-function cot_config_modify($name, $options, $is_module = false, $category = '', $donor = '')
+function cot_config_modify($name, $options, $category = '', $donor = '')
 {
 	global $db, $db_config;
 
-	if (is_bool($is_module))
-	{
-		$type = $is_module ? 'module' : 'plug';
-	}
-	else
-	{
-		$type = !in_array($is_module, array('plug', 'core')) ? 'module' : $is_module;
-	}
 	$affected = 0;
 
 	$where = "config_owner = ? AND config_cat = ? AND config_name = ? AND config_donor = ?";
@@ -272,7 +254,7 @@ function cot_config_modify($name, $options, $is_module = false, $category = '', 
 		{
 			$opt_row['config_' . $key] = $val;
 		}
-		$params = empty($category) ? array($type, $name, $config_name, $donor) : array($type, $name, $config_name, $donor, $category);
+		$params = empty($category) ? array('module', $name, $config_name, $donor) : array('module', $name, $config_name, $donor, $category);
 		$affected += $db->update($db_config, $opt_row, $where, $params);
 	}
 
@@ -532,7 +514,7 @@ function cot_config_update($name, $options, $is_module = false, $category = '', 
 	}
 	if (count($upd_options) > 0)
 	{
-		$affected += cot_config_modify($name, $upd_options, $is_module, $category);
+		$affected += cot_config_modify($name, $upd_options, $category);
 	}
 
 	return $affected;

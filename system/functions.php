@@ -3146,7 +3146,7 @@ function cot_message($text, $class = 'ok', $src = 'default')
  * Returns path to include file
  *
  * @param string $name Extension or API name
- * @param string $type Extension type: 'module', 'plug' or 'core' for core API
+ * @param string $type Extension type: 'extension', 'plug' or 'core' for core API
  * @param string $part Name of the extension part
  * @return string File path
  */

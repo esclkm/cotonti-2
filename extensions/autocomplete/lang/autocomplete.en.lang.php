@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for Autocomplete Plugin
+ * English Language File for Autocomplete
  *
  * @package autocomplete
  * @version 0.7.0
@@ -23,10 +23,10 @@ $L['info_desc'] = 'Autocomplete for usernames in forms';
 
 $L['cfg_autocomplete'] = 'Min. chars for autocomplete';
 $L['cfg_autocomplete_hint'] = '0 - disable autocomplete';
-$L['cfg_css'] = 'Use plugin CSS';
+$L['cfg_css'] = 'Use Extension CSS';
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['plu_title'] = 'Autocomplete';

@@ -60,13 +60,12 @@ switch ($n)
 				}
 			}
 
-			if ($o == 'module' || $o == 'plug')
+			if ($o == 'extension')
 			{
-				$dir = $o == 'module' ? $cfg['extensions_dir'] : $cfg['plugins_dir'];
 				// Run configure extension part if present
-				if (file_exists($dir . "/" . $p . "/setup/" . $p . ".configure.php"))
+				if (file_exists($cfg['extensions_dir'] . "/" . $p . "/setup/" . $p . ".configure.php"))
 				{
-					include $dir . "/" . $p . "/setup/" . $p . ".configure.php";
+					include $cfg['extensions_dir'] . "/" . $p . "/setup/" . $p . ".configure.php";
 				}
 			}
 			/* === Hook  === */
@@ -252,7 +251,7 @@ switch ($n)
 			$t->parse('MAIN.DEFAULT.ADMIN_CONFIG_COL.ADMIN_CONFIG_ROW');
 		}
 		$sql->closeCursor();
-		$t->assign('ADMIN_CONFIG_COL_CAPTION', $L['Plugins']);
+		$t->assign('ADMIN_CONFIG_COL_CAPTION', $L['Extensions']);
 		$t->parse('MAIN.DEFAULT.ADMIN_CONFIG_COL');
 		/* === Hook  === */
 		foreach (cot_getextensions('admin.config.default.tags') as $pl)

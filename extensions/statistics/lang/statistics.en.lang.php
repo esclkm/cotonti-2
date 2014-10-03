@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for Statistics Plugin
+ * English Language File for Statistics Extension
  *
  * @package statistics
  * @version 0.7.0
@@ -14,7 +14,7 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['info_desc'] = 'Simple site statistics recommended for small sites';
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['plu_title'] = 'Statistics';

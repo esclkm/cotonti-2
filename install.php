@@ -99,7 +99,6 @@ if (isset($cfg['new_install']) && $cfg['new_install'])
 else
 {
 	$branch = 'siena';
-	$prev_branch = 'genoa';
 
 	require_once $cfg['system_dir'].'/database.php';
 

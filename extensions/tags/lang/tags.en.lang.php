@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for Tags Plugin
+ * English Language File for Tags Extension
  *
  * @package tags
  * @version 0.7.0
@@ -18,7 +18,7 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['info_desc'] = 'Enables tags - site content keywords, tag clouds, tag search and API';
 
 /**
- * Plugin Title & Subtitle
+ * Extension Title & Subtitle
  */
 
 $L['plu_title'] = 'Tags';
@@ -59,4 +59,4 @@ $L['cfg_sort'] = 'Default sorting column for tag search results';
 $L['cfg_sort_params'] = 'ID: ID, Title: Title, Date: Date, Category: Category';
 $L['cfg_title'] = 'Capitalize first letters of keywords';
 $L['cfg_translit'] = 'Transliterate tags in URLs';
-$L['cfg_css'] = 'Use plugin CSS';
+$L['cfg_css'] = 'Use extension CSS';

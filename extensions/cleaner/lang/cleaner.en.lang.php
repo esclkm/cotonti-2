@@ -1,6 +1,6 @@
 <?php
 /**
- * English Language File for Cleaner Plugin
+ * English Language File for Cleaner
  *
  * @package cleaner
  * @version 0.7.0
