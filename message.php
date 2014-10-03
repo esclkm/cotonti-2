@@ -45,7 +45,7 @@ $title = $L['msg' . $msg . '_title'];
 $body = $L['msg' . $msg . '_body'];
 
 /* === Hook === */
-foreach (cot_getextplugins('message.first') as $pl)
+foreach (cot_getextensions('message.first') as $pl)
 {
 	include $pl;
 }
@@ -193,7 +193,7 @@ elseif ($rd != '')
 }
 
 /* === Hook === */
-foreach (cot_getextplugins('message.main') as $pl)
+foreach (cot_getextensions('message.main') as $pl)
 {
 	include $pl;
 }
@@ -234,7 +234,7 @@ if ($msg == '920')
 }
 
 /* === Hook === */
-foreach (cot_getextplugins('message.tags') as $pl)
+foreach (cot_getextensions('message.tags') as $pl)
 {
 	include $pl;
 }

@@ -111,7 +111,7 @@ function cot_stringinfile($file, $str, $maxsize=32768)
 function cot_get_extensionparams($code, $is_module = false)
 {
 	global $cfg, $cot_modules, $cot_plugins_enabled;
-	$dir = $is_module ? $cfg['modules_dir'] : $cfg['plugins_dir'];
+	$dir = $is_module ? $cfg['extensions_dir'] : $cfg['plugins_dir'];
 
 	if($is_module)
 	{
@@ -129,7 +129,7 @@ function cot_get_extensionparams($code, $is_module = false)
 		if ($exists)
 		{
 			$info = cot_infoget($ext_info, 'COT_EXT');
-			if (!$info && cot_plugin_active('genoa'))
+			if (!$info && cot_extension_active('genoa'))
 			{
 				// Try to load old format info
 				$info = cot_infoget($ext_info, 'SED_EXTPLUGIN');

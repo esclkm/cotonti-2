@@ -221,7 +221,7 @@ function cot_autoload($class)
 	global $cfg, $env;
 	if ($env['type'] == 'module')
 	{
-		$paths[] = "{$cfg['modules_dir']}/{$env['ext']}/classes/$class.php";
+		$paths[] = "{$cfg['extensions_dir']}/{$env['ext']}/classes/$class.php";
 	}
 	elseif ($env['type'] == 'plug')
 	{
@@ -290,9 +290,9 @@ function cot_get_caller()
  * @return array
  * @global Cache $cache
  */
-function cot_getextplugins($hook, $cond='R')
+function cot_getextensions($hook, $cond='R')
 {
-	global $cot_plugins, $cache, $cfg, $cot_hooks_fired;
+	global $cot_extensions, $cache, $cfg, $cot_hooks_fired;
 
 	if ($cfg['debug_mode'])
 	{
@@ -301,22 +301,14 @@ function cot_getextplugins($hook, $cond='R')
 
 	$extplugins = array();
 
-	if (isset($cot_plugins[$hook]) && is_array($cot_plugins[$hook]))
+	if (isset($cot_extensions[$hook]) && is_array($cot_extensions[$hook]))
 	{
-		foreach($cot_plugins[$hook] as $k)
+		foreach($cot_extensions[$hook] as $k)
 		{
-			if ($k['pl_module'])
-			{
-				$dir = $cfg['modules_dir'];
-				$cat = $k['pl_code'];
-				$opt = 'a';
-			}
-			else
-			{
-				$dir = $cfg['plugins_dir'];
-				$cat = 'plug';
-				$opt = $k['pl_code'];
-			}
+			$dir = $cfg['extensions_dir'];
+			$cat = $k['pl_code'];
+			$opt = 'a';
+
 			if (cot_auth($cat, $opt, $cond))
 			{
 				$extplugins[] = $dir . '/' . $k['pl_file'];
@@ -944,7 +936,7 @@ function cot_mail($fmail, $subject, $body, $headers='', $customtemplate = false,
  * @param string $name Module name
  * @return bool
  */
-function cot_module_active($name)
+function cot_extension_active($name)
 {
 	global $cot_modules;
 	return isset($cot_modules[$name]);
@@ -959,7 +951,7 @@ function cot_module_active($name)
 function cot_outputfilters($output)
 {
 	/* === Hook === */
-	foreach (cot_getextplugins('output') as $pl)
+	foreach (cot_getextensions('output') as $pl)
 	{
 		include realpath(dirname(__FILE__).'/..') . '/' . $pl;
 	}
@@ -968,19 +960,6 @@ function cot_outputfilters($output)
 	$output = preg_replace('#<form\s+[^>]*method=["\']?post["\']?[^>]*>#i', '$0' . cot_xp(), $output);
 
 	return($output);
-}
-
-/**
- * Checks if a plugin is currently installed and active
- *
- * @global array $cot_plugins_active Active plugins registry
- * @param string $name Plugin name
- * @return bool
- */
-function cot_plugin_active($name)
-{
-	global $cot_plugins_active;
-	return is_array($cot_plugins_active) && isset($cot_plugins_active[$name]);
 }
 
 /**
@@ -1206,7 +1185,7 @@ function cot_load_structure()
 	}
 
 	/* == Hook: Part 1 ==*/
-	$extp = cot_getextplugins('structure');
+	$extp = cot_getextensions('structure');
 	/* ================= */
 
 	$path = array(); // code path tree
@@ -1801,7 +1780,7 @@ function cot_build_ipsearch($ip)
 	global $sys;
 	if (!empty($ip))
 	{
-		if(cot_plugin_active('ipsearch'))
+		if(cot_extension_active('ipsearch'))
 		{
 			return cot_rc_link(cot_url('admin', 'm=other&p=ipsearch&a=search&id='.$ip.'&x='.$sys['xk']), $ip);
 		}
@@ -2097,8 +2076,8 @@ function cot_generate_usertags($user_data, $tag_prefix = '', $emptyname='', $all
 
 	if (is_null($extp_first))
 	{
-		$extp_first = cot_getextplugins('usertags.first');
-		$extp_main = cot_getextplugins('usertags.main');
+		$extp_first = cot_getextensions('usertags.first');
+		$extp_main = cot_getextensions('usertags.main');
 	}
 
 	/* === Hook === */
@@ -2933,7 +2912,7 @@ function cot_die_message($code, $header = TRUE, $message_title = '', $message_bo
 	}
 
 	/* === Hook === */
-	foreach (cot_getextplugins('die.message') as $pl)
+	foreach (cot_getextensions('die.message') as $pl)
 	{
 		include $pl;
 	}
@@ -3196,7 +3175,7 @@ function cot_incfile($name, $type = 'core', $part = 'functions')
 	}
 	else
 	{
-		return $cfg['modules_dir']."/$name/inc/$name.$part.php";
+		return $cfg['extensions_dir']."/$name/inc/$name.$part.php";
 	}
 }
 
@@ -3222,13 +3201,13 @@ function cot_langfile($name, $type = 'plug', $default = 'en', $lang = null)
 		{
 			return $cfg['lang_dir']."/$lang/modules/$name.$lang.lang.php";
 		}
-		elseif (@file_exists($cfg['modules_dir']."/$name/lang/$name.$lang.lang.php"))
+		elseif (@file_exists($cfg['extensions_dir']."/$name/lang/$name.$lang.lang.php"))
 		{
-			return $cfg['modules_dir']."/$name/lang/$name.$lang.lang.php";
+			return $cfg['extensions_dir']."/$name/lang/$name.$lang.lang.php";
 		}
-		elseif (@file_exists($cfg['modules_dir']."/$name/lang/$name.$default.lang.php"))
+		elseif (@file_exists($cfg['extensions_dir']."/$name/lang/$name.$default.lang.php"))
 		{
-			return $cfg['modules_dir']."/$name/lang/$name.$default.lang.php";
+			return $cfg['extensions_dir']."/$name/lang/$name.$default.lang.php";
 		}
 	}
 	elseif ($type == 'core')
@@ -3385,7 +3364,7 @@ function cot_tplfile($base, $type = 'module', $admin = null)
 		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/";
 		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/modules/";
 		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/modules/{$base[0]}/";
-		$scan_dirs[] = "{$cfg['modules_dir']}/{$base[0]}/tpl/";
+		$scan_dirs[] = "{$cfg['extensions_dir']}/{$base[0]}/tpl/";
 	}
 
 	// Build template file name from base parts glued with dots
@@ -4116,11 +4095,11 @@ function cot_pagenav($module, $params, $current, $entries, $perpage, $characters
  */
 function cot_get_editors()
 {
-	global $cot_plugins;
+	global $cot_extensions;
 	$list = array('none');
-	if (is_array($cot_plugins['editor']))
+	if (is_array($cot_extensions['editor']))
 	{
-		foreach ($cot_plugins['editor'] as $k)
+		foreach ($cot_extensions['editor'] as $k)
 		{
 			if (cot_auth('plug', $k['pl_code'], 'W'))
 			{
@@ -4138,11 +4117,11 @@ function cot_get_editors()
  */
 function cot_get_parsers()
 {
-	global $cot_plugins;
+	global $cot_extensions;
 	$list = array('none');
-	if (is_array($cot_plugins['parser']))
+	if (is_array($cot_extensions['parser']))
 	{
-		foreach ($cot_plugins['parser'] as $k)
+		foreach ($cot_extensions['parser'] as $k)
 		{
 			if (cot_auth('plug', $k['pl_code'], 'W'))
 			{
@@ -4163,7 +4142,7 @@ function cot_get_parsers()
  */
 function cot_parse($text, $enable_markup = true, $parser = '')
 {
-	global $cfg, $cot_plugins;
+	global $cfg, $cot_extensions;
 
 	$plain = true;
 	if ($enable_markup)
@@ -4183,9 +4162,9 @@ function cot_parse($text, $enable_markup = true, $parser = '')
 			else
 			{
 				// Load the appropriate parser
-				if (is_array($cot_plugins['parser']))
+				if (is_array($cot_extensions['parser']))
 				{
-					foreach ($cot_plugins['parser'] as $k)
+					foreach ($cot_extensions['parser'] as $k)
 					{
 						if ($k['pl_code'] == $parser && cot_auth('plug', $k['pl_code'], 'R'))
 						{
@@ -4206,7 +4185,7 @@ function cot_parse($text, $enable_markup = true, $parser = '')
 	}
 
 	/* == Hook == */
-	foreach (cot_getextplugins('parser.last') as $pl)
+	foreach (cot_getextensions('parser.last') as $pl)
 	{
 		include $pl;
 	}
@@ -4502,7 +4481,7 @@ function cot_rc_consolidate()
 	cot_rc_add_standard();
 
 	// Invoke rc handlers
-	foreach (cot_getextplugins('rc') as $pl)
+	foreach (cot_getextensions('rc') as $pl)
 	{
 		include $pl;
 	}
@@ -5156,7 +5135,7 @@ function cot_shield_hammer($hammer, $action, $lastseen)
 	{
 		cot_shield_protect();
 		cot_shield_clearaction();
-		cot_plugin_active('hits') && cot_stat_inc('totalantihammer');
+		cot_extension_active('hits') && cot_stat_inc('totalantihammer');
 	}
 
 	if (($sys['now'] - $lastseen) < 4)

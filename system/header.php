@@ -14,7 +14,7 @@ defined('COT_CODE') or die('Wrong URL');
 cot_uriredir_store();
 
 /* === Hook === */
-foreach (cot_getextplugins('header.first') as $pl)
+foreach (cot_getextensions('header.first') as $pl)
 {
 	include $pl;
 }
@@ -81,7 +81,7 @@ if (!COT_AJAX)
 	$t = new XTemplate(cot_tplfile($mtpl_base, $mtpl_type));
 
 	/* === Hook === */
-	foreach (cot_getextplugins('header.main') as $pl)
+	foreach (cot_getextensions('header.main') as $pl)
 	{
 		include $pl;
 	}
@@ -125,7 +125,7 @@ if (!COT_AJAX)
 	));
 
 	/* === Hook === */
-	foreach (cot_getextplugins('header.body') as $pl)
+	foreach (cot_getextensions('header.body') as $pl)
 	{
 		include $pl;
 	}
@@ -150,7 +150,7 @@ if (!COT_AJAX)
 		));
 
 		/* === Hook === */
-		foreach (cot_getextplugins('header.user.tags') as $pl)
+		foreach (cot_getextensions('header.user.tags') as $pl)
 		{
 			include $pl;
 		}
@@ -176,7 +176,7 @@ if (!COT_AJAX)
 		));
 
 		/* === Hook === */
-		foreach (cot_getextplugins('header.guest.tags') as $pl)
+		foreach (cot_getextensions('header.guest.tags') as $pl)
 		{
 			include $pl;
 		}
@@ -186,7 +186,7 @@ if (!COT_AJAX)
 	}
 
 	/* === Hook === */
-	foreach (cot_getextplugins('header.tags') as $pl)
+	foreach (cot_getextensions('header.tags') as $pl)
 	{
 		include $pl;
 	}

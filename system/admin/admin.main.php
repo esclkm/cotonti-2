@@ -28,7 +28,7 @@ $u = cot_import('u', 'P', 'TXT');
 $s = cot_import('s', 'G', 'ALP', 24);
 
 /* === Hook for the plugins === */
-foreach (cot_getextplugins('admin.main') as $pl)
+foreach (cot_getextensions('admin.main') as $pl)
 {
 	include $pl;
 }
@@ -47,7 +47,7 @@ else
 {
 	$env['ext'] = $m;
 	$adminsubtitle = $cot_modules[$m]['title'];
-	$inc_file = $cfg['modules_dir'] . "/$m/$m.admin.php";
+	$inc_file = $cfg['extensions_dir'] . "/$m/$m.admin.php";
 }
 
 if (!file_exists($inc_file))
@@ -89,7 +89,7 @@ $t->assign(array(
 ));
 
 /* === Hook for the plugins === */
-foreach (cot_getextplugins('admin.tags') as $pl)
+foreach (cot_getextensions('admin.tags') as $pl)
 {
 	include $pl;
 }

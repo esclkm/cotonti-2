@@ -17,7 +17,7 @@ $t = new XTemplate(cot_tplfile('admin.other', 'core'));
 $p = cot_import('p', 'G', 'ALP');
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.other.first') as $pl)
+foreach (cot_getextensions('admin.other.first') as $pl)
 {
 	include $pl;
 }
@@ -38,9 +38,9 @@ if(!empty($p))
 
 	$extp = array();
 
-	if(is_array($cot_plugins['tools']))
+	if(is_array($cot_extensions['tools']))
 	{
-		foreach($cot_plugins['tools'] as $k)
+		foreach($cot_extensions['tools'] as $k)
 		{
 			if($k['pl_code'] == $p)
 			{
@@ -91,12 +91,12 @@ else
 	{
 		if ($type == 'module')
 		{
-			$target = $cot_plugins['admin'];
+			$target = $cot_extensions['admin'];
 			$title = $L['Modules'];
 		}
 		else
 		{
-			$target = $cot_plugins['tools'];
+			$target = $cot_extensions['tools'];
 			$title = $L['Plugins'];
 		}
 		if (is_array($target))
@@ -134,7 +134,7 @@ else
 	));
 
 	/* === Hook === */
-	foreach (cot_getextplugins('admin.other.tags') as $pl)
+	foreach (cot_getextensions('admin.other.tags') as $pl)
 	{
 		include $pl;
 	}

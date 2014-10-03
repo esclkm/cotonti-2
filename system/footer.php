@@ -9,7 +9,7 @@
 defined('COT_CODE') or die('Wrong URL');
 
 /* === Hook === */
-foreach (cot_getextplugins('footer.first') as $pl)
+foreach (cot_getextensions('footer.first') as $pl)
 {
 	include $pl;
 }
@@ -18,7 +18,7 @@ foreach (cot_getextplugins('footer.first') as $pl)
 if (!COT_AJAX)
 {
 	/* === Hook === */
-	foreach (cot_getextplugins('footer.main') as $pl)
+	foreach (cot_getextensions('footer.main') as $pl)
 	{
 		include $pl;
 	}
@@ -43,7 +43,7 @@ if (!COT_AJAX)
 	));
 
 	/* === Hook === */
-	foreach (cot_getextplugins('footer.tags') as $pl)
+	foreach (cot_getextensions('footer.tags') as $pl)
 	{
 		include $pl;
 	}
@@ -52,11 +52,11 @@ if (!COT_AJAX)
 	// Attach rich text editors if any
 	if ($cot_textarea_count > 0)
 	{
-		if (is_array($cot_plugins['editor']))
+		if (is_array($cot_extensions['editor']))
 		{
 			$parser = !empty($sys['parser']) ? $sys['parser'] : $cfg['parser'];
-			$editor = $cfg['plugin'][$parser]['editor'];
-			foreach ($cot_plugins['editor'] as $k)
+			$editor = $cfg[$parser]['editor'];
+			foreach ($cot_extensions['editor'] as $k)
 			{
 				if ($k['pl_code'] == $editor && cot_auth('plug', $k['pl_code'], 'R'))
 				{
@@ -135,7 +135,7 @@ if (!COT_AJAX)
 }
 
 /* === Hook === */
-foreach (cot_getextplugins('footer.last') as $pl)
+foreach (cot_getextensions('footer.last') as $pl)
 {
 	include $pl;
 }

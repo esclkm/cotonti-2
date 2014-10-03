@@ -23,7 +23,7 @@ $adminpath[] = array(cot_url('admin', 'm=cache&s=disk'), $L['adm_diskcache']);
 $adminsubtitle = $L['adm_diskcache'];
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.cache.disk.first') as $pl)
+foreach (cot_getextensions('admin.cache.disk.first') as $pl)
 {
 	include $pl;
 }
@@ -68,7 +68,7 @@ $cachefiles = $cachesize = 0;
 $ii = 0;
 
 /* === Hook - Part1 : Set === */
-$extp = cot_getextplugins('admin.cache.disk.loop');
+$extp = cot_getextensions('admin.cache.disk.loop');
 /* ===== */
 foreach ($row as $i => $x)
 {
@@ -103,7 +103,7 @@ $t->assign(array(
 cot_display_messages($t);
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.cache.disk.tags') as $pl)
+foreach (cot_getextensions('admin.cache.disk.tags') as $pl)
 {
 	include $pl;
 }

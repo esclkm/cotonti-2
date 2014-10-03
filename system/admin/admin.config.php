@@ -22,7 +22,7 @@ $t = new XTemplate(cot_tplfile('admin.config', 'core'));
 
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.config.first') as $pl)
+foreach (cot_getextensions('admin.config.first') as $pl)
 {
 	include $pl;
 }
@@ -41,7 +41,7 @@ switch ($n)
 		cot_die(!sizeof($optionslist), true);
 
 		/* === Hook  === */
-		foreach (cot_getextplugins('admin.config.edit.first') as $pl)
+		foreach (cot_getextensions('admin.config.edit.first') as $pl)
 		{
 			include $pl;
 		}
@@ -62,7 +62,7 @@ switch ($n)
 
 			if ($o == 'module' || $o == 'plug')
 			{
-				$dir = $o == 'module' ? $cfg['modules_dir'] : $cfg['plugins_dir'];
+				$dir = $o == 'module' ? $cfg['extensions_dir'] : $cfg['plugins_dir'];
 				// Run configure extension part if present
 				if (file_exists($dir . "/" . $p . "/setup/" . $p . ".configure.php"))
 				{
@@ -70,7 +70,7 @@ switch ($n)
 				}
 			}
 			/* === Hook  === */
-			foreach (cot_getextplugins('admin.config.edit.update.done') as $pl)
+			foreach (cot_getextensions('admin.config.edit.update.done') as $pl)
 			{
 				include $pl;
 			}
@@ -85,7 +85,7 @@ switch ($n)
 
 			$optionslist[$v]['config_name'] = $optionslist[$v]['config_defaul'];
 			/* === Hook  === */
-			foreach (cot_getextplugins('admin.config.edit.reset.done') as $pl)
+			foreach (cot_getextensions('admin.config.edit.reset.done') as $pl)
 			{
 				include $pl;
 			}
@@ -119,14 +119,14 @@ switch ($n)
 		}
 
 		/* === Hook  === */
-		foreach (cot_getextplugins('admin.config.edit.main') as $pl)
+		foreach (cot_getextensions('admin.config.edit.main') as $pl)
 		{
 			include $pl;
 		}
 		/* ===== */
 
 		/* === Hook - Part1 : Set === */
-		$extp = cot_getextplugins('admin.config.edit.loop');
+		$extp = cot_getextensions('admin.config.edit.loop');
 		/* ===== */
 
 		foreach ($optionslist as $key => $row)
@@ -168,7 +168,7 @@ switch ($n)
 			'ADMIN_CONFIG_FORM_URL' => cot_url('admin', 'm=config&n=edit&o=' . $o . '&p=' . $p . '&a=update')
 		));
 		/* === Hook  === */
-		foreach (cot_getextplugins('admin.config.edit.tags') as $pl)
+		foreach (cot_getextensions('admin.config.edit.tags') as $pl)
 		{
 			include $pl;
 		}
@@ -255,7 +255,7 @@ switch ($n)
 		$t->assign('ADMIN_CONFIG_COL_CAPTION', $L['Plugins']);
 		$t->parse('MAIN.DEFAULT.ADMIN_CONFIG_COL');
 		/* === Hook  === */
-		foreach (cot_getextplugins('admin.config.default.tags') as $pl)
+		foreach (cot_getextensions('admin.config.default.tags') as $pl)
 		{
 			include $pl;
 		}
@@ -267,7 +267,7 @@ switch ($n)
 cot_display_messages($t);
 
 /* === Hook  === */
-foreach (cot_getextplugins('admin.config.tags') as $pl)
+foreach (cot_getextensions('admin.config.tags') as $pl)
 {
 	include $pl;
 }

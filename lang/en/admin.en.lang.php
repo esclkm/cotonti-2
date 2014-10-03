@@ -281,7 +281,7 @@ $L['cfg_body_mail_hint'] = 'Options: {SITE_TITLE}, {SITE_DESCRIPTION}, {SITE_URL
  * Config Section
  * Common strings
  */
-$L['cfg_css'] = 'Enable module/plugin CSS';
+$L['cfg_css'] = 'Enable extension CSS';
 $L['cfg_editor'] = 'Rich text editor';
 $L['cfg_editor_hint'] = '';
 $L['cfg_markup'] = 'Enable markup';
@@ -422,7 +422,7 @@ $L['adm_partstopped'] = 'Partially stopped';
 $L['adm_installed'] = 'Installed';
 $L['adm_notinstalled'] = 'Not installed';
 
-$L['adm_plugsetup'] = 'Plugin Setup';
+$L['adm_plugsetup'] = 'Extension Setup';
 $L['adm_override_guests'] = 'System override, guests and inactive are not allowed to admin';
 $L['adm_override_banned'] = 'System override, Banned';
 $L['adm_override_admins'] = 'System override, Administrators';

@@ -132,7 +132,7 @@ function cot_extension_dependencies_statisfied($name, $is_module = false,
 	$selected_modules = array(), $selected_plugins = array())
 {
 	global $cfg, $L;
-	$path = $is_module ? $cfg['modules_dir'] . "/$name" : $cfg['plugins_dir'] . "/$name";
+	$path = $is_module ? $cfg['extensions_dir'] . "/$name" : $cfg['plugins_dir'] . "/$name";
 	$ret = true;
 
 	// Get the dependency list
@@ -177,7 +177,7 @@ function cot_extension_install($name, $is_module = false, $update = false, $forc
 	global $cfg, $L, $cache, $usr, $db_auth, $db_config, $db_users,
 		$db_core, $cot_groups, $cot_ext_ignore_parts, $db, $db_x, $env;
 
-	$path = $is_module ? $cfg['modules_dir'] . "/$name" : $cfg['plugins_dir'] . "/$name";
+	$path = $is_module ? $cfg['extensions_dir'] . "/$name" : $cfg['plugins_dir'] . "/$name";
 
 	// Emit initial message
 	if ($update)
@@ -206,7 +206,7 @@ function cot_extension_install($name, $is_module = false, $update = false, $forc
 	$old_ext_format = false;
 
 	$info = cot_infoget($setup_file, 'COT_EXT');
-	if (!$info && cot_plugin_active('genoa'))
+	if (!$info && cot_extension_active('genoa'))
 	{
 		// Try load old format info
 		$info = cot_infoget($setup_file, 'SED_EXTPLUGIN');
@@ -262,7 +262,7 @@ function cot_extension_install($name, $is_module = false, $update = false, $forc
 			&& !in_array($mt[2], $cot_ext_ignore_parts))
 		{
 			$part_info = cot_infoget($path . "/$f", 'COT_EXT');
-			if (!$part_info && cot_plugin_active('genoa'))
+			if (!$part_info && cot_extension_active('genoa'))
 			{
 				// Try to load old format info
 				$part_info = cot_infoget($path . "/$f", 'SED_EXTPLUGIN');
@@ -310,7 +310,7 @@ function cot_extension_install($name, $is_module = false, $update = false, $forc
 
 	// Install config
 	$info_cfg = cot_infoget($setup_file, 'COT_EXT_CONFIG');
-	if (!$info_cfg && cot_plugin_active('genoa'))
+	if (!$info_cfg && cot_extension_active('genoa'))
 	{
 		// Try to load old format config
 		$info_cfg = cot_infoget($setup_file, 'SED_EXTPLUGIN_CONFIG');
@@ -568,9 +568,9 @@ function cot_extension_install($name, $is_module = false, $update = false, $forc
  */
 function cot_extension_uninstall($name, $is_module = false)
 {
-	global $cfg, $db_auth, $db_config, $db_users, $db_updates, $cache, $db, $db_x, $db_plugins, $cot_plugins, $cot_plugins_active, $cot_plugins_enabled, $cot_modules, $env, $structure, $db_structure;
+	global $cfg, $db_auth, $db_config, $db_users, $db_updates, $cache, $db, $db_x, $db_plugins, $cot_extensions, $cot_plugins_active, $cot_plugins_enabled, $cot_modules, $env, $structure, $db_structure;
 
-	$path = $is_module ? $cfg['modules_dir'] . "/$name" : $cfg['plugins_dir']
+	$path = $is_module ? $cfg['extensions_dir'] . "/$name" : $cfg['plugins_dir']
 		. "/$name";
 
 	// Emit initial message
@@ -622,7 +622,7 @@ function cot_extension_uninstall($name, $is_module = false)
 	}
 
 	// Run handler part
-	if (cot_plugin_active('genoa') && cot_infoget($path . "/$name.setup.php", 'SED_EXTPLUGIN'))
+	if (cot_extension_active('genoa') && cot_infoget($path . "/$name.setup.php", 'SED_EXTPLUGIN'))
 	{
 		global $action;
 		$action = 'uninstall';
@@ -659,12 +659,12 @@ function cot_extension_uninstall($name, $is_module = false)
 
 	$sql = $db->query("SELECT pl_code, pl_file, pl_hook, pl_module FROM $db_plugins
 		WHERE pl_active = 1 ORDER BY pl_hook ASC, pl_order ASC");
-	$cot_plugins = array();
+	$cot_extensions = array();
 	if ($sql->rowCount() > 0)
 	{
 		while ($row = $sql->fetch())
 		{
-			$cot_plugins[$row['pl_hook']][] = $row;
+			$cot_extensions[$row['pl_hook']][] = $row;
 		}
 		$sql->closeCursor();
 	}
@@ -877,7 +877,7 @@ function cot_extension_list_info($dir)
 		if ($f[0] != '.' && is_dir($path) && file_exists("$path/$f.setup.php"))
 		{
 			$info = cot_infoget("$path/$f.setup.php", 'COT_EXT');
-			if (!$info && cot_plugin_active('genoa'))
+			if (!$info && cot_extension_active('genoa'))
 			{
 				// Try to load old format info
 				$info = cot_infoget("$path/$f.setup.php", 'SED_EXTPLUGIN');

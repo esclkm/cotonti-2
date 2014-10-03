@@ -33,7 +33,7 @@ $g = cot_import('g', 'G', 'INT');
 $lincif_extfld = cot_auth('admin', 'a', 'A');
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.users.first') as $pl)
+foreach (cot_getextensions('admin.users.first') as $pl)
 {
 	include $pl;
 }
@@ -55,7 +55,7 @@ if($n == 'add')
 	$rcopyrightsfrom = cot_import('rcopyrightsfrom', 'P', 'INT');
 
 	/* === Hook === */
-	foreach (cot_getextplugins('admin.users.add.first') as $pl)
+	foreach (cot_getextensions('admin.users.add.first') as $pl)
 	{
 		include $pl;
 	}
@@ -71,7 +71,7 @@ if($n == 'add')
 		$grp_id = $db->lastInsertId();
 
 		/* === Hook === */
-		foreach (cot_getextplugins('admin.users.add') as $pl)
+		foreach (cot_getextensions('admin.users.add') as $pl)
 		{
 			include $pl;
 		}
@@ -103,7 +103,7 @@ elseif($n == 'edit')
 		$rgroups['grp_skiprights'] = cot_import('rskiprights', 'P', 'BOL') ? 1 : 0;
 
 		/* === Hook === */
-		foreach (cot_getextplugins('admin.users.update') as $pl)
+		foreach (cot_getextensions('admin.users.update') as $pl)
 		{
 			include $pl;
 		}
@@ -140,7 +140,7 @@ elseif($n == 'edit')
 		cot_auth_remove_group($g);
 
 		/* === Hook === */
-		foreach (cot_getextplugins('admin.users.delete') as $pl)
+		foreach (cot_getextensions('admin.users.delete') as $pl)
 		{
 			include $pl;
 		}
@@ -185,7 +185,7 @@ elseif($n == 'edit')
 		));
 
 		/* === Hook === */
-		foreach (cot_getextplugins('admin.users.edit.tags') as $pl)
+		foreach (cot_getextensions('admin.users.edit.tags') as $pl)
 		{
 			include $pl;
 		}
@@ -208,7 +208,7 @@ if(!isset($showdefault) || $showdefault == true)
 	if($sql->rowCount() > 0)
 	{
 		/* === Hook - Part1 : Set === */
-		$extp = cot_getextplugins('admin.users.row.tags');
+		$extp = cot_getextensions('admin.users.row.tags');
 		/* ===== */
 		foreach ($sql->fetchAll() as $row)
 		{
@@ -252,7 +252,7 @@ if(!isset($showdefault) || $showdefault == true)
 	));
 
 	/* === Hook === */
-	foreach (cot_getextplugins('admin.users.add.tags') as $pl)
+	foreach (cot_getextensions('admin.users.add.tags') as $pl)
 	{
 		include $pl;
 	}
@@ -269,7 +269,7 @@ $t->assign(array(
 cot_display_messages($t);
 
 /* === Hook  === */
-foreach (cot_getextplugins('admin.users.tags') as $pl)
+foreach (cot_getextensions('admin.users.tags') as $pl)
 {
 	include $pl;
 }

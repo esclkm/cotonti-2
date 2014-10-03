@@ -39,7 +39,7 @@ $maxperpage = (is_int($cfg['maxrowsperpage']) && $cfg['maxrowsperpage'] > 0 || c
 $t = new XTemplate(cot_tplfile(array('admin', 'extrafields', $n), 'core'));
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.extrafields.first') as $pl)
+foreach (cot_getextensions('admin.extrafields.first') as $pl)
 {
 	include $pl;
 }
@@ -93,7 +93,7 @@ if (empty($n) || in_array($n, $extra_blacklist))
 	}
 	$t->assign('ADMIN_EXTRAFIELDS_ALLTABLES', cot_url('admin', 'm=extrafields&alltables=1'));
 	/* === Hook  === */
-	foreach (cot_getextplugins('admin.extrafields.tablelist.tags') as $pl)
+	foreach (cot_getextensions('admin.extrafields.tablelist.tags') as $pl)
 	{
 		include $pl;
 	}
@@ -125,7 +125,7 @@ else
 		$field['field_enabled'] = 1;
 
 		/* === Hook === */
-		foreach (cot_getextplugins('admin.extrafields.add') as $pl)
+		foreach (cot_getextensions('admin.extrafields.add') as $pl)
 		{
 			include $pl;
 		}
@@ -158,7 +158,7 @@ else
 		$field_enabled = cot_import('field_enabled', 'P', 'ARR');
 
 		/* === Hook - Part1 : Set === */
-		$extp = cot_getextplugins('admin.extrafields.update');
+		$extp = cot_getextensions('admin.extrafields.update');
 		/* ===== */
 		if (is_array($field_name))
 		{
@@ -202,7 +202,7 @@ else
 	elseif ($a == 'del' && isset($name))
 	{
 		/* === Hook === */
-		foreach (cot_getextplugins('admin.extrafields.delete') as $pl)
+		foreach (cot_getextensions('admin.extrafields.delete') as $pl)
 		{
 			include $pl;
 		}
@@ -231,7 +231,7 @@ else
 
 	$ii = 0;
 	/* === Hook - Part1 : Set === */
-	$extp = cot_getextplugins('admin.extrafields.loop');
+	$extp = cot_getextensions('admin.extrafields.loop');
 	/* ===== */
 	foreach ($res->fetchAll() as $row)
 	{
@@ -310,7 +310,7 @@ else
 		}
 	}
 	/* === Hook  === */
-	foreach (cot_getextplugins('admin.extrafields.tags') as $pl)
+	foreach (cot_getextensions('admin.extrafields.tags') as $pl)
 	{
 		include $pl;
 	}

@@ -21,7 +21,7 @@ $adminpath[] = array(cot_url('admin', 'm=cache'), $L['adm_internalcache']);
 $adminsubtitle = $L['adm_internalcache'];
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.cache.first') as $pl)
+foreach (cot_getextensions('admin.cache.first') as $pl)
 {
 	include $pl;
 }
@@ -77,7 +77,7 @@ $cachesize = 0;
 $ii = 0;
 
 /* === Hook - Part1 : Set === */
-$extp = cot_getextplugins('admin.cache.loop');
+$extp = cot_getextensions('admin.cache.loop');
 /* ===== */
 foreach ($sql->fetchAll() as $row)
 {
@@ -114,7 +114,7 @@ $t->assign(array(
 cot_display_messages($t);
 
 /* === Hook  === */
-foreach (cot_getextplugins('admin.cache.tags') as $pl)
+foreach (cot_getextensions('admin.cache.tags') as $pl)
 {
 	include $pl;
 }

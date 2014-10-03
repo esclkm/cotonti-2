@@ -33,7 +33,7 @@ $adminsubtitle = $L['Structure'];
 $modules_structure = &$extension_structure; // for compatibility
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.structure.first') as $pl)
+foreach (cot_getextensions('admin.structure.first') as $pl)
 {
 	include $pl;
 }
@@ -43,7 +43,7 @@ if (empty($n))
 {
 	$adminpath[] = array(cot_url('admin', 'm=structure'), $L['Structure']);
 	// Show available module list
-	if (is_array($extension_structure) && count($extension_structure) == 1 && ((cot_plugin_active($extension_structure[0]) || cot_module_active($extension_structure[0]))))
+	if (is_array($extension_structure) && count($extension_structure) == 1 && ((cot_extension_active($extension_structure[0]) || cot_extension_active($extension_structure[0]))))
 	{
 		cot_redirect(cot_url('admin', 'm=structure&n='.$extension_structure[0], '', true));
 	}
@@ -52,12 +52,12 @@ if (empty($n))
 		foreach ($extension_structure as $code)
 		{
 			$parse = false;
-			if (cot_plugin_active($code))
+			if (cot_extension_active($code))
 			{
 				$is_module = false;
 				$parse = true;
 			}
-			if (cot_module_active($code))
+			if (cot_extension_active($code))
 			{
 				$is_module = true;
 				$parse = true;
@@ -88,12 +88,12 @@ if (empty($n))
 else
 {
 	$parse = false;
-	if (cot_plugin_active($n))
+	if (cot_extension_active($n))
 	{
 		$is_module = false;
 		$parse = true;
 	}
-	if (cot_module_active($n))
+	if (cot_extension_active($n))
 	{
 		$is_module = true;
 		$parse = true;
@@ -142,7 +142,7 @@ else
 
 			if ($o == 'module' || $o == 'plug')
 			{
-				$dir = $o == 'module' ? $cfg['modules_dir'] : $cfg['plugins_dir'];
+				$dir = $o == 'module' ? $cfg['extensions_dir'] : $cfg['plugins_dir'];
 				// Run configure extension part if present
 				if (file_exists($dir."/".$p."/setup/".$p.".configure.php"))
 				{
@@ -175,7 +175,7 @@ else
 		$rtplquickarr = cot_import('rstructuretplquick', 'P', 'ARR');
 
 		/* === Hook === */
-		foreach (cot_getextplugins('admin.structure.update.first') as $pl)
+		foreach (cot_getextensions('admin.structure.update.first') as $pl)
 		{
 			include $pl;
 		}
@@ -236,7 +236,7 @@ else
 		}
 
 		/* === Hook === */
-		foreach (cot_getextplugins('admin.structure.update.done') as $pl)
+		foreach (cot_getextensions('admin.structure.update.done') as $pl)
 		{
 			include $pl;
 		}
@@ -292,7 +292,7 @@ else
 		}
 
 		/* === Hook === */
-		foreach (cot_getextplugins('admin.structure.add.first') as $pl)
+		foreach (cot_getextensions('admin.structure.add.first') as $pl)
 		{
 			include $pl;
 		}
@@ -304,7 +304,7 @@ else
 			{
 				cot_extrafield_movefiles();
 				/* === Hook === */
-				foreach (cot_getextplugins('admin.structure.add.done') as $pl)
+				foreach (cot_getextensions('admin.structure.add.done') as $pl)
 				{
 					include $pl;
 				}
@@ -329,7 +329,7 @@ else
 		if (cot_structure_delete($n, $c, $is_module))
 		{
 			/* === Hook === */
-			foreach (cot_getextplugins('admin.structure.delete.done') as $pl)
+			foreach (cot_getextensions('admin.structure.delete.done') as $pl)
 			{
 				include $pl;
 			}
@@ -358,7 +358,7 @@ else
 		}
 
 		/* === Hook === */
-		foreach (cot_getextplugins('admin.structure.resync.done') as $pl)
+		foreach (cot_getextensions('admin.structure.resync.done') as $pl)
 		{
 			include $pl;
 		}
@@ -403,7 +403,7 @@ else
 
 	$ii = 0;
 	/* === Hook - Part1 : Set === */
-	$extp = cot_getextplugins('admin.structure.loop');
+	$extp = cot_getextensions('admin.structure.loop');
 	/* ===== */
 	foreach ($sql->fetchAll() as $row)
 	{
@@ -496,7 +496,7 @@ else
 			$optionslist = cot_config_list($is_module ? 'module' : 'plug', $n, $structure_code);
 
 			/* === Hook - Part1 : Set === */
-			$extp = cot_getextplugins('admin.config.edit.loop');
+			$extp = cot_getextensions('admin.config.edit.loop');
 			/* ===== */
 			foreach ($optionslist as $row_c)
 			{
@@ -526,7 +526,7 @@ else
 				$t->parse('MAIN.OPTIONS.CONFIG.ADMIN_CONFIG_ROW');
 			}
 			/* === Hook  === */
-			foreach (cot_getextplugins('admin.config.edit.tags') as $pl)
+			foreach (cot_getextensions('admin.config.edit.tags') as $pl)
 			{
 				include $pl;
 			}
@@ -584,7 +584,7 @@ else
 	cot_display_messages($t);
 
 	/* === Hook  === */
-	foreach (cot_getextplugins('admin.structure.tags') as $pl)
+	foreach (cot_getextensions('admin.structure.tags') as $pl)
 	{
 		include $pl;
 	}

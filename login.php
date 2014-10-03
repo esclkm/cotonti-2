@@ -31,7 +31,7 @@ if ($logout)
 	cot_check_xg();
 
 	/* === Hook === */
-	foreach (cot_getextplugins('users.logout') as $pl)
+	foreach (cot_getextensions('users.logout') as $pl)
 	{
 		include $pl;
 	}
@@ -72,7 +72,7 @@ if ($logout)
 }
 
 /* === Hook === */
-foreach (cot_getextplugins('users.auth.first') as $pl)
+foreach (cot_getextensions('users.auth.first') as $pl)
 {
 	include $pl;
 }
@@ -83,7 +83,7 @@ if ($a == 'check')
 	cot_shield_protect();
 
 	/* === Hook for the plugins === */
-	foreach (cot_getextplugins('users.auth.check') as $pl)
+	foreach (cot_getextensions('users.auth.check') as $pl)
 	{
 		include $pl;
 	}
@@ -132,7 +132,7 @@ if ($a == 'check')
 	$user_select_condition = (!$validating) ? "user_password=".$db->quote($rmdpass)." AND $login_param=".$db->quote($rusername) : "user_lostpass=".$db->quote($v);
 
 	/* === Hook for the plugins === */
-	foreach (cot_getextplugins('users.auth.check.query') as $pl)
+	foreach (cot_getextensions('users.auth.check.query') as $pl)
 	{
 		include $pl;
 	}
@@ -236,7 +236,7 @@ if ($a == 'check')
 		}
 
 		/* === Hook === */
-		foreach (cot_getextplugins('users.auth.check.done') as $pl)
+		foreach (cot_getextensions('users.auth.check.done') as $pl)
 		{
 			include $pl;
 		}
@@ -252,7 +252,7 @@ if ($a == 'check')
 		cot_log("Log in failed, user : ".$rusername,'usr');
 
 		/* === Hook === */
-		foreach (cot_getextplugins('users.auth.check.fail') as $pl)
+		foreach (cot_getextensions('users.auth.check.fail') as $pl)
 		{
 			include $pl;
 		}
@@ -263,7 +263,7 @@ if ($a == 'check')
 }
 
 /* === Hook === */
-foreach (cot_getextplugins('users.auth.main') as $pl)
+foreach (cot_getextensions('users.auth.main') as $pl)
 {
 	include $pl;
 }
@@ -293,7 +293,7 @@ $t->assign(array(
 ));
 
 /* === Hook === */
-foreach (cot_getextplugins('users.auth.tags') as $pl)
+foreach (cot_getextensions('users.auth.tags') as $pl)
 {
 	include $pl;
 }

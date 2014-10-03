@@ -93,7 +93,7 @@ $t->assign(array(
 ));
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.home.mainpanel', 'R') as $pl)
+foreach (cot_getextensions('admin.home.mainpanel', 'R') as $pl)
 {
 	$line = '';
 	include $pl;
@@ -106,7 +106,7 @@ foreach (cot_getextplugins('admin.home.mainpanel', 'R') as $pl)
 /* ===== */
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.home.sidepanel', 'R') as $pl)
+foreach (cot_getextensions('admin.home.sidepanel', 'R') as $pl)
 {
 	$line = '';
 	include $pl;
@@ -119,7 +119,7 @@ foreach (cot_getextplugins('admin.home.sidepanel', 'R') as $pl)
 /* ===== */
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.home', 'R') as $pl)
+foreach (cot_getextensions('admin.home', 'R') as $pl)
 {
 	include $pl;
 }

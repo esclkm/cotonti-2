@@ -25,9 +25,9 @@ else
 	require_once './datas/config-sample.php';
 }
 
-if (empty($cfg['modules_dir']))
+if (empty($cfg['extensions_dir']))
 {
-	$cfg['modules_dir'] = './modules';
+	$cfg['extensions_dir'] = './modules';
 }
 if (empty($cfg['lang_dir']))
 {

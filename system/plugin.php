@@ -86,9 +86,9 @@ if (!empty($path_skin))
 
 $empty = true;
 
-if (is_array($cot_plugins[$exthook]))
+if (is_array($cot_extensions[$exthook]))
 {
-	foreach ($cot_plugins[$exthook] as $k)
+	foreach ($cot_extensions[$exthook] as $k)
 	{
 		if ($k['pl_code'] == $extname)
 		{

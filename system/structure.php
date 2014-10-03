@@ -31,7 +31,7 @@ function cot_structure_add($extension, $data, $is_module = true)
 	global $cache, $db, $db_structure;
 
 	/* === Hook === */
-	foreach (cot_getextplugins('structure.add') as $pl)
+	foreach (cot_getextensions('structure.add') as $pl)
 	{
 		include $pl;
 	}
@@ -81,7 +81,7 @@ function cot_structure_delete($extension, $code, $is_module = true)
 	global $cache, $db, $db_config, $db_structure, $structure;
 
 	/* === Hook === */
-	foreach (cot_getextplugins('structure.delete') as $pl)
+	foreach (cot_getextensions('structure.delete') as $pl)
 	{
 		include $pl;
 	}
@@ -122,7 +122,7 @@ function cot_structure_update($extension, $id, $old_data, $new_data, $is_module 
 {
 	global $cache, $db, $db_auth, $db_config, $db_structure;
 	/* === Hook === */
-	foreach (cot_getextplugins('structure.update') as $pl)
+	foreach (cot_getextensions('structure.update') as $pl)
 	{
 		include $pl;
 	}

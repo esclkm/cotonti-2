@@ -55,7 +55,7 @@ else
 	$is_module = true;
 	$code = $mod;
 	$arg = 'mod';
-	$dir = $cfg['modules_dir'];
+	$dir = $cfg['extensions_dir'];
 	$type = 'module';
 }
 
@@ -69,7 +69,7 @@ $found_txt[1] = $R['admin_code_present'];
 unset($disp_errors);
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.extensions.first') as $pl)
+foreach (cot_getextensions('admin.extensions.first') as $pl)
 {
 	include $pl;
 }
@@ -87,7 +87,7 @@ switch($a)
 			$old_ext_format = false;
 			$info = cot_infoget($ext_info, 'COT_EXT');
 
-			if (!$info && cot_plugin_active('genoa'))
+			if (!$info && cot_extension_active('genoa'))
 			{
 				// Try to load old format info
 				$info = cot_infoget($ext_info, 'SED_EXTPLUGIN');
@@ -117,7 +117,7 @@ switch($a)
 				break;
 			case 'uninstall':
 				/* === Hook  === */
-				foreach (cot_getextplugins('admin.extensions.uninstall.first') as $pl)
+				foreach (cot_getextensions('admin.extensions.uninstall.first') as $pl)
 				{
 					include $pl;
 				}
@@ -130,12 +130,12 @@ switch($a)
 					foreach ($res->fetchAll() as $row)
 					{
 						$ext = $row['ct_code'];
-						$dir_ext = $row['ct_plug'] ? $cfg['plugins_dir'] : $cfg['modules_dir'];
+						$dir_ext = $row['ct_plug'] ? $cfg['plugins_dir'] : $cfg['extensions_dir'];
 						$dep_ext_info = $dir_ext . '/' . $ext . '/' . $ext . '.setup.php';
 						if (file_exists($dep_ext_info))
 						{
 							$dep_info = cot_infoget($dep_ext_info, 'COT_EXT');
-							if (!$dep_info && cot_plugin_active('genoa'))
+							if (!$dep_info && cot_extension_active('genoa'))
 							{
 								// Try to load old format info
 								$dep_info = cot_infoget($dep_ext_info, 'SED_EXTPLUGIN');
@@ -229,13 +229,13 @@ switch($a)
 		{
 			sort($parts);
 			/* === Hook - Part1 : Set === */
-			$extp = cot_getextplugins('admin.extensions.details.part.loop');
+			$extp = cot_getextensions('admin.extensions.details.part.loop');
 			/* ===== */
 			foreach ($parts as $i => $x)
 			{
 				$extplugin_file = $dir . '/' . $code . '/' . $x;
 				$info_file = cot_infoget($extplugin_file, 'COT_EXT');
-				if (!$info_file && cot_plugin_active('genoa'))
+				if (!$info_file && cot_extension_active('genoa'))
 				{
 					// Try to load old format info
 					$info_file = cot_infoget($extplugin_file, 'SED_EXTPLUGIN');
@@ -246,7 +246,7 @@ switch($a)
 				$not_registred = array();
 				foreach ($Hooks as $h)
 				{
-					$regsistred_by_hook = $cot_plugins[$h];
+					$regsistred_by_hook = $cot_extensions[$h];
 					if (is_array($regsistred_by_hook) && sizeof($regsistred_by_hook))
 					{
 						$found = false;
@@ -271,7 +271,7 @@ switch($a)
 
 				$deleted = array();
 				// checks for deleted Hooks
-				foreach ($cot_plugins as $registered)
+				foreach ($cot_extensions as $registered)
 				{
 					foreach ($registered as $reg_data)
 					{
@@ -435,7 +435,7 @@ switch($a)
 		{
 			include cot_langfile($code, $type);
 		}
-		$icofile = (($type == 'module') ? $cfg['modules_dir'] : $cfg['plugins_dir']) . '/' . $code . '/' . $code . '.png';
+		$icofile = (($type == 'module') ? $cfg['extensions_dir'] : $cfg['plugins_dir']) . '/' . $code . '/' . $code . '.png';
 
 		// Search admin parts, standalone parts, struct
 		if( $db->query("SELECT pl_code FROM $db_plugins WHERE (pl_hook='standalone' OR pl_hook='module') AND pl_code='$code' LIMIT 1")->rowCount() > 0)
@@ -508,7 +508,7 @@ switch($a)
 					$dep_obligatory = strpos($dep_type, 'Requires') === 0;
 					$dep_module = strpos($dep_type, 'modules') !== false;
 					$arg = $dep_module ? 'mod' : 'pl';
-					$dir = $dep_module ? $cfg['modules_dir'] : $cfg['plugins_dir'];
+					$dir = $dep_module ? $cfg['extensions_dir'] : $cfg['plugins_dir'];
 
 					foreach (explode(',', $info[$dep_type]) as $ext)
 					{
@@ -528,7 +528,7 @@ switch($a)
 						if (file_exists($dep_ext_info))
 						{
 							$dep_info = cot_infoget($dep_ext_info, 'COT_EXT');
-							if (!$dep_info && cot_plugin_active('genoa'))
+							if (!$dep_info && cot_extension_active('genoa'))
 							{
 								// Try to load old format info
 								$dep_info = cot_infoget($dep_ext_info, 'SED_EXTPLUGIN');
@@ -543,7 +543,7 @@ switch($a)
 						$t->assign(array(
 							'ADMIN_EXTENSIONS_DEPENDENCIES_ROW_CODE' => $ext,
 							'ADMIN_EXTENSIONS_DEPENDENCIES_ROW_NAME' => $dep_info['Name'],
-							'ADMIN_EXTENSIONS_DEPENDENCIES_ROW_URL' => ($dep_module && file_exists($cfg['modules_dir'] . '/' . $ext) || !$dep_module && file_exists($cfg['plugins_dir'] . '/' . $ext)) ? cot_url('admin', "m=extensions&a=details&$arg=$ext") : '#',
+							'ADMIN_EXTENSIONS_DEPENDENCIES_ROW_URL' => ($dep_module && file_exists($cfg['extensions_dir'] . '/' . $ext) || !$dep_module && file_exists($cfg['plugins_dir'] . '/' . $ext)) ? cot_url('admin', "m=extensions&a=details&$arg=$ext") : '#',
 							'ADMIN_EXTENSIONS_DEPENDENCIES_ROW_TYPE' => $dep_module ? $L['Module'] : $L['Plugin'],
 							'ADMIN_EXTENSIONS_DEPENDENCIES_ROW_CLASS' => $dep_class
 						));
@@ -557,7 +557,7 @@ switch($a)
 			}
 		}
 		/* === Hook  === */
-		foreach (cot_getextplugins('admin.extensions.details') as $pl)
+		foreach (cot_getextensions('admin.extensions.details') as $pl)
 		{
 			include $pl;
 		}
@@ -654,7 +654,7 @@ switch($a)
 			}
 			$sql->closeCursor();
 
-			$dir = $type == 'module' ? $cfg['modules_dir'] : $cfg['plugins_dir'];
+			$dir = $type == 'module' ? $cfg['extensions_dir'] : $cfg['plugins_dir'];
 			$extensions = cot_extension_list_info($dir);
 			$ctplug = $type == 'module' ? '0' : '1';
 
@@ -731,7 +731,7 @@ switch($a)
 
 			$prev_cat = '';
 			/* === Hook - Part1 : Set === */
-			$extp = cot_getextplugins("admin.extensions.$type.list.loop");
+			$extp = cot_getextensions("admin.extensions.$type.list.loop");
 			/* ===== */
 			foreach ($extensions as $code => $info)
 			{
@@ -805,7 +805,7 @@ switch($a)
 						$jump_url = cot_url('plug', 'e=' . $code);
 						$arg = 'pl';
 					}
-					$icofile = (($type == 'module') ? $cfg['modules_dir'] : $cfg['plugins_dir']) . '/' . $code . '/' . $code . '.png';
+					$icofile = (($type == 'module') ? $cfg['extensions_dir'] : $cfg['plugins_dir']) . '/' . $code . '/' . $code . '.png';
 
 					$installed_ver = $installed_vers[$code];
 
@@ -866,7 +866,7 @@ if (!empty($code) && $b == 'install' && $totalconfig > 0)
 cot_display_messages($t);
 
 /* === Hook  === */
-foreach (cot_getextplugins('admin.extensions.tags') as $pl)
+foreach (cot_getextensions('admin.extensions.tags') as $pl)
 {
 	include $pl;
 }

@@ -31,7 +31,7 @@ $L['adm_code']['admin'] = $L['Administration'];
 $L['adm_code']['message'] = $L['Messages'];
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.rightsbyitem.first') as $pl)
+foreach (cot_getextensions('admin.rightsbyitem.first') as $pl)
 {
 	include $pl;
 }
@@ -43,7 +43,7 @@ if ($a == 'update')
 	$auth = cot_import('auth', 'P', 'ARR');
 
 	/* === Hook === */
-	foreach (cot_getextplugins('admin.rightsbyitem.update') as $pl)
+	foreach (cot_getextensions('admin.rightsbyitem.update') as $pl)
 	{
 		include $pl;
 	}
@@ -89,7 +89,7 @@ elseif($io != 'a' && !empty($ic))
 }
 
 /* === Hook for the plugins === */
-foreach (cot_getextplugins('admin.rightsbyitem.case') as $pl)
+foreach (cot_getextensions('admin.rightsbyitem.case') as $pl)
 {
 	include $pl;
 }
@@ -147,7 +147,7 @@ $t->assign(array(
 cot_display_messages($t);
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.rightsbyitem.tags') as $pl)
+foreach (cot_getextensions('admin.rightsbyitem.tags') as $pl)
 {
 	include $pl;
 }

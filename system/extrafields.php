@@ -122,7 +122,7 @@ function cot_build_extrafields($name, $extrafield, $data)
 			$extrafield['field_params'] .= (mb_substr($extrafield['field_params'], -1) == '/') ? '' : '/';
 			$data_filepath = $extrafield['field_params'] . htmlspecialchars($data);
 			/* === Hook === */
-			foreach (cot_getextplugins('extrafields.build.file') as $pl)
+			foreach (cot_getextensions('extrafields.build.file') as $pl)
 			{
 				include $pl;
 			}
@@ -283,7 +283,7 @@ function cot_import_extrafields($inputname, $extrafield, $source='P', $oldvalue=
 			}
 
 			/* === Hook === */
-			foreach (cot_getextplugins('extrafields.import.file.first') as $pl)
+			foreach (cot_getextensions('extrafields.import.file.first') as $pl)
 			{
 				include $pl;
 			}
@@ -322,7 +322,7 @@ function cot_import_extrafields($inputname, $extrafield, $source='P', $oldvalue=
 					$file['new'] = (!$import['delete']) ? $extrafield['field_params'].$fname : '';
 
 					/* === Hook === */
-					foreach (cot_getextplugins('extrafields.import.file.done') as $pl)
+					foreach (cot_getextensions('extrafields.import.file.done') as $pl)
 					{
 						include $pl;
 					}
@@ -808,7 +808,7 @@ function cot_extrafield_movefiles()
 		foreach ($uploadfiles as $uploadfile)
 		{
 			/* === Hook === */
-			foreach (cot_getextplugins('extrafields.movefiles') as $pl)
+			foreach (cot_getextensions('extrafields.movefiles') as $pl)
 			{
 				include $pl;
 			}
@@ -840,7 +840,7 @@ function cot_extrafield_unlinkfiles($fielddata, $extrafield)
 		if($extrafield['field_params'].$fielddata)
 		{
 			/* === Hook === */
-			foreach (cot_getextplugins('extrafields.unlinkfiles') as $pl)
+			foreach (cot_getextensions('extrafields.unlinkfiles') as $pl)
 			{
 				include $pl;
 			}

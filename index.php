@@ -110,16 +110,12 @@ else
 	{
 		$module_found = false;
 		$plugin_found = false;
-		if (file_exists($cfg['modules_dir'] . '/' . $_GET['e']) && isset($cot_modules[$_GET['e']]))
+		if (file_exists($cfg['extensions_dir'] . '/' . $_GET['e']) && isset($cot_modules[$_GET['e']]))
 		{
 			$module_found = true;
 			$found = true;
 		}
-		if (file_exists($cfg['plugins_dir'] . '/' . $_GET['e']))
-		{
-			$plugin_found = true;
-			$found = true;
-		}
+
 		if ($module_found && $plugin_found)
 		{
 			// Need to query the db to check which one is installed
@@ -145,12 +141,6 @@ else
 			$env['type'] = 'module';
 			define('COT_MODULE', true);
 		}
-		elseif ($plugin_found)
-		{
-			$env['type'] = 'plug';
-			$env['location'] = 'plugins';
-			define('COT_PLUG', true);
-		}
 	}
 	if ($found)
 	{
@@ -166,11 +156,5 @@ else
 
 
 // Load the requested extension
-if ($env['type'] == 'plug')
-{
-	require_once $cfg['system_dir'] . '/plugin.php';
-}
-else
-{
-	require_once $cfg['modules_dir'] . '/' . $env['ext'] . '/' . $env['ext'] . '.php';
-}
+require_once $cfg['extensions_dir'] . '/' . $env['ext'] . '/' . $env['ext'] . '.php';
+

@@ -35,7 +35,7 @@ $maxrowsperpage = (is_int($cfg['maxrowsperpage']) && $cfg['maxrowsperpage'] > 0 
 list($pg, $d, $durl) = cot_import_pagenav('d', $maxrowsperpage);
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.log.first') as $pl)
+foreach (cot_getextensions('admin.log.first') as $pl)
 {
 	include $pl;
 }
@@ -45,7 +45,7 @@ if($a == 'purge' && $usr['isadmin'])
 {
 	cot_check_xg();
 	/* === Hook === */
-	foreach (cot_getextplugins('admin.log.purge') as $pl)
+	foreach (cot_getextensions('admin.log.purge') as $pl)
 	{
 		include $pl;
 	}
@@ -86,7 +86,7 @@ else
 
 $ii = 0;
 /* === Hook - Part1 : Set === */
-$extp = cot_getextplugins('admin.log.loop');
+$extp = cot_getextensions('admin.log.loop');
 /* ===== */
 foreach ($sql->fetchAll() as $row)
 {
@@ -94,7 +94,7 @@ foreach ($sql->fetchAll() as $row)
 		'ADMIN_LOG_ROW_LOG_ID' => $row['log_id'],
 		'ADMIN_LOG_ROW_DATE' => cot_date('datetime_medium', $row['log_date']),
 		'ADMIN_LOG_ROW_DATE_STAMP' => $row['log_date'],
-		'ADMIN_LOG_ROW_URL_IP_SEARCH' => cot_plugin_active('ipsearch') ?
+		'ADMIN_LOG_ROW_URL_IP_SEARCH' => cot_extension_active('ipsearch') ?
 			cot_url('admin', 'm=other&p=ipsearch&a=search&id='.$row['log_ip'].'&'.cot_xg()) : '',
 		'ADMIN_LOG_ROW_LOG_IP' => $row['log_ip'],
 		'ADMIN_LOG_ROW_LOG_NAME' => $row['log_name'],
@@ -125,7 +125,7 @@ $t->assign(array(
 cot_display_messages($t);
 
 /* === Hook  === */
-foreach (cot_getextplugins('admin.log.tags') as $pl)
+foreach (cot_getextensions('admin.log.tags') as $pl)
 {
 	include $pl;
 }

@@ -22,7 +22,7 @@ $adminhelp = $L['adm_help_versions'];
 $adminsubtitle = $L['adm_infos'];
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.infos.first') as $pl)
+foreach (cot_getextensions('admin.infos.first') as $pl)
 {
 	include $pl;
 }
@@ -44,7 +44,7 @@ $t->assign(array(
 ));
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.infos.tags') as $pl)
+foreach (cot_getextensions('admin.infos.tags') as $pl)
 {
 	include $pl;
 }

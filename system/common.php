@@ -160,7 +160,7 @@ else
 		}
 		else
 		{
-			$cfg['plugin'][$row['config_cat']][$row['config_name']] = $row['config_value'];
+			$cfg[$row['config_cat']][$row['config_name']] = $row['config_value'];
 		}
 	}
 	$sql_config->closeCursor();
@@ -206,7 +206,7 @@ $sys['parser'] = $cfg['parser'];
 
 /* ======== Plugins ======== */
 
-if (!$cot_plugins && !defined('COT_INSTALL'))
+if (!$cot_extensions && !defined('COT_INSTALL'))
 {
 	$sql = $db->query("SELECT pl_code, pl_file, pl_hook, pl_module, pl_title FROM $db_plugins
 		WHERE pl_active = 1 ORDER BY pl_hook ASC, pl_order ASC");
@@ -215,12 +215,12 @@ if (!$cot_plugins && !defined('COT_INSTALL'))
 	{
 		while ($row = $sql->fetch())
 		{
-			$cot_plugins[$row['pl_hook']][] = $row;
+			$cot_extensions[$row['pl_hook']][] = $row;
 			$cot_plugins_active[$row['pl_code']] = true;
 		}
         $sql->closeCursor();
 	}
-	$cache && $cache->db->store('cot_plugins', $cot_plugins, 'system');
+	$cache && $cache->db->store('cot_plugins', $cot_extensions, 'system');
 	$cache && $cache->db->store('cot_plugins_active', $cot_plugins_active, 'system');
 }
 
@@ -451,7 +451,7 @@ if (!$cache || !$cot_cfg)
 unset($cot_cfg);
 
 /* === Hook === */
-foreach (cot_getextplugins('input') as $pl)
+foreach (cot_getextensions('input') as $pl)
 {
 	include $pl;
 }
@@ -631,7 +631,7 @@ if (class_exists('XTemplate'))
 
 /* ======== Global hook ======== */
 
-foreach (cot_getextplugins('global') as $pl)
+foreach (cot_getextensions('global') as $pl)
 {
 	include $pl;
 }

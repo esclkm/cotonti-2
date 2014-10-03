@@ -33,7 +33,7 @@ if ($db->query("SELECT grp_skiprights FROM $db_groups WHERE grp_id = $g")->fetch
 }
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.rights.first') as $pl)
+foreach (cot_getextensions('admin.rights.first') as $pl)
 {
 	include $pl;
 }
@@ -45,7 +45,7 @@ if ($a == 'update')
 	$ncopyrightsfrom = cot_import('ncopyrightsfrom', 'P', 'INT');
 
 	/* === Hook === */
-	foreach (cot_getextplugins('admin.rights.update') as $pl)
+	foreach (cot_getextensions('admin.rights.update') as $pl)
 	{
 		include $pl;
 	}
@@ -93,7 +93,7 @@ if ($a == 'update')
 $jj = 1;
 
 /* === Hook for the plugins === */
-foreach (cot_getextplugins('admin.rights.main') as $pl)
+foreach (cot_getextensions('admin.rights.main') as $pl)
 {
 	include $pl;
 }
@@ -148,7 +148,7 @@ while ($row = $sql->fetch())
 	{
 		$link = cot_url('admin', "m=extensions&a=details&mod=".$row['auth_code']);
 		$title = $cot_modules[$row['auth_code']]['title'];
-		$ico = $cfg['modules_dir'] . '/' . $row['auth_code'] . '/' . $row['auth_code'] . '.png';
+		$ico = $cfg['extensions_dir'] . '/' . $row['auth_code'] . '/' . $row['auth_code'] . '.png';
 	}
 
 	cot_rights_parseline($row, $title, $link, $ico);
@@ -176,7 +176,7 @@ while ($row = $sql->fetch())
 	$area = $row['structure_area'];
 	$link = cot_url('admin', 'm=structure&n='.$area.'&al='.$row['auth_option']);
 	$title = $structure[$row['structure_area']][$row['auth_option']]['tpath'];
-	$ico = $cfg['modules_dir'] . '/' . $area . '/' . $area . '.png';
+	$ico = $cfg['extensions_dir'] . '/' . $area . '/' . $area . '.png';
 	cot_rights_parseline($row, $title, $link, $ico);
 }
 if(!empty($area))
@@ -203,7 +203,7 @@ $t->assign('RIGHTS_SECTION_TITLE', $L['Plugins']);
 $t->parse('MAIN.RIGHTS_SECTION');
 
 /* === Hook for the plugins === */
-foreach (cot_getextplugins('admin.rights.end') as $pl)
+foreach (cot_getextensions('admin.rights.end') as $pl)
 {
 	include $pl;
 }
@@ -214,7 +214,7 @@ $adv_for_url = ($advanced) ? '&advanced=1' : '';
 cot_display_messages($t);
 
 /* === Hook === */
-foreach (cot_getextplugins('admin.rights.tags') as $pl)
+foreach (cot_getextensions('admin.rights.tags') as $pl)
 {
 	include $pl;
 }
