@@ -79,7 +79,7 @@
 			<!-- If you want an extra tab between Forums and Pages. Change also header-latest_original.png in header-latest.png
 			<div id="comments" class="tabcontent">
 				<h4 class="none">{PHP.themelang.index.Recentcomments}</h4>
-					{PLUGIN_LATESTCOMMENTS}
+					{EXT_LATESTCOMMENTS}
             </div>
 			-->
             <div id="pages" class="tabcontent">

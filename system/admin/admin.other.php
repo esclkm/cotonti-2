@@ -29,7 +29,7 @@ if(!empty($p))
 	cot_block($usr['isadmin']);
 
 	$env['ext'] = $p;
-	$adminsubtitle = $cot_plugins_active[$p]['title'];
+	$adminsubtitle = $cot_extensions_active[$p]['title'];
 
 	if (file_exists(cot_langfile($p, 'plug')))
 	{
@@ -55,7 +55,7 @@ if(!empty($p))
 	}
 
 	$adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
-	$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&pl='.$p), $cot_plugins_enabled[$p]['title']);
+	$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&pl='.$p), $cot_modules[$p]['title']);
 	$adminpath[] = array(cot_url('admin', 'm=other&p='.$p), $L['Administration']);
 	// $adminhelp = $L['Description'].' : '.$info['Description'].'<br />'.$L['Version'].' : '.$info['Version'].'<br />'.$L['Date'].' : '.$info['Date'].'<br />'.$L['Author'].' : '.$info['Author'].'<br />'.$L['Copyright'].' : '.$info['Copyright'].'<br />'.$L['Notes'].' : '.$info['Notes'];
 

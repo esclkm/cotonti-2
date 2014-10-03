@@ -11,7 +11,7 @@
 defined('COT_CODE') or die('Wrong URL');
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_email'] = 'Email';
@@ -26,7 +26,7 @@ $L['cfg_template_hint'] = 'Using variables: {$sitetitle}, {$siteurl}, {$author},
 $L['info_desc'] = 'Contact form for user feedback delivered via email and recorded in database';
 
 /**
- * Plugin Admin
+ * Extension Admin
  */
 
 $L['contact_view'] = 'View message';
@@ -47,7 +47,7 @@ $L['contact_title'] = 'Contact us';
 $L['contact_subtitle'] = 'Contact info';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['contact_headercontact'] = 'Contact';

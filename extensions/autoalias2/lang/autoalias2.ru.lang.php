@@ -12,14 +12,14 @@
 defined('COT_CODE') or die('Wrong URL');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['AutoAlias2'] = 'AutoAlias 2';
 $L['info_desc'] = 'Создание алиаса при его отсутствии из заголовка страницы';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_translit'] = 'Транслитерировать нелатинские символы, если возможно';
@@ -29,7 +29,7 @@ $L['cfg_sep'] = 'Разделитель слов';
 $L['cfg_lowercase'] = 'Переводить алиас в строчные буквы';
 
 /**
- * Plugin Admin
+ * Extension Admin
  */
 
 $L['aliases_written'] = 'Алиасов записано: {$count}';

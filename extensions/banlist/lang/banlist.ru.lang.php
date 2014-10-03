@@ -14,7 +14,7 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['info_desc'] = 'Блокировка пользователей администратором по IP или E-mail';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['banlist_title'] = 'Банлист';

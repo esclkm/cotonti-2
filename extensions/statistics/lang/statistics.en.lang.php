@@ -21,7 +21,7 @@ $L['plu_title'] = 'Statistics';
 $L['Statistics'] = 'Statistics';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['plu_totalpagessince'] = 'Total pages displayed since';

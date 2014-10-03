@@ -12,7 +12,7 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'Enables tags - site content keywords, tag clouds, tag search and API';
@@ -24,7 +24,7 @@ $L['info_desc'] = 'Enables tags - site content keywords, tag clouds, tag search 
 $L['plu_title'] = 'Tags';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['tags_All'] = 'All tags';
@@ -41,7 +41,7 @@ $L['tags_Tag_cloud'] = 'Tag Cloud';
 $L['tags_Tag_cloud_none'] = 'No tags';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_forums'] = 'Enable tags in forums';

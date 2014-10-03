@@ -12,7 +12,7 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'Теги &mdash; метки для контента с облаком, поиском и API';
@@ -24,7 +24,7 @@ $L['info_desc'] = 'Теги &mdash; метки для контента с обл
 $L['plu_title'] = 'Теги';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['tags_All'] = 'Все теги';
@@ -41,7 +41,7 @@ $L['tags_Tag_cloud'] = 'Облако тегов';
 $L['tags_Tag_cloud_none'] = 'Нет тегов';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_forums'] = 'Включить теги для форумов';

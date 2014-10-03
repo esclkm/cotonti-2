@@ -12,13 +12,13 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'Вывод страниц указанной категории на главной странице в виде новостной ленты';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_category'] = 'Категории новостной ленты';

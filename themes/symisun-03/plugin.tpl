@@ -2,10 +2,10 @@
 
 			<div id="left" style="margin-right:25px">
 
-				<h1>{PLUGIN_TITLE}</h1>
+				<h1>{EXT_TITLE}</h1>
 
-				<p class="details">{PLUGIN_SUBTITLE}</p>
-				{PLUGIN_BODY}
+				<p class="details">{EXT_SUBTITLE}</p>
+				{EXT_BODY}
 
 			</div>
 

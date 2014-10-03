@@ -12,13 +12,13 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'Вывод обновленного контента (страницы, темы) на главной странице сайта';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_recentpages'] = 'Отображать новые страницы на главной странице';
@@ -47,7 +47,7 @@ $L['cfg_cache_ttl'] = 'Время жизни кеша в секундах';
 $L['cfg_cache_ttl_hint'] = '0 - кеш отключен';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['recentitems_title'] = 'Новое на сайте';

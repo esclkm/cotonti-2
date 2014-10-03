@@ -24,7 +24,7 @@ cot::$db->registerTable('tag_references');
  * @param string $tag The tag (keyword)
  * @param int $item Item ID
  * @param string $area Site area code (e.g. 'pages', 'forums', 'blog')
- * @param mixed $extra Extra condition (name => value) for plugins
+ * @param mixed $extra Extra condition (name => value) for extensions
  * @return bool
  * @global CotDB $db
  */
@@ -132,7 +132,7 @@ function cot_tag_complete($tag, $min_length = 3)
  *
  * @param string $tag The tag (keyword)
  * @param string $area Site area or empty to count in all areas
- * @param mixed $extra Extra condition (name => value) for plugins
+ * @param mixed $extra Extra condition (name => value) for extensions
  * @return int
  * @global CotDB $db
  */
@@ -173,7 +173,7 @@ function cot_tag_exists($tag)
  * @param string $tag The tag (keyword)
  * @param int $item Item ID
  * @param string $area Site area code (e.g. 'pages', 'forums', 'blog')
- * @param mixed $extra Extra condition (name => value) for plugins
+ * @param mixed $extra Extra condition (name => value) for extensions
  * @return bool
  * @global CotDB $db
  */
@@ -199,7 +199,7 @@ function cot_tag_isset($tag, $item, $area = 'pages', $extra = null)
  *
  * @param mixed $item Item ID or an array of item IDs
  * @param string $area Site area code (e.g. 'pages', 'forums', 'blog')
- * @param mixed $extra Extra condition (name => value) for plugins
+ * @param mixed $extra Extra condition (name => value) for extensions
  * @return array
  * @global CotDB $db
  */
@@ -352,7 +352,7 @@ function cot_tag_register($tag)
  * @param string $tag The tag (keyword)
  * @param int $item Item ID
  * @param string $area Site area code (e.g. 'pages', 'forums', 'blog')
- * @param mixed $extra Extra condition (name => value) for plugins
+ * @param mixed $extra Extra condition (name => value) for extensions
  * @return bool
  * @global CotDB $db
  */
@@ -382,7 +382,7 @@ function cot_tag_remove($tag, $item, $area = 'pages', $extra = null)
  *
  * @param int $item Item ID
  * @param string $area Site area
- * @param mixed $extra Extra condition (name => value) for plugins
+ * @param mixed $extra Extra condition (name => value) for extensions
  * @return int
  * @global CotDB $db
  */

@@ -1,5 +1,5 @@
 <!-- BEGIN: MAIN -->
-<script src="{PHP.cfg.plugins_dir}/news/js/news.admin.js" type="text/javascript"></script>
+<script src="{PHP.cfgs_dir}/news/js/news.admin.js" type="text/javascript"></script>
 <div id="catgenerator"> <div style="display:none">{MAINCATEGORY}</div>
 	<table class="cells">
 		<tr>

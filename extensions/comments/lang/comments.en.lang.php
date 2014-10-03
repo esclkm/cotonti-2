@@ -12,7 +12,7 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_enable_comments'] = 'Enable comments';
@@ -43,7 +43,7 @@ $L['cfg_parsesmiliescom_hint'] = '';
 $L['info_desc'] = 'Comments system for Cotonti with API and integration with pages, lists, polls, RSS and other extensions';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['comments_comment'] = 'Comment';

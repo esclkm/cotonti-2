@@ -18,7 +18,7 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['plu_search'] = 'Поиск';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 // Общие - залоговок, инфо, запрос.
@@ -90,7 +90,7 @@ $L['plu_section'] = 'Раздел';
 $L['plu_last_date'] = 'Дата обновления';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_maxwords'] = 'Максимум поисковых слов';

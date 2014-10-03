@@ -12,7 +12,7 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_commentsize'] = 'Макс. размер комментария, байт';
@@ -43,7 +43,7 @@ $L['cfg_time_hint'] = 'минут';
 $L['info_desc'] = 'Комментарии с API и интеграцией со страницами, списками, опросами, RSS и другими расширениями';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['comments_comment'] = 'Комментарий';

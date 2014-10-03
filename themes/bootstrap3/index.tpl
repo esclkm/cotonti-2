@@ -24,7 +24,7 @@
 		</div>
 	</div>
 
-	<!-- IF {PHP.cot_plugins_active.recentitems} -->
+	<!-- IF {PHP.cot_extensions_active.recentitems} -->
 
 	<h2><a href="{PHP|cot_url('plug','e=recentitems')}">{PHP.L.recentitems_title}</a></h2>
 	<!-- IF {RECENT_PAGES} -->

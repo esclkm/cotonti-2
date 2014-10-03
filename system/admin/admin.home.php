@@ -78,8 +78,8 @@ foreach ($tables as $dat)
 	$total_data_length += $dat['Data_length'];
 }
 
-$totalplugins = $db->query("SELECT DISTINCT(pl_code) FROM $db_plugins WHERE 1 GROUP BY pl_code")->rowCount();
-$totalhooks = $db->query("SELECT COUNT(*) FROM $db_plugins")->fetchColumn();
+$totalplugins = $db->query("SELECT DISTINCT(pl_code) FROM $db_extensions WHERE 1 GROUP BY pl_code")->rowCount();
+$totalhooks = $db->query("SELECT COUNT(*) FROM $db_extensions")->fetchColumn();
 
 $t->assign(array(
 	'ADMIN_HOME_DB_TOTAL_ROWS' => $total_rows,

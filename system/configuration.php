@@ -93,7 +93,7 @@ define('COT_CONFIG_TYPE_CUSTOM', 8);
  * 'order' => A string that determines position of the option in the list,
  * 		e.g. '04'. Or will be assigned automatically if omitted
  * 'text' => Textual description. It is usually omitted and stored in langfiles
- * @param mixed $is_module Flag indicating if it is module or plugin config
+ * @param mixed $is_module Flag indicating if it is module or  Extension Config
  * @param string $category Structure category code. Only for per-category config options
  * @param string $donor Extension name for extension-to-extension config implantations
  * @return bool Operation status
@@ -343,7 +343,7 @@ function cot_config_parse($info_cfg)
  * Unregisters configuration option(s).
  *
  * @param string $name Extension name (code)
- * @param mixed $is_module Flag indicating if it is module or plugin config
+ * @param mixed $is_module Flag indicating if it is module or  Extension Config
  * @param mixed $option String name of a single configuration option.
  * Or pass an array of option names to remove them at once. If empty or omitted,
  * all options from selected module/plugin will be removed
@@ -416,7 +416,7 @@ function cot_config_remove($name, $is_module = false, $option = '', $category = 
  *
  * @param string $name Extension name config belongs to
  * @param array $options Array of options as 'option name' => 'option value'
- * @param mixed $is_module Flag indicating if it is module or plugin config
+ * @param mixed $is_module Flag indicating if it is module or  Extension Config
  * @param string $category Structure category code. Only for per-category config options
  * @return int Number of entries updated
  * @global CotDB $db
@@ -543,7 +543,7 @@ function cot_config_update($name, $options, $is_module = false, $category = '', 
  *
  * @param string $name Extension name config belongs to
  * @param string $option Option name
- * @param mixed $is_module Flag indicating if it is module or plugin config
+ * @param mixed $is_module Flag indicating if it is module or  Extension Config
  * @param string $category Structure category code. Only for per-category config options
  * @return int Number of entries updated
  * @global CotDB $db

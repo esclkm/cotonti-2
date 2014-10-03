@@ -12,13 +12,13 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'One-click star ratings using jQuery';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_enable_ratings'] = 'Enable ratings';
@@ -27,7 +27,7 @@ $L['cfg_ratings_allowchange_hint'] = 'If enabled it will allow users to change t
 $L['cfg_css'] = 'Use plugin CSS';
 
 /**
- * Plugin Admin
+ * Extension Admin
  */
 
 $L['adm_ratings_already_del'] = 'Rating removed';
@@ -36,7 +36,7 @@ $L['adm_ratings_totalvotes'] = 'Total votes';
 $L['adm_help_ratings'] = 'To reset a rating, simply delete it. It will be re-created with the first new vote.';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['rat_choice1'] = 'Very poor';

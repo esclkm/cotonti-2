@@ -47,7 +47,7 @@ if ($m == 'comments')
 		{
 			$items[$i]['title'] = $L['rss_comment_of_user']." ".$row['user_name'];
 
-			$text = cot_parse($row['com_text'], $cfg['plugins']['comments']['markup']);
+			$text = cot_parse($row['com_text'], $cfg['comments']['markup']);
 			if ((int)$cfg['comments']['rss_commentmaxsymbols'] > 0)
 			{
 				$text .= (cot_string_truncate($text, $cfg['comments']['rss_commentmaxsymbols'])) ? '...' : '';

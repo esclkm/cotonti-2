@@ -44,7 +44,7 @@ $L['polls_votecasted'] = 'Выполнено, ваш голос записан';
 $L['polls_votes'] = 'голосов';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_del_dup_options'] = 'Принудительное удаление дублирующихся ответов';

@@ -11,7 +11,7 @@
 
 defined('COT_CODE') or die('Wrong URL.');
 
-// Plugin configuration
+//  Extension Configuration
 
 $L['cfg_cats'] = 'Корневые категории для применения i18n';
 $L['cfg_cats_hint'] = 'Коды категорий через запятую';

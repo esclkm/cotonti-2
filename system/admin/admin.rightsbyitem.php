@@ -103,7 +103,7 @@ else
 	$adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
 	if($ic == 'plug')
 	{
-		$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&pl='.$io), $cot_plugins_enabled[$io]['title']);
+		$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&pl='.$io), $cot_modules[$io]['title']);
 	}
 	else
 	{

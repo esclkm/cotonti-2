@@ -12,13 +12,13 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'Autocomplete for usernames in forms';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_autocomplete'] = 'Min. chars for autocomplete';

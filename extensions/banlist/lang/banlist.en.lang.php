@@ -14,7 +14,7 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['info_desc'] = 'Administration tool to ban users by IP or E-mail';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['banlist_title'] = 'Banlist';

@@ -3,11 +3,11 @@
 		<div class="col">
 			<div class="block">
 				<h2 class="message"><a href="{PHP|cot_url('module','e=contact')}">{PHP.L.contact_title}</a></h2>
-				<!-- IF {PHP.cfg.plugin.contact.about} -->
-				<p>{PHP.cfg.plugin.contact.about}</p>
+				<!-- IF {PHP.cfg.contact.about} -->
+				<p>{PHP.cfg.contact.about}</p>
 				<!-- ENDIF -->
-				<!-- IF {PHP.cfg.plugin.contact.map} -->
-				<p>{PHP.cfg.plugin.contact.map}</p>
+				<!-- IF {PHP.cfg.contact.map} -->
+				<p>{PHP.cfg.contact.map}</p>
 				<!-- ENDIF -->
 					{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 <!-- BEGIN: FORM -->

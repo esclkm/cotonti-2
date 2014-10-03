@@ -204,24 +204,24 @@ define('COT_AJAX', !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SER
 // Other system variables
 $sys['parser'] = $cfg['parser'];
 
-/* ======== Plugins ======== */
+/* ======== Extensions ======== */
 
 if (!$cot_extensions && !defined('COT_INSTALL'))
 {
-	$sql = $db->query("SELECT pl_code, pl_file, pl_hook, pl_module, pl_title FROM $db_plugins
+	$sql = $db->query("SELECT pl_code, pl_file, pl_hook, pl_module, pl_title FROM $db_extensions
 		WHERE pl_active = 1 ORDER BY pl_hook ASC, pl_order ASC");
-	$cot_plugins_active = array();
+	$cot_extensions_active = array();
 	if ($sql->rowCount() > 0)
 	{
 		while ($row = $sql->fetch())
 		{
 			$cot_extensions[$row['pl_hook']][] = $row;
-			$cot_plugins_active[$row['pl_code']] = true;
+			$cot_extensions_active[$row['pl_code']] = true;
 		}
         $sql->closeCursor();
 	}
-	$cache && $cache->db->store('cot_plugins', $cot_extensions, 'system');
-	$cache && $cache->db->store('cot_plugins_active', $cot_plugins_active, 'system');
+	$cache && $cache->db->store('cot_extensions', $cot_extensions, 'system');
+	$cache && $cache->db->store('cot_extensions_active', $cot_extensions_active, 'system');
 }
 
 if (!$cot_modules)
@@ -232,27 +232,15 @@ if (!$cot_modules)
 	{
 		while ($row = $sql->fetch())
 		{
-			if ($row['ct_plug'])
-			{
-				$cot_plugins_enabled[$row['ct_code']] = array(
-					'code' => $row['ct_code'],
-					'title' => $row['ct_title'],
-                    'version' => $row['ct_version']
-				);
-			}
-			else
-			{
-				$cot_modules[$row['ct_code']] = array(
-					'code' => $row['ct_code'],
-					'title' => $row['ct_title'],
-                    'version' => $row['ct_version']
-				);
-			}
+			$cot_modules[$row['ct_code']] = array(
+				'code' => $row['ct_code'],
+				'title' => $row['ct_title'],
+                'version' => $row['ct_version']
+			);
 		}
         $sql->closeCursor();
 	}
 	$cache && $cache->db->store('cot_modules', $cot_modules, 'system');
-	$cache && $cache->db->store('cot_plugins_enabled', $cot_plugins_enabled, 'system');
 }
 
 /* ======== Gzip and output filtering ======== */

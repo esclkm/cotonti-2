@@ -12,7 +12,7 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_logprune'] = 'Delete log entries older than';

@@ -130,14 +130,14 @@ if (($tab == 'pag' || empty($tab)) && cot_extension_active('page') && $cfg['sear
 	/* ===== */
 
 	$t->assign(array(
-		'PLUGIN_PAGE_SEC_LIST' => cot_selectbox($rs['pagsub'], 'rs[pagsub][]', array_keys($pages_cat_list), array_values($pages_cat_list), false, 'multiple="multiple" style="width:50%"'),
-		'PLUGIN_PAGE_RES_SORT' => cot_selectbox($rs['pagsort'], 'rs[pagsort]', array('date', 'title', 'count', 'cat'), array($L['plu_pag_res_sort1'], $L['plu_pag_res_sort2'], $L['plu_pag_res_sort3'], $L['plu_pag_res_sort4']), false),
-		'PLUGIN_PAGE_RES_SORT_WAY' => cot_radiobox($rs['pagsort2'], 'rs[pagsort2]', array('DESC', 'ASC'), array($L['plu_sort_desc'], $L['plu_sort_asc'])),
-		'PLUGIN_PAGE_SEARCH_NAMES' => cot_checkbox(($rs['pagtitle'] == 1 || count($rs['pagsub']) == 0), 'rs[pagtitle]', $L['plu_pag_search_names']),
-		'PLUGIN_PAGE_SEARCH_DESC' => cot_checkbox(($rs['pagdesc'] == 1 || count($rs['pagsub']) == 0), 'rs[pagdesc]', $L['plu_pag_search_desc']),
-		'PLUGIN_PAGE_SEARCH_TEXT' => cot_checkbox(($rs['pagtext'] == 1 || count($rs['pagsub']) == 0), 'rs[pagtext]', $L['plu_pag_search_text']),
-		'PLUGIN_PAGE_SEARCH_SUBCAT' => cot_checkbox($rs['pagsubcat'], 'rs[pagsubcat]', $L['plu_pag_set_subsec']),
-		'PLUGIN_PAGE_SEARCH_FILE' => cot_checkbox($rs['pagfile'] == 1, 'rs[pagfile]', $L['plu_pag_search_file'])
+		'EXT_PAGE_SEC_LIST' => cot_selectbox($rs['pagsub'], 'rs[pagsub][]', array_keys($pages_cat_list), array_values($pages_cat_list), false, 'multiple="multiple" style="width:50%"'),
+		'EXT_PAGE_RES_SORT' => cot_selectbox($rs['pagsort'], 'rs[pagsort]', array('date', 'title', 'count', 'cat'), array($L['plu_pag_res_sort1'], $L['plu_pag_res_sort2'], $L['plu_pag_res_sort3'], $L['plu_pag_res_sort4']), false),
+		'EXT_PAGE_RES_SORT_WAY' => cot_radiobox($rs['pagsort2'], 'rs[pagsort2]', array('DESC', 'ASC'), array($L['plu_sort_desc'], $L['plu_sort_asc'])),
+		'EXT_PAGE_SEARCH_NAMES' => cot_checkbox(($rs['pagtitle'] == 1 || count($rs['pagsub']) == 0), 'rs[pagtitle]', $L['plu_pag_search_names']),
+		'EXT_PAGE_SEARCH_DESC' => cot_checkbox(($rs['pagdesc'] == 1 || count($rs['pagsub']) == 0), 'rs[pagdesc]', $L['plu_pag_search_desc']),
+		'EXT_PAGE_SEARCH_TEXT' => cot_checkbox(($rs['pagtext'] == 1 || count($rs['pagsub']) == 0), 'rs[pagtext]', $L['plu_pag_search_text']),
+		'EXT_PAGE_SEARCH_SUBCAT' => cot_checkbox($rs['pagsubcat'], 'rs[pagsubcat]', $L['plu_pag_set_subsec']),
+		'EXT_PAGE_SEARCH_FILE' => cot_checkbox($rs['pagfile'] == 1, 'rs[pagfile]', $L['plu_pag_search_file'])
 	));
 	if ($tab == 'pag' || (empty($tab) && $cfg['search']['extrafilters']))
 	{
@@ -164,13 +164,13 @@ if (($tab == 'frm' || empty($tab)) && cot_extension_active('forums') && $cfg['se
 	}
 
 	$t->assign(array(
-		'PLUGIN_FORUM_SEC_LIST' => cot_selectbox($rs['frmsub'], 'rs[frmsub][]', array_keys($forum_cat_list), array_values($forum_cat_list), false, 'multiple="multiple" style="width:50%"'),
-		'PLUGIN_FORUM_RES_SORT' => cot_selectbox($rs['frmsort'], 'rs[frmsort]', array('updated', 'creationdate', 'title', 'postcount', 'viewcount', 'sectionid'), array($L['plu_frm_res_sort1'], $L['plu_frm_res_sort2'], $L['plu_frm_res_sort3'], $L['plu_frm_res_sort4'], $L['plu_frm_res_sort5'], $L['plu_frm_res_sort6']), false),
-		'PLUGIN_FORUM_RES_SORT_WAY' => cot_radiobox($rs['frmsort2'], 'rs[frmsort2]', array('DESC', 'ASC'), array($L['plu_sort_desc'], $L['plu_sort_asc'])),
-		'PLUGIN_FORUM_SEARCH_NAMES' => cot_checkbox(($rs['frmtitle'] == 1 || count($rs['frmsub']) == 0), 'rs[frmtitle]', $L['plu_frm_search_names']),
-		'PLUGIN_FORUM_SEARCH_POST' => cot_checkbox(($rs['frmtext'] == 1 || count($rs['frmsub']) == 0), 'rs[frmtext]', $L['plu_frm_search_post']),
-		'PLUGIN_FORUM_SEARCH_ANSW' => cot_checkbox(($rs['frmreply'] == 1 || count($rs['frmsub']) == 0), 'rs[frmreply]', $L['plu_frm_search_answ']),
-		'PLUGIN_FORUM_SEARCH_SUBCAT' => cot_checkbox($rs['frmsubcat'], 'rs[frmsubcat]', $L['plu_frm_set_subsec'])
+		'EXT_FORUM_SEC_LIST' => cot_selectbox($rs['frmsub'], 'rs[frmsub][]', array_keys($forum_cat_list), array_values($forum_cat_list), false, 'multiple="multiple" style="width:50%"'),
+		'EXT_FORUM_RES_SORT' => cot_selectbox($rs['frmsort'], 'rs[frmsort]', array('updated', 'creationdate', 'title', 'postcount', 'viewcount', 'sectionid'), array($L['plu_frm_res_sort1'], $L['plu_frm_res_sort2'], $L['plu_frm_res_sort3'], $L['plu_frm_res_sort4'], $L['plu_frm_res_sort5'], $L['plu_frm_res_sort6']), false),
+		'EXT_FORUM_RES_SORT_WAY' => cot_radiobox($rs['frmsort2'], 'rs[frmsort2]', array('DESC', 'ASC'), array($L['plu_sort_desc'], $L['plu_sort_asc'])),
+		'EXT_FORUM_SEARCH_NAMES' => cot_checkbox(($rs['frmtitle'] == 1 || count($rs['frmsub']) == 0), 'rs[frmtitle]', $L['plu_frm_search_names']),
+		'EXT_FORUM_SEARCH_POST' => cot_checkbox(($rs['frmtext'] == 1 || count($rs['frmsub']) == 0), 'rs[frmtext]', $L['plu_frm_search_post']),
+		'EXT_FORUM_SEARCH_ANSW' => cot_checkbox(($rs['frmreply'] == 1 || count($rs['frmsub']) == 0), 'rs[frmreply]', $L['plu_frm_search_answ']),
+		'EXT_FORUM_SEARCH_SUBCAT' => cot_checkbox($rs['frmsubcat'], 'rs[frmsubcat]', $L['plu_frm_set_subsec'])
 	));
 	if ($tab == 'frm' || (empty($tab) && $cfg['search']['extrafilters']))
 	{
@@ -297,16 +297,16 @@ if (!empty($sq))
 		{
 			$url_cat = cot_url('page', 'c='.$row['page_cat']);
 			$url_page = empty($row['page_alias']) ? cot_url('page', 'c='.$row['page_cat'].'&id='.$row['page_id'].'&highlight='.$hl) : cot_url('page', 'c='.$row['page_cat'].'&al='.$row['page_alias'].'&highlight='.$hl);
-			$t->assign(cot_generate_pagetags($row, 'PLUGIN_PR_'));
+			$t->assign(cot_generate_pagetags($row, 'EXT_PR_'));
 			$t->assign(array(
-				'PLUGIN_PR_CATEGORY' => cot_rc_link($url_cat, $structure['page'][$row['page_cat']]['tpath']),
-				'PLUGIN_PR_CATEGORY_URL' => $url_cat,
-				'PLUGIN_PR_TITLE' => cot_rc_link($url_page, htmlspecialchars($row['page_title'])),
-				'PLUGIN_PR_TEXT' => cot_clear_mark($row['page_text'], $words),
-				'PLUGIN_PR_TIME' => cot_date('datetime_medium', $row['page_date']),
-				'PLUGIN_PR_TIMESTAMP' => $row['page_date'],
-				'PLUGIN_PR_ODDEVEN' => cot_build_oddeven($jj),
-				'PLUGIN_PR_NUM' => $jj
+				'EXT_PR_CATEGORY' => cot_rc_link($url_cat, $structure['page'][$row['page_cat']]['tpath']),
+				'EXT_PR_CATEGORY_URL' => $url_cat,
+				'EXT_PR_TITLE' => cot_rc_link($url_page, htmlspecialchars($row['page_title'])),
+				'EXT_PR_TEXT' => cot_clear_mark($row['page_text'], $words),
+				'EXT_PR_TIME' => cot_date('datetime_medium', $row['page_date']),
+				'EXT_PR_TIMESTAMP' => $row['page_date'],
+				'EXT_PR_ODDEVEN' => cot_build_oddeven($jj),
+				'EXT_PR_NUM' => $jj
 			));
 			/* === Hook - Part 2 === */
 			foreach ($extp as $pl)
@@ -386,14 +386,14 @@ if (!empty($sq))
 			{
 				$post_url = ($cfg['search']['searchurl'] == 'Single') ? cot_url('forums', 'm=posts&id='.$row['fp_id'].'&highlight='.$hl) : cot_url('forums', 'm=posts&p='.$row['fp_id'].'&highlight='.$hl, '#'.$row['fp_id']);
 				$t->assign(array(
-					'PLUGIN_FR_CATEGORY' => cot_breadcrumbs(cot_forums_buildpath($row['ft_cat']), false),
-					'PLUGIN_FR_TITLE' => cot_rc_link($post_url, htmlspecialchars($row['ft_title'])),
-					'PLUGIN_FR_TITLE_URL' => $post_url,
-					'PLUGIN_FR_TEXT' => cot_clear_mark($row['fp_text'], $words),
-					'PLUGIN_FR_TIME' => $row['ft_updated'] > 0 ? cot_date('datetime_medium', $row['ft_updated']) : cot_date('datetime_medium', $row['fp_updated']),
-					'PLUGIN_FR_TIMESTAMP' => $row['ft_updated'] > 0 ? $row['ft_updated'] : $row['fp_updated'],
-					'PLUGIN_FR_ODDEVEN' => cot_build_oddeven($jj),
-					'PLUGIN_FR_NUM' => $jj,
+					'EXT_FR_CATEGORY' => cot_breadcrumbs(cot_forums_buildpath($row['ft_cat']), false),
+					'EXT_FR_TITLE' => cot_rc_link($post_url, htmlspecialchars($row['ft_title'])),
+					'EXT_FR_TITLE_URL' => $post_url,
+					'EXT_FR_TEXT' => cot_clear_mark($row['fp_text'], $words),
+					'EXT_FR_TIME' => $row['ft_updated'] > 0 ? cot_date('datetime_medium', $row['ft_updated']) : cot_date('datetime_medium', $row['fp_updated']),
+					'EXT_FR_TIMESTAMP' => $row['ft_updated'] > 0 ? $row['ft_updated'] : $row['fp_updated'],
+					'EXT_FR_ODDEVEN' => cot_build_oddeven($jj),
+					'EXT_FR_NUM' => $jj,
 				));
 				$t->parse('MAIN.RESULTS.FORUMS.ITEM');
 			}
@@ -450,17 +450,17 @@ $out['head'] .= $R['code_noindex'];
 $search_subtitle = empty($tab) ? $L['plu_search'] : $L['plu_tabs_'.$tab].' - '.$L['plu_search'];
 $out['subtitle'] = empty($sq) ? $search_subtitle : htmlspecialchars(strip_tags($sq)).' - '.$L['plu_result'];
 $t->assign(array(
-	'PLUGIN_TITLE' => cot_breadcrumbs($crumbs, $cfg['breadcrumb'], true),
-	'PLUGIN_SEARCH_ACTION' => cot_url('module', 'e=search&tab='.$tab),
-	'PLUGIN_SEARCH_TEXT' => cot_inputbox('text', 'sq', htmlspecialchars($sq), 'size="32" maxlength="'.$cfg['search']['maxsigns'].'"'),
-	'PLUGIN_SEARCH_USER' => cot_inputbox('text', 'rs[setuser]', htmlspecialchars($rs['setuser']), 'class="userinput" size="32"'),
-	'PLUGIN_SEARCH_DATE_SELECT' => cot_selectbox($rs['setlimit'], 'rs[setlimit]', range(0, 5), array($L['plu_any_date'], $L['plu_last_2_weeks'], $L['plu_last_1_month'], $L['plu_last_3_month'], $L['plu_last_1_year'], $L['plu_need_datas']), false),
-	'PLUGIN_SEARCH_DATE_FROM' => cot_selectbox_date($rs['setfrom'], 'short', 'rs[rfrom]', cot_date('Y', $sys['now']) + 1),
-	'PLUGIN_SEARCH_DATE_TO' => cot_selectbox_date($rs['setto'], 'short', 'rs[rto]', cot_date('Y', $sys['now']) + 1),
-	'PLUGIN_SEARCH_FOUND' => (array_sum($totalitems) > 0) ? array_sum($totalitems) : '',
-	'PLUGIN_PAGEPREV' => $pagenav['prev'],
-	'PLUGIN_PAGENEXT' => $pagenav['next'],
-	'PLUGIN_PAGENAV' => $pagenav['main']
+	'EXT_TITLE' => cot_breadcrumbs($crumbs, $cfg['breadcrumb'], true),
+	'EXT_SEARCH_ACTION' => cot_url('module', 'e=search&tab='.$tab),
+	'EXT_SEARCH_TEXT' => cot_inputbox('text', 'sq', htmlspecialchars($sq), 'size="32" maxlength="'.$cfg['search']['maxsigns'].'"'),
+	'EXT_SEARCH_USER' => cot_inputbox('text', 'rs[setuser]', htmlspecialchars($rs['setuser']), 'class="userinput" size="32"'),
+	'EXT_SEARCH_DATE_SELECT' => cot_selectbox($rs['setlimit'], 'rs[setlimit]', range(0, 5), array($L['plu_any_date'], $L['plu_last_2_weeks'], $L['plu_last_1_month'], $L['plu_last_3_month'], $L['plu_last_1_year'], $L['plu_need_datas']), false),
+	'EXT_SEARCH_DATE_FROM' => cot_selectbox_date($rs['setfrom'], 'short', 'rs[rfrom]', cot_date('Y', $sys['now']) + 1),
+	'EXT_SEARCH_DATE_TO' => cot_selectbox_date($rs['setto'], 'short', 'rs[rto]', cot_date('Y', $sys['now']) + 1),
+	'EXT_SEARCH_FOUND' => (array_sum($totalitems) > 0) ? array_sum($totalitems) : '',
+	'EXT_PAGEPREV' => $pagenav['prev'],
+	'EXT_PAGENEXT' => $pagenav['next'],
+	'EXT_PAGENAV' => $pagenav['main']
 ));
 
 cot_display_messages($t);

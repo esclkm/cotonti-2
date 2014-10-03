@@ -11,13 +11,13 @@
 defined('COT_CODE') or die('Wrong URL');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'Visual (WYSIWYG) HTML content editor. Only one content editor should be enabled or there may be conflicts.';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_cdn'] = 'Use CDN-hosted CKEditor';

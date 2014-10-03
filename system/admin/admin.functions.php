@@ -110,7 +110,7 @@ function cot_stringinfile($file, $str, $maxsize=32768)
 
 function cot_get_extensionparams($code, $is_module = false)
 {
-	global $cfg, $cot_modules, $cot_plugins_enabled;
+	global $cfg, $cot_modules, $cot_modules;
 	$dir = $is_module ? $cfg['extensions_dir'] : $cfg['plugins_dir'];
 
 	if($is_module)
@@ -119,7 +119,7 @@ function cot_get_extensionparams($code, $is_module = false)
 	}
 	else
 	{
-		$name = $cot_plugins_enabled[$code]['title'];
+		$name = $cot_modules[$code]['title'];
 	}
 
 	if(empty($name))

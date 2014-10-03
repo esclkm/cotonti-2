@@ -11,7 +11,7 @@
 defined('COT_CODE') or die('Wrong URL');
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_email'] = 'E-mail';
@@ -26,7 +26,7 @@ $L['cfg_template_hint'] = 'Используемые переменные: {$site
 $L['info_desc'] = 'Форма обратной связи с отправкой на E-mail и записью сообщений в базу данных';
 
 /**
- * Plugin Admin
+ * Extension Admin
  */
 
 $L['contact_view'] = 'Просмотр сообщения';
@@ -47,7 +47,7 @@ $L['contact_title'] = 'Обратная связь';
 $L['contact_subtitle'] = 'Контактная информация';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['contact_headercontact'] = 'Обратная связь';

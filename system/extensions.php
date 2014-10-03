@@ -26,7 +26,7 @@ define('COT_EXT_NOTHING_TO_UPDATE', 2);
 /**
  * Default plugin part execution priority
  */
-define('COT_PLUGIN_DEFAULT_ORDER', 10);
+define('COT_EXT_DEFAULT_ORDER', 10);
 
 /**
  * These parts ($name.$part.php) are reserved handlers with no hooks
@@ -280,7 +280,7 @@ function cot_extension_install($name, $is_module = false, $update = false, $forc
 				}
 				if (empty($part_info['Order']))
 				{
-					$order = COT_PLUGIN_DEFAULT_ORDER;
+					$order = COT_EXT_DEFAULT_ORDER;
 				}
 				else
 				{
@@ -313,7 +313,7 @@ function cot_extension_install($name, $is_module = false, $update = false, $forc
 	if (!$info_cfg && cot_extension_active('genoa'))
 	{
 		// Try to load old format config
-		$info_cfg = cot_infoget($setup_file, 'SED_EXTPLUGIN_CONFIG');
+		$info_cfg = cot_infoget($setup_file, 'SED_EXTEXT_CONFIG');
 	}
 	$options = cot_config_parse($info_cfg, $is_module);
 
@@ -568,7 +568,7 @@ function cot_extension_install($name, $is_module = false, $update = false, $forc
  */
 function cot_extension_uninstall($name, $is_module = false)
 {
-	global $cfg, $db_auth, $db_config, $db_users, $db_updates, $cache, $db, $db_x, $db_plugins, $cot_extensions, $cot_plugins_active, $cot_plugins_enabled, $cot_modules, $env, $structure, $db_structure;
+	global $cfg, $db_auth, $db_config, $db_users, $db_updates, $cache, $db, $db_x, $db_extensions, $cot_extensions, $cot_extensions_active, $cot_modules, $cot_modules, $env, $structure, $db_structure;
 
 	$path = $is_module ? $cfg['extensions_dir'] . "/$name" : $cfg['plugins_dir']
 		. "/$name";
@@ -657,7 +657,7 @@ function cot_extension_uninstall($name, $is_module = false)
 	// Unregister from core table
 	cot_extension_remove($name, !$is_module);
 
-	$sql = $db->query("SELECT pl_code, pl_file, pl_hook, pl_module FROM $db_plugins
+	$sql = $db->query("SELECT pl_code, pl_file, pl_hook, pl_module FROM $db_extensions
 		WHERE pl_active = 1 ORDER BY pl_hook ASC, pl_order ASC");
 	$cot_extensions = array();
 	if ($sql->rowCount() > 0)
@@ -669,10 +669,10 @@ function cot_extension_uninstall($name, $is_module = false)
 		$sql->closeCursor();
 	}
 
-	$cot_plugins_active[$name] = false;
+	$cot_extensions_active[$name] = false;
 	if (!$is_module)
 	{
-		unset($cot_plugins_enabled[$name]);
+		unset($cot_modules[$name]);
 	}
 	else
 	{
@@ -979,7 +979,7 @@ function cot_extension_update($name, $version)
  */
 function cot_plugin_add($hook_bindings, $name, $title, $is_module = false)
 {
-	global $db, $db_plugins;
+	global $db, $db_extensions;
 
 	if (empty($title))
 	{
@@ -1000,7 +1000,7 @@ function cot_plugin_add($hook_bindings, $name, $title, $is_module = false)
 			'pl_module' => (int) $is_module
 		);
 	}
-	return $db->insert($db_plugins, $insert_rows);
+	return $db->insert($db_extensions, $insert_rows);
 }
 
 /**
@@ -1013,7 +1013,7 @@ function cot_plugin_add($hook_bindings, $name, $title, $is_module = false)
  */
 function cot_plugin_pause($name, $part = 0)
 {
-	global $db, $db_plugins;
+	global $db, $db_extensions;
 
 	$condition = "pl_code = '$name'";
 	if (is_numeric($part) && $part > 0)
@@ -1025,7 +1025,7 @@ function cot_plugin_pause($name, $part = 0)
 		$condition .= " AND pl_part = " . $db->quote($part);
 	}
 
-	return $db->update($db_plugins, array('pl_active' => 0), $condition);
+	return $db->update($db_extensions, array('pl_active' => 0), $condition);
 }
 
 /**
@@ -1038,7 +1038,7 @@ function cot_plugin_pause($name, $part = 0)
  */
 function cot_plugin_remove($name, $binding_id = 0)
 {
-	global $db, $db_plugins;
+	global $db, $db_extensions;
 
 	$condition = "pl_code = '$name'";
 	if ($binding_id > 0)
@@ -1046,7 +1046,7 @@ function cot_plugin_remove($name, $binding_id = 0)
 		$condition .= " AND pl_id = $binding_id";
 	}
 
-	return $db->delete($db_plugins, $condition);
+	return $db->delete($db_extensions, $condition);
 }
 
 /**
@@ -1059,7 +1059,7 @@ function cot_plugin_remove($name, $binding_id = 0)
  */
 function cot_plugin_resume($name, $part = 0)
 {
-	global $db, $db_plugins;
+	global $db, $db_extensions;
 
 	$condition = "pl_code = '$name'";
 	if (is_numeric($part) && $part > 0)
@@ -1071,5 +1071,5 @@ function cot_plugin_resume($name, $part = 0)
 		$condition .= " AND pl_part = " . $db->quote($part);
 	}
 
-	return $db->update($db_plugins, array('pl_active' => 1), $condition);
+	return $db->update($db_extensions, array('pl_active' => 1), $condition);
 }

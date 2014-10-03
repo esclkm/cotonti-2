@@ -189,7 +189,7 @@ class cot
 		$db->registerTable('logger');
 		$db->registerTable('online');
 		$db->registerTable('extra_fields');
-		$db->registerTable('plugins');
+		$db->registerTable('extensions');
 		$db->registerTable('structure');
 		$db->registerTable('updates');
 		$db->registerTable('users');
@@ -219,14 +219,7 @@ function cot_alphaonly($text)
 function cot_autoload($class)
 {
 	global $cfg, $env;
-	if ($env['type'] == 'module')
-	{
-		$paths[] = "{$cfg['extensions_dir']}/{$env['ext']}/classes/$class.php";
-	}
-	elseif ($env['type'] == 'plug')
-	{
-		$paths[] = "{$cfg['plugins_dir']}/{$env['ext']}/classes/$class.php";
-	}
+	$paths[] = "{$cfg['extensions_dir']}/{$env['ext']}/classes/$class.php";
 	$paths[] = "{$cfg['system_dir']}/classes/$class.php";
 	foreach ($paths as $path)
 	{
@@ -255,7 +248,7 @@ function cot_cutstring($res, $l)
 }
 
 /**
- * Returns name part of the caller file. Use this in plugins to detect from which file
+ * Returns name part of the caller file. Use this in Extensions to detect from which file
  * current hook part was included. Example:
  * <code>
  * if (cot_get_caller() == 'users.details')
@@ -283,7 +276,7 @@ function cot_get_caller()
 }
 
 /**
- * Returns a list of plugins registered for a hook
+ * Returns a list of Extensions registered for a hook
  *
  * @param string $hook Hook name
  * @param string $cond Permissions
@@ -299,7 +292,7 @@ function cot_getextensions($hook, $cond='R')
 		$cot_hooks_fired[] = $hook;
 	}
 
-	$extplugins = array();
+	$extensions = array();
 
 	if (isset($cot_extensions[$hook]) && is_array($cot_extensions[$hook]))
 	{
@@ -311,7 +304,7 @@ function cot_getextensions($hook, $cond='R')
 
 			if (cot_auth($cat, $opt, $cond))
 			{
-				$extplugins[] = $dir . '/' . $k['pl_file'];
+				$extensions[] = $dir . '/' . $k['pl_file'];
 			}
 		}
 	}
@@ -319,7 +312,7 @@ function cot_getextensions($hook, $cond='R')
 	// Trigger cache handlers
 	$cache && $cache->trigger($hook);
 
-	return $extplugins;
+	return $extensions;
 }
 
 /**
@@ -3164,10 +3157,6 @@ function cot_incfile($name, $type = 'core', $part = 'functions')
 	{
 		return $cfg['system_dir'] . "/$name.php";
 	}
-	elseif ($type == 'plug')
-	{
-		return $cfg['plugins_dir']."/$name/inc/$name.$part.php";
-	}
 	elseif ($name == 'admin')
 	{
 		// Built-in extensions
@@ -3182,7 +3171,7 @@ function cot_incfile($name, $type = 'core', $part = 'functions')
 /**
  * Returns a language file path for an extension or core part.
  *
- * @param string $name Part name (area code or plugin name)
+ * @param string $name Part name (area code or Extension name)
  * @param string $type Part type: 'plug', 'module' or 'core'
  * @param string $default Default (fallback) language code
  * @param string $lang Set this to override global $lang
@@ -3210,7 +3199,7 @@ function cot_langfile($name, $type = 'plug', $default = 'en', $lang = null)
 			return $cfg['extensions_dir']."/$name/lang/$name.$default.lang.php";
 		}
 	}
-	elseif ($type == 'core')
+	else
 	{
 		if (@file_exists($cfg['lang_dir']."/$lang/$name.$lang.lang.php"))
 		{
@@ -3219,21 +3208,6 @@ function cot_langfile($name, $type = 'plug', $default = 'en', $lang = null)
 		elseif (@file_exists($cfg['lang_dir']."/$default/$name.$default.lang.php"))
 		{
 			return $cfg['lang_dir']."/$default/$name.$default.lang.php";
-		}
-	}
-	else
-	{
-		if (@file_exists($cfg['lang_dir']."/$lang/plugins/$name.$lang.lang.php"))
-		{
-			return $cfg['lang_dir']."/$lang/plugins/$name.$lang.lang.php";
-		}
-		elseif (@file_exists($cfg['plugins_dir']."/$name/lang/$name.$lang.lang.php"))
-		{
-			return $cfg['plugins_dir']."/$name/lang/$name.$lang.lang.php";
-		}
-		elseif (@file_exists($cfg['plugins_dir']."/$name/lang/$name.$default.lang.php"))
-		{
-			return $cfg['plugins_dir']."/$name/lang/$name.$default.lang.php";
 		}
 	}
 	return false;
@@ -3311,9 +3285,8 @@ function cot_schemefile()
 
 /**
  * Returns path to a template file. The default search order is:
- * 1) Current theme folder (plugins/ subdir for plugins, admin/ subdir for admin)
- * 2) Default theme folder (if current is not default)
- * 3) tpl subdir in module/plugin folder (fallback template)
+ * 1) Default theme folder (if current is not default)
+ * 2) tpl subdir in Extension folder (fallback template)
  *
  * @param mixed $base Item name (string), or base names (array)
  * @param string $type Extension type: 'plug', 'module' or 'core'
@@ -3340,16 +3313,7 @@ function cot_tplfile($base, $type = 'module', $admin = null)
 	$scan_dirs = array();
 
 	// Possible search directories depending on extension type
-	if ($type == 'plug')
-	{
-		// Plugin template paths
-		$admin && !empty($cfg['admintheme']) && $scan_dirs[] = "{$cfg['themes_dir']}/admin/{$cfg['admintheme']}/plugins/";
-		$admin && $scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/admin/plugins/";
-		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/plugins/";
-		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/plugins/{$base[0]}/";
-		$scan_dirs[] = "{$cfg['plugins_dir']}/{$base[0]}/tpl/";
-	}
-	elseif ($type == 'core' && in_array($base[0], array('admin', 'header', 'footer', 'message')))
+	if ($type == 'core' && in_array($base[0], array('admin', 'header', 'footer', 'message')))
 	{
 		// Built-in core modules
 		!empty($cfg['admintheme']) && $scan_dirs[] = "{$cfg['themes_dir']}/admin/{$cfg['admintheme']}/";
@@ -3362,8 +3326,7 @@ function cot_tplfile($base, $type = 'module', $admin = null)
 		$admin && !empty($cfg['admintheme']) && $scan_dirs[] = "{$cfg['themes_dir']}/admin/{$cfg['admintheme']}/modules/";
 		$admin && $scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/admin/modules/";
 		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/";
-		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/modules/";
-		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/modules/{$base[0]}/";
+		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/{$base[0]}/";
 		$scan_dirs[] = "{$cfg['extensions_dir']}/{$base[0]}/tpl/";
 	}
 
@@ -3741,7 +3704,7 @@ function cot_pagenav($module, $params, $current, $entries, $perpage, $characters
 {
 	if (function_exists('cot_pagenav_custom'))
 	{
-		// For custom pagination functions in plugins
+		// For custom pagination functions in Extensions
 		return cot_pagenav_custom($module, $params, $current, $entries, $perpage, $characters, $hash,
 			$ajax, $target_div, $ajax_module, $ajax_params);
 	}
@@ -4168,7 +4131,7 @@ function cot_parse($text, $enable_markup = true, $parser = '')
 					{
 						if ($k['pl_code'] == $parser && cot_auth('plug', $k['pl_code'], 'R'))
 						{
-							include $cfg['plugins_dir'] . '/' . $k['pl_file'];
+							include $cfg['extensions_dir'] . '/' . $k['pl_file'];
 							$text = $func($text);
 							$plain = false;
 							break;
@@ -5255,7 +5218,7 @@ function cot_xp()
  * Generates an URL used to confirm an action performed by target URL
  *
  * @param string $target_url Target URL which performs the action
- * @param string $ext_name Module/plugin name to peform the action
+ * @param string $ext_name Extension name to peform the action
  * @param string $msg_code Language string key which contains confirmation request text
  * @return string
  */

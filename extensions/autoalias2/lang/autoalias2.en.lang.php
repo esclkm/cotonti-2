@@ -12,14 +12,14 @@
 defined('COT_CODE') or die('Wrong URL');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['AutoAlias2'] = 'AutoAlias 2';
 $L['info_desc'] = 'Automatic alias generation from page title if left empty';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_translit'] = 'Transliterate non-Latin chars if possible';
@@ -29,7 +29,7 @@ $L['cfg_sep'] = 'Word separator';
 $L['cfg_lowercase'] = 'Lowercase alias';
 
 /**
- * Plugin Admin
+ * Extension Admin
  */
 
 $L['aliases_written'] = 'Aliases written: {$count}';

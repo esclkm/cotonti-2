@@ -14,7 +14,7 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['info_desc'] = 'Administration tool for IP search in the user database';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['ipsearch_title'] = 'IP Search';

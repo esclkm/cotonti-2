@@ -23,7 +23,7 @@ $L['info_desc'] = 'Outputs online visitors on index and standalone page with use
 $L['WhosOnline'] = 'Who\'s Online';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['MostOnline'] = 'Most users ever online';

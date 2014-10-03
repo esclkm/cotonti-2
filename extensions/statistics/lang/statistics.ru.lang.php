@@ -20,7 +20,7 @@ $L['info_desc'] = 'Простая статистика посещений для
 $L['Statistics'] = 'Статистика';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['plu_totalpagessince'] = 'Всего показов страниц с';

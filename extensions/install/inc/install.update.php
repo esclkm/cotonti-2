@@ -166,7 +166,7 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 	}
 
 	// Update installed Siena plugins and uninstall Genoa plugins
-	$res = $db->query("SELECT DISTINCT(pl_code) FROM $db_plugins
+	$res = $db->query("SELECT DISTINCT(pl_code) FROM $db_extensions
 		WHERE pl_module = 0");
 	while ($row = $res->fetch(PDO::FETCH_NUM))
 	{
@@ -184,7 +184,7 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 			$qcode = $db->quote($code);
 			$db->delete($db_auth, "auth_option = $qcode");
 			$db->delete($db_config, "config_cat = $qcode");
-			$db->delete($db_plugins, "pl_code = $qcode");
+			$db->delete($db_extensions, "pl_code = $qcode");
 		}
 	}
 	$res->closeCursor();
@@ -290,9 +290,9 @@ elseif (!cot_error_found())
 			}
 		}
 	}
-	if(count($cot_plugins_enabled)>0)
+	if(count($cot_modules)>0)
 	{
-		foreach ($cot_plugins_enabled as $code => $plug)
+		foreach ($cot_modules as $code => $plug)
 		{
 			$ret = cot_extension_install($code, false, true);
 			if ($ret === true)

@@ -57,7 +57,7 @@
 <!-- Thanks! -->
 	</div>
 
-	<!-- IF {PHP.cot_plugins_active.search} -->
+	<!-- IF {PHP.cot_extensions_active.search} -->
 	<div id="magnifier">
 		<form id="search" action="{PHP|cot_url('plug','e=search')}" method="post">
 			<p>

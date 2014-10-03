@@ -195,7 +195,7 @@ while ($row = $sql->fetch())
 {
 	$ico = $cfg['plugins_dir'] . '/' . $row['auth_option'] . '/' . $row['auth_option'] . '.png';
 	$link = cot_url('admin', 'm=extensions&a=details&pl='.$row['auth_option']);
-	$title = $cot_plugins_enabled[$row['auth_option']]['title'];
+	$title = $cot_modules[$row['auth_option']]['title'];
 	cot_rights_parseline($row, $title, $link, $ico);
 }
 $sql->closeCursor();

@@ -45,7 +45,7 @@
 					<td class="{FORUMS_POSTS_ROW_ODDEVEN}">
 						{FORUMS_POSTS_ROW_ANCHORLINK}
 						<h4>
-							<!-- IF {PHP.cot_plugins_active.whosonline} -->
+							<!-- IF {PHP.cot_extensions_active.whosonline} -->
 							<img src="themes/{PHP.theme}/img/online{FORUMS_POSTS_ROW_USERONLINE}.png" title="{PHP.L.Status}: {FORUMS_POSTS_ROW_USERONLINETITLE}" alt="" class="userstatus" />
 							<!-- ENDIF -->
 							{FORUMS_POSTS_ROW_USERNAME}

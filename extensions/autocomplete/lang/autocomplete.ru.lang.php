@@ -12,13 +12,13 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'Автодополнение для имен пользователей в некоторых формах';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_autocomplete'] = 'Мин. символов для автодополнения';

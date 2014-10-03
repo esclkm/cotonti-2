@@ -655,7 +655,7 @@ function cot_install_parse_extensions($ext_type, $default_list = array(), $selec
 				}
 				// Assign a new one
 				$prev_cat = $info['Category'];
-				$t->assign('PLUGIN_CAT_TITLE', $L['ext_cat_' . $info['Category']]);
+				$t->assign('EXT_CAT_TITLE', $L['ext_cat_' . $info['Category']]);
 			}
 			if (!empty($info['Requires']))
 			{
@@ -732,7 +732,7 @@ function cot_install_sort_extensions($selected_extensions, $is_module = FALSE)
 	foreach ($selected_extensions as $name)
 	{
 		$info = cot_infoget("$path/$name/$name.setup.php", 'COT_EXT');
-		$order = isset($info['Order']) ? (int) $info['Order'] : COT_PLUGIN_DEFAULT_ORDER;
+		$order = isset($info['Order']) ? (int) $info['Order'] : COT_EXT_DEFAULT_ORDER;
 		if ($info['Category'] == 'post-install' && $order < 999)
 		{
 			$order = 999;

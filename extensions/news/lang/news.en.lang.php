@@ -12,13 +12,13 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'Outputs newsfeed at homepage from selected category pages';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_category'] = 'News categories';

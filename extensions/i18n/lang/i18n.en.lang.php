@@ -11,7 +11,7 @@
 
 defined('COT_CODE') or die('Wrong URL.');
 
-// Plugin configuration
+//  Extension Configuration
 
 $L['cfg_cats'] = 'Root categories to apply i18n on';
 $L['cfg_cats_hint'] = 'Comma separated category codes';

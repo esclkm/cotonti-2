@@ -18,7 +18,7 @@ defined('COT_CODE') or die('Wrong URL.');
 $L['plu_search'] = 'Search';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 // Common - title, info, query
@@ -90,7 +90,7 @@ $L['plu_section'] = 'Section';
 $L['plu_last_date'] = 'Date updated';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_maxwords'] = 'Max. words in search query';

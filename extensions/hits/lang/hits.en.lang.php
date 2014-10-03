@@ -12,7 +12,7 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_adminhits'] = 'Count administrator hits';
@@ -24,7 +24,7 @@ $L['cfg_hit_precision_hint'] = '';
 $L['info_desc'] = 'Simple hit statistic recommended for small sites';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['hits_maxhits'] = 'Maximum hitcount was reached %1$s, %2$s pages displayed this day.';

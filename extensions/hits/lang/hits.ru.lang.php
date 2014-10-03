@@ -12,7 +12,7 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_adminhits'] = 'Считать посещения администраторов';
@@ -24,7 +24,7 @@ $L['cfg_hit_precision_hint'] = '';
 $L['info_desc'] = 'Простая статистика просмотров &mdash; для небольших сайтов';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['hits_maxhits'] = 'Максимальное количество хитов (%2$s) зафиксировано %1$s';

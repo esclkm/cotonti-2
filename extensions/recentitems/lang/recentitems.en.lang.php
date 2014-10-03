@@ -12,13 +12,13 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'Displays recent site additions (pages, topics) on index page';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_recentpages'] = 'Recent pages on index';
@@ -46,7 +46,7 @@ $L['cfg_cache_ttl'] = 'Cache TTL';
 $L['cfg_cache_ttl_hint'] = '0 - cache off';
 
 /**
- * Plugin Body
+ *  Extension Body
  */
 
 $L['recentitems_title'] = 'Recent Items';

@@ -11,13 +11,13 @@
 defined('COT_CODE') or die('Wrong URL');
 
 /**
- * Plugin Info
+ * Extension Info
  */
 
 $L['info_desc'] = 'Визуальный (WYSIWYG) редактор HTML-контента. Следует включать только один редактор контента, иначе могут возникнуть конфликты.';
 
 /**
- * Plugin Config
+ *  Extension Config
  */
 
 $L['cfg_cdn'] = 'Использовать CKEditor с CDN-хоста';

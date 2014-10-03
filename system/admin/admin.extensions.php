@@ -306,7 +306,7 @@ switch($a)
 				}
 				else
 				{
-					$sql = $db->query("SELECT pl_active, pl_id FROM $db_plugins
+					$sql = $db->query("SELECT pl_active, pl_id FROM $db_extensions
 						WHERE pl_code='$code' AND pl_part='".$info_part."' LIMIT 1");
 
 					if($row = $sql->fetch())
@@ -389,7 +389,7 @@ switch($a)
 						}
 					}
 
-					$info_order = empty($info_file['Order']) ? COT_PLUGIN_DEFAULT_ORDER : $info_file['Order'];
+					$info_order = empty($info_file['Order']) ? COT_EXT_DEFAULT_ORDER : $info_file['Order'];
 					$t->assign(array(
 						'ADMIN_EXTENSIONS_DETAILS_ROW_I_1' => $i+1,
 						'ADMIN_EXTENSIONS_DETAILS_ROW_PART' => $info_part,
@@ -438,18 +438,18 @@ switch($a)
 		$icofile = (($type == 'module') ? $cfg['extensions_dir'] : $cfg['plugins_dir']) . '/' . $code . '/' . $code . '.png';
 
 		// Search admin parts, standalone parts, struct
-		if( $db->query("SELECT pl_code FROM $db_plugins WHERE (pl_hook='standalone' OR pl_hook='module') AND pl_code='$code' LIMIT 1")->rowCount() > 0)
+		if( $db->query("SELECT pl_code FROM $db_extensions WHERE (pl_hook='standalone' OR pl_hook='module') AND pl_code='$code' LIMIT 1")->rowCount() > 0)
 		{
 			$standalone = ($type == 'module') ? cot_url($code) : cot_url('plug', 'e=' . $code);
 		}
 
 		$tool_hook = $type == 'plug' ? 'tools' : 'admin';
-		if($db->query("SELECT pl_code FROM $db_plugins WHERE pl_hook='$tool_hook' AND pl_code='$code' AND pl_active = 1 LIMIT 1")->rowCount() > 0)
+		if($db->query("SELECT pl_code FROM $db_extensions WHERE pl_hook='$tool_hook' AND pl_code='$code' AND pl_active = 1 LIMIT 1")->rowCount() > 0)
 		{
 			$tools = $type == 'plug' ? cot_url('admin', "m=other&p=$code") : cot_url('admin', "m=$code");
 		}
 
-		if($db->query("SELECT pl_code FROM $db_plugins WHERE pl_hook='admin.structure.first' AND pl_code='$code' LIMIT 1")->rowCount() > 0)
+		if($db->query("SELECT pl_code FROM $db_extensions WHERE pl_hook='admin.structure.first' AND pl_code='$code' LIMIT 1")->rowCount() > 0)
 		{
 			$struct = cot_url('admin', "m=structure&n=$code");
 		}
@@ -569,7 +569,7 @@ switch($a)
 	/* =============== */
 		$adminpath[] = array(cot_url('admin', 'm=extensions&a=hooks'), $L['Hooks']);
 
-		$sql = $db->query("SELECT * FROM $db_plugins ORDER BY pl_hook ASC, pl_code ASC, pl_order ASC");
+		$sql = $db->query("SELECT * FROM $db_extensions ORDER BY pl_hook ASC, pl_code ASC, pl_order ASC");
 
 		while($row = $sql->fetch())
 		{
@@ -632,7 +632,7 @@ switch($a)
 
 		$totalactives = array();
 		$totalinstalleds = array();
-		foreach ($db->query("SELECT SUM(pl_active) AS sum, COUNT(*) AS cnt, pl_code FROM $db_plugins GROUP BY pl_code")->fetchAll() as $row)
+		foreach ($db->query("SELECT SUM(pl_active) AS sum, COUNT(*) AS cnt, pl_code FROM $db_extensions GROUP BY pl_code")->fetchAll() as $row)
 		{
 			$totalactives[$row['pl_code']] = (int)$row['sum'];
 			$totalinstalleds[$row['pl_code']] = (int)$row['cnt'];
@@ -704,7 +704,7 @@ switch($a)
 			$cnt_parts = 0;
 
 			$standalone = array();
-			$sql3 = $db->query("SELECT pl_code FROM $db_plugins WHERE pl_hook='standalone' OR pl_hook='module'");
+			$sql3 = $db->query("SELECT pl_code FROM $db_extensions WHERE pl_hook='standalone' OR pl_hook='module'");
 			while ($row3 = $sql3->fetch())
 			{
 				$standalone[$row3['pl_code']] = TRUE;
@@ -713,7 +713,7 @@ switch($a)
 
 			$tools = array();
 			$tool_hook = $type == 'plug' ? 'tools' : 'admin';
-			$sql3 = $db->query("SELECT pl_code FROM $db_plugins WHERE pl_hook='$tool_hook'");
+			$sql3 = $db->query("SELECT pl_code FROM $db_extensions WHERE pl_hook='$tool_hook'");
 			while ($row3 = $sql3->fetch())
 			{
 				$tools[$row3['pl_code']] = TRUE;
@@ -721,7 +721,7 @@ switch($a)
 			$sql3->closeCursor();
 
 			$struct = array();
-			$sql3 = $db->query("SELECT pl_code FROM $db_plugins WHERE pl_hook='admin.structure.first'");
+			$sql3 = $db->query("SELECT pl_code FROM $db_extensions WHERE pl_hook='admin.structure.first'");
 			while ($row3 = $sql3->fetch())
 			{
 				$struct[$row3['pl_code']] = TRUE;
