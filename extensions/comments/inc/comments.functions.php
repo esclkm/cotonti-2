@@ -74,7 +74,7 @@ function cot_comments_count($ext_name, $code, $row = array())
 /**
  * Generates comments display for a given item
  *
- * @param string $ext_name Module or plugin code
+ * @param string $ext_name Module or extension code
  * @param string $code Item identifier
  * @param string $cat Item category code (optional)
  * @param bool $force_admin Enforces user to be administrator of comments for this item.
@@ -364,7 +364,7 @@ function cot_comments_enabled($ext_name, $cat = '', $item = '')
  *
  * @param string $link_area Target URL area for cot_url()
  * @param string $link_params Target URL params for cot_url()
- * @param string $ext_name Module or plugin code
+ * @param string $ext_name Module or extension code
  * @param string $code Item identifier
  * @param string $cat Item category code (optional)
  * @param array $row Database row entry (optional)

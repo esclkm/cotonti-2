@@ -26,7 +26,7 @@ template=15:textarea:::Email template
 ==================== */
 
 /**
- * Contact Plugin for Cotonti CMF
+ * Contact Extension for Cotonti CMF
  *
  * @package contact
  * @version 2.1

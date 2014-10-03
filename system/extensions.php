@@ -24,7 +24,7 @@ require_once cot_langfile('admin', 'core');
 define('COT_EXT_NOTHING_TO_UPDATE', 2);
 
 /**
- * Default plugin part execution priority
+ * Default extension part execution priority
  */
 define('COT_EXT_DEFAULT_ORDER', 10);
 
@@ -117,15 +117,15 @@ function cot_apply_patches($directory, $from_ver,
 
 /**
  * Checks if all dependencies for selected extension are satisfied. It means
- * that either all required modules and plugins are already installed or
+ * that either all required modules and extensions are already installed or
  * selected for installation.
  *
  * Unsatisfied requirements messages are emitted with error & messaging API.
  *
  * @param string $name Extension code
- * @param bool $is_module TRUE for modules, FALSE for plugins
+ * @param bool $is_module TRUE for modules, FALSE for extensions
  * @param array $selected_modules A list of modules currently in selection
- * @param array $selected_plugins A list of plugins currently in selection
+ * @param array $selected_plugins A list of extensions currently in selection
  * @return bool TRUE if all dependencies are satisfied, or FALSE otherwise
  */
 function cot_extension_dependencies_statisfied($name, $is_module = false,
@@ -162,11 +162,11 @@ function cot_extension_dependencies_statisfied($name, $is_module = false,
 }
 
 /**
- * Installs or updates a Cotonti extension: module or plugin.
+ * Installs or updates a Cotonti extension: module or extension.
  * Messages emitted during installation can be received through standard
  * Cotonti messages interface.
- * @param string $name Plugin code
- * @param bool $is_module TRUE for modules, FALSE for plugins
+ * @param string $name Extension code
+ * @param bool $is_module TRUE for modules, FALSE for extensions
  * @param bool $update Perform update rather than new install
  * @param bool $force_update Forces extension update even if version has not changed
  * @return bool Operation status
@@ -562,7 +562,7 @@ function cot_extension_install($name, $is_module = false, $update = false, $forc
 /**
  * Uninstalls an extension and removes all its data
  * @param string $name Extension code
- * @param bool $is_module TRUE for modules, FALSE for plugins
+ * @param bool $is_module TRUE for modules, FALSE for extensions
  * @global CotDB $db
  * @global Cache $cache
  */
@@ -841,7 +841,7 @@ function cot_extension_installed($name)
 
 /**
  * Returns installed extension type: 'module' if extension is a module,
- * 'plug' if extension is a plugin or FALSE if extension is not installed.
+ * 'plug' if extension is a extension or FALSE if extension is not installed.
  *
  * @param string $name Module code
  * @return mixed
@@ -951,7 +951,7 @@ function cot_extension_update($name, $version)
 }
 
 /**
- * Registers a plugin or module in hook registry
+ * Registers a extension or module in hook registry
  *
  * Example:
  * <code>
@@ -967,13 +967,13 @@ function cot_extension_update($name, $version)
  *     )
  * );
  *
- * cot_plugin_add($hook_bindings, 'test', 'Test plugin', false);
+ * cot_plugin_add($hook_bindings, 'test', 'Test extension', false);
  * </code>
  *
  * @param array $hook_bindings Hook binding map
- * @param string $name Module or plugin name (code)
- * @param string $title Module or plugin title
- * @param bool $is_module TRUE for modules, FALSE for plugins
+ * @param string $name Module or extension name (code)
+ * @param string $title Module or extension title
+ * @param bool $is_module TRUE for modules, FALSE for extensions
  * @return int Number of records added
  * @global CotDB $db
  */
@@ -1004,9 +1004,9 @@ function cot_plugin_add($hook_bindings, $name, $title, $is_module = false)
 }
 
 /**
- * Suspends a plugin or one of its parts
+ * Suspends a extension or one of its parts
  *
- * @param  string  $name Module or plugin name
+ * @param  string  $name Module or extension name
  * @param  mixed   $part ID of the binding to supsend or 0 to suspend all; if part name is passed, then that part is suspended
  * @return integer       Number of bindings suspended
  * @global CotDB $db
@@ -1029,9 +1029,9 @@ function cot_plugin_pause($name, $part = 0)
 }
 
 /**
- * Removes a plugin or one of its parts from hook registry
+ * Removes a extension or one of its parts from hook registry
  *
- * @param string $name Module or plugin name
+ * @param string $name Module or extension name
  * @param int $binding_id ID of the binding to remove or 0 to remove all
  * @return int Number of bindings removed
  * @global CotDB $db
@@ -1050,9 +1050,9 @@ function cot_plugin_remove($name, $binding_id = 0)
 }
 
 /**
- * Resumes a suspended plugin or one of its parts
+ * Resumes a suspended extension or one of its parts
  *
- * @param  string  $name Module or plugin name
+ * @param  string  $name Module or extension name
  * @param  mixed   $part ID of the binding to resume or 0 to resume all; if part name is passed, then that part is resumed
  * @return integer       Number of bindings suspended
  * @global CotDB $db

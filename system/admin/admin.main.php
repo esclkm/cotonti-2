@@ -27,7 +27,7 @@ $w = cot_import('w', 'P', 'TXT');
 $u = cot_import('u', 'P', 'TXT');
 $s = cot_import('s', 'G', 'ALP', 24);
 
-/* === Hook for the plugins === */
+/* === Hook for the extensions === */
 foreach (cot_getextensions('admin.main') as $pl)
 {
 	include $pl;
@@ -88,7 +88,7 @@ $t->assign(array(
 	'ADMIN_HELP' => $adminhelp
 ));
 
-/* === Hook for the plugins === */
+/* === Hook for the extensions === */
 foreach (cot_getextensions('admin.tags') as $pl)
 {
 	include $pl;

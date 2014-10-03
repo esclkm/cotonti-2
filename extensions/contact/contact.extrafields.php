@@ -7,7 +7,7 @@
   ==================== */
 
 /**
- * Contact Plugin for Cotonti CMF
+ * Contact Extension for Cotonti CMF
  *
  * @package contact
  * @version 2.1.0

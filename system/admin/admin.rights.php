@@ -92,7 +92,7 @@ if ($a == 'update')
 
 $jj = 1;
 
-/* === Hook for the plugins === */
+/* === Hook for the extensions === */
 foreach (cot_getextensions('admin.rights.main') as $pl)
 {
 	include $pl;
@@ -202,7 +202,7 @@ $sql->closeCursor();
 $t->assign('RIGHTS_SECTION_TITLE', $L['Plugins']);
 $t->parse('MAIN.RIGHTS_SECTION');
 
-/* === Hook for the plugins === */
+/* === Hook for the extensions === */
 foreach (cot_getextensions('admin.rights.end') as $pl)
 {
 	include $pl;

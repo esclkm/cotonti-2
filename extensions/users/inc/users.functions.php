@@ -84,7 +84,7 @@ function cot_add_user($ruser, $email = null, $name = null, $password = null, $ma
 	$db->insert($db_groups_users, array('gru_userid' => (int)$userid, 'gru_groupid' => (int)$ruser['user_maingrp']));
 	cot_extrafield_movefiles();
 
-	/* === Hook for the plugins === */
+	/* === Hook for the extensions === */
 	foreach (cot_getextensions('users.adduser.done') as $pl)
 	{
 		include $pl;

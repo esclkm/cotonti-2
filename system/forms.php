@@ -381,7 +381,7 @@ function cot_selectbox_timezone($chosen, $name, $add_gmt = true, $dst = false, $
  * @param string $name Dropdown name
  * @param string $subcat Show only subcats of selected category
  * @param bool $hideprivate Hide private categories
- * @param bool $is_module TRUE for modules, FALSE for plugins
+ * @param bool $is_module TRUE for modules, FALSE for extensions
  * @return string
  * @global CotDB $db
  */

@@ -63,7 +63,7 @@ if ($inr == 'send' && $newrate > 0 && $newrate <= 10 && $auth_write && $enabled)
 		WHERE rated_userid = ? AND rated_area = ? AND rated_code = ?",
 		array($usr['id'], $area, $code))->fetchColumn();
 
-	/* == Hook for the plugins == */
+	/* == Hook for the extensions == */
 	foreach (cot_getextensions('ratings.send.first') as $pl)
 	{
 		include $pl;
@@ -122,7 +122,7 @@ if ($inr == 'send' && $newrate > 0 && $newrate <= 10 && $auth_write && $enabled)
 		$ratingnewaverage = 0;
 	}
 
-	/* == Hook for the plugins == */
+	/* == Hook for the extensions == */
 	foreach (cot_getextensions('ratings.send.done') as $pl)
 	{
 		include $pl;

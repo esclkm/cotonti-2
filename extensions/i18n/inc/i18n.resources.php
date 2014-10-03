@@ -1,6 +1,6 @@
 <?php
 /**
- * I18n plugin markup snippets
+ * I18n extension markup snippets
  *
  * @package i18n
  * @version 0.7.0

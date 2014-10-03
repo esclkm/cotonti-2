@@ -40,7 +40,7 @@ if ($a=='add')
 
 	$ruser = array();
 
-	/* === Hook for the plugins === */
+	/* === Hook for the extensions === */
 	foreach (cot_getextensions('users.register.add.first') as $pl)
 	{
 		include $pl;
@@ -79,7 +79,7 @@ if ($a=='add')
 	if ($email_exists && !$cfg['useremailduplicate']) cot_error('aut_emailalreadyindb', 'ruseremail');
 	if ($rpassword1 != $rpassword2) cot_error('aut_passwordmismatch', 'rpassword2');
 
-	/* === Hook for the plugins === */
+	/* === Hook for the extensions === */
 	foreach (cot_getextensions('users.register.add.validate') as $pl)
 	{
 		include $pl;
@@ -91,7 +91,7 @@ if ($a=='add')
 		$ruser['user_password'] = $rpassword1;
 		$userid = cot_add_user($ruser);
 
-		/* === Hook for the plugins === */
+		/* === Hook for the extensions === */
 		foreach (cot_getextensions('users.register.add.done') as $pl)
 		{
 			include $pl;
@@ -119,7 +119,7 @@ if ($a=='add')
 
 elseif ($a == 'validate' && mb_strlen($v) == 32)
 {
-	/* === Hook for the plugins === */
+	/* === Hook for the extensions === */
 	foreach (cot_getextensions('users.register.validate.first') as $pl)
 	{
 		include $pl;
@@ -138,7 +138,7 @@ elseif ($a == 'validate' && mb_strlen($v) == 32)
 				$sql = $db->update($db_users, array('user_maingrp' => 4), "user_id='".$row['user_id']."' AND user_lostpass='$v'");
 				$sql = $db->update($db_groups_users, array('gru_groupid' => 4), "gru_groupid=2 AND gru_userid='".$row['user_id']."'");
 
-				/* === Hook for the plugins === */
+				/* === Hook for the extensions === */
 				foreach (cot_getextensions('users.register.validate.done') as $pl)
 				{
 					include $pl;
@@ -164,7 +164,7 @@ elseif ($a == 'validate' && mb_strlen($v) == 32)
 				$sql = $db->delete($db_users, "user_id=".(int)$row['user_id']);
 				$sql = $db->delete($db_groups_users, "gru_userid='".$row['user_id']."'");
 
-				/* === Hook for the plugins === */
+				/* === Hook for the extensions === */
 				foreach (cot_getextensions('users.register.validate.rejected') as $pl)
 				{
 					include $pl;

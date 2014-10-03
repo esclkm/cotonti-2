@@ -22,7 +22,7 @@ cot::$db->registerTable('rated');
 /**
  * Generates ratings display for a given item
  *
- * @param string $ext_name Module or plugin code
+ * @param string $ext_name Module or extension code
  * @param string $code Item identifier
  * @param string $cat Item category code (optional)
  * @param bool $readonly Display as read-only
@@ -100,7 +100,7 @@ function cot_ratings_display($ext_name, $code, $cat = '', $readonly = false)
 
 	$t = new XTemplate(cot_tplfile('ratings', 'module'));
 
-	/* == Hook for the plugins == */
+	/* == Hook for the extensions == */
 	foreach (cot_getextensions('ratings.main') as $pl)
 	{
 		include $pl;
@@ -138,7 +138,7 @@ function cot_ratings_display($ext_name, $code, $cat = '', $readonly = false)
 		'RATINGS_USERVOTE' => $rating_uservote
 	));
 
-	/* == Hook for the plugins == */
+	/* == Hook for the extensions == */
 	foreach (cot_getextensions('ratings.tags') as $pl)
 	{
 		include $pl;

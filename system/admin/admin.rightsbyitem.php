@@ -88,7 +88,7 @@ elseif($io != 'a' && !empty($ic))
 	$title = ' : '.$ic.' '.$structure[$ic][$io]['title']." (".$io.")";
 }
 
-/* === Hook for the plugins === */
+/* === Hook for the extensions === */
 foreach (cot_getextensions('admin.rightsbyitem.case') as $pl)
 {
 	include $pl;

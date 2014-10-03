@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Contact Plugin for Cotonti CMF (English Localization)
+ * Contact Extension for Cotonti CMF (English Localization)
  * @version 2.00
  * @author Cotonti Team
  * @copyright (c) Cotonti Team 2008-2014

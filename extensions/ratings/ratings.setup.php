@@ -23,7 +23,7 @@ css=99:radio:0,1:1:Enable plugin CSS
 ==================== */
 
 /**
- * Ratings plugin setup file
+ * Ratings extension setup file
  *
  * @package ratings
  * @version 0.9.17

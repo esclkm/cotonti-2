@@ -82,7 +82,7 @@ if ($a == 'check')
 {
 	cot_shield_protect();
 
-	/* === Hook for the plugins === */
+	/* === Hook for the extensions === */
 	foreach (cot_getextensions('users.auth.check') as $pl)
 	{
 		include $pl;
@@ -131,7 +131,7 @@ if ($a == 'check')
 	 */
 	$user_select_condition = (!$validating) ? "user_password=".$db->quote($rmdpass)." AND $login_param=".$db->quote($rusername) : "user_lostpass=".$db->quote($v);
 
-	/* === Hook for the plugins === */
+	/* === Hook for the extensions === */
 	foreach (cot_getextensions('users.auth.check.query') as $pl)
 	{
 		include $pl;

@@ -35,7 +35,7 @@ if (!isset($GLOBALS['bbcode_loaded']))
  * @param string $replacement Replacement string or regular substitution or callback body
  * @param bool $container Whether bbcode is container (like [bbcode]Something here[/bbcode])
  * @param int $priority BBcode priority from 0 to 255. Smaller priority bbcodes are parsed first, 128 is default medium priority.
- * @param string $plug Plugin/part name this bbcode belongs to.
+ * @param string $plug Extension/part name this bbcode belongs to.
  * @param bool $postrender Whether this bbcode must be applied on a pre-rendered HTML cache.
  * @return bool
  * @global CotDB $db

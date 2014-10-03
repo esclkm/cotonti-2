@@ -142,7 +142,7 @@ function cot_config_add($name, $options, $is_module = false, $category = '', $do
 
 /**
  * Implants given options into module configuration if they are not already there.
- * Used by plugins which extend module behavior and need per-module or per-category
+ * Used by extensions which extend module behavior and need per-module or per-category
  * options.
  *
  * @global array $cfg Configuration
@@ -463,7 +463,7 @@ function cot_config_set($name, $options, $is_module = false, $category = '')
  *
  * @param string $name Extension code
  * @param array $options Configuration options
- * @param bool $is_module TRUE for modules, FALSE for plugins
+ * @param bool $is_module TRUE for modules, FALSE for extensions
  * @param string $category Structure category code. Only for per-category config options
  * @param string $donor Extension name for extension-to-extension config implantations
  * @return int Number of entries affected

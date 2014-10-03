@@ -33,7 +33,7 @@ order=14:select:Chronological,Recent:Recent:Comment sorting order
 ==================== */
 
 /**
- * Comments system plugins
+ * Comments system extensions
  *
  * @package comments
  * @version 0.9.17

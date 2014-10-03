@@ -6,7 +6,7 @@ Hooks=admin.extensions.install.tags
 ==================== */
 
 /**
- * Adds i18n support to tags when installing the tags plugin after i18n
+ * Adds i18n support to tags when installing the tags extension after i18n
  *
  * @package i18n
  * @version 0.9.2

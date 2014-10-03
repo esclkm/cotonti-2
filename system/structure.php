@@ -21,7 +21,7 @@ require_once cot_incfile('auth');
  * @global string $db_structure
  * @param string $extension Extension code
  * @param array $data Structure entry data as array('structure_key' => 'value')
- * @param bool $is_module TRUE for modules, FALSE for plugins
+ * @param bool $is_module TRUE for modules, FALSE for extensions
  * @return mixed TRUE on success, cot_error() arguments as array on specific error, FALSE on generic error
  * @global CotDB $db
  * @global Cache $cache
@@ -71,7 +71,7 @@ function cot_structure_add($extension, $data, $is_module = true)
  * @global array $structure
  * @param string $extension Extension code
  * @param string $code Category code
- * @param bool $is_module TRUE for modules, FALSE for plugins
+ * @param bool $is_module TRUE for modules, FALSE for extensions
  * @return bool
  * @global CotDB $db
  * @global Cache $cache
@@ -113,7 +113,7 @@ function cot_structure_delete($extension, $code, $is_module = true)
  * @param int $id Category structure_id
  * @param array $old_data Data row already present in the database
  * @param array $new_data Submitted category data
- * @param bool $is_module TRUE for modules, FALSE for plugins
+ * @param bool $is_module TRUE for modules, FALSE for extensions
  * @return mixed TRUE on success, cot_error() arguments as array on specific error, FALSE on generic error
  * @global CotDB $db
  * @global Cache $cache

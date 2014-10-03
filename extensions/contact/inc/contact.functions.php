@@ -1,6 +1,6 @@
 <?php
 /**
- * Contact Plugin API
+ * Contact Extension API
  *
  * @package contact
  * @author Cotonti Team

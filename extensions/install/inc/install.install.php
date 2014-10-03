@@ -718,7 +718,7 @@ function cot_install_parse_extensions($ext_type, $default_list = array(), $selec
  *
  * @global array $cfg
  * @param array $selected_extensions Unsorted list of extension names
- * @param bool $is_module TRUE if sorting modules, FALSE if sorting plugins
+ * @param bool $is_module TRUE if sorting modules, FALSE if sorting extensions
  * @return array Sorted list of extension names
  */
 function cot_install_sort_extensions($selected_extensions, $is_module = FALSE)
