@@ -20,7 +20,7 @@ Hooks=admin
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('ratings', 'any');
 cot_block($usr['isadmin']);
 
-require_once cot_incfile('ratings', 'module');
+require_once cot_incfile('ratings', 'functions');
 
 $t = new XTemplate(cot_tplfile('ratings.admin', 'module', true));
 
@@ -99,7 +99,7 @@ foreach ($sql->fetchAll() as $row)
 }
 
 $t->assign(array(
-	'ADMIN_RATINGS_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=plug&p=ratings'),
+	'ADMIN_RATINGS_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=module&p=ratings'),
 	'ADMIN_RATINGS_PAGINATION_PREV' => $pagenav['prev'],
 	'ADMIN_RATINGS_PAGNAV' => $pagenav['main'],
 	'ADMIN_RATINGS_PAGINATION_NEXT' => $pagenav['next'],

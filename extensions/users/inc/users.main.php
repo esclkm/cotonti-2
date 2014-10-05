@@ -168,7 +168,7 @@ require_once $cfg['system_dir'] . '/header.php';
 
 $t = new XTemplate($localskin);
 
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 require_once cot_langfile('countries', 'core');
 
 $countryfilters_titles = array();

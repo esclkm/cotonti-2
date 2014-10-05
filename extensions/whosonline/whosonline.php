@@ -14,14 +14,14 @@ Hooks=module
  * @license BSD
  */
 
-(defined('COT_CODE') || defined('COT_PLUG')) or die('Wrong URL.');
+(defined('COT_CODE')) or die('Wrong URL.');
 
 require_once $cfg['system_dir'] . '/header.php';
 
 $sys['sublocation'] = $L['WhosOnline'];
 // to update first
 require_once $cfg['extensions_dir'].'/whosonline/whosonline.header.main.php';
-require_once cot_incfile('users', 'module');
+require_once cot_incfile('users', 'functions');
 
 $pl_cfg = $cfg['whosonline'];
 $maxuserssperpage = is_numeric($pl_cfg['maxusersperpage']) ? $pl_cfg['maxusersperpage'] : 0;
@@ -29,7 +29,7 @@ list($pg, $d, $durl) = cot_import_pagenav('d', $maxuserssperpage);
 $maxusers = 0;
 if(isset($cfg['hits']))
 {
-	require_once cot_incfile('hits', 'module');
+	require_once cot_incfile('hits', 'functions');
 	$stats = $db->query("SELECT stat_value FROM $db_stats WHERE stat_name='maxusers' LIMIT 1")->fetch();
 	$maxusers = $stats[0];
 }
@@ -38,7 +38,7 @@ $count_guests = 0;
 
 if(cot_extension_active('hiddengroups'))
 {
-	require_once cot_incfile('hiddengroups', 'module');
+	require_once cot_incfile('hiddengroups', 'functions');
 	$hiddenusers = cot_hiddengroups_get(cot_hiddengroups_mode(), 'users');
 }
 $ipsearch = cot_extension_active('ipsearch');

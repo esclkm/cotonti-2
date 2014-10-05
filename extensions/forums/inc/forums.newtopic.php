@@ -164,7 +164,7 @@ foreach (cot_getextensions('forums.newtopic.main') as $pl)
 	include $pl;
 }
 /* ===== */
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 require_once $cfg['system_dir'] . '/header.php';
 
 $mskin = cot_tplfile(array('forums', 'newtopic', $structure['forums'][$s]['tpl']));

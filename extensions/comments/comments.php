@@ -15,10 +15,10 @@
  * @copyright Copyright (c) Cotonti Team 2008-2014
  * @license BSD
  */
-defined('COT_CODE') && defined('COT_PLUG') or die('Wrong URL');
+defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('comments', 'module');
-require_once cot_incfile('forms');
+require_once cot_incfile('comments', 'functions');
+require_once cot_incfile('system', 'forms');
 
 $m = cot_import('m', 'G', 'ALP');
 $a = cot_import('a', 'G', 'ALP');

@@ -22,7 +22,7 @@ if ($cfg['tags']['forums'])
 {
 	if (!isset($tags))
 	{
-		require_once cot_incfile('tags', 'module');
+		require_once cot_incfile('tags', 'functions');
 		$tags = cot_tag_list($q, 'forums');
 	}
 	if (count($tags) > 0)

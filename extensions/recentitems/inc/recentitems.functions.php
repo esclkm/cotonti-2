@@ -11,7 +11,7 @@
  */
 defined('COT_CODE') or die("Wrong URL.");
 
-require_once cot_incfile('extrafields');
+require_once cot_incfile('system', 'forms');
 require_once cot_langfile('recentitems', 'module');
 
 function cot_build_recentforums($template, $mode = 'recent', $maxperpage = 5, $d = 0, $titlelength = 0, $rightprescan = true)

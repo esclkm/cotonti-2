@@ -26,7 +26,7 @@ require_once cot_incfile('uploads');
 require_once './datas/extensions.php';
 
 // Self requirements
-require_once cot_incfile('pfs', 'module');
+require_once cot_incfile('pfs', 'functions');
 
 // Mode choice
 if (!in_array($m, array('edit', 'editfolder', 'view')))
@@ -34,4 +34,4 @@ if (!in_array($m, array('edit', 'editfolder', 'view')))
 	$m = 'main';
 }
 
-require_once cot_incfile('pfs', 'module', $m);
+require_once cot_incfile('pfs', $m);

@@ -12,9 +12,9 @@ defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
 require_once cot_langfile('pfs', 'module');
-require_once cot_incfile('pfs', 'module', 'resources');
+require_once cot_incfile('pfs', 'resources');
 
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 
 // Registering tables
 cot::$db->registerTable('pfs');

@@ -11,7 +11,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('auth');
+require_once cot_incfile('system', 'auth');
 
 /**
  * Adds a new category
@@ -113,12 +113,11 @@ function cot_structure_delete($extension, $code, $is_module = true)
  * @param int $id Category structure_id
  * @param array $old_data Data row already present in the database
  * @param array $new_data Submitted category data
- * @param bool $is_module TRUE for modules, FALSE for extensions
  * @return mixed TRUE on success, cot_error() arguments as array on specific error, FALSE on generic error
  * @global CotDB $db
  * @global Cache $cache
  */
-function cot_structure_update($extension, $id, $old_data, $new_data, $is_module = true)
+function cot_structure_update($extension, $id, $old_data, $new_data)
 {
 	global $cache, $db, $db_auth, $db_config, $db_structure;
 	/* === Hook === */
@@ -132,7 +131,7 @@ function cot_structure_update($extension, $id, $old_data, $new_data, $is_module 
 	{
 		if ($db->query("SELECT COUNT(*) FROM $db_structure WHERE structure_area=? AND structure_code=?", array($extension, $new_data['structure_code']))->fetchColumn() == 0)
 		{
-			$is_module && $db->update($db_auth, array('auth_option' => $new_data['structure_code']),
+			$db->update($db_auth, array('auth_option' => $new_data['structure_code']),
 				"auth_code=? AND auth_option=?", array($extension, $old_data['structure_code']));
 			$db->update($db_config, array('config_subcat' => $new_data['structure_code']),
 				"config_cat=? AND config_subcat=? AND config_owner='module'", array($extension, $old_data['structure_code']));

@@ -9,7 +9,6 @@
 		</div>
 		<div class="col-md-4">
 			<!-- IF {INDEX_POLLS} -->
-			<h3>{PHP.L.Polls}</h3>
 			{INDEX_POLLS}
 			<!-- ENDIF -->	
 			<!-- IF {INDEX_TAG_CLOUD} -->
@@ -18,7 +17,7 @@
 			<!-- ENDIF -->
 			<!-- IF {PHP.out.whosonline} -->
 			<h3>{PHP.L.Online}</h3>
-			<a href="{PHP|cot_url('plug','e=whosonline')}">{PHP.out.whosonline}</a>
+			<a href="{PHP|cot_url('index','e=whosonline')}">{PHP.out.whosonline}</a>
 			<!-- IF {PHP.out.whosonline_reg_list} -->:<br />{PHP.out.whosonline_reg_list}<!-- ENDIF -->
 			<!-- ENDIF -->
 		</div>
@@ -26,7 +25,7 @@
 
 	<!-- IF {PHP.cot_extensions_active.recentitems} -->
 
-	<h2><a href="{PHP|cot_url('plug','e=recentitems')}">{PHP.L.recentitems_title}</a></h2>
+	<h2><a href="{PHP|cot_url('index','e=recentitems')}">{PHP.L.recentitems_title}</a></h2>
 	<!-- IF {RECENT_PAGES} -->
 	<h3>{PHP.L.recentitems_pages}</h3>
 	{RECENT_PAGES}

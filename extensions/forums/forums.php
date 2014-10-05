@@ -22,11 +22,12 @@ define('COT_FORUMS', true);
 $env['location'] = 'forums';
 
 // Additional requirements
-require_once cot_incfile('extrafields');
-require_once cot_incfile('users', 'module');
+require_once cot_incfile('system', 'forms');
+require_once cot_incfile('system', 'extrafields');
+require_once cot_incfile('users', 'functions');
 
 // Self requirements
-require_once cot_incfile('forums', 'module');
+require_once cot_incfile('forums', 'functions');
 
 // Mode choice
 if (!in_array($m, array('topics', 'posts', 'editpost', 'newtopic')))

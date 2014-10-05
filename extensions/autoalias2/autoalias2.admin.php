@@ -17,8 +17,8 @@ Hooks=admin
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('autoalias2', 'module');
-require_once cot_langfile('autoalias2', 'module');
+require_once cot_incfile('autoalias2');
+require_once cot_langfile('autoalias2');
 
 $t = new XTemplate(cot_tplfile('autoalias2.admin', 'module', true));
 

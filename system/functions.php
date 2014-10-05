@@ -299,12 +299,12 @@ function cot_getextensions($hook, $cond='R')
 		foreach($cot_extensions[$hook] as $k)
 		{
 			$dir = $cfg['extensions_dir'];
-			$cat = $k['pl_code'];
+			$cat = $k['ext_code'];
 			$opt = 'a';
 
 			if (cot_auth($cat, $opt, $cond))
 			{
-				$extensions[] = $dir . '/' . $k['pl_file'];
+				$extensions[] = $dir . '/' . $k['ext_file'];
 			}
 		}
 	}
@@ -1981,7 +1981,7 @@ function cot_user_full_name($user)
 	if (empty($user)) return '';
 	if (is_int($user) && $user > 0 || ctype_digit($user))
 	{
-		require_once cot_incfile('users', 'module');
+		require_once cot_incfile('users', 'functions');
 		$user = cot_user_data($user);
 	}
     if (empty($user)) return '';
@@ -2527,7 +2527,7 @@ function cot_img_check_memory($file_path, $extra_size = 0)
 function cot_selectbox_theme($selected_theme, $selected_scheme, $input_name)
 {
 	global $cfg;
-	require_once cot_incfile('extensions');
+	require_once cot_incfile('system', 'extensions');
 	$handle = opendir($cfg['themes_dir']);
 	while ($f = readdir($handle))
 	{
@@ -3145,17 +3145,16 @@ function cot_message($text, $class = 'ok', $src = 'default')
 /**
  * Returns path to include file
  *
- * @param string $name Extension or API name
- * @param string $type Extension type: 'extension', 'plug' or 'core' for core API
+ * @param string $name Extension name, 'system', or 'admin'
  * @param string $part Name of the extension part
  * @return string File path
  */
-function cot_incfile($name, $type = 'core', $part = 'functions')
+function cot_incfile($name, $part = 'functions')
 {
 	global $cfg;
-	if ($type == 'core')
+	if ($name == 'system')
 	{
-		return $cfg['system_dir'] . "/$name.php";
+		return $cfg['system_dir'] . "/$part.php";
 	}
 	elseif ($name == 'admin')
 	{
@@ -3172,12 +3171,12 @@ function cot_incfile($name, $type = 'core', $part = 'functions')
  * Returns a language file path for an extension or core part.
  *
  * @param string $name Part name (area code or Extension name)
- * @param string $type Part type: 'plug', 'module' or 'core'
+ * @param string $type Part type: 'module' or 'core'
  * @param string $default Default (fallback) language code
  * @param string $lang Set this to override global $lang
  * @return mixed       Langfile path or FALSE if no suitable files were found
  */
-function cot_langfile($name, $type = 'plug', $default = 'en', $lang = null)
+function cot_langfile($name, $type = 'module', $default = 'en', $lang = null)
 {
 	global $cfg;
 	if (!is_string($lang))
@@ -3289,7 +3288,7 @@ function cot_schemefile()
  * 2) tpl subdir in Extension folder (fallback template)
  *
  * @param mixed $base Item name (string), or base names (array)
- * @param string $type Extension type: 'plug', 'module' or 'core'
+ * @param string $type Extension type: 'module' or 'core'
  * @param bool $admin Use admin theme file if present. Tries to determine from base string by default.
  * @return string
  */
@@ -4064,9 +4063,9 @@ function cot_get_editors()
 	{
 		foreach ($cot_extensions['editor'] as $k)
 		{
-			if (cot_auth('plug', $k['pl_code'], 'W'))
+			if (cot_auth($k['ext_code'], 'any', 'W'))
 			{
-				$list[] = $k['pl_code'];
+				$list[] = $k['ext_code'];
 			}
 		}
 	}
@@ -4086,9 +4085,9 @@ function cot_get_parsers()
 	{
 		foreach ($cot_extensions['parser'] as $k)
 		{
-			if (cot_auth('plug', $k['pl_code'], 'W'))
+			if (cot_auth($k['ext_code'], 'any', 'W'))
 			{
-				$list[] = $k['pl_code'];
+				$list[] = $k['ext_code'];
 			}
 		}
 	}
@@ -4129,9 +4128,9 @@ function cot_parse($text, $enable_markup = true, $parser = '')
 				{
 					foreach ($cot_extensions['parser'] as $k)
 					{
-						if ($k['pl_code'] == $parser && cot_auth('plug', $k['pl_code'], 'R'))
+						if ($k['ext_code'] == $parser && cot_auth($k['ext_code'], 'any', 'R'))
 						{
-							include $cfg['extensions_dir'] . '/' . $k['pl_file'];
+							include $cfg['extensions_dir'] . '/' . $k['ext_file'];
 							$text = $func($text);
 							$plain = false;
 							break;
@@ -4878,12 +4877,12 @@ function cot_rc_minify($code, $type = 'js')
 {
 	if ($type == 'js')
 	{
-		require_once './lib/jsmin.php';
+		require_once './vendor/jsmin.php';
 		$code = JSMin::minify($code);
 	}
 	elseif ($type == 'css')
 	{
-		require_once './lib/cssmin.php';
+		require_once './vendor/cssmin.php';
 		$code = minify_css($code);
 	}
 	return $code;
@@ -5384,7 +5383,7 @@ function cot_url($name, $params = '', $tail = '', $htmlspecialchars_bypass = fal
 	}
 
 	$url = in_array($name, array('admin', 'login', 'message')) ? "$name.php" : 'index.php';
-	if (!in_array($name, array('admin', 'index', 'login', 'message', 'plug')))
+	if (!in_array($name, array('admin', 'index', 'login', 'message')))
 	{
 		$params = array('e' => $name) + $params;
 	}
@@ -5425,12 +5424,9 @@ function cot_url_modify($params = array(), $tail = '', $htmlspecialchars_bypass 
 	{
 		$params = array();
 	}
-	$area = defined('COT_PLUG') ? 'plug' : cot::$env['ext'];
+	$area = cot::$env['ext'];
 	$params = array_merge($_GET, $params);
-	if (!defined('COT_PLUG'))
-	{
-		unset($params['e']);
-	}
+
 	unset($params['rwr']);
 	return cot_url(
 		$area,

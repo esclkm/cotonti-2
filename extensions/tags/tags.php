@@ -15,7 +15,7 @@ Hooks=module
  * @license BSD
  */
 
-defined('COT_CODE') && defined('COT_PLUG') or die('Wrong URL');
+defined('COT_CODE') or die('Wrong URL');
 
 require_once $cfg['system_dir'] . '/header.php';
 
@@ -41,13 +41,13 @@ $tag_areas = array();
 
 if (cot_extension_active('page'))
 {
-	require_once cot_incfile('page', 'module');
+	require_once cot_incfile('page', 'functions');
 	$tag_areas[] = 'pages';
 }
 
 if (cot_extension_active('forums'))
 {
-	require_once cot_incfile('forums', 'module');
+	require_once cot_incfile('forums', 'functions');
 	$tag_areas[] = 'forums';
 }
 

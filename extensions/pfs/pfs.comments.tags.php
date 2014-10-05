@@ -18,7 +18,7 @@ Tags=comments.tpl:{COMMENTS_FORM_PFS},{COMMENTS_FORM_SFS}
 
 defined('COT_CODE') or die('Wrong URL.');
 
-require_once cot_incfile('pfs', 'module');
+require_once cot_incfile('pfs', 'functions');
 
 global $usr, $L, $sys;
 

@@ -19,7 +19,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if (!defined('COT_ADMIN') && ($cfg['hits']['adminhits'] || $usr['maingrp'] != COT_GROUP_SUPERADMINS))
 {
-	require_once cot_incfile('hits', 'module');
+	require_once cot_incfile('hits', 'functions');
 
 	if ($cache && $cache->mem)
 	{

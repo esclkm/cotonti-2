@@ -14,7 +14,7 @@
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('admin', 'a');
 cot_block($usr['isadmin']);
 
-require_once cot_incfile('configuration');
+require_once cot_incfile('system', 'configuration');
 
 $adminsubtitle = $L['Configuration'];
 
@@ -80,7 +80,7 @@ switch ($n)
 		}
 		elseif ($a == 'reset' && !empty($v))
 		{
-			cot_config_reset($p, $v, $o, '');
+			cot_config_reset($p, $v, '');
 
 			$optionslist[$v]['config_name'] = $optionslist[$v]['config_defaul'];
 			/* === Hook  === */
@@ -101,8 +101,8 @@ switch ($n)
 		else
 		{
 			$adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
-			$plmod = $o == 'module' ? 'mod' : 'pl';
-			$ext_info = cot_get_extensionparams($p, $o);
+			$plmod = 'mod';
+			$ext_info = cot_get_extensionparams($p);
 			$adminpath[] = array(cot_url('admin', "m=extensions&a=details&$plmod=$p"), $ext_info['name']);
 
 			$adminpath[] = array(cot_url('admin', 'm=config&n=edit&o=' . $o . '&p=' . $p), $L['Configuration']);
@@ -112,9 +112,9 @@ switch ($n)
 		{
 			require cot_langfile($p, $o);
 		}
-		if ($o != 'core' && file_exists(cot_incfile($p, $o)))
+		if ($o != 'core' && file_exists(cot_incfile($o, $p)))
 		{
-			require_once cot_incfile($p, $o);
+			require_once cot_incfile($o, $p);
 		}
 
 		/* === Hook  === */
@@ -214,7 +214,7 @@ switch ($n)
 		while ($row = $sql->fetch())
 		{
 			$jj++;
-			$ext_info = cot_get_extensionparams($row['config_cat'], true);
+			$ext_info = cot_get_extensionparams($row['config_cat']);
 			$t->assign(array(
 				'ADMIN_CONFIG_ROW_URL' => cot_url('admin', 'm=config&n=edit&o=module&p=' . $row['config_cat']),
 				'ADMIN_CONFIG_ROW_ICO' => $ext_info['icon'],
@@ -226,33 +226,9 @@ switch ($n)
 			$t->parse('MAIN.DEFAULT.ADMIN_CONFIG_COL.ADMIN_CONFIG_ROW');
 		}
 		$sql->closeCursor();
-		$t->assign('ADMIN_CONFIG_COL_CAPTION', $L['Modules']);
-		$t->parse('MAIN.DEFAULT.ADMIN_CONFIG_COL');
-		$sql = $db->query("
-			SELECT DISTINCT(c.config_cat), r.ct_title FROM $db_config AS c
-				LEFT JOIN $db_core AS r ON c.config_cat = r.ct_code
-			WHERE config_owner = 'plug'
-			AND config_type != '" . COT_CONFIG_TYPE_HIDDEN . "'
-			ORDER BY config_cat ASC
-		");
-		$jj = 0;
-		while ($row = $sql->fetch())
-		{
-			$jj++;
-			$ext_info = cot_get_extensionparams($row['config_cat'], false);
-			$t->assign(array(
-				'ADMIN_CONFIG_ROW_URL' => cot_url('admin', 'm=config&n=edit&o=plug&p=' . $row['config_cat']),
-				'ADMIN_CONFIG_ROW_ICO' => $ext_info['icon'],
-				'ADMIN_CONFIG_ROW_NAME' => $ext_info['name'],
-				'ADMIN_CONFIG_ROW_DESC' => $ext_info['desc'],
-				'ADMIN_CONFIG_ROW_NUM' => $jj,
-				'ADMIN_CONFIG_ROW_ODDEVEN' => cot_build_oddeven($jj)
-			));
-			$t->parse('MAIN.DEFAULT.ADMIN_CONFIG_COL.ADMIN_CONFIG_ROW');
-		}
-		$sql->closeCursor();
 		$t->assign('ADMIN_CONFIG_COL_CAPTION', $L['Extensions']);
 		$t->parse('MAIN.DEFAULT.ADMIN_CONFIG_COL');
+
 		/* === Hook  === */
 		foreach (cot_getextensions('admin.config.default.tags') as $pl)
 		{

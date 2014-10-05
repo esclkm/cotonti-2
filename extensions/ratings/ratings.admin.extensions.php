@@ -17,13 +17,13 @@ Hooks=admin.extensions.install.tags
 
 defined('COT_CODE') or die('Wrong URL');
 
-require cot_incfile('ratings', 'module', 'enablement');
+require cot_incfile('ratings', 'enablement');
 
-if ($is_module && in_array($code, $rat_modules_list) && !cot_config_implanted($code, 'ratings'))
+if (in_array($code, $rat_modules_list) && !cot_config_implanted($code, 'ratings'))
 {
 	cot_config_implant($code, $rat_options, false, 'ratings');
 }
-elseif ($is_module && in_array($code, $rat_modules_struct_list) && !cot_config_implanted($code, 'ratings'))
+elseif (in_array($code, $rat_modules_struct_list) && !cot_config_implanted($code, 'ratings'))
 {
 	cot_config_implant($code, $rat_options, true, 'ratings');
 }

@@ -8,7 +8,7 @@
 					<!-- IF {ADMIN_STRUCTURE_EXT_ICO} --> 
 					<img src="{ADMIN_STRUCTURE_EXT_ICO}"/>
 					<!-- ELSE -->
-					<img src="{PHP.cfg.system_dir}/admin/img/plugins32.png"/>
+					{PHP.R.admin_icon_extension}
 					<!-- ENDIF -->
 				</td>
 				<td class="width90"><a href="{ADMIN_STRUCTURE_EXT_URL}">{ADMIN_STRUCTURE_EXT_NAME}</a></td>

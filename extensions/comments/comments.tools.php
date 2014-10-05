@@ -20,7 +20,7 @@ Hooks=admin
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('comments', 'any');
 cot_block($usr['isadmin']);
 
-require_once cot_incfile('comments', 'module');
+require_once cot_incfile('comments', 'functions');
 
 $t = new XTemplate(cot_tplfile('comments.tools', 'module', true));
 
@@ -56,7 +56,7 @@ $pagenav = cot_pagenav('admin', 'm=other&p=comments', $d, $totalitems, $cfg['max
 
 if (cot_extension_active('page'))
 {
-	require_once cot_incfile('page', 'module');
+	require_once cot_incfile('page', 'functions');
 	$admin_comments_join_fields = ", p.*";
 	$admin_comments_join_tables = " LEFT JOIN $db_pages AS p
 		ON c.com_area = 'page' AND c.com_code = p.page_id";
@@ -145,7 +145,7 @@ foreach ($sql->fetchAll() as $row)
 }
 
 $t->assign(array(
-	'ADMIN_COMMENTS_CONFIG_URL' => cot_url('admin', 'm=config&n=edit&o=plug&p=comments'),
+	'ADMIN_COMMENTS_CONFIG_URL' => cot_url('admin', 'm=config&n=edit&o=module&p=comments'),
 	'ADMIN_COMMENTS_ADMINWARNINGS' => $adminwarnings,
 	'ADMIN_COMMENTS_PAGINATION_PREV' => $pagenav['prev'],
 	'ADMIN_COMMENTS_PAGNAV' => $pagenav['main'],

@@ -29,7 +29,7 @@ unset($temp_L);
 
 if (defined('COT_ADMIN'))
 {
-	require_once cot_incfile('admin', 'module');
+	require_once cot_incfile('admin');
 }
 
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('message', 'a');
@@ -93,7 +93,7 @@ switch ($msg)
 	case '920':
 		if (!empty($m))
 		{
-			// Load module or plugin langfile
+			// Load extension langfile
 			if (file_exists(cot_langfile($m, 'extension')))
 			{
 				include cot_langfile($m, 'extension');
@@ -145,7 +145,7 @@ if (empty($rc) && empty($rd))
 switch ($rc)
 {
 	case '100':
-		$r['100'] = cot_url('admin', 'm=plug');
+		$r['100'] = cot_url('admin', 'm=extensions');
 		break;
 
 	case '101':

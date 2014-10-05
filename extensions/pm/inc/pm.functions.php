@@ -11,8 +11,8 @@
 defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
-require_once cot_langfile('pm', 'module');
-require_once cot_incfile('pm', 'module', 'resources');
+require_once cot_langfile('pm');
+require_once cot_incfile('pm', 'resources');
 
 $parser = ! empty(cot::$sys['parser']) ? cot::$sys['parser'] : cot::$cfg['parser'];
 $editor = cot::$cfg[$parser]['editor'];

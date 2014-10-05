@@ -17,7 +17,7 @@ Hooks=ajax
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('userimages', 'module');
+require_once cot_incfile('userimages', 'functions');
 
 switch ($a)
 {

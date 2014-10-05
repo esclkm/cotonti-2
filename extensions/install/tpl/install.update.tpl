@@ -11,29 +11,34 @@
 		<meta name="robots" content="noindex" />
 		<link rel="shortcut icon" href="favicon.ico" />
 		<title>{PHP.L.install_update}</title>
-		<link rel="stylesheet" type="text/css" href="modules/install/tpl/style.css" />
+		<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.css" />
+		<script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="extensions/install/tpl/style.css" />
 	</head>
 
 
 	<body>
-		<div id="box">
-			<div id="header">
-				{PHP.L.install_update}
-				<span>{UPDATE_FROM} &mdash; {UPDATE_TO}</span>
+		<div class="container container-fluid">
+			<div class="page-header">
+				<h1>{PHP.L.install_update} <small> {UPDATE_FROM} &mdash; {UPDATE_TO}</small></h1>
 			</div>
 
-			<div id="content">
-				<h3>{UPDATE_TITLE}</h3>
-				{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
+			<h3>{UPDATE_TITLE}</h3>
+			{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 
-				<!-- BEGIN: COMPLETED -->
-				<p class="complete">
-					<span>{UPDATE_COMPLETED_NOTE}</span>
-
-					<a href="{PHP.cfg.mainurl}"><strong>{PHP.L.install_view_site}</strong></a>
-				</p>
-				<!-- END: COMPLETED -->
+			<!-- BEGIN: COMPLETED -->
+			<p class="complete">
+				<span>{UPDATE_COMPLETED_NOTE}</span>
+			</p>
+			
+			<hr/>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10 text-right">
+					<a href="{PHP.cfg.mainurl}" class="btn btn-success">{PHP.L.install_view_site}</a>
+				</div>
 			</div>
+
+			<!-- END: COMPLETED -->
 		</div>
 	</body>
 </html>

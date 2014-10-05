@@ -129,7 +129,7 @@ foreach ($cot_modules as $code => $mod)
 $sql = $db->query("SELECT a.*, u.user_name FROM $db_core AS c
 LEFT JOIN $db_auth AS a ON c.ct_code=a.auth_code
 LEFT JOIN $db_users AS u ON u.user_id=a.auth_setbyuserid
-WHERE auth_groupid='$g' AND auth_option = 'a' AND c.ct_plug = 0
+WHERE auth_groupid='$g' AND auth_option = 'a' AND c.ct_extension = 0
 ORDER BY auth_code ASC");
 while ($row = $sql->fetch())
 {
@@ -185,22 +185,6 @@ if(!empty($area))
 	$t->parse('MAIN.RIGHTS_SECTION');
 }
 $sql->closeCursor();
-
-// Plugin permissions
-$sql = $db->query("SELECT a.*, u.user_name FROM $db_auth as a
-	LEFT JOIN $db_users AS u ON u.user_id=a.auth_setbyuserid
-	WHERE auth_groupid='$g' AND auth_code='plug'
-	ORDER BY auth_option ASC");
-while ($row = $sql->fetch())
-{
-	$ico = $cfg['plugins_dir'] . '/' . $row['auth_option'] . '/' . $row['auth_option'] . '.png';
-	$link = cot_url('admin', 'm=extensions&a=details&pl='.$row['auth_option']);
-	$title = $cot_modules[$row['auth_option']]['title'];
-	cot_rights_parseline($row, $title, $link, $ico);
-}
-$sql->closeCursor();
-$t->assign('RIGHTS_SECTION_TITLE', $L['Plugins']);
-$t->parse('MAIN.RIGHTS_SECTION');
 
 /* === Hook for the extensions === */
 foreach (cot_getextensions('admin.rights.end') as $pl)

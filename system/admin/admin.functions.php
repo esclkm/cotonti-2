@@ -12,13 +12,13 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 // Requirements
-require_once cot_incfile('extrafields');
-require_once cot_incfile('forms');
-require_once cot_incfile('extensions');
+require_once cot_incfile('system', 'extrafields');
+require_once cot_incfile('system', 'forms');
+require_once cot_incfile('system', 'extensions');
 
 /* ======== Defaulting the admin variables ========= */
 
-unset($adminmain, $adminhelp, $admin_icon, $plugin_body, $plugin_title, $plugin_help);
+unset($adminmain, $adminhelp, $admin_icon);
 
 /**
  * Returns $url as an HTML link if $cond is TRUE or just plain $text otherwise
@@ -108,23 +108,15 @@ function cot_stringinfile($file, $str, $maxsize=32768)
 	return $result;
 }
 
-function cot_get_extensionparams($code, $is_module = false)
+function cot_get_extensionparams($code)
 {
 	global $cfg, $cot_modules, $cot_modules;
-	$dir = $is_module ? $cfg['extensions_dir'] : $cfg['plugins_dir'];
 
-	if($is_module)
-	{
-		$name = $cot_modules[$code]['title'];
-	}
-	else
-	{
-		$name = $cot_modules[$code]['title'];
-	}
+	$name = $cot_modules[$code]['title'];
 
 	if(empty($name))
 	{
-		$ext_info = $dir . '/' . $code . '/' . $code . '.setup.php';
+		$ext_info = $cfg['extensions_dir'] . '/' . $code . '/' . $code . '.setup.php';
 		$exists = file_exists($ext_info);
 		if ($exists)
 		{
@@ -140,10 +132,10 @@ function cot_get_extensionparams($code, $is_module = false)
 		}
 		$name = $info['Name'];
 	}
-	$icofile = $dir . '/' . $code . '/' . $code . '.png';
+	$icofile = $cfg['extensions_dir'] . '/' . $code . '/' . $code . '.png';
 	$icon = file_exists($icofile) ? $icofile : '';
 
-	$langfile = cot_langfile($code, $is_module ? 'module' : 'plug');
+	$langfile = cot_langfile($code, 'module');
 	if (file_exists($langfile))
 	{
 		include $langfile;

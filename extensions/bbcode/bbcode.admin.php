@@ -16,7 +16,7 @@ Hooks=admin
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('bbcode', 'module');
+require_once cot_incfile('bbcode');
 
 $bb_t = new XTemplate(cot_tplfile('bbcode.admin', 'module', true));
 
@@ -117,7 +117,7 @@ elseif ($a == 'convert')
 	// Convert from BBcode to HTML
 	if ($b == 'page')
 	{
-		require_once cot_incfile('page', 'module');
+		require_once cot_incfile('page');
 		// Attempt to override from HTML cache
 		if ($db->fieldExists($db_pages, 'page_html'))
 		{
@@ -136,7 +136,7 @@ elseif ($a == 'convert')
 	}
 	elseif ($b == 'forums')
 	{
-		require_once cot_incfile('forums', 'module');
+		require_once cot_incfile('forums');
 		// Attempt to override from HTML cache
 		if ($db->fieldExists($db_forum_posts, 'fp_html'))
 		{
@@ -166,7 +166,7 @@ elseif ($a == 'convert')
 	}
 	elseif ($b == 'comments')
 	{
-		require_once cot_incfile('comments', 'module');
+		require_once cot_incfile('comments', 'functions');
 		// Attempt to override from HTML cache
 		if ($db->fieldExists($db_com, 'com_html'))
 		{
@@ -195,7 +195,7 @@ elseif ($a == 'convert')
 	}
 	elseif ($b == 'pm')
 	{
-		require_once cot_incfile('pm', 'module');
+		require_once cot_incfile('pm', 'functions');
 		// Attempt to override from HTML cache
 		if ($db->fieldExists($db_pm, 'pm_html'))
 		{
@@ -253,7 +253,7 @@ foreach ($res->fetchAll() as $row)
 		'ADMIN_BBCODE_ROW_CONTAINER' => cot_checkbox($row['bbc_container'], 'bbca_container['.$id.']'),
 		'ADMIN_BBCODE_ROW_PATTERN' => cot_textarea('bbca_pattern['.$id.']', $row['bbc_pattern'], 2, 20),
 		'ADMIN_BBCODE_ROW_REPLACEMENT' => cot_textarea('bbca_replacement['.$id.']', $row['bbc_replacement'], 2, 20),
-		'ADMIN_BBCODE_ROW_PLUG' => $row['bbc_plug'],
+		'ADMIN_BBCODE_ROW_EXTENSION' => $row['bbc_extension'],
 		'ADMIN_BBCODE_ROW_MODE' => cot_selectbox($row['bbc_mode'], 'bbca_mode['.$id.']', $bbc_modes, $bbc_modes, false),
 		'ADMIN_BBCODE_ROW_PRIO' => cot_selectbox($row['bbc_priority'], 'bbca_priority['.$id.']', range(1, 256), range(1, 256), false),
 		'ADMIN_BBCODE_ROW_POSTRENDER' => cot_checkbox($row['bbc_postrender'], 'bbca_postrender['.$id.']'),

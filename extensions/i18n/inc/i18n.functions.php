@@ -11,7 +11,7 @@
 defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_langfile('i18n', 'module');
-require_once cot_incfile('i18n', 'module', 'resources');
+require_once cot_incfile('i18n', 'resources');
 
 cot::$db->registerTable('i18n_locales');
 cot::$db->registerTable('i18n_pages');

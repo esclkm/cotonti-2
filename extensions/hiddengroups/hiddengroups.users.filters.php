@@ -17,7 +17,7 @@ Hooks=users.filters
 
 defined('COT_CODE') or die('Wrong URL.');
 
-require_once cot_incfile('hiddengroups', 'module');
+require_once cot_incfile('hiddengroups', 'functions');
 
 $grpfilters_titles = array($L['Maingroup']);
 $grpfilters_group_values = array(cot_url('users'));

@@ -64,14 +64,11 @@ $L['core_locale'] = &$L['Locale'];
 $L['core_locale_desc'] = 'Default language and time zone settings';
 $L['core_main'] = 'Main Settings';
 $L['core_main_desc'] = 'Website configuration, global list settings';
-$L['core_menus'] = &$L['Menus'];
-$L['core_menus_desc'] = 'Slots for posting plain text information';
 $L['core_page'] = &$L['Pages'];
 $L['core_parser'] = &$L['Parser'];
 $L['core_performance'] = 'Performance';
 $L['core_performance_desc'] = 'Gzip compression, resource consolidation, enable Ajax and jQuery';
 $L['core_pfs'] = &$L['PFS'];
-$L['core_plug'] = &$L['Extensions'];
 $L['core_pm'] = &$L['Private_Messages'];
 $L['core_polls'] = &$L['Polls'];
 $L['core_rss'] = &$L['RSS_Feeds'];
@@ -126,55 +123,6 @@ $L['cfg_maxrowsperpage'] = 'Max. items per page';
 $L['cfg_maxrowsperpage_hint'] = 'Default item limit for pagination';
 $L['cfg_parser'] = 'Markup parser';
 $L['cfg_parser_hint'] = 'Default is: plain text';
-
-/**
- * Config Section
- * Menus Subsection
- */
-$L['cfg_banner'] = 'Banner<br />{HEADER_BANNER} in header.tpl';
-$L['cfg_banner_hint'] = '';
-$L['cfg_bottomline'] = 'Bottom line<br />{FOOTER_BOTTOMLINE} in footer.tpl';
-$L['cfg_bottomline_hint'] = '';
-$L['cfg_topline'] = 'Top line<br />{HEADER_TOPLINE} in header.tpl';
-$L['cfg_topline_hint'] = '';
-
-$L['cfg_freetext1'] = 'Freetext Slot #1<br />{PHP.cfg.freetext1} in all tpl files';
-$L['cfg_freetext1_hint'] = '';
-$L['cfg_freetext2'] = 'Freetext Slot #2<br />{PHP.cfg.freetext2} in all tpl files';
-$L['cfg_freetext2_hint'] = '';
-$L['cfg_freetext3'] = 'Freetext Slot #3<br />{PHP.cfg.freetext3} in all tpl files';
-$L['cfg_freetext3_hint'] = '';
-$L['cfg_freetext4'] = 'Freetext Slot #4<br />{PHP.cfg.freetext4} in all tpl files';
-$L['cfg_freetext4_hint'] = '';
-$L['cfg_freetext5'] = 'Freetext Slot #5<br />{PHP.cfg.freetext5} in all tpl files';
-$L['cfg_freetext5_hint'] = '';
-$L['cfg_freetext6'] = 'Freetext Slot #6<br />{PHP.cfg.freetext6} in all tpl files';
-$L['cfg_freetext6_hint'] = '';
-$L['cfg_freetext7'] = 'Freetext Slot #7<br />{PHP.cfg.freetext7} in all tpl files';
-$L['cfg_freetext7_hint'] = '';
-$L['cfg_freetext8'] = 'Freetext Slot #8<br />{PHP.cfg.freetext8} in all tpl files';
-$L['cfg_freetext8_hint'] = '';
-$L['cfg_freetext9'] = 'Freetext Slot #9<br />{PHP.cfg.freetext9} in all tpl files';
-$L['cfg_freetext9_hint'] = '';
-
-$L['cfg_menu1'] = 'Menu slot #1<br />{PHP.cfg.menu1} in all tpl files';
-$L['cfg_menu1_hint'] = '';
-$L['cfg_menu2'] = 'Menu slot #2<br />{PHP.cfg.menu2} in all tpl files';
-$L['cfg_menu2_hint'] = '';
-$L['cfg_menu3'] = 'Menu slot #3<br />{PHP.cfg.menu3} in all tpl files';
-$L['cfg_menu3_hint'] = '';
-$L['cfg_menu4'] = 'Menu slot #4<br />{PHP.cfg.menu4} in all tpl files';
-$L['cfg_menu4_hint'] = '';
-$L['cfg_menu5'] = 'Menu slot #5<br />{PHP.cfg.menu5} in all tpl files';
-$L['cfg_menu5_hint'] = '';
-$L['cfg_menu6'] = 'Menu slot #6<br />{PHP.cfg.menu6} in all tpl files';
-$L['cfg_menu6_hint'] = '';
-$L['cfg_menu7'] = 'Menu slot #7<br />{PHP.cfg.menu7} in all tpl files';
-$L['cfg_menu7_hint'] = '';
-$L['cfg_menu8'] = 'Menu slot #8<br />{PHP.cfg.menu8} in all tpl files';
-$L['cfg_menu8_hint'] = '';
-$L['cfg_menu9'] = 'Menu slot #9<br />{PHP.cfg.menu9} in all tpl files';
-$L['cfg_menu9_hint'] = '';
 
 /**
  * Config Section
@@ -304,7 +252,7 @@ $L['ext_config_struct_error'] = 'Structure configuration setup failed';
 $L['ext_config_struct_installed'] = 'Installed structure configuration';
 $L['ext_config_struct_updated'] = 'Updated structure configuration options';
 $L['ext_dependency_error'] = 'Extension &quot;{$dep_name}&quot; required by &quot;{$name}&quot; is neither installed nor selected for installation';
-$L['ext_dependency_uninstall_error'] = '{$type} &quot;{$name}&quot; requires this extension and should be uninstalled first';
+$L['ext_dependency_uninstall_error'] = 'Extension &quot;{$name}&quot; requires this extension and should be uninstalled first';
 $L['ext_executed_php'] = 'Executed PHP handler part: {$ret}';
 $L['ext_executed_sql'] = 'Executed SQL handler part: {$ret}';
 $L['ext_installing'] = 'Installing extension &quot;{$name}&quot;';
@@ -405,7 +353,7 @@ $L['users_grp_1_title'] = 'Guests';
 $L['users_grp_1_desc'] = 'Unregisted visitors or logged out users';
 
 /**
- * Plug Section
+ * Extension Section
  */
 $L['adm_defauth_guests'] = 'Default rights for the guests';
 $L['adm_deflock_guests'] = 'Lock mask for the guests';
@@ -421,7 +369,7 @@ $L['adm_partstopped'] = 'Partially stopped';
 $L['adm_installed'] = 'Installed';
 $L['adm_notinstalled'] = 'Not installed';
 
-$L['adm_plugsetup'] = 'Extension Setup';
+$L['adm_extensionsetup'] = 'Extension Setup';
 $L['adm_override_guests'] = 'System override, guests and inactive are not allowed to admin';
 $L['adm_override_banned'] = 'System override, Banned';
 $L['adm_override_admins'] = 'System override, Administrators';

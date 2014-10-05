@@ -20,8 +20,8 @@ Hooks=admin
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('polls', 'a');
 cot_block($usr['isadmin']);
 
-require_once cot_incfile('polls', 'module');
-require_once cot_incfile('polls', 'module', 'resources');
+require_once cot_incfile('polls');
+require_once cot_incfile('polls', 'resources');
 
 $t = new XTemplate(cot_tplfile('polls.admin', 'module', true));
 

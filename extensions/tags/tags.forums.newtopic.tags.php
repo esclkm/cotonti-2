@@ -20,7 +20,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($cfg['tags']['forums'] && cot_auth('tags', 'any', 'W'))
 {
-	require_once cot_incfile('tags', 'module');
+	require_once cot_incfile('tags', 'functions');
 	$rtags = cot_import('rtags', 'P', 'TXT');
 	$t->assign(array(
 		'FORUMS_NEWTOPIC_TOP_TAGS' => $L['Tags'],

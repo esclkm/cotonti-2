@@ -140,7 +140,7 @@ if ($a == 'update')
 
 	cot_redirect(cot_url('forums', "m=posts&q=" . $q . '&d=' . $durl, '#' . $p, true));
 }
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 
 $crumbs = cot_forums_buildpath($s);
 $crumbs[] = array(cot_url('forums', "m=posts&p=" . $p, "#" . $p), (($rowt['ft_mode'] == 1) ? '# ' : '') . htmlspecialchars($rowt['ft_title']));

@@ -12,9 +12,9 @@ defined('COT_CODE') or die('Wrong URL.');
 
 // Requirements
 require_once cot_langfile('page', 'module');
-require_once cot_incfile('page', 'module', 'resources');
-require_once cot_incfile('forms');
-require_once cot_incfile('extrafields');
+require_once cot_incfile('page', 'resources');
+require_once cot_incfile('system', 'forms');
+require_once cot_incfile('system', 'forms');
 
 // Tables and extras
 cot::$db->registerTable('pages');

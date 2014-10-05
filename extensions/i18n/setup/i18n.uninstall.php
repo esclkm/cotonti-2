@@ -14,7 +14,7 @@ defined('COT_CODE') or die('Wrong URL');
 if (cot_extension_active('tags'))
 {
 	// Remove i18n-specific tags
-	require_once cot_incfile('tags', 'module');
+	require_once cot_incfile('tags', 'functions');
 	global $db_tag_references;
 	$db->delete($db_tag_references, "tag_locale != ''");
 	$db->query("ALTER TABLE $db_tag_references DROP PRIMARY KEY");

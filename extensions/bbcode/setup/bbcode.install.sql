@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `cot_bbcode` (
   `bbc_container` tinyint NOT NULL default '1',
   `bbc_enabled` tinyint NOT NULL default '1',
   `bbc_priority` tinyint unsigned NOT NULL default '128',
-  `bbc_plug` varchar(100) collate utf8_unicode_ci NOT NULL default '',
+  `bbc_extension` varchar(100) collate utf8_unicode_ci NOT NULL default '',
   `bbc_postrender` tinyint NOT NULL default '0',
   PRIMARY KEY  (`bbc_id`),
   KEY `bbc_enabled` (`bbc_enabled`),
@@ -18,7 +18,7 @@ DELETE FROM `cot_bbcode` WHERE `bbc_name` IN ('b', 'i', 'u', 's', 'center', 'lef
   'email', 'quote', 'color', 'img', 'url', 'code', 'more', 'size', 'h', 'list', 'ol', 'li', 'li_short', 'table',
   'tr', 'th', 'td', 'hide', 'spoiler', 'thumb', 'pfs');
 
-INSERT INTO `cot_bbcode` (`bbc_name`, `bbc_mode`, `bbc_pattern`, `bbc_replacement`, `bbc_container`, `bbc_enabled`, `bbc_priority`, `bbc_plug`, `bbc_postrender`) VALUES
+INSERT INTO `cot_bbcode` (`bbc_name`, `bbc_mode`, `bbc_pattern`, `bbc_replacement`, `bbc_container`, `bbc_enabled`, `bbc_priority`, `bbc_extension`, `bbc_postrender`) VALUES
 ('b', 'str', '[b]', '<strong>', 1, 1, 128, '', 0),
 ('b', 'str', '[/b]', '</strong>', 0, 1, 128, '', 0),
 ('i', 'str', '[i]', '<em>', 1, 1, 128, '', 0),

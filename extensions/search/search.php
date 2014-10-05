@@ -14,20 +14,20 @@ Hooks=module
  * @copyright Copyright (c) Cotonti Team 2008-2014
  * @license BSD License
  */
-defined('COT_CODE') && defined('COT_PLUG') or die('Wrong URL');
+defined('COT_CODE') or die('Wrong URL');
 
 require_once $cfg['system_dir'] . '/header.php';
 
 if (cot_extension_active('page'))
 {
-	require_once cot_incfile('page', 'module');
+	require_once cot_incfile('page', 'functions');
 }
 if (cot_extension_active('forums'))
 {
-	require_once cot_incfile('forums', 'module');
+	require_once cot_incfile('forums', 'functions');
 }
-require_once cot_incfile('search', 'module');
-require_once cot_incfile('forms');
+require_once cot_incfile('search', 'functions');
+require_once cot_incfile('system', 'forms');
 
 
 $sq = cot_import('sq', 'R', 'TXT');

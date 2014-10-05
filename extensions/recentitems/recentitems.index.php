@@ -23,11 +23,11 @@ $enforums = $t->hasTag('RECENT_FORUMS');
 $enpages = $t->hasTag('RECENT_PAGES');
 if ($enpages || $enforums)
 {
-	require_once cot_incfile('recentitems', 'module');
+	require_once cot_incfile('recentitems', 'functions');
 
 	if ($enpages && $cfg['recentitems']['recentpages'] && cot_extension_active('page'))
 	{
-		require_once cot_incfile('page', 'module');
+		require_once cot_incfile('page', 'functions');
 
 		// Try to load from cache for guests
 		if ($usr['id'] == 0 && $cache && (int) $cfg['recentitems']['cache_ttl'] > 0)
@@ -51,7 +51,7 @@ if ($enpages || $enforums)
 
 	if ($enforums && $cfg['recentitems']['recentforums'] && cot_extension_active('forums'))
 	{
-		require_once cot_incfile('forums', 'module');
+		require_once cot_incfile('forums', 'functions');
 
 		// Try to load from cache for guests
 		if ($usr['id'] == 0 && $cache && (int)$cfg['recentitems']['cache_ttl'] > 0)

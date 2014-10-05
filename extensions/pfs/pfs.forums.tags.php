@@ -18,7 +18,7 @@ Tags=forums.editpost.tpl:{FORUMS_EDITPOST_MYPFS};forums.editpost.tpl:{FORUMS_POS
 
 defined('COT_CODE') or die('Wrong URL.');
 
-require_once cot_incfile('pfs', 'module');
+require_once cot_incfile('pfs', 'functions');
 
 $pfs_caller = cot_get_caller();
 if ($pfs_caller == 'forums.posts')

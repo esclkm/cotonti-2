@@ -22,11 +22,12 @@ $R['input_default'] = '<input type="{$type}" name="{$name}" value="{$value}"{$at
 $R['input_option'] = '<option value="{$value}"{$selected}>{$title}</option>';
 $R['input_radio'] = '<label><input type="radio" name="{$name}" value="{$value}"{$checked}{$attrs} /> {$title}</label>';
 $R['input_radio_separator'] = ' ';
-$R['input_select'] = '<select name="{$name}"{$attrs}>{$options}</select>{$error}';
+$R['input_select'] = '<select name="{$name}" class="form-control" {$attrs}>{$options}</select>{$error}';
 $R['input_submit'] = '<button type="submit" name="{$name}" {$attrs}>{$value}</button>';
-$R['input_text'] = '<input type="text" name="{$name}" value="{$value}" {$attrs} />{$error}';
-$R['input_textarea'] = '<textarea name="{$name}" rows="{$rows}" cols="{$cols}"{$attrs}>{$value}</textarea>{$error}';
-$R['input_textarea_editor'] =  '<textarea class="editor" name="{$name}" rows="{$rows}" cols="{$cols}"{$attrs}>{$value}</textarea>{$error}';
+$R['input_text'] = '<input type="text" name="{$name}" value="{$value}"  class="form-control" {$attrs} />{$error}';
+$R['input_password'] = '<input type="password" name="{$name}" value="{$value}"  class="form-control" {$attrs} />{$error}';
+$R['input_textarea'] = '<textarea name="{$name}" rows="{$rows}" cols="{$cols}" class="form-control" {$attrs}>{$value}</textarea>{$error}';
+$R['input_textarea_editor'] =  '<textarea class="editor" name="{$name}" rows="{$rows}" cols="{$cols}" {$attrs}>{$value}</textarea>{$error}';
 $R['input_textarea_medieditor'] =  '<textarea class="medieditor" name="{$name}" rows="{$rows}" cols="{$cols}"{$attrs}>{$value}</textarea>{$error}';
 $R['input_textarea_minieditor'] =  '<textarea class="minieditor" name="{$name}" rows="{$rows}" cols="{$cols}"{$attrs}>{$value}</textarea>{$error}';
 $R['input_filebox'] = '<a href="{$filepath}">{$value}</a><br /><input type="file" name="{$name}" {$attrs} /><br /><label><input type="checkbox" name="{$delname}" value="1" />'.$L['Delete'].'</label>{$error}';
@@ -64,8 +65,8 @@ $R['code_noindex'] = '<meta name="robots" content="noindex" />';
 
 $R['form_guest_remember'] = '<input type="checkbox" name="rremember" />';
 $R['form_guest_remember_forced'] = '<input type="checkbox" name="rremember" checked="checked" disabled="disabled" />';
-$R['form_guest_password'] = '<input type="password" name="rpassword" size="12" maxlength="32" />';
-$R['form_guest_username'] = '<input type="text" name="rusername" size="12" maxlength="100" />';
+$R['form_guest_password'] = '<input type="password" name="rpassword" size="12" maxlength="32" class="form-control" />'; //зачем эти ресурсы?
+$R['form_guest_username'] = '<input type="text" name="rusername" size="12" maxlength="100" class="form-control" />';
 
 /**
  * Messages

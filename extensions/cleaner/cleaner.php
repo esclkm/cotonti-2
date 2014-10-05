@@ -60,7 +60,7 @@ if ($cfg['cleaner']['refprune'] > 0 && $cot_extensions['tools']['referers'])
 
 if (cot_extension_active('pm'))
 {
-	require_once cot_incfile('pm', 'module');
+	require_once cot_incfile('pm', 'functions');
 	if ($cfg['cleaner']['pmnotread'] > 0)
 	{
 		$timeago = $sys['now'] - ($cfg['cleaner']['pmnotread'] * 86400);

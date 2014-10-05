@@ -116,7 +116,7 @@ function cot_userimages_config_remove($code, $dropcolumn=true)
 	{
 		return FALSE;
 	}
-	$result = cot_config_remove('userimages', false, strtolower($code));
+	$result = cot_config_remove('userimages', strtolower($code));
 	if($result && $dropcolumn)
 	{
 		$db->query("ALTER TABLE $db_users DROP `user_".$db->prep($code)."`");
@@ -135,7 +135,7 @@ function cot_userimages_config_remove($code, $dropcolumn=true)
 function cot_userimages_build($src, $code='')
 {
 	global $R, $L;
-	include cot_incfile('userimages', 'module', 'resources');
+	include cot_incfile('userimages', 'resources');
 	if($src && $code && $R["userimg_img_$code"])
 	{
 		return cot_rc("userimg_img_$code", array('src' => $src, 'alt' => $L[$code], 'class' => $code));

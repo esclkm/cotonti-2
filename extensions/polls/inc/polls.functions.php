@@ -11,7 +11,7 @@
 defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 require_once cot_langfile('polls', 'module');
 
 cot::$db->registerTable('polls');

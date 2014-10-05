@@ -17,7 +17,7 @@
  */
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('contact', 'module');
+require_once cot_incfile('contact', 'functions');
 
 $extra_whitelist[$db_contact] = array(
 	'name' => $db_contact,

@@ -1,7 +1,6 @@
 <!-- BEGIN: MAIN -->
-
-		<div class="block">
-			<h2 class="forums">{FORUMS_SECTIONS_PAGETITLE}</h2>
+<div class="container container-fluid">
+	<h1>{PHP.L.Forums}</h1>
 <!-- BEGIN: FORUMS_SECTIONS -->
 			<table class="cells">
 				<thead>
@@ -54,7 +53,7 @@
 			<!-- END: CAT -->
 			</table>
 <!-- END: FORUMS_SECTIONS -->
-			<p class="paging"><span><a href="{PHP|cot_url('plug','e=search&amp;tab=frm')}">{PHP.L.forums_searchinforums}</a></span><span><a href="{PHP|cot_url('plug','e=forumstats')}">{PHP.L.Statistics}</a></span><span><a href="{PHP|cot_url('forums','n=markall')}" rel="nofollow">{PHP.L.forums_markasread}</a></span></p>
+			<p class="paging"><span><a href="{PHP|cot_url('index','e=search&amp;tab=frm')}">{PHP.L.forums_searchinforums}</a></span><span><a href="{PHP|cot_url('index','e=forumstats')}">{PHP.L.Statistics}</a></span><span><a href="{PHP|cot_url('forums','n=markall')}" rel="nofollow">{PHP.L.forums_markasread}</a></span></p>
 		</div>
 		<div class="block">
 			<h2 class="tags">{PHP.L.Tags}</h2>

@@ -17,7 +17,7 @@
  */
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('comments', 'module');
+require_once cot_incfile('comments', 'functions');
 
 $extra_whitelist[$db_com] = array(
 	'name' => $db_com,

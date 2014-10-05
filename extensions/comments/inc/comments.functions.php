@@ -12,10 +12,11 @@ defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
 global $R, $L;
-require_once cot_incfile('users', 'module');
+require_once cot_incfile('users', 'functions');
 require_once cot_langfile('comments', 'module');
-require_once cot_incfile('comments', 'module', 'resources');
-require_once cot_incfile('forms');
+require_once cot_incfile('comments', 'resources');
+require_once cot_incfile('system', 'forms');
+require_once cot_incfile('system', 'extrafields');
 
 // Table names
 cot::$db->registerTable('com');
@@ -105,11 +106,6 @@ function cot_comments_display($ext_name, $code, $cat = '', $force_admin = false)
 	// Get the URL and parameters
 	$link_area = $env['ext'];
 	$link_params = $_GET;
-	if (defined('COT_PLUG'))
-	{
-		$link_area = 'module';
-		$link_params['e'] = $env['ext'];
-	}
 	if (isset($_GET['rwr']))
 	{
 		unset($link_params['rwr'], $link_params['e']);
@@ -121,11 +117,6 @@ function cot_comments_display($ext_name, $code, $cat = '', $force_admin = false)
 	$d_var = 'dcm';
 	list($pg, $d, $durl) = cot_import_pagenav($d_var, $cfg['comments']['maxcommentsperpage']);
 	$d = empty($d) ? 0 : (int) $d;
-
-	if ($auth_write && $enabled)
-	{
-		require_once cot_incfile('forms');
-	}
 
 	$t = new XTemplate(cot_tplfile('comments', 'module'));
 

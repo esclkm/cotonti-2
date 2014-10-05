@@ -14,7 +14,7 @@
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('admin', 'a');
 cot_block($usr['isadmin']);
 
-require_once cot_incfile('extrafields');
+require_once cot_incfile('system', 'forms');
 
 $extra_blacklist = array($db_auth, $db_cache, $db_cache_bindings, $db_core, $db_updates, $db_logger, $db_online, $db_extra_fields, $db_config, $db_extensions);
 $extra_whitelist = array(
@@ -71,9 +71,9 @@ if (empty($n) || in_array($n, $extra_blacklist))
 	{
 		$name = '';
 		$ext_info = array();
-		if($extra_whitelist[$table]['type'] == 'module' || $extra_whitelist[$table]['type'] == 'plug')
+		if($extra_whitelist[$table]['type'] == 'module')
 		{
-			$ext_info = cot_get_extensionparams($extra_whitelist[$table]['code'], $extra_whitelist[$table]['type'] == 'module');
+			$ext_info = cot_get_extensionparams($extra_whitelist[$table]['code']);
 			$name = $ext_info['name'];
 		}
 

@@ -41,15 +41,9 @@ if (count($i18n_locales) > 0)
 		{
 			$i18n_urlparams['l'] = $lc;
 		}
-		if (defined('COT_PLUG'))
-		{
-			$i18n_ext = 'module';
-		}
-		else
-		{
-			$i18n_ext = $env['ext'];
-			unset($i18n_urlparams['e']);
-		}
+		$i18n_ext = $env['ext'];
+		unset($i18n_urlparams['e']);
+
 		if (isset($i18n_urlparams['rwr']))
 		{
 			unset($i18n_urlparams['rwr']);

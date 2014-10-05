@@ -40,8 +40,8 @@
 						<td class="textcenter">{ADMIN_HOME_DB_TOTALSIZE}</td>
 					</tr>
 					<tr>
-						<td>{PHP.L.Plugins}</td>
-						<td class="textcenter">{ADMIN_HOME_TOTALPLUGINS}</td>
+						<td>{PHP.L.Extensions}</td>
+						<td class="textcenter">{ADMIN_HOME_TOTALEXTENSIONS}</td>
 					</tr>
 					<tr>
 						<td>{PHP.L.Hooks}</td>
@@ -58,7 +58,6 @@
 					<li><a href="{PHP|cot_url('admin','m=config&n=edit&o=core&p=main')}">{PHP.L.home_ql_b1_1}</a></li>
 					<li><a href="{PHP|cot_url('admin','m=config&n=edit&o=core&p=title')}">{PHP.L.home_ql_b1_2}</a></li>
 					<li><a href="{PHP|cot_url('admin','m=config&n=edit&o=core&p=theme')}">{PHP.L.home_ql_b1_3}</a></li>
-					<li><a href="{PHP|cot_url('admin','m=config&n=edit&o=core&p=menus')}">{PHP.L.home_ql_b1_4}</a></li>
 					<li><a href="{PHP|cot_url('admin','m=config&n=edit&o=core&p=locale')}">{PHP.L.Locale}</a></li>
 					<li><a href="{PHP|cot_url('admin','m=extrafields')}">{PHP.L.adm_extrafields}</a></li>
 				</ul>

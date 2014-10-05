@@ -17,7 +17,7 @@ Hooks=trashcan.api
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('forums', 'module');
+require_once cot_incfile('forums', 'functions');
 
 // Register restoration table
 $trash_types['forumpost'] = $db_forum_posts;

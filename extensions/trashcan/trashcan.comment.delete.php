@@ -16,7 +16,7 @@ Hooks=comments.delete
  */
 
 defined('COT_CODE') or die('Wrong URL');
-require_once cot_incfile('trashcan', 'module');
+require_once cot_incfile('trashcan', 'functions');
 if ($cfg['trashcan']['trash_comment'])
 {
 	cot_trash_put('comment', $L['Comment']." #".$id." (".$row['com_author'].")", $id, $row);

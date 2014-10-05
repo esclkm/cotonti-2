@@ -165,7 +165,6 @@ $L['Members'] = 'Members';
 $L['Members_download'] = 'This download is available for registered users only.';
 $L['Members_only'] = 'Members only';
 $L['Menu'] = 'Menu';
-$L['Menus'] = 'Menu Slots';
 $L['Message'] = 'Message';
 $L['Messages'] = 'Messages';
 $L['Minlevel'] = 'Min.level';

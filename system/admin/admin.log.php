@@ -28,7 +28,7 @@ $log_groups = array(
 	'for' => $L['Forums'],
 	'sec' => $L['Security'],
 	'usr' => $L['Users'],
-	'plg' => $L['Plugins']
+	'plg' => $L['Extensions']
 );
 
 $maxrowsperpage = (is_int($cfg['maxrowsperpage']) && $cfg['maxrowsperpage'] > 0 || ctype_digit($cfg['maxrowsperpage'])) ? $cfg['maxrowsperpage'] : 15;

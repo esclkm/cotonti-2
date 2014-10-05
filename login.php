@@ -275,7 +275,7 @@ require_once $cfg['system_dir'] . '/header.php';
 $mskin = file_exists(cot_tplfile('login', 'core')) ? cot_tplfile('login', 'core') : cot_tplfile('users.auth', 'module');
 $t = new XTemplate($mskin);
 
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 
 if ($cfg['maintenance'])
 {

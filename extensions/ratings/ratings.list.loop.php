@@ -18,7 +18,7 @@ Tags=page.list.tpl:{LIST_ROW_RATINGS_DISPLAY},{LIST_ROW_RATINGS_AVERAGE},{LIST_R
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('ratings', 'module');
+require_once cot_incfile('ratings', 'functions');
 
 list ($ratings_display, $ratings_average, $ratings_count) = cot_ratings_display('page', $pag['page_id'], $pag['page_cat'], true);
 

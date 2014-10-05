@@ -19,6 +19,6 @@ defined('COT_CODE') or die('Wrong URL');
 
 if (empty($rpage['page_alias']))
 {
-	require_once cot_incfile('autoalias2', 'module');
+	require_once cot_incfile('autoalias2');
 	$rpage['page_alias'] = autoalias2_update($rpage['page_title'], $id);
 }

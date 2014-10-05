@@ -22,7 +22,7 @@ cot_block($usr['isadmin']);
 
 $t = new XTemplate(cot_tplfile('page.admin', 'module', true));
 
-require_once cot_incfile('page', 'module');
+require_once cot_incfile('page', 'functions');
 
 $adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
 $adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$m), $cot_modules[$m]['title']);

@@ -20,8 +20,8 @@ if ($usr['maingrp'] == COT_GROUP_SUPERADMINS)
 }
 cot_block($usr['isadmin']);
 
-require_once cot_incfile('auth');
-require_once cot_incfile('uploads');
+require_once cot_incfile('system', 'auth');
+require_once cot_incfile('system', 'uploads');
 
 $t = new XTemplate(cot_tplfile('admin.users', 'core'));
 

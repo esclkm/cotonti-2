@@ -11,8 +11,8 @@
 defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_langfile('contact', 'module');
-require_once cot_incfile('extrafields');
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'extrafields');
+require_once cot_incfile('system', 'forms');
 
 cot::$db->registerTable('contact');
 cot_extrafields_register_table('contact');

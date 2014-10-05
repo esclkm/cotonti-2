@@ -13,7 +13,7 @@ defined('COT_CODE') or die('Wrong URL.');
 // Requirements
 require_once cot_langfile('forums', 'module');
 require_once cot_incfile('forums', 'module', 'resources');
-require_once cot_incfile('extrafields');
+require_once cot_incfile('system', 'forms');
 
 // Registering tables and fields
 cot::$db->registerTable('forum_posts');

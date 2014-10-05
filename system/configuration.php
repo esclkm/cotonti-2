@@ -180,24 +180,19 @@ function cot_config_implanted($acceptor, $donor)
  * Loads config structure from database into an array
  *
  * @param string $name Extension code
- * @param mixed $is_module TRUE if module, FALSE if extension
  * @param string $category Structure category code. Only for per-category config options
  * @param string $donor Extension name for extension-to-extension config implantations
  * @return array Config options structure
  * @see cot_config_add()
  * @global CotDB $db
  */
-function cot_config_load($name, $is_module = false, $category = '', $donor = '')
+function cot_config_load($name, $category = '', $donor = '')
 {
 	global $db, $db_config;
 	$options = array();
 	if (is_bool($is_module))
 	{
-		$type = $is_module ? 'module' : 'plug';
-	}
-	else
-	{
-		$type = !in_array($is_module, array('plug', 'core')) ? 'module' : $is_module;
+		$type = 'module';
 	}
 
 	$query = "SELECT config_name, config_type, config_value,
@@ -325,28 +320,19 @@ function cot_config_parse($info_cfg)
  * Unregisters configuration option(s).
  *
  * @param string $name Extension name (code)
- * @param mixed $is_module Flag indicating if it is module or  Extension Config
  * @param mixed $option String name of a single configuration option.
  * Or pass an array of option names to remove them at once. If empty or omitted,
- * all options from selected module/plugin will be removed
+ * all options from selected extension will be removed
  * @param string $category Structure category code. Only for per-category config options
  * @param string $donor Extension name for extension-to-extension config implantations
  * @return int Number of options actually removed
  * @global CotDB $db
  */
-function cot_config_remove($name, $is_module = false, $option = '', $category = '', $donor = null)
+function cot_config_remove($name, $option = '', $category = '', $donor = null)
 {
 	global $db, $db_config;
 
-	if (is_bool($is_module))
-	{
-		$type = $is_module ? 'module' : 'plug';
-	}
-	else
-	{
-		$type = !in_array($is_module, array('plug', 'core')) ? 'module' : $is_module;
-	}
-	$where = "config_owner = '$type' AND config_cat = " . $db->quote($name);
+	$where = "config_owner = 'module' AND config_cat = " . $db->quote($name);
 	if (!empty($category))
 	{
 		$where .= " AND config_subcat = " . $db->quote($category);
@@ -393,28 +379,21 @@ function cot_config_remove($name, $is_module = false, $option = '', $category = 
  *     'hidden_test' => 'test45',
  * );
  *
- * cot_config_set('test', $config_values, true);
+ * cot_config_set('test', $config_values);
  * </code>
  *
  * @param string $name Extension name config belongs to
  * @param array $options Array of options as 'option name' => 'option value'
- * @param mixed $is_module Flag indicating if it is module or  Extension Config
  * @param string $category Structure category code. Only for per-category config options
  * @return int Number of entries updated
  * @global CotDB $db
  */
-function cot_config_set($name, $options, $is_module = false, $category = '')
+function cot_config_set($name, $options, $category = '')
 {
 	global $db, $db_config;
 
-	if (is_bool($is_module))
-	{
-		$type = $is_module ? 'module' : 'plug';
-	}
-	else
-	{
-		$type = !in_array($is_module, array('plug', 'core')) ? 'module' : $is_module;
-	}
+	$type = 'module';
+
 	$upd_cnt = 0;
 
 	$where = 'config_owner = ? AND config_cat = ? AND config_name = ?';
@@ -423,7 +402,7 @@ function cot_config_set($name, $options, $is_module = false, $category = '')
 		$where .= ' AND config_subcat = ?';
 		if ($category != '__default')
 		{
-			$default_options = cot_config_load($name, $is_module, '__default');
+			$default_options = cot_config_load($name, '__default');
 		}
 	}
 
@@ -453,7 +432,7 @@ function cot_config_set($name, $options, $is_module = false, $category = '')
 function cot_config_update($name, $options, $is_module = false, $category = '', $donor = '')
 {
 	$affected = 0;
-	$old_options = cot_config_load($name, $is_module, $category, $donor);
+	$old_options = cot_config_load($name, $category, $donor);
 
 	// Find and remove options which no longer exist
 	$remove_opts = array();
@@ -475,7 +454,7 @@ function cot_config_update($name, $options, $is_module = false, $category = '', 
 	}
 	if (count($remove_opts) > 0)
 	{
-		$affected += cot_config_remove($name, $is_module, $remove_opts, $category, $donor);
+		$affected += cot_config_remove($name, $remove_opts, $category, $donor);
 	}
 
 	// Find new options and options which have been modified
@@ -525,37 +504,29 @@ function cot_config_update($name, $options, $is_module = false, $category = '', 
  *
  * @param string $name Extension name config belongs to
  * @param string $option Option name
- * @param mixed $is_module Flag indicating if it is module or  Extension Config
  * @param string $category Structure category code. Only for per-category config options
  * @return int Number of entries updated
  * @global CotDB $db
  */
-function cot_config_reset($name, $option, $is_module = false, $category = '')
+function cot_config_reset($name, $option, $category = '')
 {
 	global $db, $db_config;
-	if (is_bool($is_module))
-	{
-		$type = $is_module ? 'module' : 'plug';
-	}
-	else
-	{
-		$type = !in_array($is_module, array('plug', 'core')) ? 'module' : $is_module;
-	}
+
 	if (!empty($category))
 	{
 		$db->delete($db_config, "config_name = ? AND config_owner = ? AND config_cat = ?
-					AND config_subcat = ?", array($option, $type, $name, $category));
+					AND config_subcat = ?", array($option, 'module', $name, $category));
 	}
 	else
 	{
 		$db->query("UPDATE $db_config SET config_value = config_default
-			WHERE config_name = ? AND config_owner = ? AND config_cat = ? AND (config_subcat = '' OR config_subcat IS NULL OR config_subcat = '__default')", array($option, $type, $name));
+			WHERE config_name = ? AND config_owner = ? AND config_cat = ? AND (config_subcat = '' OR config_subcat IS NULL OR config_subcat = '__default')", array($option, 'module', $name));
 	}
 }
 
 /**
  * Get configs from database
- * @param string Owner ('core', 'plug', 'module')
+ * @param string Owner ('core', 'module')
  * @param string Extension code (page, forums, etc.) or core subtype (menus, main, performance, etc.)
  * @param string category for modules if exists
  * @return array

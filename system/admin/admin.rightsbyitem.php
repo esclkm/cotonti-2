@@ -79,11 +79,7 @@ $sql = $db->query("SELECT a.*, u.user_name, g.grp_name, g.grp_level FROM $db_aut
 
 cot_die($sql->rowCount() == 0);
 
-if($ic == 'plug')
-{
-	$title = ' : '.$io;
-}
-elseif($io != 'a' && !empty($ic))
+if($io != 'a' && !empty($ic))
 {
 	$title = ' : '.$ic.' '.$structure[$ic][$io]['title']." (".$io.")";
 }
@@ -101,18 +97,11 @@ if($ic == 'message' || $ic == 'admin')
 else
 {
 	$adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
-	if($ic == 'plug')
+	$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$ic), $cot_modules[$ic]['title']);
+	if($io != 'a')
 	{
-		$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&pl='.$io), $cot_modules[$io]['title']);
-	}
-	else
-	{
-		$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$ic), $cot_modules[$ic]['title']);
-		if($io != 'a')
-		{
-			$adminpath[] = array(cot_url('admin', 'm=structure&n='.$ic), $L['Structure']);
-			$adminpath[] = array(cot_url('admin', 'm=structure&n='.$ic.'&al='.$io), $structure[$ic][$io]['title']);
-		}
+		$adminpath[] = array(cot_url('admin', 'm=structure&n='.$ic), $L['Structure']);
+		$adminpath[] = array(cot_url('admin', 'm=structure&n='.$ic.'&al='.$io), $structure[$ic][$io]['title']);
 	}
 }
 

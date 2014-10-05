@@ -20,7 +20,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($cfg['polls']['maxpolls'] > 0)
 {
-	require_once cot_incfile('polls', 'module');
+	require_once cot_incfile('polls', 'functions');
 
 	cot_poll_vote();
 	$indexpolls = new XTemplate(cot_tplfile(array('polls', 'index'), false));

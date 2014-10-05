@@ -10,7 +10,7 @@
  * @license BSD
  */
 
-(defined('COT_CODE') || defined('COT_PLUG')) or die('Wrong URL.');
+defined('COT_CODE') or die('Wrong URL.');
 
 /**
  * Get hiding mode as integer.

@@ -19,6 +19,6 @@ defined('COT_CODE') or die('Wrong URL');
 
 global $db_com;
 
-require_once cot_incfile('comments', 'module');
+require_once cot_incfile('comments', 'functions');
 
 $join_columns .= ", (SELECT COUNT(*) FROM `$db_com` WHERE com_area = 'page' AND com_code = p.page_id) AS com_count";

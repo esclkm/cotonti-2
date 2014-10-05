@@ -38,7 +38,7 @@ $cfg['multihost'] = FALSE;			// Allow multiple host names for this site
 // Default theme, color scheme and default language
 // ========================
 
-$cfg['defaulttheme'] = 'nemesis';	// Default theme code. Be SURE it's pointing to a valid folder in ./themes/... !!
+$cfg['defaulttheme'] = 'bootstrap3';	// Default theme code. Be SURE it's pointing to a valid folder in ./themes/... !!
 $cfg['defaultscheme'] = 'default';	// Default color scheme, only name, not like themename.css. Be SURE it's pointing to a valid folder in ./themes/defaulttheme/... !!
 $cfg['defaulticons'] = 'default';	// Default icon pack
 $cfg['defaultlang'] = 'en';			// Default language code

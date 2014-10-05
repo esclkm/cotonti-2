@@ -20,7 +20,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($cfg['tags']['pages'])
 {
-	require_once cot_incfile('tags', 'module');
+	require_once cot_incfile('tags', 'functions');
 	if (cot_extension_active('i18n') && $i18n_enabled && $i18n_notmain)
 	{
 		$tags_extra = array('tag_locale' => $i18n_locale);

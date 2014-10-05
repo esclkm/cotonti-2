@@ -21,7 +21,7 @@ cot_block($usr['isadmin']);
 
 $t = new XTemplate(cot_tplfile('forums.admin', 'module', true));
 
-require_once cot_incfile('forums', 'module');
+require_once cot_incfile('forums', 'functions');
 
 $adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
 $adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$m), $cot_modules[$m]['title']);

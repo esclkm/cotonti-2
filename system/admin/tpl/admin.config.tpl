@@ -52,7 +52,7 @@
 	<!-- IF {ADMIN_CONFIG_ROW_ICO} -->
 	<img src="{ADMIN_CONFIG_ROW_ICO}"/>
 	<!-- ELSE -->
-	<img src="{PHP.cfg.system_dir}/admin/img/plugins32.png"/>
+	{PHP.R.admin_icon_extension}
 	<!-- ENDIF -->
 	{ADMIN_CONFIG_ROW_NAME}
 </a>

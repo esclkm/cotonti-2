@@ -1,32 +1,31 @@
 <!-- BEGIN: MAIN -->
-
-<table class="cells">
-	<tr>
-		<td class="coltop width5">&nbsp;</td>
-		<td class="coltop width55">{PHP.L.Topics}</td>
-		<td class="coltop width25">{PHP.L.Lastpost}</td>
-		<td class="coltop width15">{PHP.L.Posts}</td>
-	</tr>
-
 <!-- BEGIN: TOPICS_ROW -->
-	<tr>
-		<td class="centerall {FORUM_ROW_ODDEVEN}">{FORUM_ROW_ICON}</td>
-		<td class="{FORUM_ROW_ODDEVEN}">
-			<p class="strong"><a href="{FORUM_ROW_URL}">{FORUM_ROW_TITLE}</a></p>
-			<p class="small">{FORUM_ROW_PATH}</p>
-		</td>
-		<td class="centerall b1 {FORUM_ROW_ODDEVEN}">
-			{FORUM_ROW_UPDATED} {FORUM_ROW_LASTPOSTER}<br />
-			{FORUM_ROW_TIMEAGO}
-		</td>
-		<td class="centerall {FORUM_ROW_ODDEVEN}">{FORUM_ROW_POSTCOUNT}</td>
-	</tr>
+<div class="row">
+	<div class="col-md-5">
+		<strong><a href="{FORUM_ROW_URL}">{FORUM_ROW_TITLE}</a></strong>
+		<p class="small"><span class="glyphicon glyphicon-folder-open" title="{PHP.L.Filedunder}"></span>&nbsp; {FORUM_ROW_PATH_SHORT}</p>
+	</div>
+	
+	<div class="col-md-2">
+		{FORUM_ROW_UPDATED}
+	</div>
+	<div class="col-md-2">
+		<span class="glyphicon glyphicon glyphicon-user" title="{PHP.L.Posts}"></span>&nbsp;  {FORUM_ROW_LASTPOSTER}
+	</div>
+	<div class="col-md-2">
+		<div><span class="glyphicon glyphicon glyphicon-time" title="{PHP.L.Date}"></span>&nbsp; {FORUM_ROW_TIMEAGO} {PHP.L.Ago}</div>
+	</div>	
+	<div class="col-md-1 text-right">
+		<div><span class="glyphicon glyphicon glyphicon-comment" title="{PHP.L.Posts}"></span>&nbsp; {FORUM_ROW_POSTCOUNT}</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+
+
 <!-- END: TOPICS_ROW -->
 <!-- BEGIN: NO_TOPICS_FOUND -->
-	<tr>
-		<td class="centerall" colspan="4">{PHP.L.recentitems_nonewposts}</td>
-	</tr>
+<div class="alert alert-warning">{PHP.L.recentitems_nonewposts}</div>
+
 <!-- END: NO_TOPICS_FOUND -->
-</table>
 
 <!-- END: MAIN -->

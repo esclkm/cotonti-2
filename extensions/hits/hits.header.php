@@ -18,7 +18,7 @@ Hooks=header.main
 defined('COT_CODE') or die('Wrong URL');
 if (cot_extension_active('hits') && $env['ext'] != 'admin')
 {
-	require_once cot_incfile('hits', 'module');
+	require_once cot_incfile('hits', 'functions');
 
 
 	if ($cache && $cache->mem && $cache->mem->exists('maxusers', 'system'))

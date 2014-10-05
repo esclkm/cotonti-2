@@ -25,7 +25,7 @@
 					</tr>
 					<!-- BEGIN: POLL -->
 					<tr>
-						<script type="text/javascript" src="{PHP.cfg.extensions_dir}/polls/js/polls.js"></script>
+						<script type="text/javascript" src="{PHP.cfg.modules_dir}/polls/js/polls.js"></script>
 						<script type="text/javascript">
 							var ansMax = {PHP.cfg.polls.max_options_polls};
 						</script>

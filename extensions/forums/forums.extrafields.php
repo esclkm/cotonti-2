@@ -17,7 +17,7 @@
  */
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('forums', 'module');
+require_once cot_incfile('forums', 'functions');
 
 $extra_whitelist[$db_forum_posts] = array(
 	'name' => $db_forum_posts,

@@ -64,14 +64,11 @@ $L['core_locale'] = &$L['Locale'];
 $L['core_locale_desc'] = 'Установка языка и часового пояса по умолчанию';
 $L['core_main'] = 'Настройки сайта';
 $L['core_main_desc'] = 'Настройки сайта, глобальные настройки списков';
-$L['core_menus'] = &$L['Menus'];
-$L['core_menus_desc'] = 'Слоты для публикации простой текстовой информации';
 $L['core_page'] = &$L['Pages'];
 $L['core_parser'] = &$L['Parser'];
 $L['core_performance'] = 'Производительность';
 $L['core_performance_desc'] = 'Gzip-сжатие, консолидатор ресурсов, включение Ajax и jQuery';
 $L['core_pfs'] = &$L['PFS'];
-$L['core_plug'] = &$L['Extensions'];
 $L['core_pm'] = &$L['Private_Messages'];
 $L['core_polls'] = &$L['Polls'];
 $L['core_rss'] = &$L['RSS_Feeds'];
@@ -126,55 +123,6 @@ $L['cfg_maxrowsperpage'] = 'Макс. количество элементов н
 $L['cfg_maxrowsperpage_hint'] = 'Стандартный лимит элементов для паджинации';
 $L['cfg_parser'] = 'Парсер разметки';
 $L['cfg_parser_hint'] = 'По умолчанию: простой текст';
-
-/**
- * Config Section
- * Menus Subsection
- */
-$L['cfg_banner'] = 'Баннер<br />{HEADER_BANNER} в header.tpl';
-$L['cfg_banner_hint'] = ' ';
-$L['cfg_bottomline'] = 'Нижняя строка<br />{FOOTER_BOTTOMLINE} в footer.tpl';
-$L['cfg_bottomline_hint'] = ' ';
-$L['cfg_topline'] = 'Верхняя строка<br />{HEADER_TOPLINE} в header.tpl';
-$L['cfg_topline_hint'] = ' ';
-
-$L['cfg_menu1'] = 'Меню #1<br />{PHP.cfg.menu1} во всех файлах .tpl';
-$L['cfg_menu1_hint'] = ' ';
-$L['cfg_menu2'] = 'Меню #2<br />{PHP.cfg.menu2} во всех файлах .tpl';
-$L['cfg_menu2_hint'] = ' ';
-$L['cfg_menu3'] = 'Меню #3<br />{PHP.cfg.menu3} во всех файлах .tpl';
-$L['cfg_menu3_hint'] = ' ';
-$L['cfg_menu4'] = 'Меню #4<br />{PHP.cfg.menu4} во всех файлах .tpl';
-$L['cfg_menu4_hint'] = ' ';
-$L['cfg_menu5'] = 'Меню #5<br />{PHP.cfg.menu5} во всех файлах .tpl';
-$L['cfg_menu5_hint'] = ' ';
-$L['cfg_menu6'] = 'Меню #6<br />{PHP.cfg.menu6} во всех файлах .tpl';
-$L['cfg_menu6_hint'] = ' ';
-$L['cfg_menu7'] = 'Меню #7<br />{PHP.cfg.menu7} во всех файлах .tpl';
-$L['cfg_menu7_hint'] = ' ';
-$L['cfg_menu8'] = 'Меню #8<br />{PHP.cfg.menu8} во всех файлах .tpl';
-$L['cfg_menu8_hint'] = ' ';
-$L['cfg_menu9'] = 'Меню #9<br />{PHP.cfg.menu9} во всех файлах .tpl';
-$L['cfg_menu9_hint'] = ' ';
-
-$L['cfg_freetext1'] = 'Текст #1<br />{PHP.cfg.freetext1} во всех файлах .tpl';
-$L['cfg_freetext1_hint'] = ' ';
-$L['cfg_freetext2'] = 'Текст #2<br />{PHP.cfg.freetext2} во всех файлах .tpl';
-$L['cfg_freetext2_hint'] = ' ';
-$L['cfg_freetext3'] = 'Текст #3<br />{PHP.cfg.freetext3} во всех файлах .tpl';
-$L['cfg_freetext3_hint'] = ' ';
-$L['cfg_freetext4'] = 'Текст #4<br />{PHP.cfg.freetext4} во всех файлах .tpl';
-$L['cfg_freetext4_hint'] = ' ';
-$L['cfg_freetext5'] = 'Текст #5<br />{PHP.cfg.freetext5} во всех файлах .tpl';
-$L['cfg_freetext5_hint'] = ' ';
-$L['cfg_freetext6'] = 'Текст #6<br />{PHP.cfg.freetext6} во всех файлах .tpl';
-$L['cfg_freetext6_hint'] = ' ';
-$L['cfg_freetext7'] = 'Текст #7<br />{PHP.cfg.freetext7} во всех файлах .tpl';
-$L['cfg_freetext7_hint'] = ' ';
-$L['cfg_freetext8'] = 'Текст #8<br />{PHP.cfg.freetext8} во всех файлах .tpl';
-$L['cfg_freetext8_hint'] = ' ';
-$L['cfg_freetext9'] = 'Текст #9<br />{PHP.cfg.freetext9} во всех файлах .tpl';
-$L['cfg_freetext9_hint'] = ' ';
 
 /**
  * Config Section
@@ -304,7 +252,7 @@ $L['ext_config_struct_error'] = 'Ошибка настройки конфигу�
 $L['ext_config_struct_installed'] ='Конфигурация структуры установлена';
 $L['ext_config_struct_updated'] = 'Опции конфигурации структуры обновлены';
 $L['ext_dependency_error'] = 'Модуль &quot;{$dep_name}&quot;, необходимый для &quot;{$name}&quot;, не установлен и не выбран для установки';
-$L['ext_dependency_uninstall_error'] = '{$type} &quot;{$name}&quot; использует данное расширение и должен быть удален в первую очередь';
+$L['ext_dependency_uninstall_error'] = 'Модуль &quot;{$name}&quot; использует данное расширение и должен быть удален в первую очередь';
 $L['ext_executed_php'] = 'Выполнена часть PHP-хэндлера: {$ret}';
 $L['ext_executed_sql'] = 'Выполнена часть SQL-хэндлера: {$ret}';
 $L['ext_installing'] = 'Установка модуля &quot;{$name}&quot;';
@@ -405,7 +353,7 @@ $L['users_grp_1_title'] = 'Посетители';
 $L['users_grp_1_desc'] = 'Незарегистрированные и неавторизованные пользователи';
 
 /**
- * Plug Section
+ * Extension Section
  */
 $L['adm_defauth_guests'] = 'Права гостей по умолчанию';
 $L['adm_deflock_guests'] = 'Блокировать гостей по маске';
@@ -421,7 +369,7 @@ $L['adm_partstopped'] = 'Частично остановлен';
 $L['adm_installed'] = 'Установлен';
 $L['adm_notinstalled'] = 'Не установлен';
 
-$L['adm_plugsetup'] = 'Настройки плагина';
+$L['adm_extensionsetup'] = 'Настройки плагина';
 $L['adm_override_guests'] = 'Системная блокировка: незарегистрированным и неактивированным пользователям доступ к администрированию запрещен';
 $L['adm_override_banned'] = 'Системная блокировка: учетная запись заблокирована';
 $L['adm_override_admins'] = 'Системная блокировка: администраторы';

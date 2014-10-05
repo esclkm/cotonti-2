@@ -18,7 +18,7 @@ Tags=page.list.tpl:{LIST_COMMENTS},{LIST_COMMENTS_DISPLAY}
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('comments', 'module');
+require_once cot_incfile('comments', 'functions');
 
 $t->assign(array(
 	'LIST_COMMENTS' => cot_comments_link('page', 'c='.$c, 'page', $c),

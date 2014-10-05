@@ -208,15 +208,15 @@ $sys['parser'] = $cfg['parser'];
 
 if (!$cot_extensions && !defined('COT_INSTALL'))
 {
-	$sql = $db->query("SELECT pl_code, pl_file, pl_hook, pl_module, pl_title FROM $db_extensions
-		WHERE pl_active = 1 ORDER BY pl_hook ASC, pl_order ASC");
+	$sql = $db->query("SELECT ext_code, ext_file, ext_hook, ext_title FROM $db_extensions
+		WHERE ext_active = 1 ORDER BY ext_hook ASC, ext_order ASC");
 	$cot_extensions_active = array();
 	if ($sql->rowCount() > 0)
 	{
 		while ($row = $sql->fetch())
 		{
-			$cot_extensions[$row['pl_hook']][] = $row;
-			$cot_extensions_active[$row['pl_code']] = true;
+			$cot_extensions[$row['ext_hook']][] = $row;
+			$cot_extensions_active[$row['ext_code']] = true;
 		}
         $sql->closeCursor();
 	}
@@ -407,7 +407,7 @@ else
 /* ======== Category Structure ======== */
 if (!$structure)
 {
-	require_once cot_incfile('extrafields');
+	require_once cot_incfile('system', 'extrafields');
 	cot_load_structure();
 	$cache && $cache->db->store('structure', $structure, 'system');
 }
@@ -531,7 +531,7 @@ require_once $cfg['system_dir'].'/resources.php';
 
 if(defined('COT_ADMIN'))
 {
-	require_once cot_incfile('admin', 'module', 'resources');
+	require_once cot_incfile('admin', 'resources');
 }
 
 // Theme resources

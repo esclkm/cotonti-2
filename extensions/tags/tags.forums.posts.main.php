@@ -19,7 +19,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($cfg['tags']['forums'])
 {
-	require_once cot_incfile('tags', 'module');
+	require_once cot_incfile('tags', 'functions');
 	$tags = cot_tag_list($q, 'forums');
 	$tag_keywords = implode(', ', $tags);
 	$out['keywords'] = $tag_keywords;

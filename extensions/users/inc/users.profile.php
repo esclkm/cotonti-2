@@ -12,7 +12,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('uploads');
+require_once cot_incfile('system','uploads');
 
 @clearstatcache();
 
@@ -180,7 +180,7 @@ require_once $cfg['system_dir'] . '/header.php';
 
 $t = new XTemplate($mskin);
 
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 
 $protected = !$cfg['users']['useremailchange'] ? array('disabled' => 'disabled') : array();
 $profile_form_email = cot_inputbox('text', 'ruseremail', $urr['user_email'], array('size' => 32, 'maxlength' => 64)

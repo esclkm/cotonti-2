@@ -118,13 +118,13 @@ else
 	require_once $cfg['system_dir'].'/common.php';
 }
 
-require_once cot_incfile('forms');
-require_once cot_incfile('extensions');
-require_once cot_langfile('install', 'module');
+require_once cot_incfile('system', 'forms');
+require_once cot_incfile('system', 'extensions');
+require_once cot_langfile('install');
 require_once cot_langfile('users', 'core');
 require_once cot_langfile('admin', 'core');
 
-require_once cot_incfile('install', 'module', 'resources');
+require_once cot_incfile('install', 'resources');
 
 // Various Generic Vars needed to operate as Normal
 $theme = $cfg['defaulttheme'];
@@ -136,9 +136,9 @@ $file['sql'] = './setup/install.sql';
 
 if (!$cfg['new_install'])
 {
-	include cot_incfile('install', 'module', 'update');
+	include cot_incfile('install', 'update');
 }
 else
 {
-	include cot_incfile('install', 'module', 'install');
+	include cot_incfile('install', 'install');
 }

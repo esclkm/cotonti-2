@@ -25,8 +25,8 @@ defined('COT_CODE') or die('Wrong URL');
 	cot_url(rss, m=comments)			=== Show comments from all page ===
 */
 
-require_once cot_incfile('comments', 'module');
-require_once cot_incfile('page', 'module');
+require_once cot_incfile('comments', 'functions');
+require_once cot_incfile('page', 'functions');
 
 if ($m == 'comments')
 {

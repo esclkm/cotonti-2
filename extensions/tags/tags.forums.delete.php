@@ -19,6 +19,6 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($cfg['tags']['forums'] && cot_auth('tags', 'any', 'W'))
 {
-	require_once cot_incfile('tags', 'module');
+	require_once cot_incfile('tags', 'functions');
 	cot_tag_remove_all($q, 'forums');
 }

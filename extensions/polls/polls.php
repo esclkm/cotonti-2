@@ -22,8 +22,8 @@ define('COT_POLLS', true);
 $env['location'] = 'polls';
 
 // Self requirements
-require_once cot_incfile('polls', 'module');
-require_once cot_incfile('polls', 'module', 'resources');
+require_once cot_incfile('polls');
+require_once cot_incfile('polls', 'resources');
 
 /* === Hook === */
 foreach (cot_getextensions('polls.first') as $pl)

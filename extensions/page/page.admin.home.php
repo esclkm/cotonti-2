@@ -18,7 +18,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 $tt = new XTemplate(cot_tplfile('page.admin.home', 'module', true));
 
-require_once cot_incfile('page', 'module');
+require_once cot_incfile('page', 'functions');
 
 	$pagesqueued = $db->query("SELECT COUNT(*) FROM $db_pages WHERE page_state='1'");
 	$pagesqueued = $pagesqueued->fetchColumn();

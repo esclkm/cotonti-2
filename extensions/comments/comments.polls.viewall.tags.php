@@ -18,7 +18,7 @@ Tags=polls.tpl:{POLLS_COMMENTS}
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('comments', 'module');
+require_once cot_incfile('comments', 'functions');
 
 $t->assign(array(
 	'POLLS_COMMENTS' => cot_comments_link('polls', 'id='.$row['poll_id'], 'polls', $row['poll_id']),

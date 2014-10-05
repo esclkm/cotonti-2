@@ -293,7 +293,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				$usr['id'] = 1;
 				// Install all at once
 				// Note: installation statuses are ignored in this installer
-				$selected_modules = cot_install_sort_extensions($selected_modules, true);
+				$selected_modules = cot_install_sort_extensions($selected_modules);
 				foreach ($selected_modules as $ext)
 				{
 					if (!cot_extension_install($ext))
@@ -492,7 +492,7 @@ switch ($step)
 		{
 			$status['sql_file'] = $R['install_code_not_found'];
 		}
-		$status['php_ver'] = (function_exists('version_compare') && version_compare(PHP_VERSION, '5.2.3', '>='))
+		$status['php_ver'] = (function_exists('version_compare') && version_compare(PHP_VERSION, '5.4.0', '>='))
 			? cot_rc('install_code_valid', array('text' =>
 				cot_rc('install_ver_valid', array('ver' => PHP_VERSION))))
 			: cot_rc('install_code_invalid', array('text' =>
@@ -542,7 +542,7 @@ switch ($step)
 		{
 			$rtheme = $theme;
 			$rscheme = $scheme;
-			$rlang = $cfg['defaultlang'];
+			$rlang = $_SESSION['cot_inst_lang'];
 			$cfg['mainurl'] = $site_url;
 		}
 
@@ -628,30 +628,9 @@ function cot_install_parse_extensions($default_list = array(), $selected_list = 
 				$prev_cat = $info['Category'];
 				$t->assign('EXT_CAT_TITLE', $L['ext_cat_' . $info['Category']]);
 			}
-			if (!empty($info['Requires']))
-			{
-				$modules_list = empty($info['Requires']) ? $L['None']
-					: implode(', ', explode(',', $info['Requires']));
+			$requires = empty($info['Requires']) ? '' : implode(', ', explode(',', $info['Requires']));
+			$recommends = empty($info['Recommends']) ? '' : implode(', ', explode(',', $info['Recommends']));
 
-				$requires = cot_rc('install_code_requires',
-						array('modules_list' => $modules_list));
-			}
-			else
-			{
-				$requires = '';
-			}
-			if (!empty($info['Recommends']))
-			{
-				$modules_list = empty($info['Recommends_modules']) ? $L['None']
-					: implode(', ', explode(',', $info['Recommends_modules']));
-
-				$recommends = cot_rc('install_code_recommends',
-						array('modules_list' => $modules_list));
-			}
-			else
-			{
-				$recommends = '';
-			}
 			if (count($selected_list) > 0)
 			{
 				$checked = in_array($code, $selected_list);
@@ -662,6 +641,8 @@ function cot_install_parse_extensions($default_list = array(), $selected_list = 
 			}
 			$L['info_name'] = '';
 			$L['info_desc'] = '';
+			$icofile = $cfg['extensions_dir'] . '/' . $code . '/' . $code . '.png';
+			
 			if (file_exists(cot_langfile($code, 'module')))
 			{
 				include cot_langfile($code, 'module');
@@ -670,6 +651,7 @@ function cot_install_parse_extensions($default_list = array(), $selected_list = 
 				"EXT_ROW_CHECKBOX" => cot_checkbox($checked, "install_extensions[$code]"),
 				"EXT_ROW_TITLE" => empty($L['info_name']) ? $info['Name'] : $L['info_name'],
 				"EXT_ROW_DESCRIPTION" => empty($L['info_desc']) ? $info['Description'] : $L['info_desc'],
+				"EXT_ROW_ICO" => (file_exists($icofile)) ? $icofile : '',
 				"EXT_ROW_REQUIRES" => $requires,
 				"EXT_ROW_RECOMMENDS" => $recommends
 			));
@@ -688,20 +670,20 @@ function cot_install_parse_extensions($default_list = array(), $selected_list = 
  *
  * @global array $cfg
  * @param array $selected_extensions Unsorted list of extension names
- * @param bool $is_module TRUE if sorting modules, FALSE if sorting extensions
+
  * @return array Sorted list of extension names
  */
-function cot_install_sort_extensions($selected_extensions, $is_module = FALSE)
+function cot_install_sort_extensions($selected_extensions)
 {
 	global $cfg;
-	$path = $is_module ? $cfg['extensions_dir'] : $cfg['extensions_dir'];
+
 	$ret = array();
 
 	// Split into groups by Order value
 	$extensions = array();
 	foreach ($selected_extensions as $name)
 	{
-		$info = cot_infoget("$path/$name/$name.setup.php", 'COT_EXT');
+		$info = cot_infoget($cfg['extensions_dir']."/$name/$name.setup.php", 'COT_EXT');
 		$order = isset($info['Order']) ? (int) $info['Order'] : COT_EXT_DEFAULT_ORDER;
 		if ($info['Category'] == 'post-install' && $order < 999)
 		{

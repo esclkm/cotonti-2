@@ -20,7 +20,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($cfg['tags']['pages'] || $cfg['tags']['forums'])
 {
-	require_once cot_incfile('tags', 'module');
+	require_once cot_incfile('tags', 'functions');
 	$limit = $cfg['tags']['lim_index'] == 0 ? null : (int) $cfg['tags']['lim_index'];
 	$tcloud = cot_tag_cloud($cfg['tags']['index'], $cfg['tags']['order'], $limit);
 	$tc_html = $R['tags_code_cloud_open'];

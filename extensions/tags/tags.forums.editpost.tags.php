@@ -20,7 +20,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($cfg['tags']['forums'] && cot_auth('tags', 'any', 'W') && $is_first_post)
 {
-	require_once cot_incfile('tags', 'module');
+	require_once cot_incfile('tags', 'functions');
 	$tags = cot_tag_list($q, 'forums');
 	$tags = implode(', ', $tags);
 	$t->assign(array(

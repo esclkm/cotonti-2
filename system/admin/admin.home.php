@@ -78,7 +78,7 @@ foreach ($tables as $dat)
 	$total_data_length += $dat['Data_length'];
 }
 
-$totalplugins = $db->query("SELECT DISTINCT(pl_code) FROM $db_extensions WHERE 1 GROUP BY pl_code")->rowCount();
+$totalextensions = $db->query("SELECT DISTINCT(ext_code) FROM $db_extensions WHERE 1 GROUP BY ext_code")->rowCount();
 $totalhooks = $db->query("SELECT COUNT(*) FROM $db_extensions")->fetchColumn();
 
 $t->assign(array(
@@ -86,7 +86,7 @@ $t->assign(array(
 	'ADMIN_HOME_DB_INDEXSIZE' => number_format(($total_index_length / 1024), 1, '.', ' '),
 	'ADMIN_HOME_DB_DATASSIZE' => number_format(($total_data_length / 1024), 1, '.', ' '),
 	'ADMIN_HOME_DB_TOTALSIZE' => number_format(($total_length / 1024), 1, '.', ' '),
-	'ADMIN_HOME_TOTALPLUGINS' => $totalplugins,
+	'ADMIN_HOME_TOTALEXTENSIONS' => $totalextensions,
 	'ADMIN_HOME_TOTALHOOKS' => $totalhooks,
 	'ADMIN_HOME_VERSION' => $cfg['version'],
 	'ADMIN_HOME_DB_VERSION' => htmlspecialchars($db->query("SELECT upd_value FROM $db_updates WHERE upd_param = 'revision'")->fetchColumn())

@@ -17,7 +17,7 @@
  */
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('page', 'module');
+require_once cot_incfile('page', 'functions');
 $extra_whitelist[$db_pages] = array(
 	'name' => $db_pages,
 	'caption' => $L['Module'].' Pages',

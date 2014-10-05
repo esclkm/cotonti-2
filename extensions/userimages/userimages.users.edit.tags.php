@@ -17,7 +17,7 @@ Hooks=users.edit.tags
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('userimages', 'module');
+require_once cot_incfile('userimages', 'functions');
 $userimages = cot_userimages_config_get();
 
 foreach($userimages as $code => $settings)

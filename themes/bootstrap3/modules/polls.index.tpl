@@ -6,8 +6,9 @@
 			<!-- BEGIN: POLLTABLE -->
 			<li><label>{POLL_INPUT}{POLL_OPTIONS}</label></li>
 			<!-- END: POLLTABLE -->
-			<li><button type="submit" title="{PHP.L.polls_Vote}">{PHP.L.polls_Vote}</button></li>
+			
 		</ul>
+		<button type="submit" title="{PHP.L.polls_Vote}">{PHP.L.polls_Vote}</button>
 	</form>
 </div>
 <!-- END: POLL_VIEW -->
@@ -74,11 +75,11 @@
 
 <!-- BEGIN: INDEXPOLLS -->
 <!-- BEGIN: POLL -->
-<a class="strong" href="{IPOLLS_URL}">{IPOLLS_TITLE}</a>
+<h3>{IPOLLS_TITLE}</h3>
 	{IPOLLS_FORM}
 <!-- END: POLL -->
 <!-- BEGIN: ERROR -->
-<p class="small strong textcenter">{IPOLLS_ERROR}</p>
+<div class="small strong text-center">{IPOLLS_ERROR}</div>
 <!-- END: ERROR -->
-<p class="small textcenter"><a href="{IPOLLS_ALL}">{PHP.L.polls_viewarchives}</a></p>
+<div class="small text-center"><a href="{IPOLLS_ALL}">{PHP.L.polls_viewarchives}</a></div>
 <!-- END: INDEXPOLLS -->

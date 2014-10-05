@@ -81,6 +81,6 @@ if(!in_array($cfg['urleditor']['preset'], array('custom', 'none')))
 	}
 }
 
-require_once cot_incfile('urleditor', 'module');
+require_once cot_incfile('urleditor', 'functions');
 
 cot_apply_rwr();

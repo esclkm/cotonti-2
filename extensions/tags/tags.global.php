@@ -19,8 +19,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($cfg['tags']['pages']
 	&& (defined('COT_INDEX') || defined('COT_LIST') || defined('COT_PAGE'))
-	|| $cfg['tags']['forums'] && defined('COT_FORUMS')
-	|| defined('COT_PLUG'))
+	|| $cfg['tags']['forums'] && defined('COT_FORUMS'))
 {
-	require_once cot_incfile('tags', 'module');
+	require_once cot_incfile('tags', 'functions');
 }

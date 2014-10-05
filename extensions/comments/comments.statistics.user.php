@@ -18,7 +18,7 @@ Tags=statistics.tpl:{STATISTICS_USER_COMMENTS}
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('comments', 'module');
+require_once cot_incfile('comments', 'functions');
 
 $sql = $db->query("SELECT COUNT(*) FROM $db_com WHERE com_authorid=".$usr['id']);
 $user_comments = $sql->fetchColumn();

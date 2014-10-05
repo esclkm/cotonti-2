@@ -20,12 +20,12 @@ Hooks=admin
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('trashcan', 'any');
 cot_block($usr['isadmin']);
 
-require_once cot_incfile('users', 'module');
-cot_extension_active('page') && require_once cot_incfile('page', 'module');
-cot_extension_active('forums') && require_once cot_incfile('forums', 'module');
-$cfg['comments'] && require_once cot_incfile('comments', 'module');
+require_once cot_incfile('users', 'functions');
+cot_extension_active('page') && require_once cot_incfile('page', 'functions');
+cot_extension_active('forums') && require_once cot_incfile('forums', 'functions');
+$cfg['comments'] && require_once cot_incfile('comments', 'functions');
 
-require_once cot_incfile('trashcan', 'module');
+require_once cot_incfile('trashcan', 'functions');
 require_once cot_langfile('trashcan', 'module');
 
 $adminhelp = $L['adm_help_trashcan'];
@@ -184,7 +184,7 @@ if($ii == 0)
 
 
 $tr_t->assign(array(
-	'ADMIN_TRASHCAN_CONF_URL' => cot_url('admin', 'm=config&n=edit&o=plug&p=trashcan'),
+	'ADMIN_TRASHCAN_CONF_URL' => cot_url('admin', 'm=config&n=edit&o=module&p=trashcan'),
 	'ADMIN_TRASHCAN_WIPEALL_URL' => cot_url('admin', 'm=other&p=trashcan&a=wipeall&'.cot_xg()),
 	'ADMIN_TRASHCAN_PAGINATION_PREV' => $pagenav['prev'],
 	'ADMIN_TRASHCAN_PAGNAV' => $pagenav['main'],

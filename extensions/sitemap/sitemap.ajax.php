@@ -16,7 +16,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('sitemap', 'module');
+require_once cot_incfile('sitemap', 'functions');
 
 header('Content-Type: application/xml; charset=utf-8');
 
@@ -55,7 +55,7 @@ if ($regenerate)
 	if ($cfg['sitemap']['page'] && cot_extension_active('page'))
 	{
 		// Sitemap for page module
-		require_once cot_incfile('page', 'module');
+		require_once cot_incfile('page', 'functions');
 
 		// Page categories
 		$auth_cache = array();
@@ -125,7 +125,7 @@ if ($regenerate)
 	if ($cfg['sitemap']['forums'] && cot_extension_active('forums'))
 	{
 		// Sitemap for forums module
-		require_once cot_incfile('forums', 'module');
+		require_once cot_incfile('forums', 'functions');
 
 		// Get forum stats
 		$cat_top = array();
@@ -215,7 +215,7 @@ if ($regenerate)
 	if ($cfg['sitemap']['users'] && cot_extension_active('users') && cot_auth('users', 'a', 'R'))
 	{
 		// Sitemap for users module
-		require_once cot_incfile('users', 'module');
+		require_once cot_incfile('users', 'functions');
 
 		// User profiles
 		$sitemap_join_columns = '';

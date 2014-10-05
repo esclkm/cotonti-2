@@ -22,7 +22,7 @@ if ($cfg['trashcan']['trash_forum'])
 {
 	// We are inside cot_forum_prunetopics() function, so need some globals
 	global $trash_types, $db_trash, $db_x;
-	require_once cot_incfile('trashcan', 'module');
+	require_once cot_incfile('trashcan', 'functions');
 
 	$sql = $db->query("SELECT * FROM $db_forum_topics WHERE ft_id=$q");
 	while ($row = $sql->fetch())

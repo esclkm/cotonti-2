@@ -17,7 +17,7 @@
  */
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('contact', 'module');
+require_once cot_incfile('contact', 'functions');
 
 $a = cot_import('a', 'G', 'TXT');
 $id = (int) cot_import('id', 'G', 'INT');

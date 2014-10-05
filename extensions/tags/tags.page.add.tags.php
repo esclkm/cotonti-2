@@ -20,7 +20,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($cfg['tags']['pages'] && cot_auth('tags', 'any', 'W'))
 {
-	require_once cot_incfile('tags', 'module');
+	require_once cot_incfile('tags', 'functions');
 	$t->assign(array(
 		'PAGEADD_TOP_TAGS' => $L['Tags'],
 		'PAGEADD_TOP_TAGS_HINT' => $L['tags_comma_separated'],

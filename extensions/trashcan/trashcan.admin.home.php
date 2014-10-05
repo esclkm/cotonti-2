@@ -17,7 +17,7 @@ Hooks=admin.home
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('trashcan', 'module');
+require_once cot_incfile('trashcan', 'functions');
 if ($cfg['trashcan']['trash_prunedelay'] > 0)
 {
 	$timeago = $sys['now'] - ($cfg['trashcan']['trash_prunedelay'] * 86400);

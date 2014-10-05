@@ -18,7 +18,7 @@ Hooks=admin.home.mainpanel
 defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_langfile('hits', 'module');
-require_once cot_incfile('hits', 'module');
+require_once cot_incfile('hits', 'functions');
 
 $tt = new XTemplate(cot_tplfile('hits.admin.home', 'module', true));
 //Show hit stats
@@ -60,7 +60,7 @@ if (!$cfg['hits']['disablehitstats'])
 if (!$cfg['hits']['disableactivitystats'] && cot_extension_active('page'))
 {
 	$timeback = $sys['now'] - (7 * 86400);// 7 days
-	require_once cot_incfile('page', 'module');
+	require_once cot_incfile('page', 'functions');
 	$sql = $db->query("SELECT COUNT(*) FROM $db_users WHERE user_regdate > $timeback");
 	$newusers = $sql->fetchColumn();
 
@@ -69,7 +69,7 @@ if (!$cfg['hits']['disableactivitystats'] && cot_extension_active('page'))
 
 	if (cot_extension_active('forums'))
 	{
-		require_once cot_incfile('forums', 'module');
+		require_once cot_incfile('forums', 'functions');
 
 		$sql = $db->query("SELECT COUNT(*) FROM $db_forum_topics WHERE ft_creationdate > $timeback");
 		$newtopics = $sql->fetchColumn();
@@ -85,7 +85,7 @@ if (!$cfg['hits']['disableactivitystats'] && cot_extension_active('page'))
 
 	if (cot_extension_active('pm'))
 	{
-	 require_once cot_incfile('pm', 'module');
+	 require_once cot_incfile('pm', 'functions');
 		$sql = $db->query("SELECT COUNT(*) FROM $db_pm WHERE pm_date > $timeback");
 		$newpms = $sql->fetchColumn();
 	}

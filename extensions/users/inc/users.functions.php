@@ -12,11 +12,11 @@
 defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
-require_once cot_incfile('auth');
-require_once cot_langfile('users', 'core');
-require_once cot_incfile('users', 'module', 'resources');
+require_once cot_incfile('system', 'auth');
+require_once cot_langfile('system', 'users');
+require_once cot_incfile('users', 'resources');
 
-require_once cot_incfile('extrafields');
+require_once cot_incfile('system', 'forms');
 
 // Extafield globals
 cot_extrafields_register_table('users');

@@ -79,8 +79,7 @@ $R['admin_icon_other'] = '<img class="icon" src="system/admin/img/folder.png" al
 $R['admin_icon_page'] = '<img class="icon" src="system/admin/img/page.png" title="'.$L['Page'].'" alt="'.$L['Page'].'" />';
 $R['admin_icon_pages'] = '<img class="icon" src="system/admin/img/pages.png" title="'.$L['Pages'].'" alt="'.$L['Pages'].'" />';
 $R['admin_icon_pfs'] = '<img class="icon" src="system/admin/img/pfs.png" alt="" />';
-$R['admin_icon_plug'] = '<img class="icon" src="system/admin/img/plug.png" alt="" />';
-$R['admin_icon_plugins'] = '<img class="icon" src="system/admin/img/plugins.png" alt="" />';
+$R['admin_icon_extension'] = '<img class="icon" src="system/admin/img/extension.png" alt="" />';
 $R['admin_icon_pm'] = '<img class="icon" src="system/admin/img/pm.png" alt="" />';
 $R['admin_icon_polls'] = '<img class="icon" src="system/admin/img/polls.png" alt="" />';
 $R['admin_icon_referers'] = '<img class="icon" src="system/admin/img/info.png" alt="" />';

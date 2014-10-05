@@ -18,7 +18,7 @@ list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['forums']['maxpostsperpage']
 $quote = cot_import('quote', 'G', 'INT');
 
 require_once cot_langfile('countries', 'core');
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 
 /* === Hook === */
 foreach (cot_getextensions('forums.posts.first') as $pl)

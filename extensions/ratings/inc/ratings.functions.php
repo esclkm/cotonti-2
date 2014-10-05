@@ -11,9 +11,9 @@
 defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
-require_once cot_incfile('users', 'module');
-require_once cot_langfile('ratings', 'module');
-require_once cot_incfile('ratings', 'module', 'resources');
+require_once cot_incfile('users');
+require_once cot_langfile('ratings');
+require_once cot_incfile('ratings', 'resources');
 
 // Table name globals
 cot::$db->registerTable('ratings');

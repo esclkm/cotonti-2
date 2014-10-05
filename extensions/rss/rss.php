@@ -59,7 +59,7 @@ foreach (cot_getextensions('rss.create') as $pl)
 
 if ($m == "topics")
 {
-	require_once cot_incfile('forums', 'module');
+	require_once cot_incfile('forums', 'functions');
 
 	$default_mode = false;
 	$topic_id = empty($c) ? 0 : (int) $c;
@@ -110,7 +110,7 @@ if ($m == "topics")
 }
 elseif ($m == "section")
 {
-	require_once cot_incfile('forums', 'module');
+	require_once cot_incfile('forums', 'functions');
 
 	$default_mode = false;
 	$forum_cat = empty($c) ? 0 : $c;;
@@ -158,7 +158,7 @@ elseif ($m == "section")
 }
 elseif ($m == "forums")
 {
-	require_once cot_incfile('forums', 'module');
+	require_once cot_incfile('forums', 'functions');
 
 	$default_mode = false;
 	$rss_title = $domain." : ".$L['rss_allforums_item_title'];
@@ -197,7 +197,7 @@ elseif ($m == "forums")
 }
 elseif ($default_mode)
 {
-	require_once cot_incfile('page', 'module');
+	require_once cot_incfile('page', 'functions');
 
 	if (!empty($c) && isset($structure['page'][$c]))
 	{

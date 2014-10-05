@@ -19,7 +19,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($usr['id'] > 0 && cot_auth('page', 'any', 'A'))
 {
-	require_once cot_incfile('page', 'module');
+	require_once cot_incfile('page', 'functions');
 	$sql_page_queued = $db->query("SELECT COUNT(*) FROM $db_pages WHERE page_state=1");
 	$sys['pagesqueued'] = $sql_page_queued->fetchColumn();
 
@@ -30,7 +30,7 @@ if ($usr['id'] > 0 && cot_auth('page', 'any', 'A'))
 }
 elseif ($usr['id'] > 0 && cot_auth('page', 'any', 'W'))
 {
-	require_once cot_incfile('page', 'module');
+	require_once cot_incfile('page', 'functions');
 	$sys['pagesqueued'] = (int) $db->query("SELECT COUNT(*) FROM $db_pages WHERE page_state=1 AND page_ownerid = " . $usr['id'])->fetchColumn();
 
 	if ($sys['pagesqueued'] > 0)
@@ -41,7 +41,7 @@ elseif ($usr['id'] > 0 && cot_auth('page', 'any', 'W'))
 
 if ($usr['id'] > 0 && cot_auth('page', 'any', 'W'))
 {
-	require_once cot_incfile('page', 'module');
+	require_once cot_incfile('page', 'functions');
 
 	$sys['pagesindrafts'] = (int) $db->query("SELECT COUNT(*) FROM $db_pages WHERE page_state=2 AND page_ownerid = " . $usr['id'])->fetchColumn();
 

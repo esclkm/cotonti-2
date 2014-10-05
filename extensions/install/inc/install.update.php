@@ -152,21 +152,9 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 	// Set Module versions to Genoa version before upgrade
 	$db->update($db_core, array('ct_version' => '0.8.99'), '1');
 
-	// Update modules
-	foreach (array('forums', 'index', 'page', 'pfs', 'pm', 'polls', 'users') as $code)
-	{
-		$ret = cot_extension_install($code, true);
-		if ($ret === false)
-		{
-			cot_error(cot_rc('ext_update_error', array(
-				'type' => $L['Module'],
-				'name' => $code
-			)));
-		}
-	}
 
-	$res = $db->query("SELECT DISTINCT(pl_code) FROM $db_extensions
-		WHERE pl_module = 0");
+	$res = $db->query("SELECT DISTINCT(ext_code) FROM $db_extensions
+		WHERE 1");
 	while ($row = $res->fetch(PDO::FETCH_NUM))
 	{
 		$code = $row[0];
@@ -183,7 +171,7 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 			$qcode = $db->quote($code);
 			$db->delete($db_auth, "auth_option = $qcode");
 			$db->delete($db_config, "config_cat = $qcode");
-			$db->delete($db_extensions, "pl_code = $qcode");
+			$db->delete($db_extensions, "ext_code = $qcode");
 		}
 	}
 	$res->closeCursor();

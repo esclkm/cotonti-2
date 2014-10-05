@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin and Module Management API
+ * Extension Management API
  *
  * @package Cotonti
  * @version 0.9.12
@@ -13,9 +13,9 @@
 defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
-require_once cot_incfile('auth');
-require_once cot_incfile('configuration');
-require_once cot_langfile('admin', 'core');
+require_once cot_incfile('system', 'auth');
+require_once cot_incfile('system', 'configuration');
+require_once cot_langfile('admin', 'functions');
 
 /**
  * A value returned by cot_extension_install() when updating and
@@ -218,7 +218,7 @@ function cot_extension_install($name, $update = false, $force_update = false)
 	if ($update)
 	{
 		// Safely drop existing bindings
-		$bindings_cnt = cot_plugin_remove($name);
+		$bindings_cnt = cot_extension_remove_hooks($name);
 		cot_message(cot_rc('ext_bindings_uninstalled', array('cnt' => $bindings_cnt)));
 	}
 	// Install hook parts and bindings
@@ -269,7 +269,7 @@ function cot_extension_install($name, $update = false, $force_update = false)
 		}
 	}
 	closedir($dp);
-	$bindings_cnt = cot_plugin_add($hook_bindings, $name, $info['Name']);
+	$bindings_cnt = cot_extension_add_hooks($hook_bindings, $name, $info['Name']);
 	cot_message(cot_rc('ext_bindings_installed', array('cnt' => $bindings_cnt)));
 
 	// Install config
@@ -511,7 +511,7 @@ function cot_extension_uninstall($name)
 	cot_message(cot_rc('ext_uninstalling', array('name' => $name)));
 
 	// Remove bindings
-	cot_plugin_remove($name);
+	cot_extension_remove_hooks($name);
 
 	// Drop auth and config
 	$db->delete($db_config, "config_cat = '$name'");
@@ -568,14 +568,14 @@ function cot_extension_uninstall($name)
 	// Unregister from core table
 	cot_extension_remove($name);
 
-	$sql = $db->query("SELECT pl_code, pl_file, pl_hook, pl_module FROM $db_extensions
-		WHERE pl_active = 1 ORDER BY pl_hook ASC, pl_order ASC");
+	$sql = $db->query("SELECT ext_code, ext_file, ext_hook FROM $db_extensions
+		WHERE ext_active = 1 ORDER BY ext_hook ASC, ext_order ASC");
 	$cot_extensions = array();
 	if ($sql->rowCount() > 0)
 	{
 		while ($row = $sql->fetch())
 		{
-			$cot_extensions[$row['pl_hook']][] = $row;
+			$cot_extensions[$row['ext_hook']][] = $row;
 		}
 		$sql->closeCursor();
 	}
@@ -781,7 +781,7 @@ function cot_extension_list_info($dir)
 function cot_extension_pause($name)
 {
 	global $db, $db_core;
-	cot_plugin_pause($name);
+	cot_extension_pause_hooks($name);
 	return $db->update($db_core, array('ct_state' => 0), "ct_code = '$name'") == 1;
 }
 
@@ -809,7 +809,7 @@ function cot_extension_remove($name)
 function cot_extension_resume($name)
 {
 	global $db, $db_core;
-	cot_plugin_resume($name);
+	cot_extension_resume_hooks($name);
 	return $db->update($db_core, array('ct_state' => 1), "ct_code = '$name'") == 1;
 }
 
@@ -845,7 +845,7 @@ function cot_extension_update($name, $version)
  *     )
  * );
  *
- * cot_plugin_add($hook_bindings, 'test', 'Test extension');
+ * cot_extension_add_hooks($hook_bindings, 'test', 'Test extension');
  * </code>
  *
  * @param array $hook_bindings Hook binding map
@@ -854,7 +854,7 @@ function cot_extension_update($name, $version)
  * @return int Number of records added
  * @global CotDB $db
  */
-function cot_plugin_add($hook_bindings, $name, $title)
+function cot_extension_add_hooks($hook_bindings, $name, $title)
 {
 	global $db, $db_extensions;
 
@@ -867,13 +867,13 @@ function cot_plugin_add($hook_bindings, $name, $title)
 	foreach ($hook_bindings as $binding)
 	{
 		$insert_rows[] = array(
-			'pl_hook' => $binding['hook'],
-			'pl_code' => $name,
-			'pl_part' => $binding['part'],
-			'pl_title' => $title,
-			'pl_file' => empty($binding['file']) ? "$name/$name.{$binding['part']}.php" : $name . '/' . $binding['file'],
-			'pl_order' => $binding['order'],
-			'pl_active' => 1
+			'ext_hook' => $binding['hook'],
+			'ext_code' => $name,
+			'ext_part' => $binding['part'],
+			'ext_title' => $title,
+			'ext_file' => empty($binding['file']) ? "$name/$name.{$binding['part']}.php" : $name . '/' . $binding['file'],
+			'ext_order' => $binding['order'],
+			'ext_active' => 1
 		);
 	}
 	return $db->insert($db_extensions, $insert_rows);
@@ -887,21 +887,21 @@ function cot_plugin_add($hook_bindings, $name, $title)
  * @return integer       Number of bindings suspended
  * @global CotDB $db
  */
-function cot_plugin_pause($name, $part = 0)
+function cot_extension_pause_hooks($name, $part = 0)
 {
 	global $db, $db_extensions;
 
-	$condition = "pl_code = '$name'";
+	$condition = "ext_code = '$name'";
 	if (is_numeric($part) && $part > 0)
 	{
-		$condition .= " AND pl_id = $part";
+		$condition .= " AND ext_id = $part";
 	}
 	elseif (is_string($part))
 	{
-		$condition .= " AND pl_part = " . $db->quote($part);
+		$condition .= " AND ext_part = " . $db->quote($part);
 	}
 
-	return $db->update($db_extensions, array('pl_active' => 0), $condition);
+	return $db->update($db_extensions, array('ext_active' => 0), $condition);
 }
 
 /**
@@ -912,14 +912,14 @@ function cot_plugin_pause($name, $part = 0)
  * @return int Number of bindings removed
  * @global CotDB $db
  */
-function cot_plugin_remove($name, $binding_id = 0)
+function cot_extension_remove_hooks($name, $binding_id = 0)
 {
 	global $db, $db_extensions;
 
-	$condition = "pl_code = '$name'";
+	$condition = "ext_code = '$name'";
 	if ($binding_id > 0)
 	{
-		$condition .= " AND pl_id = $binding_id";
+		$condition .= " AND ext_id = $binding_id";
 	}
 
 	return $db->delete($db_extensions, $condition);
@@ -933,19 +933,19 @@ function cot_plugin_remove($name, $binding_id = 0)
  * @return integer       Number of bindings suspended
  * @global CotDB $db
  */
-function cot_plugin_resume($name, $part = 0)
+function cot_extension_resume_hooks($name, $part = 0)
 {
 	global $db, $db_extensions;
 
-	$condition = "pl_code = '$name'";
+	$condition = "ext_code = '$name'";
 	if (is_numeric($part) && $part > 0)
 	{
-		$condition .= " AND pl_id = $part";
+		$condition .= " AND ext_id = $part";
 	}
 	elseif (is_string($part))
 	{
-		$condition .= " AND pl_part = " . $db->quote($part);
+		$condition .= " AND ext_part = " . $db->quote($part);
 	}
 
-	return $db->update($db_extensions, array('pl_active' => 1), $condition);
+	return $db->update($db_extensions, array('ext_active' => 1), $condition);
 }

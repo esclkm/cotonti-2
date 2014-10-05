@@ -4,8 +4,8 @@
 	<h2><!-- IF {ADMIN_EXTENSIONS_ICO} -->
 					<img src="{ADMIN_EXTENSIONS_ICO}" />
 					<!-- ELSE -->
-					<img src="{PHP.cfg.system_dir}/admin/img/plugins32.png" />
-					<!-- ENDIF -->{ADMIN_EXTENSIONS_TYPE} {ADMIN_EXTENSIONS_NAME}:</h2>
+					{PHP.R.admin_icon_extension}
+					<!-- ENDIF -->{PHP.L.Extension} {ADMIN_EXTENSIONS_NAME}:</h2>
 	<div class="block">
 		<table class="cells info">
 			<tr>
@@ -192,7 +192,7 @@
 	<table class="cells">
 		<tr>
 			<td class="coltop width40">{PHP.L.Hooks}</td>
-			<td class="coltop width20">{PHP.L.Plugin}</td>
+			<td class="coltop width20">{PHP.L.Extension}</td>
 			<td class="coltop width20">{PHP.L.Order}</td>
 			<td class="coltop width20">{PHP.L.Active}</td>
 		</tr>
@@ -216,7 +216,7 @@
 </div>
 
 <!-- BEGIN: SECTION-->
-	<h2>{ADMIN_EXTENSIONS_SECTION_TITLE} ({ADMIN_EXTENSIONS_CNT_EXTP})</h2>
+	<h2>{PHP.L.Extension} ({ADMIN_EXTENSIONS_CNT_EXTP})</h2>
 	<div class="block">
 		<table class="cells">
 			<tr>
@@ -247,7 +247,7 @@
 					<!-- IF {ADMIN_EXTENSIONS_ICO} -->
 					<img src="{ADMIN_EXTENSIONS_ICO}" />
 					<!-- ELSE -->
-					<img src="{PHP.cfg.system_dir}/admin/img/plugins32.png" />
+					{PHP.R.admin_icon_extension}
 					<!-- ENDIF -->
 				</td>
 				<td>

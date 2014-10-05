@@ -17,7 +17,7 @@ Hooks=ajax
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('tags', 'module');
+require_once cot_incfile('tags', 'functions');
 $q = mb_strtolower(cot_import('q', 'G', 'TXT'));
 $q = $db->prep(urldecode($q));
 if (!$q) return;

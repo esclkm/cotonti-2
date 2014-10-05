@@ -11,7 +11,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('auth');
+require_once cot_incfile('system', 'auth');
 
 $y = cot_import('y','P','TXT');
 $id = (int)cot_import('id','G','INT');
@@ -70,7 +70,7 @@ if ($a == 'update')
 
 		if (cot_extension_active('pfs') && cot_import('ruserdelpfs','P','BOL'))
 		{
-			require_once cot_incfile('pfs', 'module');
+			require_once cot_incfile('pfs', 'functions');
 			cot_pfs_deleteall($id);
 		}
 
@@ -162,7 +162,7 @@ if ($a == 'update')
 			$oldname = $urr['user_name'];
 			if (cot_extension_active('forums'))
 			{
-				require_once cot_incfile('forums', 'module');
+				require_once cot_incfile('forums', 'functions');
 				$db->update($db_forum_topics, array('ft_lastpostername' => $newname), 'ft_lastpostername = ?', array($oldname));
 				$db->update($db_forum_topics, array('ft_firstpostername' => $newname), 'ft_firstpostername = ?', array($oldname));
 				$db->update($db_forum_posts, array('fp_postername' => $newname), 'fp_postername = ?', array($oldname));
@@ -170,17 +170,17 @@ if ($a == 'update')
 			}
 			if (cot_extension_active('page'))
 			{
-				require_once cot_incfile('page', 'module');
+				require_once cot_incfile('page', 'functions');
 				$db->update($db_pages, array('page_author' => $newname), 'page_author = ?', array($oldname));
 			}
 			if (cot_extension_active('comments'))
 			{
-				require_once cot_incfile('comments', 'plug');
+				require_once cot_incfile('comments');
 				$db->update($db_com, array('com_author' => $newname), 'com_author = ?', array($oldname));
 			}
 			if (cot_extension_active('pm'))
 			{
-				require_once cot_incfile('pm', 'module');
+				require_once cot_incfile('pm', 'functions');
 				$db->update($db_pm, array('pm_fromuser' => $newname), 'pm_fromuser = ?', array($oldname));
 			}
 			if (cot_extension_active('whosonline'))
@@ -267,7 +267,7 @@ require_once $cfg['system_dir'] . '/header.php';
 
 $t = new XTemplate($mskin);
 
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 
 $protected = $sys['protecttopadmin'] ? array('disabled' => 'disabled') : array();
 

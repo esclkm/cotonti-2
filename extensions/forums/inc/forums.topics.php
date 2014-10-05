@@ -139,7 +139,7 @@ foreach (cot_getextensions('forums.topics.first') as $pl)
 }
 /* ===== */
 
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 
 $structure['forums'][$s]['desc'] = cot_parse_autourls($structure['forums'][$s]['desc']);
 

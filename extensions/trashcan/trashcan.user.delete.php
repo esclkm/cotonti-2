@@ -16,7 +16,7 @@ Hooks=users.edit.update.delete
  */
 
 defined('COT_CODE') or die('Wrong URL');
-require_once cot_incfile('trashcan', 'module');
+require_once cot_incfile('trashcan', 'functions');
 if ($cfg['trashcan']['trash_user'])
 {
 	cot_trash_put('user', $L['User']." #".$id." ".$row['user_name'], $id, $row1);

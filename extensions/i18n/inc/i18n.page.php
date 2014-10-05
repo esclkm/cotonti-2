@@ -11,8 +11,8 @@
 
 defined('COT_CODE') or die('Wrong URL.');
 
-require_once cot_incfile('page', 'module');
-require_once cot_incfile('forms');
+require_once cot_incfile('page');
+require_once cot_incfile('system', 'forms');
 
 $id = cot_import('id', 'G', 'INT');
 $l = cot_import('l', 'G', 'ALP');
@@ -195,7 +195,7 @@ if ($id > 0 && $stmt->rowCount() == 1)
 		// Send to trashcan if available
 		if ($cfg['trashcan']['trash_page'])
 		{
-			require_once cot_incfile('trashcan', 'module');
+			require_once cot_incfile('trashcan');
 			$row = $db->query("SELECT * FROM $db_i18n_pages
 				WHERE ipage_id = $id AND ipage_locale = '$i18n_locale'")->fetch();
 			cot_trash_put('i18n_page', $L['i18n_translation']." #$id ($i18n_locale) ".$row['ipage_title'], $id, $row);

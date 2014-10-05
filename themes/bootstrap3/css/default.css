@@ -1,6 +1,12 @@
 .dateinput select {
 	width: inherit;
 	display: inline-block;
+	padding: 6px 6px;
+}
+
+.publish {
+	margin: 10px 0;
+	text-align: center;
 }
 
 .margintop10	{ margin-top:10px; }

@@ -22,10 +22,10 @@ define('COT_PAGES', TRUE);
 $env['location'] = 'pages';
 
 // Additional API requirements
-require_once cot_incfile('extrafields');
+require_once cot_incfile('system', 'extrafields');
 
 // Self requirements
-require_once cot_incfile('page', 'module');
+require_once cot_incfile('page', 'functions');
 
 // Mode choice
 if (!in_array($m, array('add', 'edit')))
@@ -40,4 +40,4 @@ if (!in_array($m, array('add', 'edit')))
 	}
 }
 
-require_once cot_incfile('page', 'module', $m);
+require_once cot_incfile('page', $m);

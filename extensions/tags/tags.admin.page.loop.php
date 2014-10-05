@@ -20,7 +20,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 if ($cfg['tags']['pages'])
 {
-	require_once cot_incfile('tags', 'module');
+	require_once cot_incfile('tags', 'functions');
 	$item_id = $row['page_id'];
 	$tags = cot_tag_list($item_id);
 	if (count($tags) > 0)

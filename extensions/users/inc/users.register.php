@@ -12,7 +12,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('auth');
+require_once cot_incfile('system', 'auth');
 
 $v = cot_import('v','G','ALP');
 $y = cot_import('y','G','INT');
@@ -204,7 +204,7 @@ require_once $cfg['system_dir'] . '/header.php';
 
 $t = new XTemplate($mskin);
 
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 
 $t->assign(array(
 	'USERS_REGISTER_TITLE' => $L['aut_registertitle'],

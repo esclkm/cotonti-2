@@ -40,18 +40,18 @@ if ($days > 0)
 	$timeback = $sys['now'] - $timeminus;
 }
 
-require_once cot_incfile('recentitems', 'module');
+require_once cot_incfile('recentitems', 'functions');
 $totalrecent[] = 0;
 if ($cfg['recentitems']['newpages'] && cot_extension_active('page') && (empty($mode) || $mode == 'pages'))
 {
-	require_once cot_incfile('page', 'module');
+	require_once cot_incfile('page', 'functions');
 	$res = cot_build_recentpages('recentitems.pages', $timeback, $cfg['recentitems']['itemsperpage'], $d, $pagetitlelimit, $cfg['recentitems']['newpagestext'], $cfg['recentitems']['rightscan']);
 	$t->assign('RECENT_PAGES', $res);
 }
 
 if ($cfg['recentitems']['newforums'] && cot_extension_active('forums') && (empty($mode) || $mode == 'forums'))
 {
-	require_once cot_incfile('forums', 'module');
+	require_once cot_incfile('forums', 'functions');
 	$res = cot_build_recentforums('recentitems.forums', $timeback, $cfg['recentitems']['itemsperpage'], $d, $forumtitlelimit, $cfg['recentitems']['rightscan']);
 	$t->assign('RECENT_FORUMS', $res);
 }

@@ -22,6 +22,6 @@ $env['ext'] = 'admin';
 require_once $cfg['system_dir'] . '/cotemplate.php';
 require_once $cfg['system_dir'] . '/common.php';
 
-require_once cot_incfile('admin', 'module');
+require_once cot_incfile('admin', 'functions');
 
-include cot_incfile('admin', 'module', 'main');
+include cot_incfile('admin', 'main');

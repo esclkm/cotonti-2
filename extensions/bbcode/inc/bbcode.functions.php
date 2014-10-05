@@ -35,12 +35,12 @@ if (!isset($GLOBALS['bbcode_loaded']))
  * @param string $replacement Replacement string or regular substitution or callback body
  * @param bool $container Whether bbcode is container (like [bbcode]Something here[/bbcode])
  * @param int $priority BBcode priority from 0 to 255. Smaller priority bbcodes are parsed first, 128 is default medium priority.
- * @param string $plug Extension/part name this bbcode belongs to.
+ * @param string $extension Extension/part name this bbcode belongs to.
  * @param bool $postrender Whether this bbcode must be applied on a pre-rendered HTML cache.
  * @return bool
  * @global CotDB $db
  */
-function cot_bbcode_add($name, $mode, $pattern, $replacement, $container = true, $priority = 128, $plug = '', $postrender = false)
+function cot_bbcode_add($name, $mode, $pattern, $replacement, $container = true, $priority = 128, $extension = '', $postrender = false)
 {
 	global $db, $db_bbcode;
 	$bbc['bbc_name'] = $name;
@@ -52,9 +52,9 @@ function cot_bbcode_add($name, $mode, $pattern, $replacement, $container = true,
 	{
 		$bbc['bbc_priority'] = (int) $priority;
 	}
-	if (!empty($plug))
+	if (!empty($extension))
 	{
-		$bbc['bbc_plug'] = $plug;
+		$bbc['bbc_extension'] = $extension;
 	}
 	$bbc['bbc_postrender'] = empty($postrender) ? 0 : 1;
 	return $db->insert($db_bbcode, $bbc) == 1;
@@ -65,20 +65,20 @@ function cot_bbcode_add($name, $mode, $pattern, $replacement, $container = true,
  *
  * @global $db_bbcode
  * @param int $id BBCode ID or 0 to remove all (use carefully)
- * @param string $plug Remove all bbcodes that belong to this plug
+ * @param string $extension Remove all bbcodes that belong to this Extension
  * @return bool
  * @global CotDB $db
  */
-function cot_bbcode_remove($id = 0, $plug = '')
+function cot_bbcode_remove($id = 0, $extension = '')
 {
 	global $db, $db_bbcode;
 	if ($id > 0)
 	{
 		return $db->delete($db_bbcode, "bbc_id = $id") == 1;
 	}
-	elseif (!empty($plug))
+	elseif (!empty($extension))
 	{
-		return $db->delete($db_bbcode, "bbc_plug = '".$db->prep($plug)."'");
+		return $db->delete($db_bbcode, "bbc_extension = '".$db->prep($extension)."'");
 	}
 	else
 	{

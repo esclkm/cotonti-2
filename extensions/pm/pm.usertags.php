@@ -17,7 +17,7 @@ Hooks=usertags.main
 defined('COT_CODE') or die('Wrong URL.');
 
 global $L, $Ls, $R;
-require_once cot_incfile('pm', 'module');
+require_once cot_incfile('pm', 'functions');
 
 if ($user_data['user_id'] > 0)
 {

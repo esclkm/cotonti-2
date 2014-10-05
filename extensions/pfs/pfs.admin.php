@@ -20,11 +20,11 @@ Hooks=admin
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('pfs', 'a');
 cot_block($usr['isadmin']);
 
-require_once cot_incfile('pfs', 'module');
+require_once cot_incfile('pfs', 'functions');
 
 if ($s == 'allpfs')
 {
-	require cot_incfile('pfs', 'module', 'admin.allpfs');
+	require cot_incfile('pfs', 'admin.allpfs');
 }
 else
 {

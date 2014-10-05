@@ -18,7 +18,7 @@ require_once cot_langfile('urleditor', 'module');
  * Append items to it to add other presets
  * @var array
  */
-$cot_urleditor_presets = array('handy', 'compat', 'custom', 'none');
+$cot_urleditor_presets = array('handy', 'custom', 'none');
 
 /**
  * Applies Handly URLs rewrite to current script parameters

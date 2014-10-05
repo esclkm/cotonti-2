@@ -86,27 +86,6 @@ INSERT INTO `cot_config` (`config_owner`, `config_cat`, `config_order`, `config_
 ('core','main','06','easypagenav',3,'1','1','',''),
 ('core','main','07','confirmlinks',3,'1','1','',''),
 ('core','main','91','default_show_installed',3,'0','0','',''),
-('core','menus','01','topline',0,'','','',''),
-('core','menus','02','banner',0,'','','',''),
-('core','menus','03','bottomline',0,'','','',''),
-('core','menus','11','menu1',0,'<li><a href=\"index.php\">Home</a></li>\n<li><a href=\"forums.php\">Forums</a></li>\n<li><a href=\"page.php?c=articles\">Articles</a></li>\n<li><a href=\"plug.php?e=search\">Search</a></li>','<li><a href=\"index.php\">Home</a></li>\n<li><a href=\"forums.php\">Forums</a></li>\n<li><a href=\"page.php?c=articles\">Articles</a></li>\n<li><a href=\"plug.php?e=search\">Search</a></li>','',''),
-('core','menus','12','menu2',0,'','','',''),
-('core','menus','13','menu3',0,'','','',''),
-('core','menus','14','menu4',0,'','','',''),
-('core','menus','15','menu5',0,'','','',''),
-('core','menus','16','menu6',0,'','','',''),
-('core','menus','17','menu7',0,'','','',''),
-('core','menus','18','menu8',0,'','','',''),
-('core','menus','19','menu9',0,'','','',''),
-('core','menus','21','freetext1',0,'','','',''),
-('core','menus','22','freetext2',0,'','','',''),
-('core','menus','23','freetext3',0,'','','',''),
-('core','menus','24','freetext4',0,'','','',''),
-('core','menus','25','freetext5',0,'','','',''),
-('core','menus','26','freetext6',0,'','','',''),
-('core','menus','27','freetext7',0,'','','',''),
-('core','menus','28','freetext8',0,'','','',''),
-('core','menus','29','freetext9',0,'','','',''),
 ('core','performance','01','gzip',3,'0','0','',''),
 ('core','performance','02','headrc_consolidate',3,'0','0','',''),
 ('core','performance','03','headrc_minify',3,'1','1','',''),
@@ -154,7 +133,7 @@ CREATE TABLE `cot_core` (
   `ct_version` varchar(32) collate utf8_unicode_ci NOT NULL default '',
   `ct_state` tinyint unsigned NOT NULL default '1',
   `ct_lock` tinyint unsigned NOT NULL default '0',
-  `ct_plug` tinyint unsigned NOT NULL default '0',
+  `ct_extension` tinyint unsigned NOT NULL default '0',
   PRIMARY KEY  (`ct_id`),
   KEY `ct_code` (`ct_code`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -225,18 +204,17 @@ CREATE TABLE `cot_logger` (
   PRIMARY KEY  (`log_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `cot_plugins`;
-CREATE TABLE `cot_plugins` (
-  `pl_id` mediumint NOT NULL auto_increment,
-  `pl_hook` varchar(64) collate utf8_unicode_ci NOT NULL default '',
-  `pl_code` varchar(64) collate utf8_unicode_ci NOT NULL default '',
-  `pl_part` varchar(32) collate utf8_unicode_ci NOT NULL default '',
-  `pl_title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `pl_file` varchar(255) collate utf8_unicode_ci NOT NULL default '',
-  `pl_order` tinyint unsigned NOT NULL default '10',
-  `pl_active` tinyint unsigned NOT NULL default '1',
-  `pl_module` tinyint unsigned NOT NULL DEFAULT 0,
-  PRIMARY KEY  (`pl_id`)
+DROP TABLE IF EXISTS `cot_extensions`;
+CREATE TABLE `cot_extensions` (
+  `ext_id` mediumint NOT NULL auto_increment,
+  `ext_hook` varchar(64) collate utf8_unicode_ci NOT NULL default '',
+  `ext_code` varchar(64) collate utf8_unicode_ci NOT NULL default '',
+  `ext_part` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `ext_title` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `ext_file` varchar(255) collate utf8_unicode_ci NOT NULL default '',
+  `ext_order` tinyint unsigned NOT NULL default '10',
+  `ext_active` tinyint unsigned NOT NULL default '1',
+  PRIMARY KEY  (`ext_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `cot_structure`;

@@ -15,11 +15,11 @@
  * @copyright Copyright (c) Cotonti Team 2008-2014
  * @license BSD
  */
-defined('COT_CODE') && defined('COT_PLUG') or die('Wrong URL');
+defined('COT_CODE') or die('Wrong URL');
 
 require_once $cfg['system_dir'] . '/header.php';
 
-require_once cot_incfile('hits', 'module');
+require_once cot_incfile('hits', 'functions');
 
 $s = cot_import('s', 'G', 'TXT');
 
@@ -73,7 +73,7 @@ $sql->closeCursor();
 
 if (cot_extension_active('forums'))
 {
-	require_once cot_incfile('forums', 'module');
+	require_once cot_incfile('forums', 'functions');
 	$totaldbviews = $db->query("SELECT SUM(fs_viewcount) FROM $db_forum_stats")->fetchColumn();
 	$totaldbposts = $db->countRows($db_forum_posts);
 	$totaldbtopics = $db->countRows($db_forum_topics);
@@ -97,7 +97,7 @@ if (cot_extension_active('forums'))
 
 if (cot_extension_active('page'))
 {
-	require_once cot_incfile('page', 'module');
+	require_once cot_incfile('page', 'functions');
 	$totaldbpages = $db->countRows($db_pages);
 	$totalpages = cot_stat_get('totalpages');
 	$t->assign(array(
@@ -108,7 +108,7 @@ if (cot_extension_active('page'))
 
 if (cot_extension_active('pfs'))
 {
-	require_once cot_incfile('pfs', 'module');
+	require_once cot_incfile('pfs', 'functions');
 	$totaldbfiles = $db->countRows($db_pfs);
 	$totaldbfilesize = $db->query("SELECT SUM(pfs_size) FROM $db_pfs")->fetchColumn();
 	$t->assign(array(
@@ -119,7 +119,7 @@ if (cot_extension_active('pfs'))
 
 if (cot_extension_active('pm'))
 {
-	require_once cot_incfile('pm', 'module');
+	require_once cot_incfile('pm', 'functions');
 	$totalpmsent = cot_stat_get('totalpms');
 	$totalpmactive = $db->query("SELECT COUNT(*) FROM $db_pm WHERE pm_tostate<2")->fetchColumn();
 	$totalpmarchived = $db->query("SELECT COUNT(*) FROM $db_pm WHERE pm_tostate=2")->fetchColumn();
@@ -132,7 +132,7 @@ if (cot_extension_active('pm'))
 
 if (cot_extension_active('polls'))
 {
-	require_once cot_incfile('polls', 'module');
+	require_once cot_incfile('polls', 'functions');
 	$totaldbpolls = $db->countRows($db_polls);
 	$totaldbpollsvotes = $db->countRows($db_polls_voters);
 	$t->assign(array(
@@ -143,7 +143,7 @@ if (cot_extension_active('polls'))
 
 if (cot_extension_active('ratings'))
 {
-	require_once cot_incfile('ratings', 'module');
+	require_once cot_incfile('ratings', 'functions');
 	$totaldbratings = $db->countRows($db_ratings);
 	$totaldbratingsvotes = $db->countRows($db_rated);
 	$t->assign(array(

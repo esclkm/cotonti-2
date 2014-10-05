@@ -110,7 +110,7 @@ else
 		if (file_exists($cfg['extensions_dir'] . '/' . $_GET['e']) && isset($cot_modules[$_GET['e']]))
 		{
 			// Need to query the db to check which one is installed
-			$res = $db->query("SELECT ct_plug FROM $db_core WHERE ct_code = ? LIMIT 1", $_GET['e']);
+			$res = $db->query("SELECT ct_extension FROM $db_core WHERE ct_code = ? LIMIT 1", $_GET['e']);
 			if ($res->rowCount() == 1)
 			{
 				$found = true;
@@ -133,8 +133,8 @@ else
 // Input import
 
 $req_files = array();
-$req_files[] = cot_incfile($extname, 'extension', 'resources');
-$req_files[] = cot_incfile($extname, 'extension', 'functions');
+$req_files[] = cot_incfile($env['ext'], 'resources');
+$req_files[] = cot_incfile($env['ext'], 'functions');
 
 foreach ($req_files as $req_file)
 {
@@ -145,7 +145,7 @@ foreach ($req_files as $req_file)
 }
 
 // Load the requested extension
-if(!empty($_GET['r']))
+if(empty($_GET['r']))
 {
 	$ext_display_header = false;
 	$exthook = 'standalone';

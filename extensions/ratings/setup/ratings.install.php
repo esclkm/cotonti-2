@@ -11,7 +11,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require cot_incfile('ratings', 'module', 'enablement');
+require cot_incfile('ratings', 'enablement');
 
 // Add options into module configs
 foreach ($rat_modules_list as $mod_name)

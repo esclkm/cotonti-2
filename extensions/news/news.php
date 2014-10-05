@@ -18,7 +18,7 @@ Tags=index.tpl:{INDEX_NEWS}
  */
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('page', 'module');
+require_once cot_incfile('page', 'functions');
 require_once cot_langfile('news', 'module');
 
 list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['news']['maxpages']);

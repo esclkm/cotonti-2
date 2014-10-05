@@ -16,7 +16,7 @@ Hooks=page.admin.delete.done
  */
 
 defined('COT_CODE') or die('Wrong URL');
-require_once cot_incfile('trashcan', 'module');
+require_once cot_incfile('trashcan', 'functions');
 if ($cfg['trashcan']['trash_page'])
 {
 	cot_trash_put('page', $L['Page']." #".$id." ".$row['page_title'], $id, $row);

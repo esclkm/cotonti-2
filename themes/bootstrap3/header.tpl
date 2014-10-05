@@ -44,9 +44,9 @@
 							<li><a href="{PHP|cot_url('page','c=news')}">{PHP.structure.page.news.title}</a></li>
 							<li><a href="{PHP|cot_url('users')}">{PHP.L.Users}</a></li>
 							<!-- IF {PHP.cot_extensions_active.whosonline} -->
-							<li><a href="{PHP|cot_url('plug','e=whosonline')}">{PHP.L.WhosOnline}</a>
+							<li><a href="{PHP|cot_url('index','e=whosonline')}">{PHP.L.WhosOnline}</a>
 							<!-- ENDIF -->
-							<li><a href="{PHP|cot_url('plug','e=contact')}">{PHP.L.Contact}</a></li>
+							<li><a href="{PHP|cot_url('index','e=contact')}">{PHP.L.Contact}</a></li>
 						</ul>
 
 						<ul class="nav navbar-nav navbar-right">

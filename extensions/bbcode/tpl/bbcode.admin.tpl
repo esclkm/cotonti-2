@@ -24,7 +24,7 @@
 						{ADMIN_BBCODE_ROW_REPLACEMENT}
 					</td>
 					<td class="centerall">
-						<span style="display:block;">{ADMIN_BBCODE_ROW_PLUG}</span>
+						<span style="display:block;">{ADMIN_BBCODE_ROW_EXTENSION}</span>
 						{ADMIN_BBCODE_ROW_PRIO}
 						{ADMIN_BBCODE_ROW_POSTRENDER}
 					</td>

@@ -11,7 +11,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('forms');
+require_once cot_incfile('system', 'forms');
 
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('pm', 'a');
 cot_block($usr['auth_read']);
@@ -209,9 +209,9 @@ if ($usr['auth_write'])
 		{
 			foreach ($cot_extensions['editor'] as $k)
 			{
-				if ($k['pl_code'] == $editor && cot_auth('plug', $k['pl_code'], 'R'))
+				if ($k['ext_code'] == $editor && cot_auth($k['ext_code'], 'any', 'R'))
 				{
-					include $cfg['extensions_dir'] . '/' . $k['pl_file'];
+					include $cfg['extensions_dir'] . '/' . $k['ext_file'];
 					break;
 				}
 			}

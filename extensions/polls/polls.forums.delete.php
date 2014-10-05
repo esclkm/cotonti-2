@@ -17,6 +17,6 @@ Hooks=forums.posts.emptytopicdel, forums.functions.prunetopics
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('polls', 'module');
+require_once cot_incfile('polls', 'functions');
 
 cot_poll_delete($q, 'forum');

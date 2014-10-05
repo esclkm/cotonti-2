@@ -21,14 +21,14 @@ defined('COT_CODE') or die('Wrong URL.');
 define('COT_USERS', TRUE);
 $env['location'] = 'users';
 
-require_once cot_incfile('extrafields');
-require_once cot_incfile('uploads');
+require_once cot_incfile('system', 'forms');
+require_once cot_incfile('system', 'uploads');
 
-require_once cot_incfile('users', 'module');
+require_once cot_incfile('users');
 
 if (!in_array($m, array('details', 'edit', 'passrecover', 'profile', 'register')))
 {
 	$m = 'main';
 }
 
-include cot_incfile('users', 'module', $m);
+include cot_incfile('users', $m);

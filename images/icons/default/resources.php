@@ -44,7 +44,6 @@ $R['icon_news'] = '<img class="icon" src="'.$cfg['icons_dir'].'/default/news.png
 $R['icon_online'] = '<img class="icon" src="'.$cfg['icons_dir'].'/default/online.png" alt="" />';
 $R['icon_page'] = '<img class="icon" src="'.$cfg['icons_dir'].'/default/page.png" alt="" />';
 $R['icon_pfs'] = '<img class="icon" src="'.$cfg['icons_dir'].'/default/pfs.png" alt="" />';
-$R['icon_plug'] = '<img class="icon" src="'.$cfg['icons_dir'].'/default/plug.png" alt="" />';
 $R['icon_polls'] = '<img class="icon" src="'.$cfg['icons_dir'].'/default/polls.png" alt="" />';
 $R['icon_prefs'] = '<img class="icon" src="'.$cfg['icons_dir'].'/default/prefs.png" alt="" />';
 $R['icon_reset'] = '<img class="icon" src="'.$cfg['icons_dir'].'/default/reset.png" alt="" />';

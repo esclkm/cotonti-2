@@ -21,11 +21,11 @@ define('COT_PM', true);
 $env['location'] = 'private_messages';
 
 // Additional API requirements
-require_once cot_incfile('extrafields');
-require_once cot_incfile('users', 'module');
+require_once cot_incfile('system', 'forms');
+require_once cot_incfile('users', 'functions');
 
 // Self requirements
-require_once cot_incfile('pm', 'module');
+require_once cot_incfile('pm', 'functions');
 
 // Mode choice
 if (!in_array($m, array('send', 'message')))
@@ -33,4 +33,4 @@ if (!in_array($m, array('send', 'message')))
 	$m = 'list';
 }
 
-require_once cot_incfile('pm', 'module', $m);
+require_once cot_incfile('pm', $m);

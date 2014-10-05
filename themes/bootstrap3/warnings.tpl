@@ -1,6 +1,6 @@
 <!-- BEGIN: ERROR -->
-<div class="error">
-	<h4>{PHP.L.Error}</h4>
+<div class="alert alert-danger" role="alert">
+	<strong>{PHP.L.Error}</strong>
 	<ul>
 		<!-- BEGIN: ERROR_ROW -->
 		<li>{ERROR_ROW_MSG}</li>
@@ -10,8 +10,8 @@
 <!-- END: ERROR -->
 
 <!-- BEGIN: WARNING -->
-<div class="warning">
-	<h4>{PHP.L.Warning}</h4>
+<div class="alert alert-warning" role="alert">
+	<strong>{PHP.L.Warning}</strong>
 	<ul>
 		<!-- BEGIN: WARNING_ROW -->
 		<li>{WARNING_ROW_MSG}</li>
@@ -21,12 +21,13 @@
 <!-- END: WARNING -->
 
 <!-- BEGIN: DONE -->
-<div class="done">
-	<h4>{PHP.L.Done}</h4>
+<div class="alert alert-success" role="alert">
+	<strong>{PHP.L.Done}</strong>
 	<ul>
 		<!-- BEGIN: DONE_ROW -->
 		<li>{DONE_ROW_MSG}</li>
 		<!-- END: DONE_ROW -->
 	</ul>
 </div>
+
 <!-- END: DONE -->

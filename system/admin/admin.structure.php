@@ -14,7 +14,7 @@
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('admin', 'a');
 cot_block($usr['isadmin']);
 
-require_once cot_incfile('extrafields');
+require_once cot_incfile('system', 'forms');
 require_once cot_incfile('structure');
 
 $id = cot_import('id', 'G', 'INT');
@@ -54,17 +54,12 @@ if (empty($n))
 			$parse = false;
 			if (cot_extension_active($code))
 			{
-				$is_module = false;
-				$parse = true;
-			}
-			if (cot_extension_active($code))
-			{
 				$is_module = true;
 				$parse = true;
 			}
 			if ($parse)
 			{
-				$ext_info = cot_get_extensionparams($code, $is_module);
+				$ext_info = cot_get_extensionparams($code);
 				$t->assign(array(
 					'ADMIN_STRUCTURE_EXT_URL' => cot_url('admin', 'm=structure&n='.$code),
 					'ADMIN_STRUCTURE_EXT_ICO' => $ext_info['icon'],
@@ -103,9 +98,9 @@ else
 		cot_redirect(cot_url('admin', 'm=structure', '', true));
 	}
 	// Edit structure for a module
-	if (file_exists(cot_incfile($n, $is_module ? 'module' : 'plug')))
+	if (file_exists(cot_incfile($n)))
 	{
-		require_once cot_incfile($n, $is_module ? 'module' : 'plug');
+		require_once cot_incfile($n);
 	}
 	if (empty($adminhelp))
 	{
@@ -113,14 +108,14 @@ else
 	}
 	if ($a == 'reset' && !empty($_POST))
 	{
-		cot_config_reset($n, $v, $is_module ? 'module' : 'plug', $structure_code);
+		cot_config_reset($n, $v, $structure_code);
 	}
 	if ($a == 'update' && !empty($_POST))
 	{
 		$editconfig = cot_import('editconfig', 'P', 'TXT');
 		if (!empty($editconfig))
 		{
-			$optionslist = cot_config_list($is_module ? 'module' : 'plug', $n, $editconfig);
+			$optionslist = cot_config_list('module', $n, $editconfig);
 			foreach ($optionslist as $key => $val)
 			{
 				$data = cot_import($key, 'P', sizeof($cot_import_filters[$key]) ? $key : 'NOC');
@@ -140,13 +135,12 @@ else
 				}
 			}
 
-			if ($o == 'module' || $o == 'plug')
+			if ($o == 'module')
 			{
-				$dir = $o == 'module' ? $cfg['extensions_dir'] : $cfg['plugins_dir'];
 				// Run configure extension part if present
-				if (file_exists($dir."/".$p."/setup/".$p.".configure.php"))
+				if (file_exists($cfg['extensions_dir']."/".$p."/setup/".$p.".configure.php"))
 				{
-					include $dir."/".$p."/setup/".$p.".configure.php";
+					include $cfg['extensions_dir']."/".$p."/setup/".$p.".configure.php";
 				}
 			}
 		}
@@ -368,7 +362,7 @@ else
 		($cache && $cfg['cache_'.$n]) && $cache->page->clear($n);
 		cot_redirect(cot_url('admin', 'm=structure&n='.$n.'&mode='.$mode.'&d='.$durl, '', true));
 	}
-	$ext_info = cot_get_extensionparams($n, true);
+	$ext_info = cot_get_extensionparams($n);
 	$adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
 	$adminpath[] = array(($is_module ? cot_url('admin', 'm='.$n) : cot_url('admin', 'm=extensions&a=details&pl='.$n)), $ext_info['name']);
 	$adminpath[] = array(cot_url('admin', 'm=structure&n='.$n), $L['Structure']);
@@ -493,7 +487,7 @@ else
 		if ($id || !empty($al))
 		{
 			require_once cot_incfile('configuration');
-			$optionslist = cot_config_list($is_module ? 'module' : 'plug', $n, $structure_code);
+			$optionslist = cot_config_list('module', $n, $structure_code);
 
 			/* === Hook - Part1 : Set === */
 			$extp = cot_getextensions('admin.config.edit.loop');

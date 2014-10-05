@@ -20,7 +20,7 @@ list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('hits', 
 cot_block($usr['auth_read']);
 
 require_once cot_langfile('hits', 'module');
-require_once cot_incfile('hits', 'module');
+require_once cot_incfile('hits', 'functions');
 $tt = new XTemplate(cot_tplfile('hits.admin', 'module', true));
 
 $adminhelp = $L['adm_help_hits'];
