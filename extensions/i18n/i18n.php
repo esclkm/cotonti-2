@@ -1,7 +1,7 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
@@ -32,9 +32,9 @@ elseif ($m == 'page')
 else
 {
 	/* === Hook === */
-	foreach (cot_getextensions('i18n.standalone') as $pl)
+	foreach (cot_getextensions('i18n.standalone') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* =============*/
 }

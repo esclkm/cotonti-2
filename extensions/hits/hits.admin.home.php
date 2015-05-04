@@ -17,10 +17,10 @@ Hooks=admin.home.mainpanel
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_langfile('hits', 'module');
-require_once cot_incfile('hits', 'functions');
+require_once cot_langfile('hits');
+require_once cot_incfile('hits');
 
-$tt = new XTemplate(cot_tplfile('hits.admin.home', 'module', true));
+$tt = new XTemplate(cot_tplfile('hits.admin.home'));
 //Show hit stats
 if (!$cfg['hits']['disablehitstats'])
 {

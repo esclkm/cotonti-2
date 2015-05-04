@@ -10,7 +10,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_langfile('sitemap', 'module');
+require_once cot_langfile('sitemap');
 
 /**
  * Compresses XML output removing all tabs and newlines from it.

@@ -21,8 +21,7 @@ require_once cot_incfile('comments', 'functions');
 
 $extra_whitelist[$db_com] = array(
 	'name' => $db_com,
-	'caption' => $L['Extension'].' Comments system',
-	'type' => 'module',
+	'caption' => 'Comments system',
 	'code' => 'comments',
 	'tags' => array(
 		'comments.tools.tpl' => '{ADMIN_COMMENTS_XXXXX}, {ADMIN_COMMENTS_XXXXX_TITLE}',

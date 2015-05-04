@@ -28,18 +28,17 @@ if ($s == 'allpfs')
 }
 else
 {
-	$t = new XTemplate(cot_tplfile('pfs.admin', 'module', true));
+	$t = new XTemplate(cot_tplfile('pfs.admin'));
 
 	$adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
-	$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$m), $cot_modules[$m]['title']);
+	$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
 	$adminpath[] = array(cot_url('admin', 'm='.$m), $L['Administration']);
-	$adminhelp = $L['adm_help_pfs'];
 	$adminsubtitle = $L['pfs_title'];
 
 	/* === Hook === */
-	foreach (cot_getextensions('pfs.admin.first') as $pl)
+	foreach (cot_getextensions('pfs.admin.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -65,15 +64,16 @@ else
 	}
 
 	$t->assign(array(
-		'ADMIN_PFS_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=module&p=pfs'),
+		'ADMIN_PFS_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=extension&p=pfs'),
 		'ADMIN_PFS_URL_ALLPFS' => cot_url('admin', 'm=pfs&s=allpfs'),
-		'ADMIN_PFS_URL_SFS' => cot_url('pfs', 'userid=0')
+		'ADMIN_PFS_URL_SFS' => cot_url('pfs', 'userid=0'),
+		'ADMIN_PFS_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),		
 	));
 
 	/* === Hook  === */
-	foreach (cot_getextensions('pfs.admin.tags') as $pl)
+	foreach (cot_getextensions('pfs.admin.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 }

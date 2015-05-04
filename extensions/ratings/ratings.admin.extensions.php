@@ -6,7 +6,7 @@ Hooks=admin.extensions.install.tags
 ==================== */
 
 /**
- * Implants missing enablement configs when a new module is installed
+ * Implants missing enablement configs when a new extension is installed
  *
  * @package ratings
  * @version 0.7.0
@@ -19,11 +19,11 @@ defined('COT_CODE') or die('Wrong URL');
 
 require cot_incfile('ratings', 'enablement');
 
-if (in_array($code, $rat_modules_list) && !cot_config_implanted($code, 'ratings'))
+if (in_array($code, $rat_extensions_list) && !cot_config_implanted($code, 'ratings'))
 {
 	cot_config_implant($code, $rat_options, false, 'ratings');
 }
-elseif (in_array($code, $rat_modules_struct_list) && !cot_config_implanted($code, 'ratings'))
+elseif (in_array($code, $rat_extensions_struct_list) && !cot_config_implanted($code, 'ratings'))
 {
 	cot_config_implant($code, $rat_options, true, 'ratings');
 }

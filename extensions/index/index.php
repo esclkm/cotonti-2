@@ -1,7 +1,7 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
@@ -22,19 +22,20 @@ define('COT_INDEX', true);
 $env['location'] = 'home';
 
 /* === Hook === */
-foreach (cot_getextensions('index.first') as $pl)
+foreach (cot_getextensions('index.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
-list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('index', 'a');
+list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('index', 'any');
+
 cot_block($usr['auth_read']);
 
 /* === Hook === */
-foreach (cot_getextensions('index.main') as $pl)
+foreach (cot_getextensions('index.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -48,9 +49,9 @@ require_once $cfg['system_dir'].'/header.php';
 $t = new XTemplate(cot_tplfile('index'));
 
 /* === Hook === */
-foreach (cot_getextensions('index.tags') as $pl)
+foreach (cot_getextensions('index.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

@@ -22,18 +22,17 @@ cot_block($usr['isadmin']);
 
 require_once cot_incfile('ratings', 'functions');
 
-$t = new XTemplate(cot_tplfile('ratings.admin', 'module', true));
+$t = new XTemplate(cot_tplfile('ratings.admin'));
 
-$adminhelp = $L['adm_help_ratings'];
 $adminsubtitle = $L['Ratings'];
 
 $id = cot_import('id','G','TXT');
 list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['maxrowsperpage']);
 
 /* === Hook  === */
-foreach (cot_getextensions('admin.ratings.first') as $pl)
+foreach (cot_getextensions('admin.ratings.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -88,9 +87,9 @@ foreach ($sql->fetchAll() as $row)
 		'ADMIN_RATINGS_ROW_ODDEVEN' => cot_build_oddeven($ii)
 	));
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	$t->parse('MAIN.RATINGS_ROW');
@@ -99,21 +98,22 @@ foreach ($sql->fetchAll() as $row)
 }
 
 $t->assign(array(
-	'ADMIN_RATINGS_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=module&p=ratings'),
+	'ADMIN_RATINGS_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=extension&p=ratings'),
 	'ADMIN_RATINGS_PAGINATION_PREV' => $pagenav['prev'],
 	'ADMIN_RATINGS_PAGNAV' => $pagenav['main'],
 	'ADMIN_RATINGS_PAGINATION_NEXT' => $pagenav['next'],
 	'ADMIN_RATINGS_TOTALITEMS' => $totalitems,
 	'ADMIN_RATINGS_ON_PAGE' => $ii,
-	'ADMIN_RATINGS_TOTALVOTES' => $jj
+	'ADMIN_RATINGS_TOTALVOTES' => $jj,
+	'ADMIN_RATINGS_BREADCRUMBS' =>  cot_breadcrumbs($adminpath, false),	
 ));
 
 cot_display_messages($t);
 
 /* === Hook  === */
-foreach (cot_getextensions('admin.ratings.tags') as $pl)
+foreach (cot_getextensions('admin.ratings.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

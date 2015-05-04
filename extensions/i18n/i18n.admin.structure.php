@@ -19,6 +19,6 @@ Tags=admin.structure.tpl:{ADMIN_STRUCTURE_I18N_LINK}
 defined('COT_CODE') or die('Wrong URL');
 
 $t->assign(array(
-	'ADMIN_STRUCTURE_I18N_LINK' => cot_rc_link(cot_url('module', 'e=i18n&m=structure'), $L['i18n_structure']),
-	'ADMIN_STRUCTURE_I18N_URL' => cot_url('module', 'e=i18n&m=structure')
+	'ADMIN_STRUCTURE_I18N_LINK' => cot_rc_link(cot_url('index', 'e=i18n&m=structure'), $L['i18n_structure']),
+	'ADMIN_STRUCTURE_I18N_URL' => cot_url('index', 'e=i18n&m=structure')
 ));

@@ -28,9 +28,9 @@ $filter = cot_import('filter','G','TXT');	// filter
 */
 
 /* === Hook === */
-foreach (cot_getextensions('pm.list.first') as $pl)
+foreach (cot_getextensions('pm.list.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -96,9 +96,9 @@ elseif ($filter == 'starred')
 }
 
 /* === Hook === */
-foreach (cot_getextensions('pm.list.main') as $pl)
+foreach (cot_getextensions('pm.list.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -178,9 +178,9 @@ foreach ($pm_sql->fetchAll() as $row)
 	$t->assign(cot_generate_usertags($row, 'PM_ROW_USER_'));
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -231,9 +231,9 @@ $t->assign(array(
 ));
 
 /* === Hook === */
-foreach (cot_getextensions('pm.list.tags') as $pl)
+foreach (cot_getextensions('pm.list.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

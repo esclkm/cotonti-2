@@ -26,9 +26,9 @@ $touser_ids = array();
 $touser_names = array();
 
 /* === Hook === */
-foreach (cot_getextensions('pm.send.first') as $pl)
+foreach (cot_getextensions('pm.send.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 if ($a == 'send')
@@ -49,9 +49,9 @@ if ($a == 'send')
 	}
 	$newpmtitle .= (mb_strlen($newpmtitle) < 2) ? ' . . . ' : '';
 	/* === Hook === */
-	foreach (cot_getextensions('pm.send.send.first') as $pl)
+	foreach (cot_getextensions('pm.send.send.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -69,9 +69,9 @@ if ($a == 'send')
 			$sql_pm_update = $db->update($db_pm, $pm, "pm_id = $id AND pm_fromuserid = ".$usr['id']." AND pm_tostate = '0'");
 		}
 		/* === Hook === */
-		foreach (cot_getextensions('pm.send.update.done') as $pl)
+		foreach (cot_getextensions('pm.send.update.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 		cot_redirect(cot_url('pm', 'f=sentbox', '', true));
@@ -155,9 +155,9 @@ if ($a == 'send')
 			}
 
 			/* === Hook === */
-			foreach (cot_getextensions('pm.send.send.done') as $pl)
+			foreach (cot_getextensions('pm.send.send.done') as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 
@@ -229,9 +229,9 @@ $out['subtitle'] = cot_title('{SEND_NEW} - {PM}', $title_params);
 $out['head'] .= $R['code_noindex'];
 
 /* === Hook === */
-foreach (cot_getextensions('pm.send.main') as $pl)
+foreach (cot_getextensions('pm.send.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 if ($id)
@@ -273,9 +273,9 @@ $url_sentbox = cot_url('pm', 'f=sentbox');
 		// Attach rich text editors to AJAX loaded page
 		$rc_tmp = $out['footer_rc'];
 		$out['footer_rc'] = '';
-		if (is_array($cot_extensions['editor']))
+		if (is_array($cot_hooks['editor']))
 		{
-			foreach ($cot_extensions['editor'] as $k)
+			foreach ($cot_hooks['editor'] as $k)
 			{
 				if ($k['ext_code'] == $editor && cot_auth($k['ext_code'], 'any', 'R'))
 				{
@@ -304,9 +304,9 @@ $t->assign(array(
 ));
 
 /* === Hook === */
-foreach (cot_getextensions('pm.send.tags') as $pl)
+foreach (cot_getextensions('pm.send.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

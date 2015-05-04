@@ -12,7 +12,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
 require_once cot_incfile('system', 'forms');
-require_once cot_langfile('polls', 'module');
+require_once cot_langfile('polls');
 
 cot::$db->registerTable('polls');
 cot::$db->registerTable('polls_options');
@@ -323,7 +323,7 @@ function cot_poll_form($id, $formlink = '', $theme = '', $type = '')
 	$sql2 = $db->query("SELECT pv_id FROM $db_polls_voters WHERE pv_pollid = $id AND $where LIMIT 1");
 	$alreadyvoted = ($sql2->rowCount() == 1) ? 1 : 0;
 
-	$themefile = cot_tplfile(array('polls', $theme), 'module');
+	$themefile = cot_tplfile(array('polls', $theme));
 	$t = new XTemplate($themefile);
 
 	if ($alreadyvoted)
@@ -403,9 +403,9 @@ function cot_poll_delete($id, $type = '')
 		$db->delete($db_polls_voters, "pv_pollid = " . $id);
 
 		/* === Hook === */
-		foreach (cot_getextensions('polls.functions.delete') as $pl)
+		foreach (cot_getextensions('polls.functions.delete') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 

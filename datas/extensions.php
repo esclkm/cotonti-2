@@ -9,22 +9,22 @@
  * @license BSD
  */
 
-$cot_extensions = array();
+$cot_hooks = array();
 
-$cot_extensions[] = array ('rar', 'Archive', 'rar');
-$cot_extensions[] = array ('zip', 'Archive', 'zip');
-$cot_extensions[] = array ('avi', 'Video', 'mov');
-$cot_extensions[] = array ('qt', 'Video', 'mov');
-$cot_extensions[] = array ('mov', 'Video', 'mov');
-$cot_extensions[] = array ('mpeg', 'Video', 'mov');
-$cot_extensions[] = array ('mpg', 'Video', 'mov');
-$cot_extensions[] = array ('ogg', 'Video', 'mov');
-$cot_extensions[] = array ('bmp', 'Picture', 'bmp');
-$cot_extensions[] = array ('gif', 'Picture', 'gif');
-$cot_extensions[] = array ('jpeg', 'Picture', 'jpg');
-$cot_extensions[] = array ('jpg', 'Picture', 'jpg');
-$cot_extensions[] = array ('png', 'Picture', 'png');
-$cot_extensions[] = array ('mp3', 'Music', 'mp3');
-$cot_extensions[] = array ('wav', 'Music', 'wav');
-$cot_extensions[] = array ('txt', 'Text', 'txt');
-$cot_extensions[] = array ('pdf', 'Adobe document', 'pdf');
+$cot_hooks[] = array ('rar', 'Archive', 'rar');
+$cot_hooks[] = array ('zip', 'Archive', 'zip');
+$cot_hooks[] = array ('avi', 'Video', 'mov');
+$cot_hooks[] = array ('qt', 'Video', 'mov');
+$cot_hooks[] = array ('mov', 'Video', 'mov');
+$cot_hooks[] = array ('mpeg', 'Video', 'mov');
+$cot_hooks[] = array ('mpg', 'Video', 'mov');
+$cot_hooks[] = array ('ogg', 'Video', 'mov');
+$cot_hooks[] = array ('bmp', 'Picture', 'bmp');
+$cot_hooks[] = array ('gif', 'Picture', 'gif');
+$cot_hooks[] = array ('jpeg', 'Picture', 'jpg');
+$cot_hooks[] = array ('jpg', 'Picture', 'jpg');
+$cot_hooks[] = array ('png', 'Picture', 'png');
+$cot_hooks[] = array ('mp3', 'Music', 'mp3');
+$cot_hooks[] = array ('wav', 'Music', 'wav');
+$cot_hooks[] = array ('txt', 'Text', 'txt');
+$cot_hooks[] = array ('pdf', 'Adobe document', 'pdf');

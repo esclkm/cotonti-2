@@ -15,9 +15,9 @@ $v = cot_import('v', 'G', 'TXT');
 $email = cot_import('email', 'P', 'TXT');
 
 /* === Hook === */
-foreach (cot_getextensions('users.passrecover.first') as $pl)
+foreach (cot_getextensions('users.passrecover.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -119,12 +119,12 @@ $out['subtitle'] = $L['pasrec_title'];
 $out['head'] .= $R['code_noindex'];
 
 $title[] = $L['pasrec_title'];
-$mskin = cot_tplfile('users.passrecover', 'module');
+$mskin = cot_tplfile('users.passrecover');
 
 /* === Hook === */
-foreach (cot_getextensions('users.passrecover.main') as $pl)
+foreach (cot_getextensions('users.passrecover.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -137,9 +137,9 @@ $t->assign(array(
 ));
 
 /* === Hook === */
-foreach (cot_getextensions('users.passrecover.tags') as $pl)
+foreach (cot_getextensions('users.passrecover.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

@@ -1,4 +1,5 @@
 <!-- BEGIN: MAIN -->
+		{IPSEARCH_BREADCRUMBS}
 		<h2>{PHP.L.ipsearch_title}</h2>
 		{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 		<div class="col3-2 first">

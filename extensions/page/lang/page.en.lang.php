@@ -84,7 +84,7 @@ $L['page_validation'] = 'Awaiting validation';
 $L['page_validation_desc'] = 'Your pages which have not been validated by administrator yet';
 
 $L['page_file'] = 'File download';
-$L['page_filehint'] = '(Set &quot;Yes&quot; to enable the download module at bottom of the page, and fill up the two fields below)';
+$L['page_filehint'] = '(Set &quot;Yes&quot; to enable the download extensions at bottom of the page, and fill up the two fields below)';
 $L['page_urlhint'] = '(If File download enabled)';
 $L['page_filesize'] = 'Filesize, kB';
 $L['page_filesizehint'] = '(If File download enabled)';

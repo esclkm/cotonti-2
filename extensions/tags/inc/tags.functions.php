@@ -10,9 +10,9 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('tags', 'module', 'config');
-require_once cot_langfile('tags', 'module');
-require_once cot_incfile('tags', 'module', 'resources');
+require_once cot_incfile('tags', 'config');
+require_once cot_langfile('tags');
+require_once cot_incfile('tags', 'resources');
 
 // Global variables
 cot::$db->registerTable('tags');
@@ -456,7 +456,7 @@ function cot_tag_search_form($area = 'all')
 			}
 		}
 		$tc_html .= cot_rc('tags_link_cloud_tag', array(
-			'url' => cot_url('module', array('e' => 'tags', 'a' => $area, 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)),
+			'url' => cot_url('index', array('e' => 'tags', 'a' => $area, 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)),
 			'tag_title' => htmlspecialchars($tag_t),
 			'dim' => $dim
 		));
@@ -469,7 +469,7 @@ function cot_tag_search_form($area = 'all')
 		$where = $area == 'all' ? '' : "WHERE tag_area = '$area'";
 		$sql = $db->query("SELECT COUNT(DISTINCT `tag`) FROM $db_tag_references $where");
 		$totalitems = (int) $sql->fetchColumn();
-		$pagenav = cot_pagenav('module','e=tags&a=' . $area, $dt, $totalitems, $perpage, 'dt');
+		$pagenav = cot_pagenav('index','e=tags&a=' . $area, $dt, $totalitems, $perpage, 'dt');
 		$t->assign(array(
 			'TAGS_PAGEPREV' => $pagenav['prev'],
 			'TAGS_PAGENEXT' => $pagenav['next'],

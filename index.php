@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Index loader
  *
@@ -8,7 +9,6 @@
  * @copyright Copyright (c) Cotonti Team 2008-2014
  * @license BSD
  */
-
 if (php_sapi_name() == 'cli-server')
 {
 	// Embedded PHP webserver routing
@@ -22,10 +22,9 @@ if (php_sapi_name() == 'cli-server')
 	}
 	// Language selector
 	$langs = array_map(
-		create_function('$dir', 'return str_replace("lang/", "", $dir);'),
-		glob('lang/??', GLOB_ONLYDIR)
+		create_function('$dir', 'return str_replace("lang/", "", $dir);'), glob('lang/??', GLOB_ONLYDIR)
 	);
-	if (preg_match('#^(' . join('|', $langs) . ')/(.*)$#', $REQUEST_FILENAME, $mt))
+	if (preg_match('#^('.join('|', $langs).')/(.*)$#', $REQUEST_FILENAME, $mt))
 	{
 		$REQUEST_FILENAME = $mt[2];
 		$_GET['l'] = $mt[1];
@@ -79,82 +78,66 @@ if (isset($cfg['new_install']) && $cfg['new_install'])
 }
 
 // Load the Core API, the template engine
-require_once $cfg['system_dir'] . '/functions.php';
-require_once $cfg['system_dir'] . '/cotemplate.php';
-
-// Bootstrap
-require_once $cfg['system_dir'] . '/common.php';
+require_once $cfg['system_dir'].'/functions.php';
+require_once $cfg['system_dir'].'/cotemplate.php';
+require_once $cfg['system_dir'].'/common.php';
 
 // Support for ajax and popup hooked extensions
 if (empty($_GET['e']) && !empty($_GET['r']))
 {
 	$_GET['e'] = $_GET['r'];
 }
-if (empty($_GET['e']) && !empty($_GET['o']))
-{
-	$_GET['e'] = $_GET['o'];
-}
 
 // Detect selected extension
-if (empty($_GET['e']))
+$env['ext'] = 'index';
+if (!empty($_GET['e']))
 {
-	// Default environment for index module
-	define('COT_MODULE', true);
-	$env['ext'] = 'index';
+	$env['ext'] = $_GET['e'];
 }
-else
+elseif (!empty($_GET['r']))
 {
-	$found = false;
-	if (preg_match('`^\w+$`', $_GET['e']))
+	$env['ext'] = $_GET['r'];
+}
+
+$found = array();
+if (preg_match('`^\w+$`', $env['ext']) && isset($cot_extensions[$env['ext']]))
+{
+	$exthook = (!empty($_GET['r'])) ? 'ajax' : 'standalone';
+	if (is_array($cot_hooks[$exthook]))
 	{
-		if (file_exists($cfg['extensions_dir'] . '/' . $_GET['e']) && isset($cot_modules[$_GET['e']]))
+		foreach ($cot_hooks[$exthook] as $hook)
 		{
-			// Need to query the db to check which one is installed
-			$res = $db->query("SELECT ct_extension FROM $db_core WHERE ct_code = ? LIMIT 1", $_GET['e']);
-			if ($res->rowCount() == 1)
+			if ($hook['ext_code'] == $env['ext'] && file_exists($cfg['extensions_dir'].'/'.$hook['ext_file']))
 			{
-				$found = true;
-				define('COT_MODULE', true);
+				$found[] = $cfg['extensions_dir'].'/'.$hook['ext_file'];
 			}
 		}
 	}
-	if ($found)
-	{
-		$env['ext'] = $_GET['e'];
-	}
-	else
-	{
-		// Error page
-		cot_die_message(404);
-		exit;
-	}
 }
-/*************************************/
-// Input import
 
-$req_files = array();
-$req_files[] = cot_incfile($env['ext'], 'resources');
-$req_files[] = cot_incfile($env['ext'], 'functions');
-
-foreach ($req_files as $req_file)
+if (count($found))
 {
-	if (file_exists($req_file))
+	$req_files = array();
+	$req_files[] = cot_incfile($env['ext'], 'resources');
+	$req_files[] = cot_incfile($env['ext'], 'functions');
+
+	foreach ($req_files as $req_file)
 	{
-		require_once $req_file;
+		if (file_exists($req_file))
+		{
+			require_once $req_file;
+		}
 	}
+	foreach ($found as $file)
+	{
+		require_once $file;
+	}
+	define('COT_MODULE', true);
+	$env['ext'] = $_GET['e'];
 }
-
-// Load the requested extension
-if(empty($_GET['r']))
+else
 {
-	$ext_display_header = false;
-	$exthook = 'standalone';
-	require_once $cfg['extensions_dir'] . '/' . $env['ext'] . '/' . $env['ext'] . '.php';
+	// Error page
+	cot_die_message(404);
+	exit;
 }
-else 
-{
-	$ext_display_header = true;
-	$exthook = 'ajax';
-	require_once $cfg['extensions_dir'] . '/' . $env['ext'] . '/' . $env['ext'] . '.ajax.php';
-}
-

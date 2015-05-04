@@ -7,9 +7,9 @@
 						<input type="hidden" name="e" value="search" />
 						<input type="hidden" name="tab" value="{PHP.tab}" />
 						<p class="textcenter">
-							<a href="{PHP|cot_url('module','e=search')}">{PHP.L.plu_tabs_all}</a> |
-							<a href="{PHP|cot_url('module','e=search&amp;tab=frm')}">{PHP.L.Forums}</a> |
-							<a href="{PHP|cot_url('module','e=search&amp;tab=pag')}">{PHP.L.Pages}</a>
+							<a href="{PHP|cot_url('index','e=search')}">{PHP.L.plu_tabs_all}</a> |
+							<a href="{PHP|cot_url('index','e=search&amp;tab=frm')}">{PHP.L.Forums}</a> |
+							<a href="{PHP|cot_url('index','e=search&amp;tab=pag')}">{PHP.L.Pages}</a>
 						</p>
 
 						<p class="margin10 textcenter">{PHP.L.plu_search_req}: {EXT_SEARCH_TEXT} <input type="submit" value="{PHP.L.plu_search_key}" /></p>

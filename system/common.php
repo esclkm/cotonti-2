@@ -143,11 +143,11 @@ else
 	$sql_config = $db->query("SELECT * FROM $db_config");
 	while ($row = $sql_config->fetch())
 	{
-		if ($row['config_owner'] == 'core')
+		if ($row['config_owner'] == 'system')
 		{
 			$cfg[$row['config_name']] = $row['config_value'];
 		}
-		elseif ($row['config_owner'] == 'module')
+		elseif ($row['config_owner'] == 'extension')
 		{
 			if (empty($row['config_subcat']))
 			{
@@ -206,25 +206,25 @@ $sys['parser'] = $cfg['parser'];
 
 /* ======== Extensions ======== */
 
-if (!$cot_extensions && !defined('COT_INSTALL'))
+if (!$cot_hooks && !defined('COT_INSTALL'))
 {
-	$sql = $db->query("SELECT ext_code, ext_file, ext_hook, ext_title FROM $db_extensions
+	$sql = $db->query("SELECT ext_code, ext_file, ext_hook, ext_title FROM $db_extension_hooks
 		WHERE ext_active = 1 ORDER BY ext_hook ASC, ext_order ASC");
 	$cot_extensions_active = array();
 	if ($sql->rowCount() > 0)
 	{
 		while ($row = $sql->fetch())
 		{
-			$cot_extensions[$row['ext_hook']][] = $row;
+			$cot_hooks[$row['ext_hook']][] = $row;
 			$cot_extensions_active[$row['ext_code']] = true;
 		}
         $sql->closeCursor();
 	}
-	$cache && $cache->db->store('cot_extensions', $cot_extensions, 'system');
+	$cache && $cache->db->store('cot_extensions', $cot_hooks, 'system');
 	$cache && $cache->db->store('cot_extensions_active', $cot_extensions_active, 'system');
 }
 
-if (!$cot_modules)
+if (!$cot_extensions)
 {
     $sql = $db->query("SELECT * FROM $db_core
 		WHERE ct_state = 1 AND ct_lock = 0");
@@ -232,7 +232,7 @@ if (!$cot_modules)
 	{
 		while ($row = $sql->fetch())
 		{
-			$cot_modules[$row['ct_code']] = array(
+			$cot_extensions[$row['ct_code']] = array(
 				'code' => $row['ct_code'],
 				'title' => $row['ct_title'],
                 'version' => $row['ct_version']
@@ -240,7 +240,7 @@ if (!$cot_modules)
 		}
         $sql->closeCursor();
 	}
-	$cache && $cache->db->store('cot_modules', $cot_modules, 'system');
+	$cache && $cache->db->store('cot_extensions', $cot_extensions, 'system');
 }
 
 /* ======== Gzip and output filtering ======== */
@@ -322,6 +322,7 @@ if (!empty($_COOKIE[$sys['site_id']]) || !empty($_SESSION[$sys['site_id']]))
 				&& ($cfg['ipcheck'] == FALSE || $row['user_lastip'] == $usr['ip'])
 				&& $row['user_sidtime'] + $cfg['cookielifetime'] > $sys['now'])
 			{
+				
 				$usr['id'] = (int) $row['user_id'];
 				$usr['name'] = $row['user_name'];
 				$usr['maingrp'] = $row['user_maingrp'];
@@ -393,6 +394,19 @@ if ($usr['id'] == 0)
 	$sys['xk'] = mb_strtoupper(dechex(crc32($sys['site_id']))); // Site related key for guests
 }
 
+if(defined('COT_ADMIN'))
+{
+	$sys['theme'] = $cfg['admintheme'];
+	$sys['theme_dir'] = $cfg['themes_dir']. "/admin/".$sys['theme'];
+	$sys['scheme'] = '';
+}
+else
+{
+	$sys['theme'] = ($cfg['forcedefaulttheme'] || $usr['id'] == 0) ? $cfg['defaulttheme'] : $usr['theme'];
+	$sys['theme_dir'] = $cfg['themes_dir']."/".$sys['theme'];
+	$sys['scheme'] = $usr['scheme'];	
+}
+	
 $lang = $usr['lang'];
 
 if (defined('COT_MESSAGE') && $_SESSION['s_run_admin'] && cot_auth('admin', 'any', 'R'))
@@ -439,9 +453,9 @@ if (!$cache || !$cot_cfg)
 unset($cot_cfg);
 
 /* === Hook === */
-foreach (cot_getextensions('input') as $pl)
+foreach (cot_getextensions('input') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ======================== */
 
@@ -480,12 +494,12 @@ $b = cot_import('b', 'G', 'ALP', 24);
 
 /* ======== Language ======== */
 
-require_once cot_langfile('main', 'core');
-require_once cot_langfile('users', 'core');
+require_once cot_langfile('main', 'system');
+require_once cot_langfile('users', 'system');
 
 if(defined('COT_ADMIN'))
 {
-	require_once cot_langfile('admin', 'core');
+	require_once cot_langfile('admin', 'system');
 }
 
 /* ======== Theme / color scheme ======== */
@@ -535,7 +549,7 @@ if(defined('COT_ADMIN'))
 }
 
 // Theme resources
-$sys['theme_resources'] = defined('COT_ADMIN') && !empty($cfg['admintheme'])
+$sys['theme_resources'] = defined('COT_ADMIN')
 	? "{$cfg['themes_dir']}/admin/{$cfg['admintheme']}/{$cfg['admintheme']}.php"
 	: "{$cfg['themes_dir']}/{$usr['theme']}/{$usr['theme']}.php";
 if (file_exists($sys['theme_resources']))
@@ -619,7 +633,7 @@ if (class_exists('XTemplate'))
 
 /* ======== Global hook ======== */
 
-foreach (cot_getextensions('global') as $pl)
+foreach (cot_getextensions('global') as $ext)
 {
-	include $pl;
+	include $ext;
 }

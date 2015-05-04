@@ -9,22 +9,21 @@
 defined('COT_CODE') or die('Wrong URL');
 
 /* === Hook === */
-foreach (cot_getextensions('footer.first') as $pl)
+foreach (cot_getextensions('footer.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
 if (!COT_AJAX)
 {
 	/* === Hook === */
-	foreach (cot_getextensions('footer.main') as $pl)
+	foreach (cot_getextensions('footer.main') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
-	$mtpl_type = defined('COT_ADMIN') || defined('COT_MESSAGE') && $_SESSION['s_run_admin'] && cot_auth('admin', 'any', 'R') ? 'core' : 'module';
 	if ($cfg['enablecustomhf'])
 	{
 		$mtpl_base = array('footer', $e);
@@ -33,7 +32,7 @@ if (!COT_AJAX)
 	{
 		$mtpl_base = 'footer';
 	}
-	$t = new XTemplate(cot_tplfile($mtpl_base, $mtpl_type));
+	$t = new XTemplate(cot_tplfile($mtpl_base, 'system'));
 
 	$t->assign(array(
 		'FOOTER_COPYRIGHT' => $out['copyright'],
@@ -43,20 +42,20 @@ if (!COT_AJAX)
 	));
 
 	/* === Hook === */
-	foreach (cot_getextensions('footer.tags') as $pl)
+	foreach (cot_getextensions('footer.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
 	// Attach rich text editors if any
 	if ($cot_textarea_count > 0)
 	{
-		if (is_array($cot_extensions['editor']))
+		if (is_array($cot_hooks['editor']))
 		{
 			$parser = !empty($sys['parser']) ? $sys['parser'] : $cfg['parser'];
 			$editor = $cfg[$parser]['editor'];
-			foreach ($cot_extensions['editor'] as $k)
+			foreach ($cot_hooks['editor'] as $k)
 			{
 				if ($k['ext_code'] == $editor && cot_auth($k['ext_code'], 'any', 'R'))
 				{
@@ -135,8 +134,8 @@ if (!COT_AJAX)
 }
 
 /* === Hook === */
-foreach (cot_getextensions('footer.last') as $pl)
+foreach (cot_getextensions('footer.last') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */

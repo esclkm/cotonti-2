@@ -13,7 +13,7 @@ defined('COT_CODE') or die('Wrong URL');
 // System requirements check
 if (!defined('COT_INSTALL'))
 {
-	(function_exists('version_compare') && version_compare(PHP_VERSION, '5.2.3', '>=')) or die('Cotonti system requirements: PHP 5.2.3 or above.'); // TODO: Need translate
+	(function_exists('version_compare') && version_compare(PHP_VERSION, '5.4.0', '>=')) or die('Cotonti system requirements: PHP 5.4.0 or above.'); // TODO: Need translate
 	extension_loaded('mbstring') or die('Cotonti system requirements: mbstring PHP extension must be loaded.'); // TODO: Need translate
 }
 
@@ -188,8 +188,8 @@ class cot
 		$db->registerTable('groups_users');
 		$db->registerTable('logger');
 		$db->registerTable('online');
-		$db->registerTable('extra_fields');
-		$db->registerTable('extensions');
+		$db->registerTable('extrafields');
+		$db->registerTable('extension_hooks');
 		$db->registerTable('structure');
 		$db->registerTable('updates');
 		$db->registerTable('users');
@@ -285,7 +285,7 @@ function cot_get_caller()
  */
 function cot_getextensions($hook, $cond='R')
 {
-	global $cot_extensions, $cache, $cfg, $cot_hooks_fired;
+	global $cot_hooks, $cache, $cfg, $cot_hooks_fired;
 
 	if ($cfg['debug_mode'])
 	{
@@ -294,9 +294,9 @@ function cot_getextensions($hook, $cond='R')
 
 	$extensions = array();
 
-	if (isset($cot_extensions[$hook]) && is_array($cot_extensions[$hook]))
+	if (isset($cot_hooks[$hook]) && is_array($cot_hooks[$hook]))
 	{
-		foreach($cot_extensions[$hook] as $k)
+		foreach($cot_hooks[$hook] as $k)
 		{
 			$dir = $cfg['extensions_dir'];
 			$cat = $k['ext_code'];
@@ -925,14 +925,14 @@ function cot_mail($fmail, $subject, $body, $headers='', $customtemplate = false,
 /**
  * Checks if a module is currently installed and active
  *
- * @global array $cot_modules Module registry
+ * @global array $cot_extensions Module registry
  * @param string $name Module name
  * @return bool
  */
 function cot_extension_active($name)
 {
-	global $cot_modules;
-	return isset($cot_modules[$name]);
+	global $cot_extensions;
+	return isset($cot_extensions[$name]);
 }
 
 /**
@@ -944,9 +944,9 @@ function cot_extension_active($name)
 function cot_outputfilters($output)
 {
 	/* === Hook === */
-	foreach (cot_getextensions('output') as $pl)
+	foreach (cot_getextensions('output') as $ext)
 	{
-		include realpath(dirname(__FILE__).'/..') . '/' . $pl;
+		include realpath(dirname(__FILE__).'/..') . '/' . $ext;
 	}
 	/* ==== */
 
@@ -1167,15 +1167,7 @@ function cot_load_structure()
 {
 	global $db, $db_structure, $cfg, $cot_extrafields, $structure;
 	$structure = array();
-	if (defined('COT_UPGRADE'))
-	{
-		$sql = $db->query("SELECT * FROM $db_structure ORDER BY structure_path ASC");
-		$row['structure_area'] = 'page';
-	}
-	else
-	{
-		$sql = $db->query("SELECT * FROM $db_structure ORDER BY structure_area ASC, structure_path ASC");
-	}
+	$sql = $db->query("SELECT * FROM $db_structure ORDER BY structure_area ASC, structure_path ASC");
 
 	/* == Hook: Part 1 ==*/
 	$extp = cot_getextensions('structure');
@@ -1236,9 +1228,9 @@ function cot_load_structure()
 		}
 
 		/* == Hook: Part 2 ==*/
-		foreach ($extp as $pl)
+		foreach ($extp as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ================= */
 	}
@@ -1589,7 +1581,10 @@ function cot_structure_buildpath($area, $cat)
 function cot_build_country($flag)
 {
 	global $cot_countries;
-	if (!$cot_countries) include_once cot_langfile('countries', 'core');
+	if (!$cot_countries) 
+	{
+		include_once cot_langfile('countries', 'system');
+	}
 	$flag = (empty($flag)) ? '00' : $flag;
 	return cot_rc_link(cot_url('users', 'f=country_'.$flag), $cot_countries[$flag], array(
 		'title' => $cot_countries[$flag]
@@ -1663,7 +1658,7 @@ function cot_build_filesize($bytes, $decimals = 0, $round = null, $binary = fals
 function cot_build_flag($flag)
 {
 	global $cot_countries;
-	if (!$cot_countries) include_once cot_langfile('countries', 'core');
+	if (!$cot_countries) include_once cot_langfile('countries', 'system');
 	$flag = (empty($flag)) ? '00' : $flag;
 	return cot_rc_link(cot_url('users', 'f=country_'.$flag),
 		cot_rc('icon_flag', array('code' => $flag, 'alt' => $flag)),
@@ -2074,9 +2069,9 @@ function cot_generate_usertags($user_data, $tag_prefix = '', $emptyname='', $all
 	}
 
 	/* === Hook === */
-	foreach ($extp_first as $pl)
+	foreach ($extp_first as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -2174,9 +2169,9 @@ function cot_generate_usertags($user_data, $tag_prefix = '', $emptyname='', $all
 		}
 
 		/* === Hook === */
-		foreach ($extp_main as $pl)
+		foreach ($extp_main as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -2789,7 +2784,7 @@ function cot_die_message($code, $header = TRUE, $message_title = '', $message_bo
 	// Globals and requirements
 	global $error_string, $out, $L, $R;
 	$LL = is_array($L) ? $L : array();
-	require_once cot_langfile('message', 'core');
+	require_once cot_langfile('message', 'system');
 	$L = array_merge($L, $LL);
 
 	if (cot_error_found() && $_SERVER['REQUEST_METHOD'] == 'POST')
@@ -2905,9 +2900,9 @@ function cot_die_message($code, $header = TRUE, $message_title = '', $message_bo
 	}
 
 	/* === Hook === */
-	foreach (cot_getextensions('die.message') as $pl)
+	foreach (cot_getextensions('die.message') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -3159,7 +3154,7 @@ function cot_incfile($name, $part = 'functions')
 	elseif ($name == 'admin')
 	{
 		// Built-in extensions
-		return $cfg['system_dir']."/$name/$name.$part.php";
+		return $cfg['admin_dir']."/$name.$part.php";
 	}
 	else
 	{
@@ -3171,23 +3166,23 @@ function cot_incfile($name, $part = 'functions')
  * Returns a language file path for an extension or core part.
  *
  * @param string $name Part name (area code or Extension name)
- * @param string $type Part type: 'module' or 'core'
+ * @param string $type Part type: 'extension' or 'system'
  * @param string $default Default (fallback) language code
  * @param string $lang Set this to override global $lang
  * @return mixed       Langfile path or FALSE if no suitable files were found
  */
-function cot_langfile($name, $type = 'module', $default = 'en', $lang = null)
+function cot_langfile($name, $type = 'extension', $default = 'en', $lang = null)
 {
 	global $cfg;
 	if (!is_string($lang))
 	{
 		global $lang;
 	}
-	if ($type == 'module')
+	if ($type == 'extension')
 	{
-		if (@file_exists($cfg['lang_dir']."/$lang/modules/$name.$lang.lang.php"))
+		if (@file_exists($cfg['lang_dir']."/$lang/extensions/$name.$lang.lang.php"))
 		{
-			return $cfg['lang_dir']."/$lang/modules/$name.$lang.lang.php";
+			return $cfg['lang_dir']."/$lang/extensions/$name.$lang.lang.php";
 		}
 		elseif (@file_exists($cfg['extensions_dir']."/$name/lang/$name.$lang.lang.php"))
 		{
@@ -3220,66 +3215,52 @@ function cot_langfile($name, $type = 'module', $default = 'en', $lang = null)
  * @global array $out Output vars
  * @return mixed
  */
+
 function cot_schemefile()
 {
-	global $usr, $cfg, $out;
+	global $usr, $cfg, $out, $sys;
 
-	if (file_exists("{$cfg['themes_dir']}/{$usr['theme']}/{$usr['scheme']}.css"))
+	if (file_exists($sys['theme_dir']."/{$usr['scheme']}.css"))
 	{
-		return "{$cfg['themes_dir']}/{$usr['theme']}/{$usr['scheme']}.css";
+		return $sys['theme_dir']."/{$usr['scheme']}.css";
 	}
-	elseif (is_dir("{$cfg['themes_dir']}/{$usr['theme']}/css/"))
+	elseif (is_dir($sys['theme_dir']."/css/"))
 	{
-		if (file_exists("{$cfg['themes_dir']}/{$usr['theme']}/css/{$usr['scheme']}.css"))
+		if (file_exists($sys['theme_dir']."/css/{$usr['scheme']}.css"))
 		{
-			return "{$cfg['themes_dir']}/{$usr['theme']}/css/{$usr['scheme']}.css";
+			return $sys['theme_dir']."/css/{$usr['scheme']}.css";
 		}
-		elseif (file_exists("{$cfg['themes_dir']}/{$usr['theme']}/css/{$cfg['defaultscheme']}.css"))
+		elseif (file_exists($sys['theme_dir']."/css/{$cfg['defaultscheme']}.css"))
 		{
 			$out['notices_array'][] = $L['com_schemefail'];
 			$usr['scheme'] = $cfg['defaultscheme'];
-			return "{$cfg['themes_dir']}/{$usr['theme']}/css/{$cfg['defaultscheme']}.css";
+			return $sys['theme_dir']."/css/{$cfg['defaultscheme']}.css";
 		}
 	}
-	elseif (is_dir("{$cfg['themes_dir']}/{$usr['theme']}"))
+	elseif (is_dir($sys['theme_dir']))
 	{
-		if (file_exists("{$cfg['themes_dir']}/{$usr['theme']}/{$cfg['defaultscheme']}.css"))
+		if (file_exists($sys['theme_dir']."/{$cfg['defaultscheme']}.css"))
 		{
 			$out['notices_array'][] = $L['com_schemefail'];
 			$usr['scheme'] = $cfg['defaultscheme'];
-			return "{$cfg['themes_dir']}/{$usr['theme']}/{$cfg['defaultscheme']}.css";
+			return $sys['theme_dir']."/{$cfg['defaultscheme']}.css";
 		}
-		elseif (file_exists("{$cfg['themes_dir']}/{$usr['theme']}/{$usr['theme']}.css"))
+		elseif (file_exists($sys['theme_dir']."/{$usr['theme']}.css"))
 		{
 			$out['notices_array'][] = $L['com_schemefail'];
 			$usr['scheme'] = $usr['theme'];
-			return "{$cfg['themes_dir']}/{$usr['theme']}/{$usr['theme']}.css";
+			return $sys['theme_dir']."/{$usr['theme']}.css";
 		}
-		elseif (file_exists("{$cfg['themes_dir']}/{$usr['theme']}/style.css"))
+		elseif (file_exists($sys['theme_dir']."/style.css"))
 		{
 			$out['notices_array'][] = $L['com_schemefail'];
 			$usr['scheme'] = 'style';
-			return "{$cfg['themes_dir']}/{$usr['theme']}/style.css";
+			return $sys['theme_dir']."/style.css";
 		}
 	}
 
 	$out['notices_array'][] = $L['com_schemefail'];
-	if (file_exists("{$cfg['themes_dir']}/{$cfg['defaulttheme']}/{$cfg['defaultscheme']}.css"))
-	{
-		$usr['theme'] = $cfg['defaulttheme'];
-		$usr['scheme'] = $cfg['defaultscheme'];
-		return "{$cfg['themes_dir']}/{$cfg['defaulttheme']}/{$cfg['defaultscheme']}.css";
-	}
-	elseif (file_exists("{$cfg['themes_dir']}/{$cfg['defaulttheme']}/css/{$cfg['defaultscheme']}.css"))
-	{
-		$usr['theme'] = $cfg['defaulttheme'];
-		$usr['scheme'] = $cfg['defaultscheme'];
-		return "{$cfg['themes_dir']}/{$cfg['defaulttheme']}/css/{$cfg['defaultscheme']}.css";
-	}
-	else
-	{
-		return false;
-	}
+	return false;
 }
 
 /**
@@ -3288,14 +3269,13 @@ function cot_schemefile()
  * 2) tpl subdir in Extension folder (fallback template)
  *
  * @param mixed $base Item name (string), or base names (array)
- * @param string $type Extension type: 'module' or 'core'
- * @param bool $admin Use admin theme file if present. Tries to determine from base string by default.
+ * @param string $type Extension type: 'extension' or 'system'
  * @return string
  */
-function cot_tplfile($base, $type = 'module', $admin = null)
+function cot_tplfile($base, $type = 'extension')
 {
-	global $usr, $cfg;
-
+	global $usr, $cfg, $env, $sys;
+	
 	// Get base name parts
 	if (is_string($base) && mb_strpos($base, '.') !== false)
 	{
@@ -3305,27 +3285,18 @@ function cot_tplfile($base, $type = 'module', $admin = null)
 	{
 		$base = array($base);
 	}
-	if (is_null($admin))
-	{
-		$admin = ($base[0] == 'admin' || ($base[1] && $base[1] == 'admin'));
-	}
+
 	$scan_dirs = array();
 
 	// Possible search directories depending on extension type
-	if ($type == 'core' && in_array($base[0], array('admin', 'header', 'footer', 'message')))
+	if ($type != 'extension' && in_array($base[0], array('admin', 'header', 'footer', 'message', 'login')))
 	{
-		// Built-in core modules
-		!empty($cfg['admintheme']) && $scan_dirs[] = "{$cfg['themes_dir']}/admin/{$cfg['admintheme']}/";
-		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/admin/";
-		$scan_dirs[] = "{$cfg['system_dir']}/admin/tpl/";
+		$scan_dirs[] = $sys['theme_dir'].'/';
 	}
 	else
 	{
-		// Module template paths
-		$admin && !empty($cfg['admintheme']) && $scan_dirs[] = "{$cfg['themes_dir']}/admin/{$cfg['admintheme']}/modules/";
-		$admin && $scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/admin/modules/";
-		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/";
-		$scan_dirs[] = "{$cfg['themes_dir']}/{$usr['theme']}/{$base[0]}/";
+		$scan_dirs[] = $sys['theme_dir'].'/';
+		$scan_dirs[] = $sys['theme_dir']."/{$base[0]}/";
 		$scan_dirs[] = "{$cfg['extensions_dir']}/{$base[0]}/tpl/";
 	}
 
@@ -3546,7 +3517,7 @@ function cot_date2strftime($format) {
 function cot_timezone_list($withgmt = false, $dst = false)
 {
 	global $Ltz;
-	if (!$Ltz) include cot_langfile('countries', 'core');
+	if (!$Ltz) include cot_langfile('countries', 'system');
 	static $timezones = array();
 	if (!$timezones)
 	{
@@ -4057,11 +4028,11 @@ function cot_pagenav($module, $params, $current, $entries, $perpage, $characters
  */
 function cot_get_editors()
 {
-	global $cot_extensions;
+	global $cot_hooks;
 	$list = array('none');
-	if (is_array($cot_extensions['editor']))
+	if (is_array($cot_hooks['editor']))
 	{
-		foreach ($cot_extensions['editor'] as $k)
+		foreach ($cot_hooks['editor'] as $k)
 		{
 			if (cot_auth($k['ext_code'], 'any', 'W'))
 			{
@@ -4079,11 +4050,11 @@ function cot_get_editors()
  */
 function cot_get_parsers()
 {
-	global $cot_extensions;
+	global $cot_hooks;
 	$list = array('none');
-	if (is_array($cot_extensions['parser']))
+	if (is_array($cot_hooks['parser']))
 	{
-		foreach ($cot_extensions['parser'] as $k)
+		foreach ($cot_hooks['parser'] as $k)
 		{
 			if (cot_auth($k['ext_code'], 'any', 'W'))
 			{
@@ -4104,7 +4075,7 @@ function cot_get_parsers()
  */
 function cot_parse($text, $enable_markup = true, $parser = '')
 {
-	global $cfg, $cot_extensions;
+	global $cfg, $cot_hooks;
 
 	$plain = true;
 	if ($enable_markup)
@@ -4124,9 +4095,9 @@ function cot_parse($text, $enable_markup = true, $parser = '')
 			else
 			{
 				// Load the appropriate parser
-				if (is_array($cot_extensions['parser']))
+				if (is_array($cot_hooks['parser']))
 				{
-					foreach ($cot_extensions['parser'] as $k)
+					foreach ($cot_hooks['parser'] as $k)
 					{
 						if ($k['ext_code'] == $parser && cot_auth($k['ext_code'], 'any', 'R'))
 						{
@@ -4147,9 +4118,9 @@ function cot_parse($text, $enable_markup = true, $parser = '')
 	}
 
 	/* == Hook == */
-	foreach (cot_getextensions('parser.last') as $pl)
+	foreach (cot_getextensions('parser.last') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -4434,7 +4405,7 @@ function cot_rc_modify($rc, $attrs)
  */
 function cot_rc_consolidate()
 {
-	global $cache, $cfg, $cot_rc_html, $cot_rc_reg, $L, $R, $usr, $theme;
+	global $cache, $cfg, $cot_rc_html, $cot_rc_reg, $L, $R, $usr, $sys, $theme;
 
 	$is_admin_section = defined('COT_ADMIN');
 	$cot_rc_reg = array();
@@ -4443,16 +4414,14 @@ function cot_rc_consolidate()
 	cot_rc_add_standard();
 
 	// Invoke rc handlers
-	foreach (cot_getextensions('rc') as $pl)
+	foreach (cot_getextensions('rc') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
-	if (!$is_admin_section)
+	
+	if (file_exists($sys['theme_dir'].'/'.$sys['theme'].".rc.php"))
 	{
-		if (file_exists("{$cfg['themes_dir']}/{$usr['theme']}/{$usr['theme']}.rc.php"))
-		{
-			include "{$cfg['themes_dir']}/{$usr['theme']}/{$usr['theme']}.rc.php";
-		}
+		include $sys['theme_dir'].'/'.$sys['theme'].".rc.php";
 	}
 
 	if (!is_array($cot_rc_reg))
@@ -4888,6 +4857,58 @@ function cot_rc_minify($code, $type = 'js')
 	return $code;
 }
 
+
+
+
+function compile_botstrap_less ($theme, $input, $output='', $assets = "bootstrap" , $compress =false)
+{
+	global $cfg;
+	
+	require_once $cfg['vendor_dir']."/lessphp/Less.php";
+	
+	$output = empty($output) ? $input : $output;
+	$output = $cfg['themes_dir'].'/'.$theme.'/css/'.$output.'.css';
+	$input = $cfg['themes_dir'].'/'.$theme.'/less/'.$input.'.less';
+	if (file_exists($output) && file_exists($input))
+	{
+		$filetimecss = filemtime($output);
+		$filetimeless = filemtime($input);
+		if($filetimecss > $filetimeless)
+		{
+			return false;
+		}
+		else
+		{
+			unlink($input);
+		}
+	}
+
+	$options = array('relativeUrls' => false);
+	if($compress)
+	{
+		$options['compress'] = true;
+	}
+	
+	$parser = new Less_Parser($options);
+	$import_dir = array($cfg['themes_dir'].'/'.$theme.'/less' => $cfg['plugins_dir']."/bootstrap/bootstrap/less");
+	if ($assets)
+	{
+		$import_dir[$cfg['assets_dir']."/bootstrap/bootstrap/less"] = $cfg['plugins_dir']."/bootstrap/bootstrap/less";
+	}
+	
+	$parser->SetImportDirs($import_dir);
+	
+	$parser->parseFile($input);
+	$css = $parser->getCss();
+	
+	if(!file_exists ($cfg['themes_dir'].'/'.$theme.'/css'))
+	{
+		mkdir($cfg['themes_dir'].'/'.$theme.'/css');
+	}
+	
+	file_put_contents($output, $css);
+	return true;
+}
 /*
  * ========================== Security functions =================================
 */
@@ -5391,14 +5412,7 @@ function cot_url($name, $params = '', $tail = '', $htmlspecialchars_bypass = fal
 	if (count($params) > 0)
 	{
 		$sep = $htmlspecialchars_bypass ? '&' : '&amp;';
-		if (version_compare(PHP_VERSION, '5.4.0', '>='))
-		{
-			$url .= '?' . http_build_query($params, '', $sep, PHP_QUERY_RFC3986);
-		}
-		else
-		{
-			$url .= '?' . str_replace('+', '%20', http_build_query($params, '', $sep));
-		}
+		$url .= '?' . http_build_query($params, '', $sep, PHP_QUERY_RFC3986);
 	}
 	$url .= $tail;
 	//$url = str_replace('&amp;amp;', '&amp;', $url);
@@ -5460,9 +5474,9 @@ function cot_translit_encode($str)
 {
 	global $lang, $cot_translit;
 	static $lang_loaded = false;
-	if (!$lang_loaded && $lang != 'en' && file_exists(cot_langfile('translit', 'core')))
+	if (!$lang_loaded && $lang != 'en' && file_exists(cot_langfile('translit', 'system')))
 	{
-		require_once cot_langfile('translit', 'core');
+		require_once cot_langfile('translit', 'system');
 		$lang_loaded = true;
 	}
 	if (is_array($cot_translit))
@@ -5483,9 +5497,9 @@ function cot_translit_decode($str)
 {
 	global $lang, $cot_translitb;
 	static $lang_loaded = false;
-	if (!$lang_loaded && $lang != 'en' && file_exists(cot_langfile('translit', 'core')))
+	if (!$lang_loaded && $lang != 'en' && file_exists(cot_langfile('translit', 'system')))
 	{
-		require_once cot_langfile('translit', 'core');
+		require_once cot_langfile('translit', 'system');
 		$lang_loaded = true;
 	}
 	if (is_array($cot_translitb))

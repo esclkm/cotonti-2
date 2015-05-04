@@ -41,7 +41,7 @@ else
 if ($regenerate)
 {
 	// Regenerate the sitemap
-	$t = new XTemplate(cot_tplfile('sitemap', 'module'));
+	$t = new XTemplate(cot_tplfile('sitemap'));
 	$items = 0;
 
 	// Start the sitemap with index
@@ -54,7 +54,7 @@ if ($regenerate)
 
 	if ($cfg['sitemap']['page'] && cot_extension_active('page'))
 	{
-		// Sitemap for page module
+		// Sitemap for page extension
 		require_once cot_incfile('page', 'functions');
 
 		// Page categories
@@ -63,9 +63,9 @@ if ($regenerate)
 		$category_list = $structure['page'];
 
 		/* === Hook === */
-		foreach (cot_getextensions('sitemap.page.categorylist') as $pl)
+		foreach (cot_getextensions('sitemap.page.categorylist') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -97,9 +97,9 @@ if ($regenerate)
 		$sitemap_where['date'] = "page_begin <= {$sys['now']} AND (page_expire = 0 OR page_expire > {$sys['now']})";
 
 		/* === Hook === */
-		foreach (cot_getextensions('sitemap.page.query') as $pl)
+		foreach (cot_getextensions('sitemap.page.query') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -124,7 +124,7 @@ if ($regenerate)
 
 	if ($cfg['sitemap']['forums'] && cot_extension_active('forums'))
 	{
-		// Sitemap for forums module
+		// Sitemap for forums extension
 		require_once cot_incfile('forums', 'functions');
 
 		// Get forum stats
@@ -142,9 +142,9 @@ if ($regenerate)
 		$category_list = $structure['forums'];
 
 		/* === Hook === */
-		foreach (cot_getextensions('sitemap.forums.categorylist') as $pl)
+		foreach (cot_getextensions('sitemap.forums.categorylist') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -175,9 +175,9 @@ if ($regenerate)
 		$sitemap_where = array();
 
 		/* === Hook === */
-		foreach (cot_getextensions('sitemap.forums.query') as $pl)
+		foreach (cot_getextensions('sitemap.forums.query') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -214,7 +214,7 @@ if ($regenerate)
 
 	if ($cfg['sitemap']['users'] && cot_extension_active('users') && cot_auth('users', 'a', 'R'))
 	{
-		// Sitemap for users module
+		// Sitemap for users extension
 		require_once cot_incfile('users', 'functions');
 
 		// User profiles
@@ -223,9 +223,9 @@ if ($regenerate)
 		$sitemap_where = array();
 
 		/* === Hook === */
-		foreach (cot_getextensions('sitemap.users.query') as $pl)
+		foreach (cot_getextensions('sitemap.users.query') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -246,9 +246,9 @@ if ($regenerate)
 	}
 
 	/* === Hook === */
-	foreach (cot_getextensions('sitemap.main') as $pl)
+	foreach (cot_getextensions('sitemap.main') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -262,14 +262,14 @@ if ($regenerate)
 if ($a == 'index')
 {
 	// Show sitemap index
-	$t = new XTemplate(cot_tplfile('sitemap.index', 'module'));
+	$t = new XTemplate(cot_tplfile('sitemap.index'));
 	$pages = (int) ceil($items / $perpage);
 	foreach (range(0, $pages - 1) as $pg)
 	{
 		$durl = $pg > 0 ? "&d=$pg" : '';
 		$filename = $pg > 0 ? $cfg['cache_dir'] . "/sitemap/sitemap.$pg.xml" : $cfg['cache_dir'] . "/sitemap/sitemap.xml";
 		$t->assign(array(
-			'SITEMAP_ROW_URL' => COT_ABSOLUTE_URL . cot_url('module', 'r=sitemap'.$durl),
+			'SITEMAP_ROW_URL' => COT_ABSOLUTE_URL . cot_url('index', 'r=sitemap'.$durl),
 			'SITEMAP_ROW_DATE' => sitemap_date(filemtime($filename))
 		));
 		$t->parse('MAIN.SITEMAP_ROW');

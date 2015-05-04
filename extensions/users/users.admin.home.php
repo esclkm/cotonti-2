@@ -6,7 +6,7 @@ Hooks=admin.home.sidepanel
 ==================== */
 
 /**
- * Users module
+ * Users extension
  *
  * @package users
  * @version 0.9.4
@@ -16,7 +16,7 @@ Hooks=admin.home.sidepanel
  */
 defined('COT_CODE') or die('Wrong URL');
 
-$tt = new XTemplate(cot_tplfile('users.admin.home', 'module', true));
+$tt = new XTemplate(cot_tplfile('users.admin.home'));
 
 require_once cot_incfile('users', 'functions');
 

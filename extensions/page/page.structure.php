@@ -6,7 +6,7 @@ Hooks=admin.structure.first
 ==================== */
 
 /**
- * Page module
+ * Page extension
  *
  * @package page
  * @version 0.9.0

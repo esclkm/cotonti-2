@@ -21,7 +21,7 @@ require_once $cfg['system_dir'] . '/functions.php';
 require_once $cfg['system_dir'] . '/cotemplate.php';
 require_once $cfg['system_dir'] . '/common.php';
 
-require_once cot_langfile('users', 'core');
+require_once cot_langfile('users', 'system');
 
 $logout = cot_import('out', 'G', 'BOL');
 
@@ -31,9 +31,9 @@ if ($logout)
 	cot_check_xg();
 
 	/* === Hook === */
-	foreach (cot_getextensions('users.logout') as $pl)
+	foreach (cot_getextensions('users.logout') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -72,9 +72,9 @@ if ($logout)
 }
 
 /* === Hook === */
-foreach (cot_getextensions('users.auth.first') as $pl)
+foreach (cot_getextensions('users.auth.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -83,9 +83,9 @@ if ($a == 'check')
 	cot_shield_protect();
 
 	/* === Hook for the extensions === */
-	foreach (cot_getextensions('users.auth.check') as $pl)
+	foreach (cot_getextensions('users.auth.check') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -132,9 +132,9 @@ if ($a == 'check')
 	$user_select_condition = (!$validating) ? "user_password=".$db->quote($rmdpass)." AND $login_param=".$db->quote($rusername) : "user_lostpass=".$db->quote($v);
 
 	/* === Hook for the extensions === */
-	foreach (cot_getextensions('users.auth.check.query') as $pl)
+	foreach (cot_getextensions('users.auth.check.query') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -236,9 +236,9 @@ if ($a == 'check')
 		}
 
 		/* === Hook === */
-		foreach (cot_getextensions('users.auth.check.done') as $pl)
+		foreach (cot_getextensions('users.auth.check.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -252,9 +252,9 @@ if ($a == 'check')
 		cot_log("Log in failed, user : ".$rusername,'usr');
 
 		/* === Hook === */
-		foreach (cot_getextensions('users.auth.check.fail') as $pl)
+		foreach (cot_getextensions('users.auth.check.fail') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -263,16 +263,16 @@ if ($a == 'check')
 }
 
 /* === Hook === */
-foreach (cot_getextensions('users.auth.main') as $pl)
+foreach (cot_getextensions('users.auth.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
 $out['subtitle'] = $L['aut_logintitle'];
 $out['head'] .= $R['code_noindex'];
 require_once $cfg['system_dir'] . '/header.php';
-$mskin = file_exists(cot_tplfile('login', 'core')) ? cot_tplfile('login', 'core') : cot_tplfile('users.auth', 'module');
+$mskin = cot_tplfile('login', 'system');
 $t = new XTemplate($mskin);
 
 require_once cot_incfile('system', 'forms');
@@ -293,9 +293,9 @@ $t->assign(array(
 ));
 
 /* === Hook === */
-foreach (cot_getextensions('users.auth.tags') as $pl)
+foreach (cot_getextensions('users.auth.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

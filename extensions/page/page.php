@@ -1,12 +1,12 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
 /**
- * Page module main
+ * Page extension main
  *
  * @package page
  * @version 0.9.3

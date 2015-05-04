@@ -18,7 +18,7 @@ Hooks=input
 defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
-require_once cot_incfile('i18n', 'module');
+require_once cot_incfile('i18n');
 
 // Load valid locales
 $cache && $i18n_locales = $cache->db->get('locales', 'i18n');

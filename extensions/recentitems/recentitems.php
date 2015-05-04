@@ -2,7 +2,7 @@
 
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
@@ -59,9 +59,9 @@ if ($cfg['recentitems']['newforums'] && cot_extension_active('forums') && (empty
 if ($mode != 'pages' || $mode != 'forums')
 {
 	/* === Hook === */
-	foreach (cot_getextensions('recentitems.tags') as $pl)
+	foreach (cot_getextensions('recentitems.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 }
@@ -71,7 +71,7 @@ $out['subtitle'] = $L['recentitems_title'];
 $totalpages = max($totalrecent);
 $days = ($days > 0) ? "&days=" . $days : "";
 $mode = (!empty($mode)) ? "&mode=" . $mode : "";
-$pagenav = cot_pagenav('module', 'e=recentitems' . $days . $mode, $d, $totalpages, $cfg['recentitems']['itemsperpage']);
+$pagenav = cot_pagenav('index', 'e=recentitems' . $days . $mode, $d, $totalpages, $cfg['recentitems']['itemsperpage']);
 
 $t->assign(array(
 	'PAGE_PAGENAV' => $pagenav['main'],

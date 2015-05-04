@@ -1,4 +1,5 @@
 <!-- BEGIN: MAIN -->
+	{ADMIN_POLLS_BREADCRUMBS}
 	<h2>{PHP.L.Polls}</h2>
 	{FILE "{PHP.cfg.themes_dir}/{PHP.theme}/warnings.tpl"}
 	<div class=" button-toolbar block">
@@ -87,4 +88,10 @@
 			</tr>
 		</table>
 	</form>
+	<div class="block">
+		<div class="help">
+			<h4>{PHP.L.Help}:</h4>
+			<p>{PHP.L.adm_help_polls}</p>
+		</div>
+	</div>
 <!-- END: MAIN -->

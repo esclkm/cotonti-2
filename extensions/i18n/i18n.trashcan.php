@@ -17,7 +17,7 @@ Hooks=trashcan.api
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('i18n', 'module');
+require_once cot_incfile('i18n');
 
 // Register restoration table
 $trash_types['i18n_page'] = $db_i18n_pages;

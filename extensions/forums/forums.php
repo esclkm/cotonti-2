@@ -1,12 +1,12 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
 /**
- * Forums module main
+ * Forums extension main
  *
  * @package forums
  * @version 0.9.3
@@ -35,4 +35,4 @@ if (!in_array($m, array('topics', 'posts', 'editpost', 'newtopic')))
 	$m = 'sections';
 }
 
-include cot_incfile('forums', 'module', $m);
+include cot_incfile('forums', $m);

@@ -78,7 +78,7 @@ if (!empty($c1) || !empty($c2))
 	$standalone = TRUE;
 }
 
-foreach ($cot_extensions as $k => $line)
+foreach ($cot_hooks as $k => $line)
 {
 	$icon[$line[0]] = cot_rc('pfs_icon_type', array('type' => $line[2], 'name' => $line[1]));
 	$filedesc[$line[0]] = $line[1];
@@ -93,9 +93,9 @@ if ($userid!=$usr['id'])
 }
 
 /* === Hook === */
-foreach (cot_getextensions('pfs.first') as $pl)
+foreach (cot_getextensions('pfs.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -112,9 +112,9 @@ if ($a=='upload')
 	$ndesc = cot_import('ndesc','P','ARR');
 
 	/* === Hook === */
-	foreach (cot_getextensions('pfs.upload.first') as $pl)
+	foreach (cot_getextensions('pfs.upload.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -154,7 +154,7 @@ if ($a=='upload')
 
 			if ($f_extension!='php' && $f_extension!='php3' && $f_extension!='php4' && $f_extension!='php5')
 			{
-				foreach ($cot_extensions as $k => $line)
+				foreach ($cot_hooks as $k => $line)
 				{
 					if (mb_strtolower($f_extension) == $line[0])
 					{ $f_extension_ok = 1; }
@@ -186,9 +186,9 @@ if ($a=='upload')
 						if ($is_moved && (int)$u_size > 0)
 						{
 							/* === Hook === */
-							foreach (cot_getextensions('pfs.upload.moved') as $pl)
+							foreach (cot_getextensions('pfs.upload.moved') as $ext)
 							{
-								include $pl;
+								include $ext;
 							}
 							/* ===== */
 
@@ -209,9 +209,9 @@ if ($a=='upload')
 							$pfs_totalsize += $u_size;
 
 							/* === Hook === */
-							foreach (cot_getextensions('pfs.upload.done') as $pl)
+							foreach (cot_getextensions('pfs.upload.done') as $ext)
 							{
-								include $pl;
+								include $ext;
 							}
 							/* ===== */
 
@@ -411,9 +411,9 @@ else
 		));
 
 		/* === Hook - Part2 : Include === */
-		foreach ($extp as $pl)
+		foreach ($extp as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -427,9 +427,9 @@ else
 }
 
 /* === Hook === */
-foreach (cot_getextensions('pfs.list.query') as $pl)
+foreach (cot_getextensions('pfs.list.query') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -507,9 +507,9 @@ foreach ($sql_pfs->fetchAll() as $row)
 	));
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -604,9 +604,9 @@ for ($ii = 0; $ii < $cfg['pfs']['pfsmaxuploads']; $ii++)
 $t->parse('MAIN.PFS_UPLOAD_FORM');
 // ========== Allowed =========
 
-reset($cot_extensions);
-sort($cot_extensions);
-foreach ($cot_extensions as $k => $line)
+reset($cot_hooks);
+sort($cot_hooks);
+foreach ($cot_hooks as $k => $line)
 {
 	$t->assign(array(
 		'ALLOWED_ROW_ICON' => $icon[$line[0]],
@@ -676,18 +676,18 @@ if ($standalone)
 	$t->parse('MAIN.STANDALONE_FOOTER');
 
 	/* === Hook === */
-	foreach (cot_getextensions('pfs.standalone') as $pl)
+	foreach (cot_getextensions('pfs.standalone') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 }
 else
 {
 	/* === Hook === */
-	foreach (cot_getextensions('pfs.tags') as $pl)
+	foreach (cot_getextensions('pfs.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 }

@@ -17,7 +17,7 @@ Order=10
 
 defined('COT_CODE') or die('Wrong URL');
 
-include_once cot_langfile('mcaptcha', 'module');
+include_once cot_langfile('mcaptcha');
 
 /**
  * Generates new math captcha and returns question output

@@ -1,12 +1,12 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
 /**
- * Polls module main
+ * Polls extension main
  *
  * @package polls
  * @version 0.9.1
@@ -26,9 +26,9 @@ require_once cot_incfile('polls');
 require_once cot_incfile('polls', 'resources');
 
 /* === Hook === */
-foreach (cot_getextensions('polls.first') as $pl)
+foreach (cot_getextensions('polls.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -40,9 +40,9 @@ $mode = cot_import('mode', 'G', 'ALP');
 if ($mode == 'ajax' || COT_AJAX)
 {
 	/* === Hook === */
-	foreach (cot_getextensions('polls.ajax') as $pl)
+	foreach (cot_getextensions('polls.ajax') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -72,9 +72,9 @@ $ratings = cot_import('ratings', 'G', 'BOL');
 $out['subtitle'] = $L['Polls'];
 
 /* === Hook === */
-foreach (cot_getextensions('polls.main') as $pl)
+foreach (cot_getextensions('polls.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -103,9 +103,9 @@ if ((int)$id > 0)
 	));
 
 	/* === Hook === */
-	foreach (cot_getextensions('polls.view.tags') as $pl)
+	foreach (cot_getextensions('polls.view.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -144,9 +144,9 @@ else
 		));
 
 		/* === Hook - Part2 === */
-		foreach ($extp as $pl)
+		foreach ($extp as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -161,9 +161,9 @@ else
 }
 
 /* === Hook === */
-foreach (cot_getextensions('polls.tags') as $pl)
+foreach (cot_getextensions('polls.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

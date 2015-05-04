@@ -20,14 +20,13 @@ Hooks=admin
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('page', 'any');
 cot_block($usr['isadmin']);
 
-$t = new XTemplate(cot_tplfile('page.admin', 'module', true));
+$t = new XTemplate(cot_tplfile('page.admin'));
 
 require_once cot_incfile('page', 'functions');
 
 $adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
-$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$m), $cot_modules[$m]['title']);
+$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
 $adminpath[] = array(cot_url('admin', 'm='.$m), $L['Administration']);
-$adminhelp = $L['adm_help_page'];
 $adminsubtitle = $L['Pages'];
 
 $id = cot_import('id', 'G', 'INT');
@@ -100,9 +99,9 @@ if (count($catsub) < count($structure['page']))
 }
 
 /* === Hook  === */
-foreach (cot_getextensions('page.admin.first') as $pl)
+foreach (cot_getextensions('page.admin.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -111,9 +110,9 @@ if ($a == 'validate')
 	cot_check_xg();
 
 	/* === Hook  === */
-	foreach (cot_getextensions('page.admin.validate') as $pl)
+	foreach (cot_getextensions('page.admin.validate') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -156,9 +155,9 @@ elseif ($a == 'unvalidate')
 	cot_check_xg();
 
 	/* === Hook  === */
-	foreach (cot_getextensions('page.admin.unvalidate') as $pl)
+	foreach (cot_getextensions('page.admin.unvalidate') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -198,9 +197,9 @@ elseif ($a == 'delete')
 	cot_check_xg();
 
 	/* === Hook  === */
-	foreach (cot_getextensions('page.admin.delete') as $pl)
+	foreach (cot_getextensions('page.admin.delete') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -222,9 +221,9 @@ elseif ($a == 'delete')
 		cot_log($L['Page'].' #'.$id.' - '.$L['Deleted'], 'adm');
 
 		/* === Hook === */
-		foreach (cot_getextensions('page.admin.delete.done') as $pl)
+		foreach (cot_getextensions('page.admin.delete.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -264,9 +263,9 @@ elseif ($a == 'update_checked')
 			if ($s[$i] == '1' || $s[$i] == 'on')
 			{
 				/* === Hook  === */
-				foreach (cot_getextensions('page.admin.checked_validate') as $pl)
+				foreach (cot_getextensions('page.admin.checked_validate') as $ext)
 				{
-					include $pl;
+					include $ext;
 				}
 				/* ===== */
 
@@ -319,9 +318,9 @@ elseif ($a == 'update_checked')
 			if ($s[$i] == '1' || $s[$i] == 'on')
 			{
 				/* === Hook  === */
-				foreach (cot_getextensions('page.admin.checked_delete') as $pl)
+				foreach (cot_getextensions('page.admin.checked_delete') as $ext)
 				{
-					include $pl;
+					include $ext;
 				}
 				/* ===== */
 
@@ -344,9 +343,9 @@ elseif ($a == 'update_checked')
 					}
 
 					/* === Hook === */
-					foreach (cot_getextensions('page.admin.delete.done') as $pl)
+					foreach (cot_getextensions('page.admin.delete.done') as $ext)
 					{
-						include $pl;
+						include $ext;
 					}
 					/* ===== */
 					$perelik .= '#'.$id.', ';
@@ -405,9 +404,9 @@ foreach ($sql_page->fetchAll() as $row)
 	$t->assign(cot_generate_usertags($row['page_ownerid'], 'ADMIN_PAGE_OWNER_'), htmlspecialchars($row['user_name']));
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -422,7 +421,7 @@ $sql_page_queued = $db->query("SELECT COUNT(*) FROM $db_pages WHERE page_state=1
 $sys['pagesqueued'] = $sql_page_queued->fetchColumn();
 
 $t->assign(array(
-	'ADMIN_PAGE_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=module&p=page'),
+	'ADMIN_PAGE_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=extension&p=page'),
 	'ADMIN_PAGE_URL_ADD' => cot_url('page', 'm=add'),
 	'ADMIN_PAGE_URL_EXTRAFIELDS' => cot_url('admin', 'm=extrafields&n='.$db_pages),
 	'ADMIN_PAGE_URL_STRUCTURE' => cot_url('admin', 'm=structure&n=page'),
@@ -438,12 +437,15 @@ $t->assign(array(
 	'ADMIN_PAGE_ON_PAGE' => $ii
 ));
 
+$t->assign(array(
+	'ADMIN_PAGE_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),		
+));
 cot_display_messages($t);
 
 /* === Hook  === */
-foreach (cot_getextensions('page.admin.tags') as $pl)
+foreach (cot_getextensions('page.admin.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

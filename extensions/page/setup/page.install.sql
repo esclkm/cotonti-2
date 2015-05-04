@@ -1,5 +1,5 @@
 /**
- * Page module DB installation
+ * Page extension DB installation
  */
 
 -- Default categories permssions

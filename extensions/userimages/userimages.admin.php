@@ -20,19 +20,18 @@ Hooks=admin
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('users', 'a');
 cot_block($usr['isadmin']);
 
-$tt = new XTemplate(cot_tplfile('userimages.admin', 'module', true));
+$tt = new XTemplate(cot_tplfile('userimages.admin'));
 require_once cot_incfile('userimages');
 require_once cot_incfile('userimages', 'resources');
 require_once cot_langfile('userimages');
 require_once cot_incfile('system', 'configuration');
 
-$adminhelp = $L['userimages_help'];
 $adminsubtitle = $L['userimages_title'];
 
 /* === Hook === */
-foreach (cot_getextensions('userimages.admin.first') as $pl)
+foreach (cot_getextensions('userimages.admin.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -83,13 +82,15 @@ foreach($userimg as $code => $settings)
 	));
 	$tt->parse('MAIN.USERIMG_LIST');
 }
-
+$tt->assign(array(
+	'ADMIN_USERIMAGES_BREADCRUMBS' =>  cot_breadcrumbs($adminpath, false)
+));
 cot_display_messages($tt); // use cot_message()
 
 /* === Hook  === */
-foreach (cot_getextensions('userimages.admin.tags') as $pl)
+foreach (cot_getextensions('userimages.admin.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

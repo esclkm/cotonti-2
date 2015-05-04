@@ -1,5 +1,5 @@
 <!-- BEGIN: MAIN -->
-
+{ADMIN_FORUMS_BREADCRUMBS}
 		<h2>{PHP.L.Forums}</h2>
 
 		<div class="block button-toolbar">

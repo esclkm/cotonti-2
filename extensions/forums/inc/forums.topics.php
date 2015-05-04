@@ -28,9 +28,9 @@ cot_die(empty($s) || !isset($structure['forums'][$s]), true);
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('forums', $s);
 
 /* === Hook === */
-foreach (cot_getextensions('forums.topics.rights') as $pl)
+foreach (cot_getextensions('forums.topics.rights') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 cot_block($usr['auth_read']);
@@ -45,9 +45,9 @@ if ($usr['isadmin'] && !empty($q) && !empty($a))
 			cot_log("Deleted topic #".$q, 'for');
 			cot_forums_sectionsetlast($s);
 			/* === Hook === */
-			foreach (cot_getextensions('forums.topics.delete.done') as $pl)
+			foreach (cot_getextensions('forums.topics.delete.done') as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 			break;
@@ -133,9 +133,9 @@ if ($usr['isadmin'] && !empty($q) && !empty($a))
 }
 
 /* === Hook === */
-foreach (cot_getextensions('forums.topics.first') as $pl)
+foreach (cot_getextensions('forums.topics.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -165,9 +165,9 @@ if (!empty($cfg['forums']['cat_' . $s]['metatitle']))
 }
 
 /* === Hook === */
-foreach (cot_getextensions('forums.topics.main') as $pl)
+foreach (cot_getextensions('forums.topics.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -202,9 +202,9 @@ if (count($arraychilds) > 0)
 		));
 
 		/* === Hook - Part2 : Include === */
-		foreach ($extp as $pl)
+		foreach ($extp as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -220,9 +220,9 @@ $join_columns = '';
 $join_condition = '';
 
 /* === Hook === */
-foreach (cot_getextensions('forums.topics.query') as $pl)
+foreach (cot_getextensions('forums.topics.query') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 $where = array_diff($where,array(''));
@@ -357,9 +357,9 @@ foreach ($sql_forums_rowset as $row)
 	}
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -432,9 +432,9 @@ $t->assign(array(
 
 
 /* === Hook === */
-foreach (cot_getextensions('forums.topics.tags') as $pl)
+foreach (cot_getextensions('forums.topics.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

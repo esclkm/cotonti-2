@@ -25,9 +25,9 @@ list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('users',
 cot_block($usr['isadmin']);
 
 /* === Hook === */
-foreach (cot_getextensions('users.edit.first') as $pl)
+foreach (cot_getextensions('users.edit.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -50,9 +50,9 @@ if ($a == 'update')
 	cot_check_xg();
 
 	/* === Hook === */
-	foreach (cot_getextensions('users.edit.update.first') as $pl)
+	foreach (cot_getextensions('users.edit.update.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -75,9 +75,9 @@ if ($a == 'update')
 		}
 
 		/* === Hook === */
-		foreach (cot_getextensions('users.edit.update.delete') as $pl)
+		foreach (cot_getextensions('users.edit.update.delete') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -228,9 +228,9 @@ if ($a == 'update')
 		}
 
 		/* === Hook === */
-		foreach (cot_getextensions('users.edit.update.done') as $pl)
+		foreach (cot_getextensions('users.edit.update.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -254,12 +254,12 @@ $title_params = array(
 $out['subtitle'] = cot_title('{EDIT} - {NAME}', $title_params);
 $out['head'] .= $R['code_noindex'];
 
-$mskin = cot_tplfile(array('users', 'edit', $usr['maingrp']), 'module');
+$mskin = cot_tplfile(array('users', 'edit', $usr['maingrp']));
 
 /* === Hook === */
-foreach (cot_getextensions('users.edit.main') as $pl)
+foreach (cot_getextensions('users.edit.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -320,9 +320,9 @@ foreach($cot_extrafields[$db_users] as $exfld)
 cot_display_messages($t);
 
 /* === Hook === */
-foreach (cot_getextensions('users.edit.tags') as $pl)
+foreach (cot_getextensions('users.edit.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

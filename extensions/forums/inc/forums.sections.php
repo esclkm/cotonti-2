@@ -11,9 +11,9 @@ defined('COT_CODE') or die('Wrong URL');
 
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('forums', 'any');
 /* === Hook === */
-foreach (cot_getextensions('forums.sections.rights') as $pl)
+foreach (cot_getextensions('forums.sections.rights') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 cot_block($usr['auth_read']);
@@ -24,9 +24,9 @@ $c = cot_import('c','G','TXT');
 $sys['sublocation'] = $L['Home'];
 
 /* === Hook === */
-foreach (cot_getextensions('forums.sections.first') as $pl)
+foreach (cot_getextensions('forums.sections.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -102,9 +102,9 @@ $secact_max = count($cot_act) > 0 ? (max($cot_act)) : 0;
 $out['subtitle'] = $L['Forums'];
 
 /* === Hook === */
-foreach (cot_getextensions('forums.sections.main') as $pl)
+foreach (cot_getextensions('forums.sections.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -151,9 +151,9 @@ foreach ($fstlvl as $x)
 						'FORUMS_SECTIONS_ROW_NUM' => $zz,
 					));
 					/* === Hook - Part2 : Include === */
-					foreach ($extpss as $pl)
+					foreach ($extpss as $ext)
 					{
-						include $pl;
+						include $ext;
 					}
 					/* ===== */
 					$t->parse('MAIN.FORUMS_SECTIONS.CAT.SECTION.SUBSECTION');
@@ -180,9 +180,9 @@ foreach ($fstlvl as $x)
 				'FORUMS_SECTIONS_ROW_NUM' => $yy,
 			));
 			/* === Hook - Part2 : Include === */
-			foreach ($extps as $pl)
+			foreach ($extps as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 			$t->parse('MAIN.FORUMS_SECTIONS.CAT.SECTION');
@@ -204,9 +204,9 @@ foreach ($fstlvl as $x)
 		'FORUMS_SECTIONS_ROW_NUM' => $xx,
 	));
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	$t->parse('MAIN.FORUMS_SECTIONS.CAT');
@@ -214,9 +214,9 @@ foreach ($fstlvl as $x)
 $t->parse('MAIN.FORUMS_SECTIONS');
 
 /* === Hook === */
-foreach (cot_getextensions('forums.sections.tags') as $pl)
+foreach (cot_getextensions('forums.sections.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

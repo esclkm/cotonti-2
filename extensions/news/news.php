@@ -18,8 +18,8 @@ Tags=index.tpl:{INDEX_NEWS}
  */
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('page', 'functions');
-require_once cot_langfile('news', 'module');
+require_once cot_incfile('page');
+require_once cot_langfile('news');
 
 list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['news']['maxpages']);
 $c = cot_import('c', 'G', 'TXT');
@@ -85,9 +85,9 @@ if (count($cats) > 0)
 		$news_join_columns = '';
 		$news_join_tables = '';
 		/* === Hook - Part2 : Include === FIRST === */
-		foreach ($news_first_extp as $pl)
+		foreach ($news_first_extp as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -117,7 +117,7 @@ if (count($cats) > 0)
 		$catd = ($catn != 0 && !$cfg['news']['syncpagination']) ? $cat . "d" : "d";
 		$pagenav = cot_pagenav('index', $news_link_params, $v[3]['d'], $totalnews, $v[1], $catd);
 		$filename =  str_replace(array(' ', ',', '.', '-'), '_', $v[0]);
-		$news = new XTemplate(cot_tplfile(($catn == 0) ? "news" : "news." . $filename, 'module'));
+		$news = new XTemplate(cot_tplfile(($catn == 0) ? "news" : "news." . $filename));
 
 		$sql_rowset = $sql->fetchAll();
 		$jj = 0;
@@ -137,9 +137,9 @@ if (count($cats) > 0)
 			$news->assign(cot_generate_usertags($pag, 'PAGE_ROW_OWNER_'));
 
 			/* === Hook - Part2 : Include === LOOP === */
-			foreach ($news_extp as $pl)
+			foreach ($news_extp as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 
@@ -164,9 +164,9 @@ if (count($cats) > 0)
 		));
 
 		/* === Hook - Part2 : Include === TAGS === */
-		foreach ($news_tags_extp as $pl)
+		foreach ($news_tags_extp as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 

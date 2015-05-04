@@ -17,13 +17,13 @@ $p = cot_import('p', 'G', 'INT'); // post id
 list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['forums']['maxpostsperpage']); // page
 $quote = cot_import('quote', 'G', 'INT');
 
-require_once cot_langfile('countries', 'core');
+require_once cot_langfile('countries', 'system');
 require_once cot_incfile('system', 'forms');
 
 /* === Hook === */
-foreach (cot_getextensions('forums.posts.first') as $pl)
+foreach (cot_getextensions('forums.posts.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 if ((!empty($n) && !empty($q)) || !empty($p) || !empty($id))
@@ -71,9 +71,9 @@ isset($structure['forums'][$s]) || cot_die(true, true);
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('forums', $s);
 
 /* === Hook === */
-foreach (cot_getextensions('forums.posts.rights') as $pl)
+foreach (cot_getextensions('forums.posts.rights') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -121,9 +121,9 @@ if ($a == 'newpost' && !empty($s) && !empty($q))
 	}
 
 	/* === Hook === */
-	foreach (cot_getextensions('forums.posts.newpost.first') as $pl)
+	foreach (cot_getextensions('forums.posts.newpost.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -171,9 +171,9 @@ if ($a == 'newpost' && !empty($s) && !empty($q))
 		cot_extrafield_movefiles();
 
 		/* === Hook === */
-		foreach (cot_getextensions('forums.posts.newpost.done') as $pl)
+		foreach (cot_getextensions('forums.posts.newpost.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -194,9 +194,9 @@ elseif ($a == 'delete' && $usr['id'] > 0 && !empty($s) && !empty($q) && !empty($
 
 
 	/* === Hook === */
-	foreach (cot_getextensions('forums.posts.delete.first') as $pl)
+	foreach (cot_getextensions('forums.posts.delete.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -235,9 +235,9 @@ elseif ($a == 'delete' && $usr['id'] > 0 && !empty($s) && !empty($q) && !empty($
 	cot_log("Deleted post #" . $p, 'for');
 
 	/* === Hook === */
-	foreach (cot_getextensions('forums.posts.delete.done') as $pl)
+	foreach (cot_getextensions('forums.posts.delete.done') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -261,9 +261,9 @@ elseif ($a == 'delete' && $usr['id'] > 0 && !empty($s) && !empty($q) && !empty($
 			}
 
 			/* === Hook === */
-			foreach (cot_getextensions('forums.posts.emptytopicdel') as $pl)
+			foreach (cot_getextensions('forums.posts.emptytopicdel') as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 
@@ -327,9 +327,9 @@ if (!empty($id))
 }
 
 /* === Hook === */
-foreach (cot_getextensions('forums.posts.query') as $pl)
+foreach (cot_getextensions('forums.posts.query') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -367,9 +367,9 @@ if ( ($durl > 1 && $cfg['easypagenav']) || ($durl > 0 && !$cfg['easypagenav']) )
 $out['canonical_uri'] = cot_url('forums', $topicurl_params);
 
 /* === Hook === */
-foreach (cot_getextensions('forums.posts.main') as $pl)
+foreach (cot_getextensions('forums.posts.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -441,9 +441,9 @@ foreach ($sql_forums->fetchAll() as $row)
 	}
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -525,9 +525,9 @@ if (($cfg['forums']['enablereplyform'] || $lastpage) && !$rowt['ft_state'] && $u
 	cot_display_messages($t);
 
 	/* === Hook  === */
-	foreach (cot_getextensions('forums.posts.newpost.tags') as $pl)
+	foreach (cot_getextensions('forums.posts.newpost.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -619,9 +619,9 @@ foreach ($cot_extrafields[$db_forum_topics] as $exfld)
 }
 
 /* === Hook  === */
-foreach (cot_getextensions('forums.posts.tags') as $pl)
+foreach (cot_getextensions('forums.posts.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

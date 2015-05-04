@@ -55,7 +55,7 @@ if ($cfg['tags']['pages'])
 			$tl = $lang != 'en' && $tag_u != $tag ? 1 : null;
 			$t->assign(array(
 				'LIST_ROW_TAGS_ROW_TAG' => $cfg['tags']['title'] ? htmlspecialchars(cot_tag_title($tag)) : htmlspecialchars($tag),
-				'LIST_ROW_TAGS_ROW_URL' => cot_url('module', array('e' => 'tags', 'a' => 'pages', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl))
+				'LIST_ROW_TAGS_ROW_URL' => cot_url('index', array('e' => 'tags', 'a' => 'pages', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl))
 			));
 			$t->parse('MAIN.LIST_ROW.LIST_ROW_TAGS_ROW');
 			$tag_i++;

@@ -11,8 +11,8 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 // Requirements
-require_once cot_langfile('forums', 'module');
-require_once cot_incfile('forums', 'module', 'resources');
+require_once cot_langfile('forums');
+require_once cot_incfile('forums', 'resources');
 require_once cot_incfile('system', 'forms');
 
 // Registering tables and fields
@@ -93,9 +93,9 @@ function cot_forums_prunetopics($mode, $section, $param)
 			$q = $row1['ft_id'];
 
 			/* === Hook === */
-			foreach (cot_getextensions('forums.functions.prunetopics') as $pl)
+			foreach (cot_getextensions('forums.functions.prunetopics') as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 

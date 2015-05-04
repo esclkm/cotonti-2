@@ -18,9 +18,9 @@ $id = cot_import('id', 'G', 'INT');
 $l = cot_import('l', 'G', 'ALP');
 
 /* === Hook === */
-foreach (cot_getextensions('i18n.page.first') as $pl)
+foreach (cot_getextensions('i18n.page.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* =============*/
 
@@ -61,16 +61,16 @@ if ($id > 0 && $stmt->rowCount() == 1)
 
 			if (cot_error_found())
 			{
-				cot_redirect(cot_url('module', "e=i18n&m=page&a=add&id=$id", '', true));
+				cot_redirect(cot_url('index', "e=i18n&m=page&a=add&id=$id", '', true));
 				exit;
 			}
 
 			$db->insert($db_i18n_pages, $pag_i18n);
 
 			/* === Hook === */
-			foreach (cot_getextensions('i18n.page.add.done') as $pl)
+			foreach (cot_getextensions('i18n.page.add.done') as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* =============*/
 
@@ -82,7 +82,7 @@ if ($id > 0 && $stmt->rowCount() == 1)
 
 		$out['subtitle'] = $L['i18n_adding'];
 
-		$t = new XTemplate(cot_tplfile('i18n.page', 'module'));
+		$t = new XTemplate(cot_tplfile('i18n.page'));
 
 		// Get locales list
 		$lc_list = $i18n_locales;
@@ -103,7 +103,7 @@ if ($id > 0 && $stmt->rowCount() == 1)
 		}
 
 		$t->assign(array(
-			'I18N_ACTION' => cot_url('module', "e=i18n&m=page&a=add&id=$id"),
+			'I18N_ACTION' => cot_url('index', "e=i18n&m=page&a=add&id=$id"),
 			'I18N_TITLE' => $L['i18n_adding'],
 			'I18N_ORIGINAL_LANG' => $i18n_locales[$cfg['defaultlang']],
 			'I18N_LOCALIZED_LANG' => cot_selectbox('', 'locale', $lc_values, $lc_names, false),
@@ -118,9 +118,9 @@ if ($id > 0 && $stmt->rowCount() == 1)
 		cot_display_messages($t);
 
 		/* === Hook === */
-		foreach (cot_getextensions('i18n.page.translate.tags') as $pl)
+		foreach (cot_getextensions('i18n.page.translate.tags') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* =============*/
 	}
@@ -141,16 +141,16 @@ if ($id > 0 && $stmt->rowCount() == 1)
 
 			if (cot_error_found())
 			{
-				cot_redirect(cot_url('module', "e=i18n&m=page&a=edit&id=$id&l=$i18n_locale", '', true));
+				cot_redirect(cot_url('index', "e=i18n&m=page&a=edit&id=$id&l=$i18n_locale", '', true));
 				exit;
 			}
 
 			$db->update($db_i18n_pages, $pag_i18n, "ipage_id = ? AND ipage_locale = ?", array($id, $i18n_locale));
 
 			/* === Hook === */
-			foreach (cot_getextensions('i18n.page.edit.update') as $pl)
+			foreach (cot_getextensions('i18n.page.edit.update') as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* =============*/
 
@@ -162,9 +162,9 @@ if ($id > 0 && $stmt->rowCount() == 1)
 
 		$out['subtitle'] = $L['i18n_editing'];
 
-		$t = new XTemplate(cot_tplfile('i18n.page', 'module'));
+		$t = new XTemplate(cot_tplfile('i18n.page'));
 		$t->assign(array(
-			'I18N_ACTION' => cot_url('module', "e=i18n&m=page&a=edit&id=$id&l=$i18n_locale"),
+			'I18N_ACTION' => cot_url('index', "e=i18n&m=page&a=edit&id=$id&l=$i18n_locale"),
 			'I18N_TITLE' => $L['i18n_editing'],
 			'I18N_ORIGINAL_LANG' => $i18n_locales[$cfg['defaultlang']],
 			'I18N_LOCALIZED_LANG' => $i18n_locales[$i18n_locale],
@@ -179,9 +179,9 @@ if ($id > 0 && $stmt->rowCount() == 1)
 		cot_display_messages($t);
 
 		/* === Hook === */
-		foreach (cot_getextensions('i18n.page.edit.tags') as $pl)
+		foreach (cot_getextensions('i18n.page.edit.tags') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* =============*/
 		
@@ -204,9 +204,9 @@ if ($id > 0 && $stmt->rowCount() == 1)
 		$db->delete($db_i18n_pages, "ipage_id = $id AND ipage_locale = '$i18n_locale'");
 
 		/* === Hook === */
-		foreach (cot_getextensions('i18n.page.delete.done') as $pl)
+		foreach (cot_getextensions('i18n.page.delete.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* =============*/
 

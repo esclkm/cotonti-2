@@ -76,54 +76,55 @@ CREATE TABLE `cot_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `cot_config` (`config_owner`, `config_cat`, `config_order`, `config_name`, `config_type`, `config_value`, `config_default`, `config_variants`, `config_text`) VALUES
-('core','locale','01','forcedefaultlang',3,'0','0','',''),
-('core','locale','11','defaulttimezone',4,'0','0','cot_config_timezones()',''),
-('core','main','01','adminemail',1,'admin@mysite.com','admin@mysite.com','',''),
-('core','main','02','clustermode',3,'0','0','',''),
-('core','main','03','hostip',1,'999.999.999.999','999.999.999.999','',''),
-('core','main','04','parser',4,'none','none','cot_get_parsers()',''),
-('core','main','05','maxrowsperpage',1,'15','15','',''),
-('core','main','06','easypagenav',3,'1','1','',''),
-('core','main','07','confirmlinks',3,'1','1','',''),
-('core','main','91','default_show_installed',3,'0','0','',''),
-('core','performance','01','gzip',3,'0','0','',''),
-('core','performance','02','headrc_consolidate',3,'0','0','',''),
-('core','performance','03','headrc_minify',3,'1','1','',''),
-('core','performance','04','jquery_cdn',1,'','','',''),
-('core','performance','05','jquery',3,'1','1','',''),
-('core','performance','06','turnajax',3,'1','1','',''),
-('core','security','21','shieldenabled',3,'0','0','',''),
-('core','security','22','shieldtadjust',2,'100','100','10,25,50,75,100,125,150,200,300,400,600,800',''),
-('core','security','23','shieldzhammer',2,'25','25','5,10,15,20,25,30,40,50,100',''),
-('core','security','31','captchamain',4,'mcaptcha','mcaptcha','cot_captcha_list()',''),
-('core','security','32','captcharandom',3,'0','0','',''),
-('core','security','41','referercheck',3,'1','1','',''),
-('core','security','42','hashfunc',4,'sha256','sha256','cot_hash_funcs()',''),
-('core','security','97','devmode',3,'0','0','',''),
-('core','security','98','maintenance',3,'0','0','',''),
-('core','security','99','maintenancereason',1,'','','',''),
-('core','sessions','01','cookiedomain',1,'','','',''),
-('core','sessions','02','cookiepath',1,'','','',''),
-('core','sessions','03','cookielifetime',2,'5184000','5184000','1800,3600,7200,14400,28800,43200,86400,172800,259200,604800,1296000,2592000,5184000',''),
-('core','sessions','04','forcerememberme',3,'0','0','',''),
-('core','sessions','05','timedout',2,'1200','1200','30,60,120,300,600,900,1200,1800,2400,3600',''),
-('core','sessions','06','redirbkonlogin',3,'1','1','',''),
-('core','sessions','07','redirbkonlogout',3,'0','0','',''),
-('core','theme','01','forcedefaulttheme',3,'0','0','',''),
-('core','theme','02','homebreadcrumb',3,'0','0','',''),
-('core','theme','04','separator',1,'/','/','',''),
-('core','theme','05','disablesysinfos',3,'0','0','',''),
-('core','theme','06','keepcrbottom',3,'1','1','',''),
-('core','theme','07','showsqlstats',3,'0','0','',''),
-('core','theme','08','msg_separate',3,'0','0','','Show messages separately for each source'),
-('core','title','01','maintitle',1,'Title of your site','Title of your site','',''),
-('core','title','02','subtitle',1,'Subtitle','Subtitle','',''),
-('core','title','03','metakeywords',1,'','','',''),
-('core','title','14','title_users_details',1,'{USER}: {NAME}','{USER} - {NAME}','',''),
-('core','title','18','title_header',1,'{SUBTITLE} - {MAINTITLE}','{SUBTITLE} - {MAINTITLE}','',''),
-('core','title','19','title_header_index',1,'{MAINTITLE} - {DESCRIPTION}','{MAINTITLE} - {DESCRIPTION}','',''),
-('core','title','98','subject_mail',1,'{SITE_TITLE} - {MAIL_SUBJECT}','{SITE_TITLE} - {MAIL_SUBJECT}','',''),
-('core','title','99','body_mail',0,'{MAIL_BODY}\n\n{SITE_TITLE} - {SITE_URL}\n{SITE_DESCRIPTION}','{MAIL_BODY}\n\n{SITE_TITLE} - {SITE_URL}\n{SITE_DESCRIPTION}','','');
+
+('system','main','01','adminemail',1,'admin@mysite.com','admin@mysite.com','',''),
+('system','main','02','clustermode',3,'0','0','',''),
+('system','main','03','hostip',1,'999.999.999.999','999.999.999.999','',''),
+('system','main','04','parser',4,'none','none','cot_get_parsers()',''),
+('system','main','05','maxrowsperpage',1,'15','15','',''),
+('system','main','06','easypagenav',3,'1','1','',''),
+('system','main','07','confirmlinks',3,'1','1','',''),
+('system','main','11','forcedefaultlang',3,'0','0','',''),
+('system','main','12','defaulttimezone',4,'0','0','cot_config_timezones()',''),
+('system','main','21','gzip',3,'0','0','',''),
+('system','main','22','headrc_consolidate',3,'0','0','',''),
+('system','main','23','headrc_minify',3,'1','1','',''),
+('system','main','24','jquery_cdn',1,'','','',''),
+('system','main','25','jquery',3,'1','1','',''),
+('system','main','26','turnajax',3,'1','1','',''),
+('system','main','91','default_show_installed',3,'0','0','',''),
+('system','security','21','shieldenabled',3,'0','0','',''),
+('system','security','22','shieldtadjust',2,'100','100','10,25,50,75,100,125,150,200,300,400,600,800',''),
+('system','security','23','shieldzhammer',2,'25','25','5,10,15,20,25,30,40,50,100',''),
+('system','security','31','captchamain',4,'mcaptcha','mcaptcha','cot_captcha_list()',''),
+('system','security','32','captcharandom',3,'0','0','',''),
+('system','security','41','referercheck',3,'1','1','',''),
+('system','security','42','hashfunc',4,'sha256','sha256','cot_hash_funcs()',''),
+('system','security','97','devmode',3,'0','0','',''),
+('system','security','98','maintenance',3,'0','0','',''),
+('system','security','99','maintenancereason',1,'','','',''),
+('system','sessions','01','cookiedomain',1,'','','',''),
+('system','sessions','02','cookiepath',1,'','','',''),
+('system','sessions','03','cookielifetime',2,'5184000','5184000','1800,3600,7200,14400,28800,43200,86400,172800,259200,604800,1296000,2592000,5184000',''),
+('system','sessions','04','forcerememberme',3,'0','0','',''),
+('system','sessions','05','timedout',2,'1200','1200','30,60,120,300,600,900,1200,1800,2400,3600',''),
+('system','sessions','06','redirbkonlogin',3,'1','1','',''),
+('system','sessions','07','redirbkonlogout',3,'0','0','',''),
+('system','theme','01','forcedefaulttheme',3,'0','0','',''),
+('system','theme','02','homebreadcrumb',3,'0','0','',''),
+('system','theme','04','separator',1,'/','/','',''),
+('system','theme','05','disablesysinfos',3,'0','0','',''),
+('system','theme','06','keepcrbottom',3,'1','1','',''),
+('system','theme','07','showsqlstats',3,'0','0','',''),
+('system','theme','08','msg_separate',3,'0','0','','Show messages separately for each source'),
+('system','title','01','maintitle',1,'Title of your site','Title of your site','',''),
+('system','title','02','subtitle',1,'Subtitle','Subtitle','',''),
+('system','title','03','metakeywords',1,'','','',''),
+('system','title','14','title_users_details',1,'{USER}: {NAME}','{USER} - {NAME}','',''),
+('system','title','18','title_header',1,'{SUBTITLE} - {MAINTITLE}','{SUBTITLE} - {MAINTITLE}','',''),
+('system','title','19','title_header_index',1,'{MAINTITLE} - {DESCRIPTION}','{MAINTITLE} - {DESCRIPTION}','',''),
+('system','title','98','subject_mail',1,'{SITE_TITLE} - {MAIL_SUBJECT}','{SITE_TITLE} - {MAIL_SUBJECT}','',''),
+('system','title','99','body_mail',0,'{MAIL_BODY}\n\n{SITE_TITLE} - {SITE_URL}\n{SITE_DESCRIPTION}','{MAIL_BODY}\n\n{SITE_TITLE} - {SITE_URL}\n{SITE_DESCRIPTION}','','');
 
 DROP TABLE IF EXISTS `cot_core`;
 CREATE TABLE `cot_core` (
@@ -142,8 +143,8 @@ INSERT INTO `cot_core` (`ct_code`, `ct_title`, `ct_version`, `ct_state`, `ct_loc
 ('admin', 'Administration panel', '0.7.0', 1, 1),
 ('message', 'Messages', '0.7.0', 1, 1);
 
-DROP TABLE IF EXISTS `cot_extra_fields`;
-CREATE TABLE `cot_extra_fields` (
+DROP TABLE IF EXISTS `cot_extrafields`;
+CREATE TABLE `cot_extrafields` (
   `field_location` varchar(255) collate utf8_unicode_ci NOT NULL,
   `field_name` varchar(255) collate utf8_unicode_ci NOT NULL,
   `field_type` varchar(255) collate utf8_unicode_ci NOT NULL,
@@ -204,8 +205,8 @@ CREATE TABLE `cot_logger` (
   PRIMARY KEY  (`log_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `cot_extensions`;
-CREATE TABLE `cot_extensions` (
+DROP TABLE IF EXISTS `cot_extension_hooks`;
+CREATE TABLE `cot_extension_hooks` (
   `ext_id` mediumint NOT NULL auto_increment,
   `ext_hook` varchar(64) collate utf8_unicode_ci NOT NULL default '',
   `ext_code` varchar(64) collate utf8_unicode_ci NOT NULL default '',

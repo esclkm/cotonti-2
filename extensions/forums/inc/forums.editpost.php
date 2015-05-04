@@ -17,9 +17,9 @@ $p = cot_import('p', 'G', 'INT'); // post id
 list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['forums']['maxpostsperpage']);
 
 /* === Hook === */
-foreach (cot_getextensions('forums.editpost.first') as $pl)
+foreach (cot_getextensions('forums.editpost.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -35,9 +35,9 @@ if ($rowpost = $sql_forums->fetch())
 	list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('forums', $s);
 
 	/* === Hook === */
-	foreach (cot_getextensions('forums.editpost.rights') as $pl)
+	foreach (cot_getextensions('forums.editpost.rights') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -72,9 +72,9 @@ else
 if ($a == 'update')
 {
 	/* === Hook === */
-	foreach (cot_getextensions('forums.editpost.update.first') as $pl)
+	foreach (cot_getextensions('forums.editpost.update.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -124,9 +124,9 @@ if ($a == 'update')
 	}
 
 	/* === Hook === */
-	foreach (cot_getextensions('forums.editpost.update.done') as $pl)
+	foreach (cot_getextensions('forums.editpost.update.done') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -159,9 +159,9 @@ $out['subtitle'] = cot_title('{EDIT} - {TOPIC}', $title_params);
 $out['head'] .= $R['code_noindex'];
 
 /* === Hook === */
-foreach (cot_getextensions('forums.editpost.main') as $pl)
+foreach (cot_getextensions('forums.editpost.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -224,9 +224,9 @@ foreach($cot_extrafields[$db_forum_posts] as $exfld)
 }
 
 /* === Hook === */
-foreach (cot_getextensions('forums.editpost.tags') as $pl)
+foreach (cot_getextensions('forums.editpost.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

@@ -11,10 +11,10 @@
 defined('COT_CODE') or die('Wrong URL.');
 
 // Requirements
-require_once cot_langfile('page', 'module');
+require_once cot_langfile('page');
 require_once cot_incfile('page', 'resources');
 require_once cot_incfile('system', 'forms');
-require_once cot_incfile('system', 'forms');
+require_once cot_incfile('system', 'extrafields');
 
 // Tables and extras
 cot::$db->registerTable('pages');
@@ -93,9 +93,9 @@ function cot_generate_pagetags($page_data, $tag_prefix = '', $textlength = 0, $a
 	}
 
 	/* === Hook === */
-	foreach ($extp_first as $pl)
+	foreach ($extp_first as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -260,9 +260,9 @@ function cot_generate_pagetags($page_data, $tag_prefix = '', $textlength = 0, $a
 		}
 
 		/* === Hook === */
-		foreach ($extp_main as $pl)
+		foreach ($extp_main as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -489,7 +489,7 @@ function cot_page_validate($rpage)
 	if ($structure['page'][$rpage['page_cat']]['locked'])
 	{
 		global $L;
-		require_once cot_langfile('message', 'core');
+		require_once cot_langfile('message', 'system');
 		cot_error('msg602_body', 'rpagecat');
 	}
 	cot_check(mb_strlen($rpage['page_title']) < 2, 'page_titletooshort', 'rpagetitle');
@@ -545,9 +545,9 @@ function cot_page_add(&$rpage, $auth = array())
 	}
 
 	/* === Hook === */
-	foreach (cot_getextensions('page.add.add.query') as $pl)
+	foreach (cot_getextensions('page.add.add.query') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -563,9 +563,9 @@ function cot_page_add(&$rpage, $auth = array())
 	}
 
 	/* === Hook === */
-	foreach (cot_getextensions('page.add.add.done') as $pl)
+	foreach (cot_getextensions('page.add.add.done') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -623,9 +623,9 @@ function cot_page_delete($id, $rpage = array())
 	cot_log("Deleted page #" . $id, 'adm');
 
 	/* === Hook === */
-	foreach (cot_getextensions('page.edit.delete.done') as $pl)
+	foreach (cot_getextensions('page.edit.delete.done') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -710,9 +710,9 @@ function cot_page_update($id, &$rpage, $auth = array())
 	cot_extrafield_movefiles();
 
 	/* === Hook === */
-	foreach (cot_getextensions('page.edit.update.done') as $pl)
+	foreach (cot_getextensions('page.edit.update.done') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 

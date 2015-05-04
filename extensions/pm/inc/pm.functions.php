@@ -32,7 +32,7 @@ function cot_send_translated_mail($rlang, $remail, $rusername)
 {
 	global $cfg, $usr;
 
-	require_once cot_langfile('pm', 'module', $cfg['defaultlang'], $rlang);
+	require_once cot_langfile('pm', 'extension', $cfg['defaultlang'], $rlang);
 	if (!$L || !isset($L['pm_notify']))
 	{
 		global $L;

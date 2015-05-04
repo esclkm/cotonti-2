@@ -1,4 +1,5 @@
 <!-- BEGIN: MAIN -->
+{ADMIN_PAGE_BREADCRUMBS}
 	<script type="text/javascript">
 		$(document).ready(function()
 		{
@@ -95,4 +96,10 @@
 			</p>
 			</form>
 		</div>
+	<div class="block">
+		<div class="help">
+			<h4>{PHP.L.Help}:</h4>
+			<p>{PHP.L.adm_help_page}</p>
+		</div>
+	</div>			
 <!-- END: MAIN -->

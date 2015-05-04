@@ -13,8 +13,8 @@ defined('COT_CODE') or die('Wrong URL');
 
 require cot_incfile('comments', 'enablement');
 
-// Add options into module configs
-foreach ($com_modules_list as $mod_name)
+// Add options into extensions configs
+foreach ($com_extensions_list as $mod_name)
 {
 	if (cot_extension_installed($mod_name) && !cot_config_implanted($mod_name, 'comments'))
 	{
@@ -22,8 +22,8 @@ foreach ($com_modules_list as $mod_name)
 	}
 }
 
-// Add options into module structure configs
-foreach ($com_modules_struct_list as $mod_name)
+// Add options into extensions structure configs
+foreach ($com_extensions_struct_list as $mod_name)
 {
 	if (cot_extension_installed($mod_name) && !cot_config_implanted($mod_name, 'comments'))
 	{

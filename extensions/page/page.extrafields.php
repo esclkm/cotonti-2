@@ -7,7 +7,7 @@
   ==================== */
 
 /**
- * Page module
+ * Page extension
  *
  * @package page
  * @version 0.7.0
@@ -20,8 +20,7 @@ defined('COT_CODE') or die('Wrong URL');
 require_once cot_incfile('page', 'functions');
 $extra_whitelist[$db_pages] = array(
 	'name' => $db_pages,
-	'caption' => $L['Module'].' Pages',
-	'type' => 'module',
+	'caption' => 'Pages',
 	'code' => 'page',
 	'tags' => array(
 		'page.list.tpl' => '{LIST_ROW_XXXXX}, {LIST_TOP_XXXXX}',

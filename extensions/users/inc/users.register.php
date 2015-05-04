@@ -26,9 +26,9 @@ if ($cfg['users']['disablereg'] && !$usr['isadmin'])
 }
 
 /* === Hook === */
-foreach (cot_getextensions('users.register.first') as $pl)
+foreach (cot_getextensions('users.register.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -41,9 +41,9 @@ if ($a=='add')
 	$ruser = array();
 
 	/* === Hook for the extensions === */
-	foreach (cot_getextensions('users.register.add.first') as $pl)
+	foreach (cot_getextensions('users.register.add.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -80,9 +80,9 @@ if ($a=='add')
 	if ($rpassword1 != $rpassword2) cot_error('aut_passwordmismatch', 'rpassword2');
 
 	/* === Hook for the extensions === */
-	foreach (cot_getextensions('users.register.add.validate') as $pl)
+	foreach (cot_getextensions('users.register.add.validate') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -92,9 +92,9 @@ if ($a=='add')
 		$userid = cot_add_user($ruser);
 
 		/* === Hook for the extensions === */
-		foreach (cot_getextensions('users.register.add.done') as $pl)
+		foreach (cot_getextensions('users.register.add.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -120,9 +120,9 @@ if ($a=='add')
 elseif ($a == 'validate' && mb_strlen($v) == 32)
 {
 	/* === Hook for the extensions === */
-	foreach (cot_getextensions('users.register.validate.first') as $pl)
+	foreach (cot_getextensions('users.register.validate.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -139,9 +139,9 @@ elseif ($a == 'validate' && mb_strlen($v) == 32)
 				$sql = $db->update($db_groups_users, array('gru_groupid' => 4), "gru_groupid=2 AND gru_userid='".$row['user_id']."'");
 
 				/* === Hook for the extensions === */
-				foreach (cot_getextensions('users.register.validate.done') as $pl)
+				foreach (cot_getextensions('users.register.validate.done') as $ext)
 				{
-					include $pl;
+					include $ext;
 				}
 				/* ===== */
 				cot_auth_clear($row['user_id']);
@@ -165,9 +165,9 @@ elseif ($a == 'validate' && mb_strlen($v) == 32)
 				$sql = $db->delete($db_groups_users, "gru_userid='".$row['user_id']."'");
 
 				/* === Hook for the extensions === */
-				foreach (cot_getextensions('users.register.validate.rejected') as $pl)
+				foreach (cot_getextensions('users.register.validate.rejected') as $ext)
 				{
-					include $pl;
+					include $ext;
 				}
 				/* ===== */
 
@@ -189,12 +189,12 @@ elseif ($a == 'validate' && mb_strlen($v) == 32)
 	}
 }
 
-$mskin = cot_tplfile('users.register', 'module');
+$mskin = cot_tplfile('users.register');
 
 /* === Hook === */
-foreach (cot_getextensions('users.register.main') as $pl)
+foreach (cot_getextensions('users.register.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -236,9 +236,9 @@ cot_display_messages($t);
 
 
 /* === Hook === */
-foreach (cot_getextensions('users.register.tags') as $pl)
+foreach (cot_getextensions('users.register.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

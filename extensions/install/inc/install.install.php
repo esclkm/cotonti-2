@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package install
  * @version 0.7.0
@@ -6,17 +7,16 @@
  * @copyright Copyright (c) Cotonti Team 2009-2014
  * @license BSD
  */
-
 defined('COT_CODE') or die('Wrong URL');
 
 // Extensions checked by default
-$default_modules = array('index', 'page', 'users', 'rss', 'ckeditor', 'cleaner', 'html', 'htmlpurifier', 'ipsearch', 'mcaptcha', 'news', 'search');
+$default_extensions = array('index', 'page', 'users', 'rss', 'ckeditor', 'cleaner', 'html', 'htmlpurifier', 'ipsearch', 'mcaptcha', 'news', 'search');
 
-$step = empty($_SESSION['cot_inst_lang']) ? 0 : (int) $cfg['new_install'];
+$step = empty($_SESSION['cot_inst_lang']) ? 0 : (int)$cfg['new_install'];
 
 $mskin = cot_tplfile('install.install');
 
-if(!empty($_SESSION['cot_inst_script']) && file_exists($_SESSION['cot_inst_script']))
+if (!empty($_SESSION['cot_inst_script']) && file_exists($_SESSION['cot_inst_script']))
 {
 	require_once $_SESSION['cot_inst_script'];
 }
@@ -26,11 +26,11 @@ cot_sendheaders();
 $t = new XTemplate($mskin);
 
 $site_url = (strpos($_SERVER['SERVER_PROTOCOL'], 'HTTPS') === false && $_SERVER['HTTPS'] != 'on' && $_SERVER['SERVER_PORT'] != 443 && $_SERVER['HTTP_X_FORWARDED_PORT'] !== 443 ? 'http://' : 'https://')
-	. $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']);
+	.$_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI']);
 $site_url = str_replace('\\', '/', $site_url);
 $site_url = preg_replace('#/$#', '', $site_url);
-$sys['abs_url'] = $site_url . '/';
-define('COT_ABSOLUTE_URL', $site_url . '/');
+$sys['abs_url'] = $site_url.'/';
+define('COT_ABSOLUTE_URL', $site_url.'/');
 
 if ($step > 2)
 {
@@ -65,15 +65,15 @@ switch ($step)
 		break;
 	case 4:
 		// Extension selection
-		$install_modules = cot_import('install_modules', 'P', 'ARR', 0, false, true);
-		$selected_modules = array();
-		if (is_array($install_modules))
+		$install_extensions = cot_import('install_extensions', 'P', 'ARR', 0, false, true);
+		$selected_extensions = array();
+		if (is_array($install_extensions))
 		{
-			foreach ($install_modules as $key => $val)
+			foreach ($install_extensions as $key => $val)
 			{
 				if ($val)
 				{
-					$selected_modules[] = $key;
+					$selected_extensions[] = $key;
 				}
 			}
 		}
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				cot_error(cot_rc('install_error_missing_file', array('file' => $file['sql'])));
 			}
-			if (function_exists('version_compare') && !version_compare(PHP_VERSION, '5.2.3', '>='))
+			if (function_exists('version_compare') && !version_compare(PHP_VERSION, '5.4.0', '>='))
 			{
 				cot_error(cot_rc('install_error_php_ver', array('ver' => PHP_VERSION)));
 			}
@@ -152,8 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				}
 			}
 
-			if (!cot_error_found() && function_exists('version_compare')
-				&& !version_compare($db->getAttribute(PDO::ATTR_SERVER_VERSION), '5.0.7', '>='))
+			if (!cot_error_found() && function_exists('version_compare') && !version_compare($db->getAttribute(PDO::ATTR_SERVER_VERSION), '5.0.7', '>='))
 			{
 				cot_error(cot_rc('install_error_sql_ver', array('ver' => $db->getAttribute(PDO::ATTR_SERVER_VERSION))));
 			}
@@ -169,8 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				cot_install_config_replace($config_contents, 'mysqluser', $db_user);
 				cot_install_config_replace($config_contents, 'mysqlpassword', $db_pass);
 				cot_install_config_replace($config_contents, 'mysqldb', $db_name);
-				$config_contents = preg_replace("#^\\\$db_x\s*=\s*'.*?';#m",
-						"\$db_x				= '$db_x';", $config_contents);
+				$config_contents = preg_replace("#^\\\$db_x\s*=\s*'.*?';#m", "\$db_x				= '$db_x';", $config_contents);
 				file_put_contents($file['config'], $config_contents);
 
 				$sql_file = file_get_contents($file['sql']);
@@ -200,8 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				cot_error('aut_passwordtooshort', 'user_pass');
 			}
-			if (mb_strlen($user['email']) < 4
-				|| !preg_match('#^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]{2,})+$#i', $user['email']))
+			if (mb_strlen($user['email']) < 4 || !preg_match('#^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]{2,})+$#i', $user['email']))
 			{
 				cot_error('aut_emailtooshort', 'user_email');
 			}
@@ -231,13 +228,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 				try
 				{
-					$db->insert($db_x . 'users', array(
+					$db->insert($db_x.'users', array(
 						'user_name' => $user['name'],
 						'user_password' => $ruserpass['user_password'],
 						'user_passsalt' => $ruserpass['user_passsalt'],
 						'user_passfunc' => $ruserpass['user_passfunc'],
 						'user_maingrp' => COT_GROUP_SUPERADMINS,
-						'user_country' => (string) $user['country'],
+						'user_country' => (string)$user['country'],
 						'user_email' => $user['email'],
 						'user_theme' => $rtheme,
 						'user_scheme' => $rscheme,
@@ -248,12 +245,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 					$user['id'] = $db->lastInsertId();
 
-					$db->insert($db_x . 'groups_users', array(
-						'gru_userid' => (int) $user['id'],
+					$db->insert($db_x.'groups_users', array(
+						'gru_userid' => (int)$user['id'],
 						'gru_groupid' => COT_GROUP_SUPERADMINS
 					));
 
-					$db->update($db_x . 'config', array('config_value' => $user['email']), "config_owner = 'core' AND config_name = 'adminemail'");
+					$db->update($db_x.'config', array('config_value' => $user['email']), "config_owner = 'system' AND config_name = 'adminemail'");
 				}
 				catch (PDOException $err)
 				{
@@ -265,9 +262,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		case 4:
 			// Dependency check
 			$install = true;
-			foreach ($selected_modules as $ext)
+			foreach ($selected_extensions as $ext)
 			{
-				$install &= cot_extension_dependencies_statisfied($ext, $selected_modules);
+				$install &= cot_extension_dependencies_statisfied($ext, $selected_extensions);
 			}
 
 			if ($install && !cot_error_found())
@@ -293,15 +290,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				$usr['id'] = 1;
 				// Install all at once
 				// Note: installation statuses are ignored in this installer
-				$selected_modules = cot_install_sort_extensions($selected_modules);
-				foreach ($selected_modules as $ext)
+				$selected_extensions = cot_install_sort_extensions($selected_extensions);
+				foreach ($selected_extensions as $ext)
 				{
 					if (!cot_extension_install($ext))
-                    {
-                        cot_error("Installing $ext module has failed");
-                    }
+					{
+						cot_error("Installing $ext extension has failed");
+					}
 				}
-
 			}
 			break;
 		case 5:
@@ -332,8 +328,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 		else
 		{
-			$config_contents = preg_replace("#^\\\$cfg\['new_install'\]\s*=\s*.*?;#m", "\$cfg['new_install'] = $step;",
-					$config_contents);
+			$config_contents = preg_replace("#^\\\$cfg\['new_install'\]\s*=\s*.*?;#m", "\$cfg['new_install'] = $step;", $config_contents);
 		}
 		function_exists("cot_install_stepplusplus") && cot_install_stepplusplus();
 
@@ -373,9 +368,9 @@ switch ($step)
 			$cache_subfolders = array('cot', 'static', 'system', 'templates');
 			foreach ($cache_subfolders as $sub)
 			{
-				if (!file_exists($cfg['cache_dir'] . '/' . $sub))
+				if (!file_exists($cfg['cache_dir'].'/'.$sub))
 				{
-					mkdir($cfg['cache_dir'] . '/' . $sub, $cfg['dir_perms']);
+					mkdir($cfg['cache_dir'].'/'.$sub, $cfg['dir_perms']);
 				}
 			}
 		}
@@ -386,9 +381,7 @@ switch ($step)
 
 		if (is_dir($cfg['avatars_dir']))
 		{
-			$status['avatars_dir'] = is_writable($cfg['avatars_dir'])
-				? $R['install_code_writable']
-				: cot_rc('install_code_invalid', array('text' =>
+			$status['avatars_dir'] = is_writable($cfg['avatars_dir']) ? $R['install_code_writable'] : cot_rc('install_code_invalid', array('text' =>
 					cot_rc('install_chmod_value', array('chmod' =>
 						substr(decoct(fileperms($cfg['avatars_dir'])), -4)))));
 		}
@@ -399,9 +392,7 @@ switch ($step)
 		/* ------------------- */
 		if (is_dir($cfg['cache_dir']))
 		{
-			$status['cache_dir'] = is_writable($cfg['cache_dir'])
-				? $R['install_code_writable']
-				: cot_rc('install_code_invalid', array('text' =>
+			$status['cache_dir'] = is_writable($cfg['cache_dir']) ? $R['install_code_writable'] : cot_rc('install_code_invalid', array('text' =>
 					cot_rc('install_chmod_value', array('chmod' =>
 						substr(decoct(fileperms($cfg['cache_dir'])), -4)))));
 		}
@@ -412,9 +403,7 @@ switch ($step)
 		/* ------------------- */
 		if (is_dir($cfg['pfs_dir']))
 		{
-			$status['pfs_dir'] = is_writable($cfg['pfs_dir'])
-				? $R['install_code_writable']
-				: cot_rc('install_code_invalid', array('text' =>
+			$status['pfs_dir'] = is_writable($cfg['pfs_dir']) ? $R['install_code_writable'] : cot_rc('install_code_invalid', array('text' =>
 					cot_rc('install_chmod_value', array('chmod' =>
 						substr(decoct(fileperms($cfg['pfs_dir'])), -4)))));
 		}
@@ -425,9 +414,7 @@ switch ($step)
 		/* ------------------- */
 		if (is_dir($cfg['extrafield_files_dir']))
 		{
-			$status['exflds_dir'] = is_writable($cfg['extrafield_files_dir'])
-				? $R['install_code_writable']
-				: cot_rc('install_code_invalid', array('text' =>
+			$status['exflds_dir'] = is_writable($cfg['extrafield_files_dir']) ? $R['install_code_writable'] : cot_rc('install_code_invalid', array('text' =>
 					cot_rc('install_chmod_value', array('chmod' =>
 						substr(decoct(fileperms($cfg['extrafield_files_dir'])), -4)))));
 		}
@@ -438,9 +425,7 @@ switch ($step)
 		/* ------------------- */
 		if (is_dir($cfg['photos_dir']))
 		{
-			$status['photos_dir'] = is_writable($cfg['photos_dir'])
-				? $R['install_code_writable']
-				: cot_rc('install_code_invalid', array('text' =>
+			$status['photos_dir'] = is_writable($cfg['photos_dir']) ? $R['install_code_writable'] : cot_rc('install_code_invalid', array('text' =>
 					cot_rc('install_chmod_value', array('chmod' =>
 						substr(decoct(fileperms($cfg['photos_dir'])), -4)))));
 		}
@@ -451,9 +436,7 @@ switch ($step)
 		/* ------------------- */
 		if (is_dir($cfg['thumbs_dir']))
 		{
-			$status['thumbs_dir'] = is_writable($cfg['thumbs_dir'])
-				? $R['install_code_writable']
-				: cot_rc('install_code_invalid', array('text' =>
+			$status['thumbs_dir'] = is_writable($cfg['thumbs_dir']) ? $R['install_code_writable'] : cot_rc('install_code_invalid', array('text' =>
 					cot_rc('install_chmod_value', array('chmod' =>
 						substr(decoct(fileperms($cfg['thumbs_dir'])), -4)))));
 		}
@@ -464,9 +447,7 @@ switch ($step)
 		/* ------------------- */
 		if (file_exists($file['config']) || is_writable('datas'))
 		{
-			$status['config'] = is_writable($file['config']) || is_writable('datas')
-				? $R['install_code_writable']
-				: cot_rc('install_code_invalid', array('text' =>
+			$status['config'] = is_writable($file['config']) || is_writable('datas') ? $R['install_code_writable'] : cot_rc('install_code_invalid', array('text' =>
 					cot_rc('install_chmod_value', array('chmod' =>
 						substr(decoct(fileperms($file['config'])), -4)))));
 		}
@@ -492,17 +473,12 @@ switch ($step)
 		{
 			$status['sql_file'] = $R['install_code_not_found'];
 		}
-		$status['php_ver'] = (function_exists('version_compare') && version_compare(PHP_VERSION, '5.4.0', '>='))
-			? cot_rc('install_code_valid', array('text' =>
-				cot_rc('install_ver_valid', array('ver' => PHP_VERSION))))
-			: cot_rc('install_code_invalid', array('text' =>
+		$status['php_ver'] = (function_exists('version_compare') && version_compare(PHP_VERSION, '5.4.0', '>=')) ? cot_rc('install_code_valid', array('text' =>
+				cot_rc('install_ver_valid', array('ver' => PHP_VERSION)))) : cot_rc('install_code_invalid', array('text' =>
 				cot_rc('install_ver_invalid', array('ver' => PHP_VERSION))));
-		$status['mbstring'] = (extension_loaded('mbstring'))
-			? $R['install_code_available'] : $R['install_code_not_available'];
-		$status['hash'] = (extension_loaded('hash') && function_exists('hash_hmac'))
-			? $R['install_code_available'] : $R['install_code_not_available'];
-		$status['mysql'] = (extension_loaded('pdo_mysql'))
-			? $R['install_code_available'] : $R['install_code_not_available'];
+		$status['mbstring'] = (extension_loaded('mbstring')) ? $R['install_code_available'] : $R['install_code_not_available'];
+		$status['hash'] = (extension_loaded('hash') && function_exists('hash_hmac')) ? $R['install_code_available'] : $R['install_code_not_available'];
+		$status['mysql'] = (extension_loaded('pdo_mysql')) ? $R['install_code_available'] : $R['install_code_not_available'];
 
 		$t->assign(array(
 			'INSTALL_AV_DIR' => $status['avatars_dir'],
@@ -530,10 +506,10 @@ switch ($step)
 			'INSTALL_DB_X' => $db_x,
 			'INSTALL_DB_HOST_INPUT' => cot_inputbox('text', 'db_host', is_null($db_host) ? $cfg['mysqlhost'] : $db_host, 'size="32"'),
 			'INSTALL_DB_PORT_INPUT' => cot_inputbox('text', 'db_port', is_null($db_port) ? $cfg['mysqlport'] : $db_port, 'size="32"'),
-			'INSTALL_DB_USER_INPUT' => cot_inputbox('text', 'db_user',  is_null($db_user) ? $cfg['mysqluser'] : $db_user, 'size="32"'),
-			'INSTALL_DB_NAME_INPUT' => cot_inputbox('text', 'db_name',  is_null($db_name) ? $cfg['mysqldb'] : $db_name, 'size="32"'),
+			'INSTALL_DB_USER_INPUT' => cot_inputbox('text', 'db_user', is_null($db_user) ? $cfg['mysqluser'] : $db_user, 'size="32"'),
+			'INSTALL_DB_NAME_INPUT' => cot_inputbox('text', 'db_name', is_null($db_name) ? $cfg['mysqldb'] : $db_name, 'size="32"'),
 			'INSTALL_DB_PASS_INPUT' => cot_inputbox('password', 'db_pass', '', 'size="32"'),
-			'INSTALL_DB_X_INPUT' => cot_inputbox('text', 'db_x',  $db_x, 'size="32"'),
+			'INSTALL_DB_X_INPUT' => cot_inputbox('text', 'db_x', $db_x, 'size="32"'),
 		));
 		break;
 	case 3:
@@ -558,12 +534,11 @@ switch ($step)
 		));
 	case 4:
 		// Extensions
-		cot_install_parse_extensions($default_modules, $selected_modules);
+		cot_install_parse_extensions($default_extensions, $selected_extensions);
 		break;
 	case 5:
 		// End credits
 		break;
-
 }
 
 $inst_func_name = "cot_install_step".$step."_tags";
@@ -593,8 +568,7 @@ $t->out('MAIN');
  */
 function cot_install_config_replace(&$file_contents, $config_name, $config_value)
 {
-	$file_contents = preg_replace("#^\\\$cfg\['$config_name'\]\s*=\s*'.*?';#m",
-		"\$cfg['$config_name'] = '$config_value';", $file_contents);
+	$file_contents = preg_replace("#^\\\$cfg\['$config_name'\]\s*=\s*'.*?';#m", "\$cfg['$config_name'] = '$config_value';", $file_contents);
 }
 
 /**
@@ -626,7 +600,7 @@ function cot_install_parse_extensions($default_list = array(), $selected_list = 
 				}
 				// Assign a new one
 				$prev_cat = $info['Category'];
-				$t->assign('EXT_CAT_TITLE', $L['ext_cat_' . $info['Category']]);
+				$t->assign('EXT_CAT_TITLE', $L['ext_cat_'.$info['Category']]);
 			}
 			$requires = empty($info['Requires']) ? '' : implode(', ', explode(',', $info['Requires']));
 			$recommends = empty($info['Recommends']) ? '' : implode(', ', explode(',', $info['Recommends']));
@@ -641,11 +615,11 @@ function cot_install_parse_extensions($default_list = array(), $selected_list = 
 			}
 			$L['info_name'] = '';
 			$L['info_desc'] = '';
-			$icofile = $cfg['extensions_dir'] . '/' . $code . '/' . $code . '.png';
-			
-			if (file_exists(cot_langfile($code, 'module')))
+			$icofile = $cfg['extensions_dir'].'/'.$code.'/'.$code.'.png';
+
+			if (file_exists(cot_langfile($code)))
 			{
-				include cot_langfile($code, 'module');
+				include cot_langfile($code);
 			}
 			$t->assign(array(
 				"EXT_ROW_CHECKBOX" => cot_checkbox($checked, "install_extensions[$code]"),
@@ -684,7 +658,7 @@ function cot_install_sort_extensions($selected_extensions)
 	foreach ($selected_extensions as $name)
 	{
 		$info = cot_infoget($cfg['extensions_dir']."/$name/$name.setup.php", 'COT_EXT');
-		$order = isset($info['Order']) ? (int) $info['Order'] : COT_EXT_DEFAULT_ORDER;
+		$order = isset($info['Order']) ? (int)$info['Order'] : COT_EXT_DEFAULT_ORDER;
 		if ($info['Category'] == 'post-install' && $order < 999)
 		{
 			$order = 999;

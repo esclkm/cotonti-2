@@ -41,8 +41,8 @@ $maingroup = ($userid==0) ? 5 : $user_info['user_maingrp'];
 $pfs_dir_user = cot_pfs_path($userid);
 $thumbs_dir_user = cot_pfs_thumbpath($userid);
 
-reset($cot_extensions);
-foreach ($cot_extensions as $k => $line)
+reset($cot_hooks);
+foreach ($cot_hooks as $k => $line)
 {
 	$icon[$line[0]] = cot_rc('pfs_icon_type', array('type' => $line[2], 'name' => $line[1]));
 	$filedesc[$line[0]] = $line[1];
@@ -60,9 +60,9 @@ $L['pfs_title'] = ($userid==0) ? $L['SFS'] : $L['pfs_title'];
 $title[] = array(cot_url('pfs', $more), $L['pfs_title']);
 
 /* === Hook === */
-foreach (cot_getextensions('pfs.edit.first') as $pl)
+foreach (cot_getextensions('pfs.edit.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -159,9 +159,9 @@ $t->assign(array(
 cot_display_messages($t);
 
 /* === Hook === */
-foreach (cot_getextensions('pfs.edit.tags') as $pl)
+foreach (cot_getextensions('pfs.edit.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

@@ -21,7 +21,7 @@ require_once cot_incfile('page', 'functions');
 
 if ($p == 'news' && $row['config_name'] == 'category' && $cfg['jquery'])
 {
-	$sskin = cot_tplfile('news.admin', 'module', true);
+	$sskin = cot_tplfile('news.admin');
 	$tt = new XTemplate($sskin);
 
 	$categories = explode(',', $row['config_value']);

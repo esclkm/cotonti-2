@@ -1,7 +1,7 @@
 <!-- BEGIN: MAIN -->
 
 		<div class="block">
-			<h2 class="users"><a href="{PHP|cot_url('module','e=whosonline')}">{PHP.L.WhosOnline}</a></h2>
+			<h2 class="users"><a href="{PHP|cot_url('index','e=whosonline')}">{PHP.L.WhosOnline}</a></h2>
 			<!-- IF {WHO_TOTALPAGES} > 1 -->
 			<p class="paging"><span>{PHP.L.Page} {WHO_CURRENTPAGE} {PHP.L.Of} {WHO_TOTALPAGES}</span>{WHO_PAGEPREV}{WHO_PAGINATION}{WHO_PAGENEXT}</p>
 			<!-- ENDIF -->

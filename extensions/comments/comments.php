@@ -2,7 +2,7 @@
 
 /* ====================
  * [BEGIN_COT_EXT]
- * Hooks=module
+ * Hooks=standalone
  * [END_COT_EXT]
  */
 
@@ -67,9 +67,9 @@ if ($m == 'edit' && $id > 0)
 	if ($a == 'update' && $id > 0)
 	{
 		/* == Hook == */
-		foreach (cot_getextensions('comments.edit.update.first') as $pl)
+		foreach (cot_getextensions('comments.edit.update.first') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -127,9 +127,9 @@ if ($m == 'edit' && $id > 0)
 				$sql2->closeCursor();
 			}
 			/* == Hook == */
-			foreach (cot_getextensions('comments.edit.update.done') as $pl)
+			foreach (cot_getextensions('comments.edit.update.done') as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 
@@ -140,7 +140,7 @@ if ($m == 'edit' && $id > 0)
 	}
 	$t->assign(array(
 		'COMMENTS_TITLE' => $extension_title,
-		'COMMENTS_TITLE_URL' => cot_url('module', 'e=comments')
+		'COMMENTS_TITLE_URL' => cot_url('index', 'e=comments')
 	));
 	$t->parse('MAIN.COMMENTS_TITLE');
 
@@ -158,7 +158,7 @@ if ($m == 'edit' && $id > 0)
 
     $editor = ($cfg['comments']['markup']) ? 'input_textarea_minieditor' : '';
 	$t->assign(array(
-		'COMMENTS_FORM_POST' => cot_url('module', 'e=comments&m=edit&a=update&area=' . $area . '&cat=' . $cat . '&item=' . $com['com_code'] . '&id=' . $com['com_id']),
+		'COMMENTS_FORM_POST' => cot_url('index', 'e=comments&m=edit&a=update&area=' . $area . '&cat=' . $cat . '&item=' . $com['com_code'] . '&id=' . $com['com_id']),
 		'COMMENTS_POSTER_TITLE' => $L['Poster'],
 		'COMMENTS_POSTER' => $com['com_author'],
 		'COMMENTS_IP_TITLE' => $L['Ip'],
@@ -186,9 +186,9 @@ if ($m == 'edit' && $id > 0)
 	}
 
 	/* == Hook == */
-	foreach (cot_getextensions('comments.edit.tags') as $pl)
+	foreach (cot_getextensions('comments.edit.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -208,9 +208,9 @@ if ($a == 'send' && $usr['auth_write'])
 	}
 
 	/* == Hook == */
-	foreach (cot_getextensions('comments.send.first') as $pl)
+	foreach (cot_getextensions('comments.send.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -268,9 +268,9 @@ if ($a == 'send' && $usr['auth_write'])
 		}
 
 		/* == Hook == */
-		foreach (cot_getextensions('comments.send.new') as $pl)
+		foreach (cot_getextensions('comments.send.new') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -316,9 +316,9 @@ elseif ($a == 'delete' && $usr['isadmin'])
         }
 
 		/* == Hook == */
-		foreach (cot_getextensions('comments.delete') as $pl)
+		foreach (cot_getextensions('comments.delete') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 

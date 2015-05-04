@@ -1,5 +1,5 @@
 /**
- * Forums module database installation
+ * Forums extension database installation
  */
 
 -- Install auth for default forums

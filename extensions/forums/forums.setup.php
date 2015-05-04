@@ -51,7 +51,7 @@ metadesc=08:string:::
 ==================== */
 
 /**
- * Forums module setup file
+ * Forums extension setup file
  *
  * @package forums
  * @version 0.9.0

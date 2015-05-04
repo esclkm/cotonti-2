@@ -1,7 +1,7 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
@@ -26,9 +26,9 @@ if(empty($qs)) $qs = cot_import('t', 'P', 'TXT');
 $qs = str_replace('-', ' ', $qs);
 
 $tl = cot_import('tl', 'G', 'BOL');
-if ($tl && file_exists(cot_langfile('translit', 'core')))
+if ($tl && file_exists(cot_langfile('translit', 'system')))
 {
-	include_once cot_langfile('translit', 'core');
+	include_once cot_langfile('translit', 'system');
 	$qs = strtr($qs, $cot_translitb);
 }
 
@@ -67,9 +67,9 @@ foreach ($tag_orders as $order)
 }
 
 /* == Hook for the extensions == */
-foreach (cot_getextensions('tags.first') as $pl)
+foreach (cot_getextensions('tags.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -80,7 +80,7 @@ if ($cfg['tags']['noindex'])
 $out['subtitle'] = empty($qs) ? $L['Tags'] : htmlspecialchars(strip_tags($qs)) . ' - ' . $L['tags_Search_results'];
 
 $t->assign(array(
-	'TAGS_ACTION' => cot_url('module', 'e=tags&a=' . $a),
+	'TAGS_ACTION' => cot_url('index', 'e=tags&a=' . $a),
 	'TAGS_HINT' => $L['tags_Query_hint'],
 	'TAGS_QUERY' => htmlspecialchars($qs),
 	'TAGS_ORDER' => $tag_order
@@ -135,9 +135,9 @@ elseif ($a == 'all')
 else
 {
 	/* == Hook for the extensions == */
-	foreach (cot_getextensions('tags.search.custom') as $pl)
+	foreach (cot_getextensions('tags.search.custom') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 }
@@ -184,9 +184,9 @@ function cot_tag_search_pages($query)
 
 
 	/* == Hook == */
-	foreach (cot_getextensions('tags.search.pages.query') as $pl)
+	foreach (cot_getextensions('tags.search.pages.query') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -222,7 +222,7 @@ function cot_tag_search_pages($query)
 				$tag_u = $cfg['tags']['translit'] ? cot_translit_encode($tag) : $tag;
 				$tl = $lang != 'en' && $tag_u != $tag ? 1 : null;
 				if ($tag_i > 0) $tag_list .= ', ';
-				$tag_list .= cot_rc_link(cot_url('module', array('e' => 'tags', 'a' => 'pages', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)), htmlspecialchars($tag_t));
+				$tag_list .= cot_rc_link(cot_url('index', array('e' => 'tags', 'a' => 'pages', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)), htmlspecialchars($tag_t));
 				$tag_i++;
 			}
 
@@ -234,9 +234,9 @@ function cot_tag_search_pages($query)
 				'TAGS_RESULT_ROW_TAGS' => $tag_list
 			));
 			/* == Hook : Part 2 == */
-			foreach ($extp as $pl)
+			foreach ($extp as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 			$t->parse('MAIN.TAGS_RESULT.TAGS_RESULT_ROW');
@@ -244,7 +244,7 @@ function cot_tag_search_pages($query)
 		$sql->closeCursor();
 		$qs_u = $cfg['tags']['translit'] ? cot_translit_encode($qs) : $qs;
 		$tl = $lang != 'en' && $qs_u != $qs ? 1 : null;
-		$pagenav = cot_pagenav('module', array('e' => 'tags', 'a' => 'pages', 't' => $qs_u, 'tl' => $tl), $d, $totalitems, $cfg['maxrowsperpage']);
+		$pagenav = cot_pagenav('index', array('e' => 'tags', 'a' => 'pages', 't' => $qs_u, 'tl' => $tl), $d, $totalitems, $cfg['maxrowsperpage']);
 		$t->assign(array(
 			'TAGS_PAGEPREV' => $pagenav['prev'],
 			'TAGS_PAGENEXT' => $pagenav['next'],
@@ -252,9 +252,9 @@ function cot_tag_search_pages($query)
 		));
 
 		/* == Hook == */
-		foreach (cot_getextensions('tags.search.pages.tags') as $pl)
+		foreach (cot_getextensions('tags.search.pages.tags') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 	}
@@ -326,7 +326,7 @@ function cot_tag_search_forums($query)
 				$tag_u = $cfg['tags']['translit'] ? cot_translit_encode($tag) : $tag;
 				$tl = $lang != 'en' && $tag_u != $tag ? 1 : null;
 				if ($tag_i > 0) $tag_list .= ', ';
-				$tag_list .= cot_rc_link(cot_url('module', array('e' => 'tags', 'a' => 'forums', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)), htmlspecialchars($tag_t));
+				$tag_list .= cot_rc_link(cot_url('index', array('e' => 'tags', 'a' => 'forums', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)), htmlspecialchars($tag_t));
 				$tag_i++;
 			}
 			$master = ($row['fs_masterid'] > 0) ? array($row['fs_masterid'], $row['fs_mastername']) : false;
@@ -341,7 +341,7 @@ function cot_tag_search_forums($query)
 		$sql->closeCursor();
 		$qs_u = $cfg['tags']['translit'] ? cot_translit_encode($qs) : $qs;
 		$tl = $lang != 'en' && $qs_u != $qs ? 1 : null;
-		$pagenav = cot_pagenav('module', array('e' => 'tags', 'a' => 'forums', 't' => $qs_u, 'tl' => $tl), $d, $totalitems, $cfg['maxrowsperpage']);
+		$pagenav = cot_pagenav('index', array('e' => 'tags', 'a' => 'forums', 't' => $qs_u, 'tl' => $tl), $d, $totalitems, $cfg['maxrowsperpage']);
 		$t->assign(array(
 			'TAGS_PAGEPREV' => $pagenav['prev'],
 			'TAGS_PAGENEXT' => $pagenav['next'],

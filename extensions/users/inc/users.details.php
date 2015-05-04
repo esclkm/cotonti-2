@@ -23,9 +23,9 @@ list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('users',
 cot_block($usr['auth_read']);
 
 /* === Hook === */
-foreach (cot_getextensions('users.details.first') as $pl)
+foreach (cot_getextensions('users.details.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -50,12 +50,12 @@ $title_params = array(
 );
 $out['subtitle'] = cot_title('title_users_details', $title_params);
 
-$mskin = cot_tplfile(array('users', 'details'), 'module');
+$mskin = cot_tplfile(array('users', 'details'));
 
 /* === Hook === */
-foreach (cot_getextensions('users.details.main') as $pl)
+foreach (cot_getextensions('users.details.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -71,9 +71,9 @@ $t->assign(array(
 ));
 
 /* === Hook === */
-foreach (cot_getextensions('users.details.tags') as $pl)
+foreach (cot_getextensions('users.details.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

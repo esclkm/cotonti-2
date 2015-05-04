@@ -1,4 +1,5 @@
 <!-- BEGIN: MAIN -->
+		{ADMIN_REFERERS_BREADCRUMBS}
 		<h2>{PHP.L.Referers}</h2>
 		{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 <!-- IF {PHP.usr.isadmin} -->
@@ -39,5 +40,10 @@
 				</tr>
 			</table>
 <!-- ENDIF -->
-
+	<div class="block">
+		<div class="help">
+			<h4>{PHP.L.Help}:</h4>
+			<p>{PHP.L.adm_help_referers}</p>
+		</div>
+	</div>
 <!-- END: MAIN -->

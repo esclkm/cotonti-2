@@ -35,9 +35,9 @@ function cot_trash_put($type, $title, $itemid, $datas, $parentid = '0')
 		'tr_trashedby' => (int)$usr['id'], 'tr_parentid' => $parentid);
 
 	/* === Hook  === */
-	foreach (cot_getextensions('trash.put.first') as $pl)
+	foreach (cot_getextensions('trash.put.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -64,9 +64,9 @@ function cot_trash_put($type, $title, $itemid, $datas, $parentid = '0')
 	$id = ($i) ? $db->lastInsertId() : false;
 
 	/* === Hook  === */
-	foreach (cot_getextensions('trash.put.done') as $pl)
+	foreach (cot_getextensions('trash.put.done') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -84,9 +84,9 @@ function cot_trash_restore($id)
 {
 	global $db, $db_trash, $trash_types;
 	/* === Hook  === */
-	foreach (cot_getextensions('trash.restore.first') as $pl)
+	foreach (cot_getextensions('trash.restore.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	$id = (int) $id;
@@ -139,9 +139,9 @@ function cot_trash_restore($id)
 			}
 		}
 		/* === Hook  === */
-		foreach (cot_getextensions('trash.restore.done') as $pl)
+		foreach (cot_getextensions('trash.restore.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 		return $sql;
@@ -161,9 +161,9 @@ function cot_trash_delete($id)
 	global $db, $db_trash;
 	$id = (int) $id;
 	/* === Hook  === */
-	foreach (cot_getextensions('trash.delete.first') as $pl)
+	foreach (cot_getextensions('trash.delete.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	$tsql = $db->query("SELECT * FROM $db_trash WHERE tr_id=$id LIMIT 1");
@@ -178,17 +178,17 @@ function cot_trash_delete($id)
 		$sql2->closeCursor();
 	}
 	/* === Hook  === */
-	foreach (cot_getextensions('trash.delete.done') as $pl)
+	foreach (cot_getextensions('trash.delete.done') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	return true;
 }
 
 /* === Hook === */
-foreach (cot_getextensions('trashcan.api') as $pl)
+foreach (cot_getextensions('trashcan.api') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */

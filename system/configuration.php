@@ -113,7 +113,7 @@ function cot_config_add($name, $options, $category = '', $donor = '')
 	{
 		$opt = $options[$i];
 		$option_set[] = array(
-			'config_owner' => 'module',
+			'config_owner' => 'extension',
 			'config_cat' => $name,
 			'config_subcat' => $category,
 			'config_order' => isset($opt['order']) ? $opt['order'] : str_pad($i, 2, 0, STR_PAD_LEFT),
@@ -159,7 +159,7 @@ function cot_config_implant($module_name, $options, $into_struct, $donor)
 		}
 	}
 
-	return cot_config_add($module_name, $add_options, 'module', $category, $donor);
+	return cot_config_add($module_name, $add_options, $category, $donor);
 }
 
 /**
@@ -190,15 +190,11 @@ function cot_config_load($name, $category = '', $donor = '')
 {
 	global $db, $db_config;
 	$options = array();
-	if (is_bool($is_module))
-	{
-		$type = 'module';
-	}
 
 	$query = "SELECT config_name, config_type, config_value,
 			config_default, config_variants, config_order
 		FROM $db_config WHERE config_owner = ? AND config_cat = ? AND config_subcat = ? AND config_donor = ?";
-	$params = array($type, $name, $category, $donor);
+	$params = array('extension', $name, $category, $donor);
 
 	$res = $db->query($query, $params);
 	while ($row = $res->fetch())
@@ -249,7 +245,7 @@ function cot_config_modify($name, $options, $category = '', $donor = '')
 		{
 			$opt_row['config_' . $key] = $val;
 		}
-		$params = empty($category) ? array('module', $name, $config_name, $donor) : array('module', $name, $config_name, $donor, $category);
+		$params = empty($category) ? array('extension', $name, $config_name, $donor) : array('extension', $name, $config_name, $donor, $category);
 		$affected += $db->update($db_config, $opt_row, $where, $params);
 	}
 
@@ -332,7 +328,7 @@ function cot_config_remove($name, $option = '', $category = '', $donor = null)
 {
 	global $db, $db_config;
 
-	$where = "config_owner = 'module' AND config_cat = " . $db->quote($name);
+	$where = "config_owner = 'extension' AND config_cat = " . $db->quote($name);
 	if (!empty($category))
 	{
 		$where .= " AND config_subcat = " . $db->quote($category);
@@ -424,12 +420,11 @@ function cot_config_set($name, $options, $category = '')
  *
  * @param string $name Extension code
  * @param array $options Configuration options
- * @param bool $is_module TRUE for modules, FALSE for extensions
  * @param string $category Structure category code. Only for per-category config options
  * @param string $donor Extension name for extension-to-extension config implantations
  * @return int Number of entries affected
  */
-function cot_config_update($name, $options, $is_module = false, $category = '', $donor = '')
+function cot_config_update($name, $options, $category = '', $donor = '')
 {
 	$affected = 0;
 	$old_options = cot_config_load($name, $category, $donor);
@@ -489,7 +484,7 @@ function cot_config_update($name, $options, $is_module = false, $category = '', 
 	}
 	if (count($new_options) > 0)
 	{
-		$affected += cot_config_add($name, $new_options, $is_module, $category);
+		$affected += cot_config_add($name, $new_options, $category);
 	}
 	if (count($upd_options) > 0)
 	{
@@ -679,11 +674,6 @@ function cot_config_titles($name, $text = '')
 {
 	global $L;
 
-	if (is_array($L['cfg_' . $name]))
-	{
-		$L['cfg_' . $name . '_hint'] = (isset($L['cfg_' . $name][1]) && !isset($L['cfg_' . $name . '_hint'])) ? $L['cfg_' . $name][1] : $L['cfg_' . $name . '_hint'];
-		$L['cfg_' . $name] = $L['cfg_' . $name][0];
-	}
 	$text = !empty($text) ? htmlspecialchars($text) : $name;
 	$title = !empty($L['cfg_' . $name]) ? $L['cfg_' . $name] : $text;
 

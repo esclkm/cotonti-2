@@ -25,9 +25,9 @@ function autoalias2_convert($title, $id = 0, $duplicate = false)
 {
 	global $cfg, $cot_translit, $cot_translit_custom;
 
-	if($cfg['autoalias2']['translit'] && file_exists(cot_langfile('translit', 'core')))
+	if($cfg['autoalias2']['translit'] && file_exists(cot_langfile('translit', 'system')))
 	{
-		include cot_langfile('translit', 'core');
+		include cot_langfile('translit', 'system');
 		if (is_array($cot_translit_custom))
 		{
 			$title = strtr($title, $cot_translit_custom);

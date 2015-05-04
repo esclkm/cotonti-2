@@ -19,20 +19,19 @@ Hooks=admin
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('hits', 'any');
 cot_block($usr['auth_read']);
 
-require_once cot_langfile('hits', 'module');
-require_once cot_incfile('hits', 'functions');
-$tt = new XTemplate(cot_tplfile('hits.admin', 'module', true));
+require_once cot_langfile('hits');
+require_once cot_incfile('hits');
+$tt = new XTemplate(cot_tplfile('hits.admin'));
 
-$adminhelp = $L['adm_help_hits'];
 $adminsubtitle = $L['hits_hits'];
 
 $f = cot_import('f', 'G', 'TXT');
 $v = cot_import('v', 'G', 'TXT');
 
 /* === Hook === */
-foreach (cot_getextensions('hits.admin.first') as $pl)
+foreach (cot_getextensions('hits.admin.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -67,9 +66,9 @@ if($f == 'year' || $f == 'month')
             ));
 
         /* === Hook - Part2 : Include === */
-        foreach ($extp as $pl)
+        foreach ($extp as $ext)
         {
-        	include $pl;
+        	include $ext;
         }
         /* ===== */
 
@@ -127,8 +126,8 @@ else
 				'ADMIN_HITS_ROW_YEAR_PERCENTBAR' => $percentbar
 			));
 			/* === Hook - Part2 : Include === */
-			foreach ($extp as $pl) {
-				include $pl;
+			foreach ($extp as $ext) {
+				include $ext;
 			}
 			/* ===== */
 			$tt->parse('MAIN.DEFAULT.ROW_YEAR');
@@ -145,8 +144,8 @@ else
 				'ADMIN_HITS_ROW_MONTH_PERCENTBAR' => $percentbar
 			));
 			/* === Hook - Part2 : Include === */
-			foreach ($extp as $pl) {
-				include $pl;
+			foreach ($extp as $ext) {
+				include $ext;
 			}
 			/* ===== */
 			$tt->parse('MAIN.DEFAULT.ROW_MONTH');
@@ -163,8 +162,8 @@ else
 				'ADMIN_HITS_ROW_WEEK_PERCENTBAR' => $percentbar
 			));
 			/* === Hook - Part2 : Include === */
-			foreach ($extp as $pl) {
-				include $pl;
+			foreach ($extp as $ext) {
+				include $ext;
 			}
 			/* ===== */
 			$tt->parse('MAIN.DEFAULT.ROW_WEEK');
@@ -179,11 +178,13 @@ else
 }
 
 /* === Hook  === */
-foreach (cot_getextensions('hits.admin.tags') as $pl)
+foreach (cot_getextensions('hits.admin.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
-
+$tt->assign(array(
+	'ADMIN_HITS_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),	
+));
 $tt->parse('MAIN');
 $adminmain = $tt->text('MAIN');

@@ -83,7 +83,7 @@ if ($cfg['tags']['pages'])
 			}
 		}
 		$tc_html .= cot_rc('tags_link_cloud_tag', array(
-			'url' => cot_url('module', array('e' => 'tags', 'a' => 'pages', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)),
+			'url' => cot_url('index', array('e' => 'tags', 'a' => 'pages', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)),
 			'tag_title' => htmlspecialchars($tag_t),
 			'dim' => $dim
 		));
@@ -96,6 +96,6 @@ if ($cfg['tags']['pages'])
 	if ($cfg['tags']['more'] && $limit > 0 && $tag_count == $limit)
 	{
 		$t->assign('LIST_TAG_CLOUD_ALL_LINK',
-			cot_rc('tags_code_cloud_more', array('url' => cot_url('module', 'e=tags&a=pages'))));
+			cot_rc('tags_code_cloud_more', array('url' => cot_url('index', 'e=tags&a=pages'))));
 	}
 }

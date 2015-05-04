@@ -18,10 +18,9 @@ defined('COT_CODE') or die('Wrong URL');
 
 require_once cot_incfile('bbcode');
 
-$bb_t = new XTemplate(cot_tplfile('bbcode.admin', 'module', true));
+$bb_t = new XTemplate(cot_tplfile('bbcode.admin'));
 
 $adminsubtitle = $L['adm_bbcodes'];
-$adminhelp = $L['adm_help_bbcodes'];
 
 $a = cot_import('a', 'G', 'ALP');
 $id = (int) cot_import('id', 'G', 'INT');
@@ -36,9 +35,9 @@ $pagenav = cot_pagenav('admin', 'm=other&p=bbcode', $d, $totalitems, $cfg['maxro
 
 
 /* === Hook === */
-foreach (cot_getextensions('bbcode.admin.first') as $pl)
+foreach (cot_getextensions('bbcode.admin.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -262,9 +261,9 @@ foreach ($res->fetchAll() as $row)
 	));
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -325,21 +324,23 @@ if (cot_extension_active('pm'))
 	));
 	$bb_t->parse('MAIN.ADMIN_BBCODE_CONVERT');
 }
-//if (cot_module_active('users'))
-//{
+
 $bb_t->assign(array(
 	'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 'm=other&p=bbcode&a=convert&b=users'),
 	'ADMIN_BBCODE_CONVERT_TITLE' => $L['adm_bbcodes_convert_users']
 ));
 $bb_t->parse('MAIN.ADMIN_BBCODE_CONVERT');
-//}
 
+
+$bb_t->assign(array(
+	'ADMIN_BBCODE_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),		
+));
 cot_display_messages($bb_t);
 
 /* === Hook  === */
-foreach (cot_getextensions('bbcode.admin.tags') as $pl)
+foreach (cot_getextensions('bbcode.admin.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 $bb_t->parse('MAIN');

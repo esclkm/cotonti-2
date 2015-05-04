@@ -50,7 +50,7 @@
 						<td>{PHP.L.users_hideemail}:</td>
 						<td>{USERS_PROFILE_HIDEEMAIL}</td>
 					</tr>
-<!-- IF {PHP.cot_modules.pm} -->
+<!-- IF {PHP.cot_extensions.pm} -->
 					<tr>
 						<td>{PHP.L.users_pmnotify}:</td>
 						<td>

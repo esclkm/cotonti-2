@@ -11,7 +11,7 @@
 defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
-require_once cot_langfile('pfs', 'module');
+require_once cot_langfile('pfs');
 require_once cot_incfile('pfs', 'resources');
 
 require_once cot_incfile('system', 'forms');
@@ -420,16 +420,16 @@ function cot_pfs_thumbpath($userid)
 
 function cot_pfs_upload($userid, $folderid='')
 {
-	global $db, $cfg, $sys, $cot_extensions, $gd_supported, $maxfile, $maxtotal, $db_pfs, $db_pfs_folders, $L, $err_msg;
+	global $db, $cfg, $sys, $cot_hooks, $gd_supported, $maxfile, $maxtotal, $db_pfs, $db_pfs_folders, $L, $err_msg;
 
 	if($folderid==='') $folderid = cot_import('folderid','P','INT');
 	$ndesc = cot_import('ndesc','P','ARR');
 	$npath = cot_pfs_folderpath($folderid);
 
 	/* === Hook === */
-	foreach (cot_getextensions('pfs.upload.first') as $pl)
+	foreach (cot_getextensions('pfs.upload.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -468,7 +468,7 @@ function cot_pfs_upload($userid, $folderid='')
 
 			if ($f_extension!='php' && $f_extension!='php3' && $f_extension!='php4' && $f_extension!='php5')
 			{
-				foreach ($cot_extensions as $k => $line)
+				foreach ($cot_hooks as $k => $line)
 				{
 					if (mb_strtolower($f_extension) == $line[0])
 					{
@@ -509,9 +509,9 @@ function cot_pfs_upload($userid, $folderid='')
 						if ($is_moved && (int)$u_size > 0)
 						{
 							/* === Hook === */
-							foreach (cot_getextensions('pfs.upload.moved') as $pl)
+							foreach (cot_getextensions('pfs.upload.moved') as $ext)
 							{
-								include $pl;
+								include $ext;
 							}
 							/* ===== */
 							$db->insert($db_pfs, array(
@@ -531,9 +531,9 @@ function cot_pfs_upload($userid, $folderid='')
 							$pfs_totalsize += $u_size;
 
 							/* === Hook === */
-							foreach (cot_getextensions('pfs.upload.done') as $pl)
+							foreach (cot_getextensions('pfs.upload.done') as $ext)
 							{
-								include $pl;
+								include $ext;
 							}
 							/* ===== */
 

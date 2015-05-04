@@ -25,7 +25,7 @@ foreach($userimages as $code => $settings)
 {
 	$userimg_existing = !empty($urr['user_'.$code]) ? cot_rc('userimg_existing', array(
 		'url_file' => $urr['user_'.$code],
-		'url_delete' => cot_url('module', 'r=userimages&a=delete&code='.$code.'&'.cot_xg())
+		'url_delete' => cot_url('index', 'r=userimages&a=delete&code='.$code.'&'.cot_xg())
 	)) : '';
 	$userimg_selectfile = cot_rc('userimg_selectfile', array(
 		'form_input' => cot_inputbox('file', $code, '', array('size' => 24))

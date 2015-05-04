@@ -28,7 +28,7 @@ if (!empty($row['ipage_title']))
 		$tag_u = $cfg['tags']['translit'] ? cot_translit_encode($tag) : $tag;
 		$tl = $lang != 'en' && $tag_u != $tag ? 1 : null;
 		if ($tag_i > 0) $tag_list .= ', ';
-		$tag_list .= cot_rc_link(cot_url('module', array('e' => 'tags', 'a' => 'pages', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)), htmlspecialchars($tag_t), 'rel="nofollow"');
+		$tag_list .= cot_rc_link(cot_url('index', array('e' => 'tags', 'a' => 'pages', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)), htmlspecialchars($tag_t), 'rel="nofollow"');
 		$tag_i++;
 	}
 	$t->assign(array(

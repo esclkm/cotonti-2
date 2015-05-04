@@ -97,7 +97,7 @@ if ($i18n_enabled && $i18n_notmain)
 		if (!empty($page_data['ipage_id']) && ($i18n_admin || $pag_i18n['ipage_translatorid'] == $usr['id']))
 		{
 			// Edit translation
-			$i18n_array['ADMIN_EDIT'] = cot_rc_link(cot_url('module', "e=i18n&m=page&a=edit&id=".$page_data['page_id']."&l=$i18n_locale"), $L['Edit']);
+			$i18n_array['ADMIN_EDIT'] = cot_rc_link(cot_url('index', "e=i18n&m=page&a=edit&id=".$page_data['page_id']."&l=$i18n_locale"), $L['Edit']);
 		}
 	}
 

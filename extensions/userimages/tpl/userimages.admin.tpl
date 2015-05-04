@@ -1,5 +1,5 @@
 <!-- BEGIN: MAIN -->
-
+{ADMIN_USERIMAGES_BREADCRUMBS}
 <h2>{PHP.L.userimages_title}</h2>
 
 <div class="block">
@@ -78,5 +78,10 @@
 </table>
 
 </div>
-
+	<div class="block">
+		<div class="help">
+			<h4>{PHP.L.Help}:</h4>
+			<p>{PHP.L.userimages_help}</p>
+		</div>
+	</div>
 <!-- END: MAIN -->

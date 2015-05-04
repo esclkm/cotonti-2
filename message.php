@@ -23,7 +23,7 @@ require_once $cfg['system_dir'] . '/common.php';
 
 // This trick allows message strings to be overriden in theme langfiles
 $temp_L = $L;
-require_once cot_langfile('message', 'core');
+require_once cot_langfile('message', 'system');
 $L = array_merge($L, $temp_L);
 unset($temp_L);
 
@@ -45,9 +45,9 @@ $title = $L['msg' . $msg . '_title'];
 $body = $L['msg' . $msg . '_body'];
 
 /* === Hook === */
-foreach (cot_getextensions('message.first') as $pl)
+foreach (cot_getextensions('message.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -94,9 +94,9 @@ switch ($msg)
 		if (!empty($m))
 		{
 			// Load extension langfile
-			if (file_exists(cot_langfile($m, 'extension')))
+			if (file_exists(cot_langfile($m)))
 			{
-				include cot_langfile($m, 'extension');
+				include cot_langfile($m);
 			}
 		}
 		$lng = cot_import('lng', 'G', 'ALP');
@@ -189,9 +189,9 @@ elseif ($rd != '')
 }
 
 /* === Hook === */
-foreach (cot_getextensions('message.main') as $pl)
+foreach (cot_getextensions('message.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -199,8 +199,7 @@ $out['head'] .= $R['code_noindex'];
 $out['subtitle'] = $title;
 require_once $cfg['system_dir'] . '/header.php';
 
-$tpl_type = defined('COT_ADMIN') ? 'core' : 'module';
-$t = new XTemplate(cot_tplfile('message', $tpl_type));
+$t = new XTemplate(cot_tplfile('message', 'system'));
 
 if (COT_AJAX)
 {
@@ -230,9 +229,9 @@ if ($msg == '920')
 }
 
 /* === Hook === */
-foreach (cot_getextensions('message.tags') as $pl)
+foreach (cot_getextensions('message.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

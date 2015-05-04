@@ -1,4 +1,5 @@
 <!-- BEGIN: MAIN -->
+{ADMIN_TRASHCAN_BREADCRUMBS}
 		<h2>{PHP.L.Trashcan}</h2>
 		{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 			<div class="block button-toolbar">
@@ -27,4 +28,10 @@
 <!-- END: TRASHCAN_ROW -->
 		</table>
 		<p class="paging">{ADMIN_TRASHCAN_PAGINATION_PREV}{ADMIN_TRASHCAN_PAGNAV}{ADMIN_TRASHCAN_PAGINATION_NEXT} <span>{PHP.L.Total}: {ADMIN_TRASHCAN_TOTALITEMS}, {PHP.L.Onpage}: {ADMIN_TRASHCAN_COUNTER_ROW}</span></p>
+	<div class="block">
+		<div class="help">
+			<h4>{PHP.L.Help}:</h4>
+			<p>{PHP.L.adm_help_trashcan}</p>
+		</div>
+	</div>
 <!-- END: MAIN -->

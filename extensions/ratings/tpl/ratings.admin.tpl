@@ -1,4 +1,5 @@
 <!-- BEGIN: MAIN -->
+{ADMIN_RATINGS_BREADCRUMBS}
 		<h2>{PHP.L.Ratings}</h2>
 		{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 			<div class="block button-toolbar">
@@ -28,4 +29,10 @@
 <!-- END: RATINGS_ROW -->
 			</table>
 			<p class="paging">{ADMIN_RATINGS_PAGINATION_PREV}{ADMIN_RATINGS_PAGNAV}{ADMIN_RATINGS_PAGINATION_NEXT}<span>{PHP.L.adm_ratings_totalitems}: {ADMIN_RATINGS_TOTALITEMS}, {PHP.L.Onpage}: {ADMIN_RATINGS_ON_PAGE}</span><span>{PHP.L.adm_ratings_totalvotes}: {ADMIN_RATINGS_TOTALVOTES}</span></p>
+	<div class="block">
+		<div class="help">
+			<h4>{PHP.L.Help}:</h4>
+			<p>{PHP.L.adm_help_ratings}</p>
+		</div>
+	</div>			
 <!-- END: MAIN -->

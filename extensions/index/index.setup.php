@@ -18,7 +18,7 @@ Recommends=page,news,recentitems
 ==================== */
 
 /**
- * Index module setup file
+ * Index extension setup file
  *
  * @package index
  * @version 0.9.1

@@ -23,12 +23,12 @@ cot_block($usr['isadmin']);
 require_once cot_incfile('polls');
 require_once cot_incfile('polls', 'resources');
 
-$t = new XTemplate(cot_tplfile('polls.admin', 'module', true));
+$t = new XTemplate(cot_tplfile('polls.admin'));
 
 $adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
-$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$m), $cot_modules[$m]['title']);
+$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
 $adminpath[] = array(cot_url('admin', 'm='.$m), $L['Administration']);
-$adminhelp = $L['adm_help_polls'];
+
 $adminsubtitle = $L['Polls'];
 
 list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['maxrowsperpage']);
@@ -42,9 +42,9 @@ $variants['forum'] = array($L['Forums'], "forum");
 $id = cot_import('id', 'G', 'INT');
 
 /* === Hook === */
-foreach (cot_getextensions('polls.admin.first') as $pl)
+foreach (cot_getextensions('polls.admin.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -142,9 +142,9 @@ foreach ($sql_polls->fetchAll() as $row)
 	));
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -203,7 +203,7 @@ foreach($variants as $val)
 cot_poll_edit_form($poll_id, $t, 'MAIN');
 
 $t->assign(array(
-	'ADMIN_POLLS_CONF_URL' => cot_url('admin', 'm=config&n=edit&o=module&p=polls'),
+	'ADMIN_POLLS_CONF_URL' => cot_url('admin', 'm=config&n=edit&o=extension&p=polls'),
 	'ADMIN_POLLS_ADMINWARNINGS' => $adminwarnings,
 	'ADMIN_POLLS_PAGINATION_PREV' => $pagenav['prev'],
 	'ADMIN_POLLS_PAGNAV' => $pagenav['main'],
@@ -213,15 +213,16 @@ $t->assign(array(
 	'ADMIN_POLLS_FORMNAME' => $formname,
 	'ADMIN_POLLS_FORM_URL' => ((int)$poll_id > 0) ? cot_url('admin', 'm=polls'.$poll_filter.'&d='.$durl) : cot_url('admin', 'm=polls'),
 	'ADMIN_POLLS_EDIT_FORM' => $poll_text,
-	'ADMIN_POLLS_SEND_BUTTON' => $send_button
+	'ADMIN_POLLS_SEND_BUTTON' => $send_button,
+	'ADMIN_POLLS_BREADCRUMBS' =>  cot_breadcrumbs($adminpath, false),	
 ));
 
 cot_display_messages($t);
 
 /* === Hook  === */
-foreach (cot_getextensions('polls.admin.tags') as $pl)
+foreach (cot_getextensions('polls.admin.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

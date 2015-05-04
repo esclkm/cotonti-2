@@ -18,19 +18,19 @@ Hooks=admin
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('referers', 'any');
 cot_block($usr['auth_read']);
 
-$tt = new XTemplate(cot_tplfile('referers.admin', 'module', true));
+$tt = new XTemplate(cot_tplfile('referers.admin'));
 
 cot::$db->registerTable('referers');
-require_once cot_langfile('referers', 'module');
-$adminhelp = $L['adm_help_referers'];
+require_once cot_langfile('referers');
+
 $adminsubtitle = $L['Referers'];
 
 list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['maxrowsperpage']);
 
 /* === Hook  === */
-foreach (cot_getextensions('referers.admin.first') as $pl)
+foreach (cot_getextensions('referers.admin.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -75,9 +75,9 @@ if($sql->rowCount() > 0)
 				'ADMIN_REFERERS_ODDEVEN' => cot_build_oddeven($ii)
 			));
 			/* === Hook - Part2 : Include === */
-			foreach ($extp as $pl)
+			foreach ($extp as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 			$tt->parse('MAIN.REFERERS_ROW.REFERERS_URI');
@@ -99,15 +99,16 @@ $tt->assign(array(
 	'ADMIN_REFERERS_PAGNAV' => $pagenav['main'],
 	'ADMIN_REFERERS_PAGINATION_NEXT' => $pagenav['next'],
 	'ADMIN_REFERERS_TOTALITEMS' => $totalitems,
-	'ADMIN_REFERERS_ON_PAGE' => $ii
+	'ADMIN_REFERERS_ON_PAGE' => $ii,
+	'ADMIN_REFERERS_BREADCRUMBS' =>  cot_breadcrumbs($adminpath, false),	
 ));
 
 cot_display_messages($tt);
 
 /* === Hook  === */
-foreach (cot_getextensions('referers.admin.tags') as $pl)
+foreach (cot_getextensions('referers.admin.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

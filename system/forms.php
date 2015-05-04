@@ -215,7 +215,7 @@ function cot_selectbox_countries($chosen, $name, $add_empty = true, $attrs = '',
 	global $cot_countries;
 
 	if (!$cot_countries)
-		include_once cot_langfile('countries', 'core');
+		include_once cot_langfile('countries', 'system');
 
 	$codes = array_keys($cot_countries);
 	$names = array_values($cot_countries);
@@ -339,7 +339,7 @@ function cot_selectbox_lang($chosen, $name, $add_empty = false, $attrs = '', $cu
 	sort($langlist);
 
 	if (!$cot_countries)
-		include_once cot_langfile('countries', 'core');
+		include_once cot_langfile('countries', 'system');
 
 	$vals = array();
 	$titles = array();

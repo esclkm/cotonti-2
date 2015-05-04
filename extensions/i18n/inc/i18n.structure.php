@@ -18,9 +18,9 @@ list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['maxrowsperpage']);
 $out['subtitle'] = $L['i18n_structure'];
 
 /* === Hook === */
-foreach (cot_getextensions('i18n.structure.first') as $pl)
+foreach (cot_getextensions('i18n.structure.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* =============*/
 
@@ -31,14 +31,14 @@ $cache && $cache->db->store('structure', $i18n_structure, 'i18n');
 if (empty($i18n_locale) || $i18n_locale == $cfg['defaultlang'])
 {
 	// Locale selection
-	$t = new XTemplate(cot_tplfile('i18n.locales', 'module'));
+	$t = new XTemplate(cot_tplfile('i18n.locales'));
 
 	foreach ($i18n_locales as $lc => $title)
 	{
 		if ($lc != $cfg['defaultlang'])
 		{
 			$t->assign(array(
-				'I18N_LOCALE_ROW_URL' => cot_url('module', "e=i18n&m=structure&l=$lc", false, true),
+				'I18N_LOCALE_ROW_URL' => cot_url('index', "e=i18n&m=structure&l=$lc", false, true),
 				'I18N_LOCALE_ROW_TITLE' => $title
 			));
 			$t->parse('MAIN.I18N_LOCALE_ROW');
@@ -104,9 +104,9 @@ else
 		// Done
 
 		/* === Hook === */
-		foreach (cot_getextensions('i18n.structure.update.done') as $pl)
+		foreach (cot_getextensions('i18n.structure.update.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* =============*/
 
@@ -122,10 +122,10 @@ else
 		{
 			cot_message(cot_rc('i18n_items_removed', array('cnt' => $removed_cnt)));
 		}
-		cot_redirect(cot_url('module', "e=i18n&m=structure&l=$i18n_locale&d=$durl", '', true));
+		cot_redirect(cot_url('index', "e=i18n&m=structure&l=$i18n_locale&d=$durl", '', true));
 	}
 
-	$t = new XTemplate(cot_tplfile('i18n.structure', 'module'));
+	$t = new XTemplate(cot_tplfile('i18n.structure'));
 
 	// Render table
 	$ii = 0;
@@ -158,9 +158,9 @@ else
 			));
 
 			/* === Hook - Part2 : Include === */
-			foreach ($extp as $pl)
+			foreach ($extp as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 			$t->parse('MAIN.I18N_CATEGORY_ROW');
@@ -169,11 +169,11 @@ else
 	}
 	$totalitems = $k + 1;
 
-	$pagenav = cot_pagenav('module', 'e=i18n&m=structure&l='.$i18n_locale, $d, $totalitems,
+	$pagenav = cot_pagenav('index', 'e=i18n&m=structure&l='.$i18n_locale, $d, $totalitems,
 		$cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
 
 	$t->assign(array(
-		'I18N_ACTION' => cot_url('module', 'e=i18n&m=structure&l='.$i18n_locale.'&a=update&d='.$durl),
+		'I18N_ACTION' => cot_url('index', 'e=i18n&m=structure&l='.$i18n_locale.'&a=update&d='.$durl),
 		'I18N_ORIGINAL_LANG' => $i18n_locales[$cfg['defaultlang']],
 		'I18N_TARGET_LANG' => $i18n_locales[$i18n_locale],
 		'I18N_PAGINATION_PREV' => $pagenav['prev'],
@@ -184,9 +184,9 @@ else
 	cot_display_messages($t);
 
 	/* === Hook === */
-	foreach (cot_getextensions('i18n.structure.tags') as $pl)
+	foreach (cot_getextensions('i18n.structure.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* =============*/
 }

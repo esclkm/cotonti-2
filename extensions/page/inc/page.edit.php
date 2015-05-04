@@ -19,9 +19,9 @@ $c = cot_import('c', 'G', 'TXT');
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('page', 'any');
 
 /* === Hook === */
-foreach (cot_getextensions('page.edit.first') as $pl)
+foreach (cot_getextensions('page.edit.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -46,9 +46,9 @@ $sys['parser'] = $row_page['page_parser'];
 if ($a == 'update')
 {
 	/* === Hook === */
-	foreach (cot_getextensions('page.edit.update.first') as $pl)
+	foreach (cot_getextensions('page.edit.update.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -73,18 +73,18 @@ if ($a == 'update')
 	}
 
 	/* === Hook === */
-	foreach (cot_getextensions('page.edit.update.import') as $pl)
+	foreach (cot_getextensions('page.edit.update.import') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
 	cot_page_validate($rpage);
 
 	/* === Hook === */
-	foreach (cot_getextensions('page.edit.update.error') as $pl)
+	foreach (cot_getextensions('page.edit.update.error') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -129,9 +129,9 @@ $sys['sublocation'] = $structure['page'][$pag['page_cat']]['title'];
 $mskin = cot_tplfile(array('page', 'edit', $structure['page'][$pag['page_cat']]['tpl']));
 
 /* === Hook === */
-foreach (cot_getextensions('page.edit.main') as $pl)
+foreach (cot_getextensions('page.edit.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -198,9 +198,9 @@ foreach($cot_extrafields[$db_pages] as $exfld)
 cot_display_messages($t);
 
 /* === Hook === */
-foreach (cot_getextensions('page.edit.tags') as $pl)
+foreach (cot_getextensions('page.edit.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

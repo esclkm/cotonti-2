@@ -64,9 +64,9 @@ if ($inr == 'send' && $newrate > 0 && $newrate <= 10 && $auth_write && $enabled)
 		array($usr['id'], $area, $code))->fetchColumn();
 
 	/* == Hook for the extensions == */
-	foreach (cot_getextensions('ratings.send.first') as $pl)
+	foreach (cot_getextensions('ratings.send.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -123,9 +123,9 @@ if ($inr == 'send' && $newrate > 0 && $newrate <= 10 && $auth_write && $enabled)
 	}
 
 	/* == Hook for the extensions == */
-	foreach (cot_getextensions('ratings.send.done') as $pl)
+	foreach (cot_getextensions('ratings.send.done') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 

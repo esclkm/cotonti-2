@@ -10,7 +10,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_langfile('whosonline', 'module');
+require_once cot_langfile('whosonline');
 
 cot::$db->registerTable('online');
 

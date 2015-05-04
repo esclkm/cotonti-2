@@ -1,7 +1,7 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
@@ -23,8 +23,8 @@ $sys['sublocation'] = $L['WhosOnline'];
 require_once $cfg['extensions_dir'].'/whosonline/whosonline.header.main.php';
 require_once cot_incfile('users', 'functions');
 
-$pl_cfg = $cfg['whosonline'];
-$maxuserssperpage = is_numeric($pl_cfg['maxusersperpage']) ? $pl_cfg['maxusersperpage'] : 0;
+$ext_cfg = $cfg['whosonline'];
+$maxuserssperpage = is_numeric($ext_cfg['maxusersperpage']) ? $ext_cfg['maxusersperpage'] : 0;
 list($pg, $d, $durl) = cot_import_pagenav('d', $maxuserssperpage);
 $maxusers = 0;
 if(isset($cfg['hits']))
@@ -46,7 +46,7 @@ $ipsearch = cot_extension_active('ipsearch');
 $out['subtitle'] = $L['WhosOnline'];
 
 $join_condition = "LEFT JOIN $db_users AS u ON u.user_id=o.online_userid";
-if($pl_cfg['disable_guests'])
+if($ext_cfg['disable_guests'])
 {
 	$where = "WHERE o.online_userid > 0";
 }
@@ -117,9 +117,9 @@ foreach ($sql_users->fetchAll() as $row)
 		));
 		$t->assign(cot_generate_usertags($row, 'USER_'));
 		/* === Hook - Part2 : Include === */
-		foreach ($users_loop_hook as $pl)
+		foreach ($users_loop_hook as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 		$t->parse('MAIN.USERS');
@@ -137,9 +137,9 @@ foreach ($sql_users->fetchAll() as $row)
 				'GUEST_LASTSEEN' => cot_build_timegap($row['online_lastseen'], $sys['now'])
 		));
 		/* === Hook - Part2 : Include === */
-		foreach ($guests_loop_hook as $pl)
+		foreach ($guests_loop_hook as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 		$t->parse('MAIN.GUESTS');

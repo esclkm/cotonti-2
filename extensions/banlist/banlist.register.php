@@ -15,7 +15,7 @@ Hooks=users.register.add.first
  */
 
 defined('COT_CODE') or die('Wrong URL');
-require_once cot_langfile('banlist', 'module');
+require_once cot_langfile('banlist');
 
 cot::$db->registerTable('banlist');
 

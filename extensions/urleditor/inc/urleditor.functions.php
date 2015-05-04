@@ -11,7 +11,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_langfile('urleditor', 'module');
+require_once cot_langfile('urleditor');
 
 /**
  * Contains the list of URLeditor presets currently available.
@@ -40,9 +40,9 @@ function cot_apply_rwr()
 		$rwr_continue = true;
 
 		/* === Hook === */
-		foreach (cot_getextensions('urleditor.rewrite.first') as $pl)
+		foreach (cot_getextensions('urleditor.rewrite.first') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -149,7 +149,7 @@ function cot_apply_rwr()
 				}
 				else
 				{
-					// Can be a cat or al, let the module decide
+					// Can be a cat or al, let the extension decide
 					if ($count == 2 && !isset($structure[$ext][$_GET['c']]))
 						$_GET['c'] = $path[$last];
 					$_GET['al'] = $path[$last];
@@ -187,7 +187,7 @@ function cot_url_custom($name, $params = '', $tail = '', $htmlspecialchars_bypas
 	}
 
 	// Initialize with something very default
-	$url = ($name == 'module') ? 'index.php' : 'index.php?e=' . $name;
+	$url = 'index.php?e=' . $name;
 	// Detect search areas
 	$areas = array();
 	if (isset($cot_urltrans[$name]) && count($cot_urltrans[$name]) > 0)
@@ -294,14 +294,7 @@ function cot_url_custom($name, $params = '', $tail = '', $htmlspecialchars_bypas
 	if (!empty($params))
 	{
 		$sep = $htmlspecialchars_bypass ? '&' : '&amp;';
-		if (version_compare(PHP_VERSION, '5.4.0', '>='))
-		{
-			$url .= (mb_strpos($url, '?') === false ? '?' : $sep) . http_build_query($params, '', $sep, PHP_QUERY_RFC3986);
-		}
-		else
-		{
-			$url .= (mb_strpos($url, '?') === false ? '?' : $sep) . str_replace('+', '%20', http_build_query($params, '', $sep));
-		}
+		$url .= (mb_strpos($url, '?') === false ? '?' : $sep) . http_build_query($params, '', $sep, PHP_QUERY_RFC3986);
 	}
 	// Almost done
 	$url .= $tail;

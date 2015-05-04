@@ -1,6 +1,6 @@
 <?php
 /**
- * Parameters for ratings config implantation into modules
+ * Parameters for ratings config implantation into extensions
  *
  * @package ratings
  * @version 0.7.0
@@ -19,7 +19,7 @@ $rat_options = array(
 );
 
 // Modules list to implant into their root config
-$rat_modules_list = array();
+$rat_extensions_list = array();
 
 // Module list to implant into their structure config
-$rat_modules_struct_list = array('page');
+$rat_extensions_struct_list = array('page');

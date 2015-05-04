@@ -7,7 +7,7 @@
   ==================== */
 
 /**
- * Users module
+ * Users extension
  *
  * @package users
  * @version 0.9.4
@@ -20,7 +20,6 @@ defined('COT_CODE') or die('Wrong URL');
 $extra_whitelist[$db_users] = array(
 	'name' => $db_users,
 	'caption' => $L['Module'].' Users',
-	'type' => 'module',
 	'code' => 'users',
 	'tags' => array(
 		'users.profile.tpl' => '{USERS_PROFILE_XXXXX}, {USERS_PROFILE_XXXXX_TITLE}',

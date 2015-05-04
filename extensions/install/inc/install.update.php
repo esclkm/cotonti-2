@@ -146,14 +146,14 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 				'msg' => $L['Error']));
 	}
 
-	// Unregister modules which have no registration anymore
+	// Unregister extensions which have no registration anymore
 	$db->delete($db_core, "ct_code IN ('comments', 'ratings', 'trash')");
 
 	// Set Module versions to Genoa version before upgrade
 	$db->update($db_core, array('ct_version' => '0.8.99'), '1');
 
 
-	$res = $db->query("SELECT DISTINCT(ext_code) FROM $db_extensions
+	$res = $db->query("SELECT DISTINCT(ext_code) FROM $db_extension_hooks
 		WHERE 1");
 	while ($row = $res->fetch(PDO::FETCH_NUM))
 	{
@@ -171,7 +171,7 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 			$qcode = $db->quote($code);
 			$db->delete($db_auth, "auth_option = $qcode");
 			$db->delete($db_config, "config_cat = $qcode");
-			$db->delete($db_extensions, "ext_code = $qcode");
+			$db->delete($db_extension_hooks, "ext_code = $qcode");
 		}
 	}
 	$res->closeCursor();
@@ -256,9 +256,9 @@ elseif (!cot_error_found())
 
 	// Update installed extensions
 	$updated_ext = false;
-	if(count($cot_modules)>0)
+	if(count($cot_extensions)>0)
 	{
-		foreach ($cot_modules as $code => $mod)
+		foreach ($cot_extensions as $code => $mod)
 		{
 			$ret = cot_extension_install($code, true);
 			if ($ret === true)

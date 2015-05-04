@@ -51,9 +51,9 @@ if($_FILES)
 				@chmod($filepath, $cfg['file_perms']);
 
 				/* === Hook === */
-				foreach (cot_getextensions('profile.update.'.$code) as $pl)
+				foreach (cot_getextensions('profile.update.'.$code) as $ext)
 				{
-					include $pl;
+					include $ext;
 				}
 				/* ===== */
 

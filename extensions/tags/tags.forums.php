@@ -41,7 +41,7 @@ if ($cfg['tags']['forums'])
 			}
 		}
 		$tc_html .= cot_rc('tags_link_cloud_tag', array(
-			'url' => cot_url('module', array('e' => 'tags', 'a' => 'forums', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)),
+			'url' => cot_url('index', array('e' => 'tags', 'a' => 'forums', 't' => str_replace(' ', '-', $tag_u), 'tl' => $tl)),
 			'tag_title' => htmlspecialchars($tag_t),
 			'dim' => $dim
 		));
@@ -52,6 +52,6 @@ if ($cfg['tags']['forums'])
 	if ($cfg['tags']['more'] && $limit > 0 && $tag_count == $limit)
 	{
 		$t->assign('FORUMS_SECTIONS_TAG_CLOUD_ALL_LINK',
-			cot_rc('tags_code_cloud_more', array('url' => cot_url('module', 'e=tags&a=forums'))));
+			cot_rc('tags_code_cloud_more', array('url' => cot_url('index', 'e=tags&a=forums'))));
 	}
 }

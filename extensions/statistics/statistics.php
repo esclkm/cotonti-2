@@ -2,7 +2,7 @@
 
 /* ====================
   [BEGIN_COT_EXT]
-  Hooks=module
+  Hooks=standalone
   [END_COT_EXT]
   ==================== */
 
@@ -153,8 +153,8 @@ if (cot_extension_active('ratings'))
 }
 
 $t->assign(array(
-	'STATISTICS_PLU_URL' => cot_url('module', 'e=statistics'),
-	'STATISTICS_SORT_BY_USERCOUNT' => cot_url('module', 'e=statistics&s=usercount'),
+	'STATISTICS_PLU_URL' => cot_url('index', 'e=statistics'),
+	'STATISTICS_SORT_BY_USERCOUNT' => cot_url('index', 'e=statistics&s=usercount'),
 	'STATISTICS_MAX_DATE' => $max_date,
 	'STATISTICS_MAX_HITS' => $max_hits,
 	'STATISTICS_SINCE' => $since,
@@ -168,9 +168,9 @@ $t->assign(array(
 if ($usr['id'] > 0)
 {
 	/* === Hook === */
-	foreach (cot_getextensions('statistics.user') as $pl)
+	foreach (cot_getextensions('statistics.user') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -181,9 +181,9 @@ else
 	$t->parse('MAIN.IS_NOT_USER');
 }
 /* === Hook === */
-foreach (cot_getextensions('statistics.tags') as $pl)
+foreach (cot_getextensions('statistics.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 $t->parse('MAIN');

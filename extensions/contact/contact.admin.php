@@ -59,7 +59,7 @@ elseif ($a == 'send' && $rtext != '')
 
 $adminsubtitle = $L['contact_title'];
 
-$tuman = new XTemplate(cot_tplfile('contact.admin', 'module', true));
+$tuman = new XTemplate(cot_tplfile('contact.admin'));
 $totallines = $db->query("SELECT COUNT(*) FROM $db_contact")->fetchColumn();
 $sql = $db->query("SELECT * FROM $db_contact ORDER BY contact_val ASC, contact_id DESC LIMIT $d, " . $cfg['maxrowsperpage']);
 

@@ -27,9 +27,9 @@ if (empty($id))
 }
 
 /* === Hook === */
-foreach (cot_getextensions('pm.first') as $pl)
+foreach (cot_getextensions('pm.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -82,9 +82,9 @@ $out['subtitle'] = cot_title('{BOX} ({COUNT}) - {PM}', $title_params);
 $out['head'] .= $R['code_noindex'];
 
 /* === Hook === */
-foreach (cot_getextensions('pm.main') as $pl)
+foreach (cot_getextensions('pm.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -155,9 +155,9 @@ if ($history)
 		$t->assign($pm_user);
 
 		/* === Hook - Part2 : Include === */
-		foreach ($extp as $pl)
+		foreach ($extp as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -205,9 +205,9 @@ if ($usr['auth_write'])
 		// Attach rich text editors to AJAX loaded page
 		$rc_tmp = $out['footer_rc'];
 		$out['footer_rc'] = '';
-		if (is_array($cot_extensions['editor']))
+		if (is_array($cot_hooks['editor']))
 		{
-			foreach ($cot_extensions['editor'] as $k)
+			foreach ($cot_hooks['editor'] as $k)
 			{
 				if ($k['ext_code'] == $editor && cot_auth($k['ext_code'], 'any', 'R'))
 				{
@@ -227,9 +227,9 @@ if ($usr['auth_write'])
 	));
 
 	/* === Hook === */
-	foreach (cot_getextensions('pm.reply.tags') as $pl)
+	foreach (cot_getextensions('pm.reply.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -267,9 +267,9 @@ $t->assign(array(
 $t->assign(cot_generate_usertags($row_user, 'PM_USER_'));
 
 /* === Hook === */
-foreach (cot_getextensions('pm.tags') as $pl)
+foreach (cot_getextensions('pm.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

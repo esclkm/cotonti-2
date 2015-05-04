@@ -98,12 +98,12 @@ function cot_ratings_display($ext_name, $code, $cat = '', $readonly = false)
 		return array($rating_fancy, $rating_cntround, $rating_raters_count);
 	}
 
-	$t = new XTemplate(cot_tplfile('ratings', 'module'));
+	$t = new XTemplate(cot_tplfile('ratings'));
 
 	/* == Hook for the extensions == */
-	foreach (cot_getextensions('ratings.main') as $pl)
+	foreach (cot_getextensions('ratings.main') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -139,9 +139,9 @@ function cot_ratings_display($ext_name, $code, $cat = '', $readonly = false)
 	));
 
 	/* == Hook for the extensions == */
-	foreach (cot_getextensions('ratings.tags') as $pl)
+	foreach (cot_getextensions('ratings.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -161,7 +161,7 @@ function cot_ratings_display($ext_name, $code, $cat = '', $readonly = false)
 	if ($vote_block == 'NOTVOTED.')
 	{
 		// 'r=ratings&area=' . $ext_name . '&code=' . $code.'&inr=send'
-		$t->assign('RATINGS_FORM_SEND', cot_url('module', array(
+		$t->assign('RATINGS_FORM_SEND', cot_url('index', array(
 			'r' => 'ratings',
 			'inr' => 'send',
 			'area' => $ext_name,
@@ -192,12 +192,12 @@ function cot_ratings_display($ext_name, $code, $cat = '', $readonly = false)
  */
 function cot_ratings_enabled($ext_name, $cat = '', $item = '')
 {
-	global $cfg, $cot_modules;
+	global $cfg, $cot_extensions;
 	if (isset($cfg[$ext_name][$cat]['enable_ratings'])
 		|| isset($cfg[$ext_name]['enable_ratings'])
 		|| isset($cfg[$ext_name]['enable_ratings']))
 	{
-		if (isset($cot_modules[$ext_name]))
+		if (isset($cot_extensions[$ext_name]))
 		{
 			return (bool) (isset($cfg[$ext_name][$cat]['enable_ratings']) ? $cfg[$ext_name][$cat]['enable_ratings']
 				: $cfg[$ext_name]['enable_ratings']);

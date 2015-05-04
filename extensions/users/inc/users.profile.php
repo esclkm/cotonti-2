@@ -20,9 +20,9 @@ list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('users',
 cot_block($usr['auth_write']);
 
 /* === Hook === */
-foreach (cot_getextensions('users.profile.first') as $pl)
+foreach (cot_getextensions('users.profile.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -38,9 +38,9 @@ if($a == 'update')
 	cot_check_xg();
 
 	/* === Hook === */
-	foreach (cot_getextensions('users.profile.update.first') as $pl)
+	foreach (cot_getextensions('users.profile.update.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -152,9 +152,9 @@ if($a == 'update')
 		cot_extrafield_movefiles();
 
 		/* === Hook === */
-		foreach (cot_getextensions('users.profile.update.done') as $pl)
+		foreach (cot_getextensions('users.profile.update.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 		cot_redirect(cot_url('users', 'm=profile', '', true));
@@ -167,12 +167,12 @@ $urr = $sql->fetch();
 $out['subtitle'] = $L['Profile'];
 $out['head'] .= $R['code_noindex'];
 
-$mskin = cot_tplfile(array('users', 'profile'), 'module');
+$mskin = cot_tplfile(array('users', 'profile'));
 
 /* === Hook === */
-foreach (cot_getextensions('users.profile.main') as $pl)
+foreach (cot_getextensions('users.profile.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -230,9 +230,9 @@ foreach($cot_extrafields[$db_users] as $exfld)
 }
 
 /* === Hook === */
-foreach (cot_getextensions('users.profile.tags') as $pl)
+foreach (cot_getextensions('users.profile.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

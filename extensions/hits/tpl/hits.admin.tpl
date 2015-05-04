@@ -1,5 +1,5 @@
 <!-- BEGIN: MAIN -->
-
+	{ADMIN_HITS_BREADCRUMBS}
 	<h2>{PHP.L.Hits}</h2>
 	<p>{ADMIN_HITS_MAXHITS}</p>
 	<div class="block">

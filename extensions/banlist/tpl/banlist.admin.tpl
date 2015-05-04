@@ -1,4 +1,5 @@
 <!-- BEGIN: MAIN -->
+	{ADMIN_BANLIST_BREADCRUMBS}
 		<h2>{PHP.L.banlist_title}</h2>
 		{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
 			<h3>{PHP.L.editdeleteentries}:</h3>
@@ -52,4 +53,11 @@
 					</tr>
 				</table>
 			</form>
+						
+	<div class="block">
+		<div class="help">
+			<h4>{PHP.L.Help}:</h4>
+			<p>{PHP.L.banlist_help}</p>
+		</div>
+	</div>
 <!-- END: MAIN -->

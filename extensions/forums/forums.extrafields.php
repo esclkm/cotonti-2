@@ -22,7 +22,6 @@ require_once cot_incfile('forums', 'functions');
 $extra_whitelist[$db_forum_posts] = array(
 	'name' => $db_forum_posts,
 	'caption' => $L['Module'].' Forums',
-	'type' => 'module',
 	'code' => 'forums',
 	'tags' => array(
 		'forums.posts.tpl' => '{FORUMS_POSTS_ROW_XXXXX}, {FORUMS_POSTS_ROW_XXXXX_TITLE}, {FORUMS_POSTS_NEWPOST_XXXXX}, {FORUMS_POSTS_NEWPOST_XXXXX_TITLE}',
@@ -34,7 +33,6 @@ $extra_whitelist[$db_forum_posts] = array(
 $extra_whitelist[$db_forum_topics] = array(
 	'name' => $db_forum_topics,
 	'caption' => $L['Module'].' Forums',
-	'type' => 'module',
 	'code' => 'forums',
 	'tags' => array(
 		'forums.posts.tpl' => '{FORUMS_POSTS_TOPIC_XXXXX}, {FORUMS_POSTS_TOPIC_XXXXX_TITLE}',

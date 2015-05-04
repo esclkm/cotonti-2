@@ -12,13 +12,13 @@
 defined('COT_CODE') or die("Wrong URL.");
 
 require_once cot_incfile('system', 'forms');
-require_once cot_langfile('recentitems', 'module');
+require_once cot_langfile('recentitems');
 
 function cot_build_recentforums($template, $mode = 'recent', $maxperpage = 5, $d = 0, $titlelength = 0, $rightprescan = true)
 {
 	global $db, $L, $cfg, $db_forum_topics, $theme, $usr, $sys, $R, $structure;
 	global $totalrecent;
-	$recentitems = new XTemplate(cot_tplfile($template, 'module'));
+	$recentitems = new XTemplate(cot_tplfile($template));
 
 	if ($rightprescan)
 	{
@@ -26,9 +26,9 @@ function cot_build_recentforums($template, $mode = 'recent', $maxperpage = 5, $d
 		$incat = "AND ft_cat IN ('" . implode("','", $catsub) . "')";
 	}
 	/* === Hook === */
-	foreach (cot_getextensions('recentitems.recentforums.first') as $pl)
+	foreach (cot_getextensions('recentitems.recentforums.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	if ($mode == 'recent')
@@ -171,7 +171,7 @@ function cot_build_recentforums($template, $mode = 'recent', $maxperpage = 5, $d
 function cot_build_recentpages($template, $mode = 'recent', $maxperpage = 5, $d = 0, $titlelength = 0, $textlength = 0, $rightprescan = true, $cat = '')
 {
 	global $db, $structure, $db_pages, $db_users, $sys, $cfg, $L, $cot_extrafields, $usr;
-	$recentitems = new XTemplate(cot_tplfile($template, 'module'));
+	$recentitems = new XTemplate(cot_tplfile($template));
 
 	// Load all cats and subcats in white list if set
 	if (!empty($cfg['recentitems']['whitelist']))
@@ -243,9 +243,9 @@ function cot_build_recentpages($template, $mode = 'recent', $maxperpage = 5, $d 
 	$join_tables = '';
 
 	/* === Hook === */
-	foreach (cot_getextensions('recentitems.recentpages.first') as $pl)
+	foreach (cot_getextensions('recentitems.recentpages.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -277,9 +277,9 @@ function cot_build_recentpages($template, $mode = 'recent', $maxperpage = 5, $d 
 		$recentitems->assign(cot_generate_usertags($pag, 'PAGE_ROW_OWNER_'));
 
 		/* === Hook - Part2 === */
-		foreach ($extp as $pl)
+		foreach ($extp as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 

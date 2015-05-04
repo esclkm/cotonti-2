@@ -18,11 +18,11 @@ if (!defined('COT_UPGRADE'))
 	if (!$bbcode_installed)
 	{
 		// Set as default parser
-		$db->update($db_config, array('config_value' => 'html'), "config_owner='core' AND config_cat = 'main' AND config_name = 'parser'");
+		$db->update($db_config, array('config_value' => 'html'), "config_owner='system' AND config_cat = 'main' AND config_name = 'parser'");
 	}
 	if ($db->query("SELECT COUNT(*) FROM $db_core WHERE ct_code = 'page'")->fetchColumn() == 1)
 	{
 		// Set as default parser for pages
-		$db->update($db_config, array('config_value' => 'html'), "config_owner='module' AND config_cat = 'page' AND config_name = 'parser'");
+		$db->update($db_config, array('config_value' => 'html'), "config_owner='extension' AND config_cat = 'page' AND config_name = 'parser'");
 	}
 }

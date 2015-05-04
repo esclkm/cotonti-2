@@ -2,7 +2,7 @@
 
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
@@ -98,9 +98,9 @@ switch ($rs['setlimit'])
 }
 
 /* === Hook === */
-foreach (cot_getextensions('search.first') as $pl)
+foreach (cot_getextensions('search.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -123,9 +123,9 @@ if (($tab == 'pag' || empty($tab)) && cot_extension_active('page') && $cfg['sear
 	}
 
 	/* === Hook === */
-	foreach (cot_getextensions('search.page.catlist') as $pl)
+	foreach (cot_getextensions('search.page.catlist') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -269,9 +269,9 @@ if (!empty($sq))
 		$where = implode(' AND ', $where_and);
 
 		/* === Hook === */
-		foreach (cot_getextensions('search.page.query') as $pl)
+		foreach (cot_getextensions('search.page.query') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -309,9 +309,9 @@ if (!empty($sq))
 				'EXT_PR_NUM' => $jj
 			));
 			/* === Hook - Part 2 === */
-			foreach ($extp as $pl)
+			foreach ($extp as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			/* ===== */
 			$t->parse('MAIN.RESULTS.PAGES.ITEM');
@@ -407,9 +407,9 @@ if (!empty($sq))
 	}
 
 	/* === Hook === */
-	foreach (cot_getextensions('search.list') as $pl)
+	foreach (cot_getextensions('search.list') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -437,21 +437,21 @@ if (!empty($sq))
 			$rs_url_path['rs[' . $k . ']'] = $v;
 		}
 	}
-	$pagenav = cot_pagenav('module', array('e' => 'search', 'sq' => $sq, 'tab' => $tab)+$rs_url_path, $d, array_sum($totalitems), $cfg_maxitems);
+	$pagenav = cot_pagenav('index', array('e' => 'search', 'sq' => $sq, 'tab' => $tab)+$rs_url_path, $d, array_sum($totalitems), $cfg_maxitems);
 }
 
 // Search title
-$crumbs = array(array(cot_url('module', 'e=search'), $L['plu_search']));
+$crumbs = array(array(cot_url('index', 'e=search'), $L['plu_search']));
 if (!empty($tab))
 {
-	$crumbs[] = array(cot_url('module', 'e=search&tab='.$tab), $L['plu_tabs_'.$tab]);
+	$crumbs[] = array(cot_url('index', 'e=search&tab='.$tab), $L['plu_tabs_'.$tab]);
 }
 $out['head'] .= $R['code_noindex'];
 $search_subtitle = empty($tab) ? $L['plu_search'] : $L['plu_tabs_'.$tab].' - '.$L['plu_search'];
 $out['subtitle'] = empty($sq) ? $search_subtitle : htmlspecialchars(strip_tags($sq)).' - '.$L['plu_result'];
 $t->assign(array(
 	'EXT_TITLE' => cot_breadcrumbs($crumbs, $cfg['breadcrumb'], true),
-	'EXT_SEARCH_ACTION' => cot_url('module', 'e=search&tab='.$tab),
+	'EXT_SEARCH_ACTION' => cot_url('index', 'e=search&tab='.$tab),
 	'EXT_SEARCH_TEXT' => cot_inputbox('text', 'sq', htmlspecialchars($sq), 'size="32" maxlength="'.$cfg['search']['maxsigns'].'"'),
 	'EXT_SEARCH_USER' => cot_inputbox('text', 'rs[setuser]', htmlspecialchars($rs['setuser']), 'class="userinput" size="32"'),
 	'EXT_SEARCH_DATE_SELECT' => cot_selectbox($rs['setlimit'], 'rs[setlimit]', range(0, 5), array($L['plu_any_date'], $L['plu_last_2_weeks'], $L['plu_last_1_month'], $L['plu_last_3_month'], $L['plu_last_1_year'], $L['plu_need_datas']), false),
@@ -466,9 +466,9 @@ $t->assign(array(
 cot_display_messages($t);
 
 /* === Hook === */
-foreach (cot_getextensions('search.tags') as $pl)
+foreach (cot_getextensions('search.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 $t->parse('MAIN');

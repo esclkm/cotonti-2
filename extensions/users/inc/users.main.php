@@ -50,9 +50,9 @@ $users_sort_blacklist = array('email', 'lastip', 'password', 'sid', 'sidtime', '
 $users_sort_whitelist = array('id', 'name', 'maingrp', 'country', 'timezone', 'birthdate', 'gender', 'lang', 'regdate');
 
 /* === Hook === */
-foreach (cot_getextensions('users.first') as $pl)
+foreach (cot_getextensions('users.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -74,7 +74,7 @@ if (empty($d))
 }
 
 $title[] = array(cot_url('users'), $L['Users']);
-$localskin = cot_tplfile('users', 'module');
+$localskin = cot_tplfile('users');
 
 if(!empty($sq))
 {
@@ -130,9 +130,9 @@ switch ($s)
 $users_url_path = array('f' => $f, 'g' => $g, 'gm' => $gm, 's' => $s, 'w' => $w, 'sq' => $sq);
 
 /* === Hook === */
-foreach (cot_getextensions('users.query') as $pl)
+foreach (cot_getextensions('users.query') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -158,9 +158,9 @@ $pagenav = cot_pagenav('users', $users_url_path, $d, $totalusers, $cfg['users'][
 $out['subtitle'] = $L['Users'];
 
 /* === Hook === */
-foreach (cot_getextensions('users.main') as $pl)
+foreach (cot_getextensions('users.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -169,7 +169,7 @@ require_once $cfg['system_dir'] . '/header.php';
 $t = new XTemplate($localskin);
 
 require_once cot_incfile('system', 'forms');
-require_once cot_langfile('countries', 'core');
+require_once cot_langfile('countries', 'system');
 
 $countryfilters_titles = array();
 $countryfilters_values = array();
@@ -205,9 +205,9 @@ $grpfilters_titles[0] = $L['Group'];
 $grpfilters = cot_selectbox($g, 'bygroupms', $grpfilters_group_values, $grpfilters_titles, false, array('onchange' => 'redirect(this)'), '', true);
 
 /* === Hook === */
-foreach (cot_getextensions('users.filters') as $pl)
+foreach (cot_getextensions('users.filters') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -271,9 +271,9 @@ foreach ($sqlusers as $urr)
 	));
 	$t->assign(cot_generate_usertags($urr, 'USERS_ROW_'));
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -281,9 +281,9 @@ foreach ($sqlusers as $urr)
 }
 
 /* === Hook === */
-foreach (cot_getextensions('users.tags') as $pl)
+foreach (cot_getextensions('users.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

@@ -18,9 +18,9 @@ cot_blockguests();
 cot_die(empty($s));
 
 /* === Hook === */
-foreach (cot_getextensions('forums.newtopic.first') as $pl)
+foreach (cot_getextensions('forums.newtopic.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -28,9 +28,9 @@ isset($structure['forums'][$s]) || cot_die();
 
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('forums', $s);
 /* === Hook === */
-foreach (cot_getextensions('forums.newtopic.rights') as $pl)
+foreach (cot_getextensions('forums.newtopic.rights') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 cot_block($usr['auth_write']);
@@ -45,9 +45,9 @@ if ($a == 'newtopic')
 	cot_shield_protect();
 
 	/* === Hook === */
-	foreach (cot_getextensions('forums.newtopic.newtopic.first') as $pl)
+	foreach (cot_getextensions('forums.newtopic.newtopic.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -69,7 +69,7 @@ if ($a == 'newtopic')
 	if (!strpos($structure['forums'][$s]['path'], '.'))
 	{
 		// Attempting to create a topic in a root category
-		include cot_langfile('message', 'core');
+		include cot_langfile('message', 'system');
 		cot_error($L['msg602_body']);
 	}
 	foreach ($cot_extrafields[$db_forum_topics] as $exfld)
@@ -134,9 +134,9 @@ if ($a == 'newtopic')
 		cot_extrafield_movefiles();
 
 		/* === Hook === */
-		foreach (cot_getextensions('forums.newtopic.newtopic.done') as $pl)
+		foreach (cot_getextensions('forums.newtopic.newtopic.done') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -159,9 +159,9 @@ $out['subtitle'] = $L['forums_newtopic'];
 $out['head'] .= $R['code_noindex'];
 
 /* === Hook === */
-foreach (cot_getextensions('forums.newtopic.main') as $pl)
+foreach (cot_getextensions('forums.newtopic.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 require_once cot_incfile('system', 'forms');
@@ -219,9 +219,9 @@ if ($cfg['forums']['cat_' . $s]['allowprvtopics'])
 }
 
 /* === Hook === */
-foreach (cot_getextensions('forums.newtopic.tags') as $pl)
+foreach (cot_getextensions('forums.newtopic.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

@@ -1,12 +1,12 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
 /**
- * Private messages module main
+ * Private messages extension main
  *
  * @package pm
  * @author Cotonti Team

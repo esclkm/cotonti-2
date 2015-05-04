@@ -1,12 +1,12 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
 /**
- * PFS module main
+ * PFS extension main
  *
  * @package pfs
  * @version 0.9.2

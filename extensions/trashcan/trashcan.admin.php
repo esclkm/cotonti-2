@@ -25,10 +25,9 @@ cot_extension_active('page') && require_once cot_incfile('page', 'functions');
 cot_extension_active('forums') && require_once cot_incfile('forums', 'functions');
 $cfg['comments'] && require_once cot_incfile('comments', 'functions');
 
-require_once cot_incfile('trashcan', 'functions');
-require_once cot_langfile('trashcan', 'module');
+require_once cot_incfile('trashcan');
+require_once cot_langfile('trashcan');
 
-$adminhelp = $L['adm_help_trashcan'];
 $adminsubtitle = $L['Trashcan'];
 
 $id = cot_import('id', 'G', 'INT');
@@ -36,9 +35,9 @@ list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['maxrowsperpage']);
 $info = ($a == 'info') ? 1 : 0;
 
 /* === Hook === */
-foreach (cot_getextensions('trashcan.admin.first') as $pl)
+foreach (cot_getextensions('trashcan.admin.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -46,9 +45,9 @@ if($a == 'wipe')
 {
 	cot_check_xg();
 	/* === Hook === */
-	foreach (cot_getextensions('trashcan.admin.wipe') as $pl)
+	foreach (cot_getextensions('trashcan.admin.wipe') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	cot_trash_delete($id);
@@ -59,9 +58,9 @@ elseif($a == 'wipeall')
 {
 	cot_check_xg();
 	/* === Hook === */
-	foreach (cot_getextensions('trashcan.admin.wipeall') as $pl)
+	foreach (cot_getextensions('trashcan.admin.wipeall') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	$sql = $db->query("TRUNCATE $db_trash");
@@ -73,9 +72,9 @@ elseif($a == 'restore')
 {
 	cot_check_xg();
 	/* === Hook === */
-	foreach (cot_getextensions('trashcan.admin.restore') as $pl)
+	foreach (cot_getextensions('trashcan.admin.restore') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	cot_trash_restore($id);
@@ -84,7 +83,7 @@ elseif($a == 'restore')
 	cot_redirect(cot_url('admin', 'm=other&p=trashcan', '', true));
 }
 
-$tr_t = new XTemplate(cot_tplfile(($info) ? 'trashcan.info.admin' : 'trashcan.admin', 'module', true));
+$tr_t = new XTemplate(cot_tplfile(($info) ? 'trashcan.info.admin' : 'trashcan.admin'));
 $totalitems = (int)$db->query("SELECT COUNT(*) FROM $db_trash WHERE tr_parentid=0")->fetchColumn();
 $pagenav = cot_pagenav('admin', 'm=other&p=trashcan', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
 
@@ -153,9 +152,9 @@ foreach ($sql->fetchAll() as $row)
 	));
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	if($info)
@@ -184,23 +183,24 @@ if($ii == 0)
 
 
 $tr_t->assign(array(
-	'ADMIN_TRASHCAN_CONF_URL' => cot_url('admin', 'm=config&n=edit&o=module&p=trashcan'),
+	'ADMIN_TRASHCAN_CONF_URL' => cot_url('admin', 'm=config&n=edit&o=extension&p=trashcan'),
 	'ADMIN_TRASHCAN_WIPEALL_URL' => cot_url('admin', 'm=other&p=trashcan&a=wipeall&'.cot_xg()),
 	'ADMIN_TRASHCAN_PAGINATION_PREV' => $pagenav['prev'],
 	'ADMIN_TRASHCAN_PAGNAV' => $pagenav['main'],
 	'ADMIN_TRASHCAN_PAGINATION_NEXT' => $pagenav['next'],
 	'ADMIN_TRASHCAN_TOTALITEMS' => $totalitems,
 	'ADMIN_TRASHCAN_COUNTER_ROW' => $ii,
-	'ADMIN_TRASHCAN_PAGESQUEUED' => $pagesqueued
+	'ADMIN_TRASHCAN_PAGESQUEUED' => $pagesqueued,
+	'ADMIN_TRASHCAN_BREADCRUMBS' =>  cot_breadcrumbs($adminpath, false),
 ));
 
 
 cot_display_messages($tr_t);
 
 /* === Hook  === */
-foreach (cot_getextensions('trashcan.admin.tags') as $pl)
+foreach (cot_getextensions('trashcan.admin.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

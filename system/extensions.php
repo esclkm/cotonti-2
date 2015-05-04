@@ -15,7 +15,7 @@ defined('COT_CODE') or die('Wrong URL');
 // Requirements
 require_once cot_incfile('system', 'auth');
 require_once cot_incfile('system', 'configuration');
-require_once cot_langfile('admin', 'functions');
+require_once cot_langfile('admin', 'system');
 
 /**
  * A value returned by cot_extension_install() when updating and
@@ -39,17 +39,16 @@ $cot_ext_ignore_parts = array('configure', 'install', 'setup', 'uninstall');
  *
  * @param string $directory Directory path
  * @param string $from_ver Current version, to patch starting from
- * @param string $sql_pattern SQL patch file name pattern (PCRE)
- * @param string $php_pattern PHP patch file name pattern (PCRE)
  * @return mixed The function returns TRUE if there are not patches to apply,
  * FALSE if an error occured while patching or a string containing version
  * number of the latest applied patch if patching was successful.
  */
-function cot_apply_patches($directory, $from_ver,
-	$sql_pattern = 'patch_([\w\.\-\_]+)\.(sql)',
-	$php_pattern = 'patch_([\w\.\-\_]+)\.(inc)')
+function cot_apply_patches($directory, $from_ver)
 {
 	global $L, $db;
+	
+	$sql_pattern = 'patch_([\w\.\-\_]+)\.(sql)';
+	$php_pattern = 'patch_([\w\.\-\_]+)\.(php)';	
 
 	// Find new patches
 	$dp = opendir($directory);
@@ -309,7 +308,7 @@ function cot_extension_install($name, $update = false, $force_update = false)
 			{
 				// Update all nested categories
 				$res = $db->query("SELECT DISTINCT config_subcat FROM $db_config
-					WHERE config_owner = 'module' AND config_cat = '$name'
+					WHERE config_owner = 'extension' AND config_cat = '$name'
 						AND config_subcat != '' AND config_subcat != '__default'");
 				$cat_list = $res->fetchAll(PDO::FETCH_COLUMN, 0);
 				foreach ($cat_list as $cat)
@@ -503,7 +502,7 @@ function cot_extension_install($name, $update = false, $force_update = false)
  */
 function cot_extension_uninstall($name)
 {
-	global $cfg, $db_auth, $db_config, $db_users, $db_updates, $cache, $db, $db_x, $db_extensions, $cot_extensions, $cot_extensions_active, $cot_modules, $cot_modules, $env, $structure, $db_structure;
+	global $cfg, $db_auth, $db_config, $db_users, $db_updates, $cache, $db, $db_x, $db_extension_hooks, $cot_hooks, $cot_extensions_active, $cot_extensions, $cot_extensions, $env, $structure, $db_structure;
 
 	$path = $cfg['extensions_dir'] . "/$name";
 
@@ -568,20 +567,20 @@ function cot_extension_uninstall($name)
 	// Unregister from core table
 	cot_extension_remove($name);
 
-	$sql = $db->query("SELECT ext_code, ext_file, ext_hook FROM $db_extensions
+	$sql = $db->query("SELECT ext_code, ext_file, ext_hook FROM $db_extension_hooks
 		WHERE ext_active = 1 ORDER BY ext_hook ASC, ext_order ASC");
-	$cot_extensions = array();
+	$cot_hooks = array();
 	if ($sql->rowCount() > 0)
 	{
 		while ($row = $sql->fetch())
 		{
-			$cot_extensions[$row['ext_hook']][] = $row;
+			$cot_hooks[$row['ext_hook']][] = $row;
 		}
 		$sql->closeCursor();
 	}
 
 	$cot_extensions_active[$name] = false;
-	unset($cot_modules[$name]);
+	unset($cot_extensions[$name]);
 
 	// Clear cache
 	$db->update($db_users, array('user_auth' => ''), "user_auth != ''");
@@ -589,35 +588,98 @@ function cot_extension_uninstall($name)
 }
 
 /**
- * Parses PHPDoc file header into an array
+ * Registers an extension in the core
  *
- * @param string $filename Path to a PHP file
- * @return array Associative array containing PHPDoc contents. The array is
- *  empty if no PHPDoc was found
+ * @param string $name Extension name (code)
+ * @param string $title Title name
+ * @param string $version Version number as A.B.C
+ * @return bool TRUE on success, FALSE on error
+ * @global CotDB $db
  */
-function cot_file_phpdoc($filename)
+function cot_extension_add($name, $title, $version = '1.0.0')
 {
-	$res = array();
-	$data = file_get_contents($filename);
-	if (preg_match('#^/\*\*(.*?)^\s\*/#ms', $data, $mt))
+	global $db, $db_core;
+
+	$res = $db->insert($db_core, array('ct_code' => $name, 'ct_title' => $title,
+		'ct_version' => $version));
+
+	return $res > 0;
+}
+
+/**
+ * Compares 2 extension info entries by category code.
+ * post-install extensions are always last.
+ *
+ * @param array $ext1 Ext info 1
+ * @param array $ext2 Ext info 2
+ * @return int
+ */
+function cot_extension_catcmp($ext1, $ext2)
+{
+	global $L;
+	$ext1_cat_title = (isset($L['ext_cat_' . $ext1['Category']])) ? $L['ext_cat_' . $ext1['Category']] : $ext1['Category'];
+	$ext2_cat_title = (isset($L['ext_cat_' . $ext2['Category']])) ? $L['ext_cat_' . $ext2['Category']] : $ext2['Category'];
+	
+	if ($ext1_cat_title == $ext2_cat_title)
 	{
-		$phpdoc = preg_split('#\r?\n\s\*\s@#', $mt[1]);
-		$cnt = count($phpdoc);
-		if ($cnt > 0)
-		{
-			$res['description'] = trim(preg_replace('#\r?\n\s\*\s?#', '',
-				$phpdoc[0]));
-			for ($i = 1; $i < $cnt; $i++)
-			{
-				$delim = mb_strpos($phpdoc[$i], ' ');
-				$key = mb_substr($phpdoc[$i], 0, $delim);
-				$contents = trim(preg_replace('#\r?\n\s\*\s?#', '',
-					mb_substr($phpdoc[$i], $delim + 1)));
-				$res[$key] = $contents;
-			}
-		}
+		// Compare by name
+		return strnatcmp($ext1['Name'], $ext2['Name']);
 	}
-	return $res;
+	else
+	{
+		if ($ext1['Category'] == 'post-install' || $ext2['Category'] == 'module')
+		{
+			return 1;
+		}			
+		if ($ext1['Category'] == 'module' || $ext2['Category'] == 'post-install')
+		{
+			return -1;
+		}
+
+		return strnatcmp($ext1_cat_title, $ext2_cat_title);
+	}
+}
+
+/**
+ * Compares 2 extension info entries by Name.
+ *
+ * @param array $ext1 Ext info 1
+ * @param array $ext2 Ext info 2
+ * @return int
+ */
+function cot_extension_namecmp($ext1, $ext2)
+{
+	return strnatcmp($ext1['Name'], $ext2['Name']);
+}
+
+/**
+ * Checks if module is already installed
+ *
+ * @param string $name Module code
+ * @return bool
+ * @global CotDB $db
+ */
+function cot_extension_installed($name)
+{
+	global $db, $db_core;
+
+	$cnt = $db->query("SELECT COUNT(*) FROM $db_core WHERE ct_code = '$name'")->fetchColumn();
+	return $cnt > 0;
+}
+
+/**
+ * Updates module version number in the registry
+ *
+ * @param string $name Module name
+ * @param string $version New version string
+ * @return bool
+ * @global CotDB $db
+ */
+function cot_extension_update($name, $version)
+{
+	global $db, $db_core;
+
+	return $db->update($db_core, array('ct_version' => $version), "ct_code = '$name'");
 }
 
 /**
@@ -670,77 +732,6 @@ function cot_infoget($file, $limiter = 'COT_EXT', $maxsize = 32768)
 	}
 	@fclose($fp);
 	return $result;
-}
-
-/**
- * Registers an extension in the core
- *
- * @param string $name Extension name (code)
- * @param string $title Title name
- * @param string $version Version number as A.B.C
- * @return bool TRUE on success, FALSE on error
- * @global CotDB $db
- */
-function cot_extension_add($name, $title, $version = '1.0.0')
-{
-	global $db, $db_core;
-
-	$res = $db->insert($db_core, array('ct_code' => $name, 'ct_title' => $title,
-		'ct_version' => $version));
-
-	return $res > 0;
-}
-
-/**
- * Compares 2 extension info entries by category code.
- * post-install extensions are always last.
- *
- * @param array $ext1 Ext info 1
- * @param array $ext2 Ext info 2
- * @return int
- */
-function cot_extension_catcmp($ext1, $ext2)
-{
-	global $L;
-	if (isset($L['ext_cat_' . $ext1['Category']]))
-	{
-		$ext1['Category'] = $L['ext_cat_' . $ext1['Category']];
-	}
-	if (isset($L['ext_cat_' . $ext2['Category']]))
-	{
-		$ext2['Category'] = $L['ext_cat_' . $ext2['Category']];
-	}
-	if ($ext1['Category'] == $ext2['Category'])
-	{
-		// Compare by name
-		if ($ext1['Name'] == $ext2['Name'])
-		{
-			return 0;
-		}
-		else
-		{
-			return ($ext1['Name'] > $ext2['Name']) ? 1 : -1;
-		}
-	}
-	else
-	{
-		return ($ext1['Category'] > $ext2['Category'] || $ext1['Category'] == 'post-install') ? 1 : -1;
-	}
-}
-
-/**
- * Checks if module is already installed
- *
- * @param string $name Module code
- * @return bool
- * @global CotDB $db
- */
-function cot_extension_installed($name)
-{
-	global $db, $db_core;
-
-	$cnt = $db->query("SELECT COUNT(*) FROM $db_core WHERE ct_code = '$name'")->fetchColumn();
-	return $cnt > 0;
 }
 
 /**
@@ -814,21 +805,6 @@ function cot_extension_resume($name)
 }
 
 /**
- * Updates module version number in the registry
- *
- * @param string $name Module name
- * @param string $version New version string
- * @return bool
- * @global CotDB $db
- */
-function cot_extension_update($name, $version)
-{
-	global $db, $db_core;
-
-	return $db->update($db_core, array('ct_version' => $version), "ct_code = '$name'");
-}
-
-/**
  * Registers a extension or module in hook registry
  *
  * Example:
@@ -856,7 +832,7 @@ function cot_extension_update($name, $version)
  */
 function cot_extension_add_hooks($hook_bindings, $name, $title)
 {
-	global $db, $db_extensions;
+	global $db, $db_extension_hooks;
 
 	if (empty($title))
 	{
@@ -876,7 +852,7 @@ function cot_extension_add_hooks($hook_bindings, $name, $title)
 			'ext_active' => 1
 		);
 	}
-	return $db->insert($db_extensions, $insert_rows);
+	return $db->insert($db_extension_hooks, $insert_rows);
 }
 
 /**
@@ -889,7 +865,7 @@ function cot_extension_add_hooks($hook_bindings, $name, $title)
  */
 function cot_extension_pause_hooks($name, $part = 0)
 {
-	global $db, $db_extensions;
+	global $db, $db_extension_hooks;
 
 	$condition = "ext_code = '$name'";
 	if (is_numeric($part) && $part > 0)
@@ -901,7 +877,7 @@ function cot_extension_pause_hooks($name, $part = 0)
 		$condition .= " AND ext_part = " . $db->quote($part);
 	}
 
-	return $db->update($db_extensions, array('ext_active' => 0), $condition);
+	return $db->update($db_extension_hooks, array('ext_active' => 0), $condition);
 }
 
 /**
@@ -914,7 +890,7 @@ function cot_extension_pause_hooks($name, $part = 0)
  */
 function cot_extension_remove_hooks($name, $binding_id = 0)
 {
-	global $db, $db_extensions;
+	global $db, $db_extension_hooks;
 
 	$condition = "ext_code = '$name'";
 	if ($binding_id > 0)
@@ -922,7 +898,7 @@ function cot_extension_remove_hooks($name, $binding_id = 0)
 		$condition .= " AND ext_id = $binding_id";
 	}
 
-	return $db->delete($db_extensions, $condition);
+	return $db->delete($db_extension_hooks, $condition);
 }
 
 /**
@@ -935,7 +911,7 @@ function cot_extension_remove_hooks($name, $binding_id = 0)
  */
 function cot_extension_resume_hooks($name, $part = 0)
 {
-	global $db, $db_extensions;
+	global $db, $db_extension_hooks;
 
 	$condition = "ext_code = '$name'";
 	if (is_numeric($part) && $part > 0)
@@ -947,5 +923,5 @@ function cot_extension_resume_hooks($name, $part = 0)
 		$condition .= " AND ext_part = " . $db->quote($part);
 	}
 
-	return $db->update($db_extensions, array('ext_active' => 1), $condition);
+	return $db->update($db_extension_hooks, array('ext_active' => 1), $condition);
 }

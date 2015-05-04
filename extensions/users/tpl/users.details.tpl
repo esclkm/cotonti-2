@@ -3,7 +3,7 @@
 		<div class="block">
 			<h2 class="users">{USERS_DETAILS_TITLE}<!-- BEGIN: USERS_DETAILS_ADMIN --> &nbsp; [ {USERS_DETAILS_ADMIN_EDIT} ]<!-- END: USERS_DETAILS_ADMIN --></h2>
 			<table class="cells">
-<!-- IF {PHP.cot_modules.pm} -->
+<!-- IF {PHP.cot_extensions.pm} -->
 				<tr>
 					<td>{PHP.L.users_sendpm}:</td>
 					<td>{USERS_DETAILS_PM}</td>

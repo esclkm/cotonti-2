@@ -2,7 +2,7 @@
 
 /* ====================
   [BEGIN_COT_EXT]
-  Hooks=module
+  Hooks=standalone
   [END_COT_EXT]
   ==================== */
 
@@ -53,7 +53,7 @@ if (!empty($cot_captcha))
 require_once $cfg['system_dir'] . '/header.php';
 
 $tplfile = cot_import('tpl', 'G', 'TXT');
-$mskin = cot_tplfile(array('contact', $tplfile), 'module');
+$mskin = cot_tplfile(array('contact', $tplfile));
 $t = new XTemplate($mskin);
 
 if (isset($_POST['rtext']))
@@ -144,7 +144,7 @@ cot_display_messages($t);
 if (!$sent)
 {
 	$t->assign(array(
-		'CONTACT_FORM_SEND' => cot_url('module', 'e=contact&tpl='.$tplfile),
+		'CONTACT_FORM_SEND' => cot_url('index', 'e=contact&tpl='.$tplfile),
 		'CONTACT_FORM_AUTHOR' => ($usr['id'] == 0) ? cot_inputbox('text', 'ruser', $rcontact['contact_author'], 'size="24" maxlength="24"') : cot_inputbox('text', 'ruser', $usr['name'], 'size="24" maxlength="24" readonly="readonly"'),
 		'CONTACT_FORM_EMAIL' => cot_inputbox('text', 'remail', $rcontact['contact_email'], 'size="24"'),
 		'CONTACT_FORM_SUBJECT' => cot_inputbox('text', 'rsubject', $rcontact['contact_subject'], 'size="24"'),

@@ -1,6 +1,6 @@
 <?php
 /**
- * Parameters for comments config implantation into modules
+ * Parameters for comments config implantation into extensions
  *
  * @package comments
  * @version 0.7.0
@@ -19,7 +19,7 @@ $com_options = array(
 );
 
 // Modules list to implant into their root config
-$com_modules_list = array('polls');
+$com_extensions_list = array('polls');
 
 // Module list to implant into their structure config
-$com_modules_struct_list = array('page');
+$com_extensions_struct_list = array('page');

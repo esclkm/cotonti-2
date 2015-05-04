@@ -17,10 +17,9 @@ Hooks=admin
 
 defined('COT_CODE') or die('Wrong URL');
 
-$adminhelp = $L['ipsearch_help'];
 $adminsubtitle = $L['ipsearch_title'];
 
-$t = new XTemplate(cot_tplfile('ipsearch', 'module', true));
+$t = new XTemplate(cot_tplfile('ipsearch'));
 $t->assign(array(
 	'IPSEARCH_FORM_URL' => cot_url('admin', 'm=other&p=ipsearch&a=search&'.cot_xg()),
 	'IPSEARCH_ID' => $id
@@ -100,5 +99,8 @@ if ($a == 'search')
 	));
 	$t->parse('MAIN.IPSEARCH_RESULTS');
 }
+$t->assign(array(
+	'IPSEARCH_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),	
+));
 $t->parse('MAIN');
 $adminmain = $t->text('MAIN');

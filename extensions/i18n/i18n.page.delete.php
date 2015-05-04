@@ -17,7 +17,7 @@ Hooks=page.edit.delete.done
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_incfile('i18n', 'module');
+require_once cot_incfile('i18n');
 global $db_i18n_pages;
 
 $db->delete($db_i18n_pages, "ipage_id = ?", array($id));

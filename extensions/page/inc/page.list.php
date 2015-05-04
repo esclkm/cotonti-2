@@ -45,9 +45,9 @@ else
 }
 
 /* === Hook === */
-foreach (cot_getextensions('page.list.first') as $pl)
+foreach (cot_getextensions('page.list.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -166,9 +166,9 @@ array_pop($shortpath);
 $catpath_short = ($c == 'all' || $c == 'system' || $c == 'unvalidated' || $c == 'saved_drafts') ? '' : cot_breadcrumbs($shortpath, $cfg['homebreadcrumb']);
 
 /* === Hook === */
-foreach (cot_getextensions('page.list.query') as $pl)
+foreach (cot_getextensions('page.list.query') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -216,9 +216,9 @@ $_SESSION['cat'] = $c;
 $mskin = cot_tplfile(array('page', 'list', $cat['tpl']));
 
 /* === Hook === */
-foreach (cot_getextensions('page.list.main') as $pl)
+foreach (cot_getextensions('page.list.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -312,9 +312,9 @@ $allsub = cot_structure_children('page', $c, false, false, true, false);
 $subcat = array_slice($allsub, $dc, $cfg['page']['maxlistsperpage']);
 
 /* === Hook === */
-foreach (cot_getextensions('page.list.rowcat.first') as $pl)
+foreach (cot_getextensions('page.list.rowcat.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -356,9 +356,9 @@ foreach ($subcat as $x)
 	}
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -381,9 +381,9 @@ $sqllist_rowset = $sqllist->fetchAll();
 
 $sqllist_rowset_other = false;
 /* === Hook === */
-foreach (cot_getextensions('page.list.before_loop') as $pl)
+foreach (cot_getextensions('page.list.before_loop') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -401,9 +401,9 @@ if(!$sqllist_rowset_other)
 		$t->assign(cot_generate_usertags($pag, 'LIST_ROW_OWNER_'));
 
 		/* === Hook - Part2 : Include === */
-		foreach ($extp as $pl)
+		foreach ($extp as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 		$t->parse('MAIN.LIST_ROW');
@@ -411,9 +411,9 @@ if(!$sqllist_rowset_other)
 }
 
 /* === Hook === */
-foreach (cot_getextensions('page.list.tags') as $pl)
+foreach (cot_getextensions('page.list.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

@@ -21,8 +21,7 @@ require_once cot_incfile('contact', 'functions');
 
 $extra_whitelist[$db_contact] = array(
 	'name' => $db_contact,
-	'caption' => $L['Extension'].' Contact',
-	'type' => 'module',
+	'caption' => 'Contact',
 	'code' => 'contact',
 	'tags' => array(
 		'contact.tools.tpl' => '{CONTACT_XXXXX}, {CONTACT_XXXXX_TITLE}',

@@ -13,7 +13,7 @@ defined('COT_CODE') or die('Wrong URL');
 
 // Requirements
 require_once cot_incfile('system', 'auth');
-require_once cot_langfile('system', 'users');
+require_once cot_langfile('users', 'system');
 require_once cot_incfile('users', 'resources');
 
 require_once cot_incfile('system', 'forms');
@@ -85,9 +85,9 @@ function cot_add_user($ruser, $email = null, $name = null, $password = null, $ma
 	cot_extrafield_movefiles();
 
 	/* === Hook for the extensions === */
-	foreach (cot_getextensions('users.adduser.done') as $pl)
+	foreach (cot_getextensions('users.adduser.done') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 

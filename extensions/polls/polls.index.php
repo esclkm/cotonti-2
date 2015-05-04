@@ -44,9 +44,9 @@ if ($cfg['polls']['maxpolls'] > 0)
 		));
 
 		/* === Hook - Part2 === */
-		foreach ($extp as $pl)
+		foreach ($extp as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 

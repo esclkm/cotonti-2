@@ -21,7 +21,7 @@ defined('COT_CODE') or die('Wrong URL');
 if ($cfg['jquery'] && $cfg['turnajax'] && $cfg['autocomplete']['autocomplete'] > 0)
 {
 	cot_rc_add_embed('tags.autocomplete', '$(document).ready(function(){
-$(".autotags").autocomplete("'.cot_url('module', 'r=tags').'", {multiple: true, minChars: '.$cfg['autocomplete']['autocomplete'].'});
+$(".autotags").autocomplete("'.cot_url('index', 'r=tags').'", {multiple: true, minChars: '.$cfg['autocomplete']['autocomplete'].'});
 });');
 }
 if($cfg['tags']['css'])

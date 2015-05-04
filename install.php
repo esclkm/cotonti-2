@@ -27,7 +27,7 @@ else
 
 if (empty($cfg['extensions_dir']))
 {
-	$cfg['extensions_dir'] = './modules';
+	$cfg['extensions_dir'] = './extensions';
 }
 if (empty($cfg['lang_dir']))
 {
@@ -93,7 +93,7 @@ if (isset($cfg['new_install']) && $cfg['new_install'])
 		$lang = $_SESSION['cot_inst_lang'];
 	}
 
-	require_once cot_langfile('main', 'core');
+	require_once cot_langfile('main', 'system');
 	require_once $cfg['system_dir'] . '/resources.php';
 }
 else
@@ -121,8 +121,8 @@ else
 require_once cot_incfile('system', 'forms');
 require_once cot_incfile('system', 'extensions');
 require_once cot_langfile('install');
-require_once cot_langfile('users', 'core');
-require_once cot_langfile('admin', 'core');
+require_once cot_langfile('users', 'system');
+require_once cot_langfile('admin', 'system');
 
 require_once cot_incfile('install', 'resources');
 

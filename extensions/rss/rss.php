@@ -1,12 +1,12 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=module
+Hooks=standalone
 [END_COT_EXT]
 ==================== */
 
 /**
- * RSS module main
+ * RSS extension main
  *
  * @package rss
  * @version 0.9.1
@@ -22,7 +22,7 @@ define('COT_RSS', true);
 $env['location'] = 'rss';
 
 // Self requirements
-require_once cot_langfile('rss', 'module');
+require_once cot_langfile('rss');
 
 // Input import
 $m = cot_import('m', 'G', 'ALP');
@@ -51,9 +51,9 @@ $domain = $sys['domain'];
 $default_mode = true;
 
 /* === Hook === */
-foreach (cot_getextensions('rss.create') as $pl)
+foreach (cot_getextensions('rss.create') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -268,9 +268,9 @@ if (count($items) > 0)
 }
 
 /* === Hook === */
-foreach (cot_getextensions('rss.output') as $pl)
+foreach (cot_getextensions('rss.output') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

@@ -114,9 +114,9 @@ function cot_get_uploadmax()
 function cot_safename($basename, $underscore = true, $postfix = '')
 {
 	global $lang, $cot_translit;
-	if(!$cot_translit && $lang != 'en' && file_exists(cot_langfile('translit', 'core')))
+	if(!$cot_translit && $lang != 'en' && file_exists(cot_langfile('translit', 'system')))
 	{
-		require_once cot_langfile('translit','core');
+		require_once cot_langfile('translit','system');
 	}
 
 	$fname = mb_substr($basename, 0, mb_strrpos($basename, '.'));

@@ -66,9 +66,9 @@ function htmlpurifier_filter($value, $name)
 			}
 			require_once  $cfg['extensions_dir'] . "/htmlpurifier/presets/htmlpurifier.$preset_name.preset.php";
 			/* config extension */
-			foreach (cot_getextensions('htmlpurifier.config') as $pl)
+			foreach (cot_getextensions('htmlpurifier.config') as $ext)
 			{
-				include $pl;
+				include $ext;
 			}
 			foreach ($htmlpurifier_preset as $key => $val)
 			{

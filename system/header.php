@@ -14,9 +14,9 @@ defined('COT_CODE') or die('Wrong URL');
 cot_uriredir_store();
 
 /* === Hook === */
-foreach (cot_getextensions('header.first') as $pl)
+foreach (cot_getextensions('header.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -69,7 +69,6 @@ if(!headers_sent())
 }
 if (!COT_AJAX)
 {
-	$mtpl_type = defined('COT_ADMIN') || defined('COT_MESSAGE') && $_SESSION['s_run_admin'] && cot_auth('admin', 'any', 'R') ? 'core' : 'module';
 	if ($cfg['enablecustomhf'])
 	{
 		$mtpl_base = array('header', $e);
@@ -78,12 +77,12 @@ if (!COT_AJAX)
 	{
 		$mtpl_base = 'header';
 	}
-	$t = new XTemplate(cot_tplfile($mtpl_base, $mtpl_type));
-
+	$t = new XTemplate(cot_tplfile($mtpl_base, 'system'));
+	
 	/* === Hook === */
-	foreach (cot_getextensions('header.main') as $pl)
+	foreach (cot_getextensions('header.main') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -125,9 +124,9 @@ if (!COT_AJAX)
 	));
 
 	/* === Hook === */
-	foreach (cot_getextensions('header.body') as $pl)
+	foreach (cot_getextensions('header.body') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -150,9 +149,9 @@ if (!COT_AJAX)
 		));
 
 		/* === Hook === */
-		foreach (cot_getextensions('header.user.tags') as $pl)
+		foreach (cot_getextensions('header.user.tags') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -176,9 +175,9 @@ if (!COT_AJAX)
 		));
 
 		/* === Hook === */
-		foreach (cot_getextensions('header.guest.tags') as $pl)
+		foreach (cot_getextensions('header.guest.tags') as $ext)
 		{
-			include $pl;
+			include $ext;
 		}
 		/* ===== */
 
@@ -186,9 +185,9 @@ if (!COT_AJAX)
 	}
 
 	/* === Hook === */
-	foreach (cot_getextensions('header.tags') as $pl)
+	foreach (cot_getextensions('header.tags') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 

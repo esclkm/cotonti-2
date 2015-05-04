@@ -24,9 +24,9 @@ if (!empty($c) && !isset($structure['page'][$c]))
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('page', 'any');
 
 /* === Hook === */
-foreach (cot_getextensions('page.add.first') as $pl)
+foreach (cot_getextensions('page.add.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 cot_block($usr['auth_write']);
@@ -44,9 +44,9 @@ if ($a == 'add')
 	cot_shield_protect();
 
 	/* === Hook === */
-	foreach (cot_getextensions('page.add.add.first') as $pl)
+	foreach (cot_getextensions('page.add.add.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -56,18 +56,18 @@ if ($a == 'add')
 	cot_block($usr['auth_write']);
 
 	/* === Hook === */
-	foreach (cot_getextensions('page.add.add.import') as $pl)
+	foreach (cot_getextensions('page.add.add.import') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
 	cot_page_validate($rpage);
 
 	/* === Hook === */
-	foreach (cot_getextensions('page.add.add.error') as $pl)
+	foreach (cot_getextensions('page.add.add.error') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -120,9 +120,9 @@ $sys['sublocation'] = $structure['page'][$c]['title'];
 $mskin = cot_tplfile(array('page', 'add', $structure['page'][$rpage['page_cat']]['tpl']));
 
 /* === Hook === */
-foreach (cot_getextensions('page.add.main') as $pl)
+foreach (cot_getextensions('page.add.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -176,9 +176,9 @@ foreach($cot_extrafields[$db_pages] as $exfld)
 cot_display_messages($t);
 
 /* === Hook === */
-foreach (cot_getextensions('page.add.tags') as $pl)
+foreach (cot_getextensions('page.add.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

@@ -16,15 +16,15 @@ $t = new XTemplate(cot_tplfile('pfs.admin.allpfs'));
 $adminpath[] = array(cot_url('admin', 'm=other'), $L['Other']);
 $adminpath[] = array(cot_url('admin', 'm=pfs'), $L['PFS']);
 $adminpath[] = array(cot_url('admin', 'm=pfs&s=allpfs'), $L['adm_allpfs']);
-$adminhelp = $L['adm_help_allpfs'];
+
 $adminsubtitle = $L['adm_allpfs'];
 
 list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['maxrowsperpage']);
 
 /* === Hook === */
-foreach (cot_getextensions('admin.pfs.allpfs.first') as $pl)
+foreach (cot_getextensions('admin.pfs.allpfs.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -53,9 +53,9 @@ foreach ($sql_pfs->fetchAll() as $row)
 	));
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 	$t->parse('MAIN.ALLPFS_ROW');
@@ -67,12 +67,13 @@ $t->assign(array(
 	'ADMIN_ALLPFS_PAGNAV' => $pagenav['main'],
 	'ADMIN_ALLPFS_PAGINATION_NEXT' => $pagenav['next'],
 	'ADMIN_ALLPFS_TOTALITEMS' => $totalitems,
-	'ADMIN_ALLPFS_ON_PAGE' => $ii
+	'ADMIN_ALLPFS_ON_PAGE' => $ii,
+	'ADMIN_ALLPFS_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),
 ));
 
 /* === Hook  === */
-foreach (cot_getextensions('admin.pfs.allpfs.tags') as $pl)
+foreach (cot_getextensions('admin.pfs.allpfs.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */

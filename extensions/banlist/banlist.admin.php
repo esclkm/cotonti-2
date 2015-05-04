@@ -20,19 +20,19 @@ Hooks=admin
 list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('users', 'a');
 cot_block($usr['isadmin']);
 
-$tt = new XTemplate(cot_tplfile('banlist.admin', 'module', true));
-require_once cot_langfile('banlist', 'module');
+$tt = new XTemplate(cot_tplfile('banlist.admin'));
+require_once cot_langfile('banlist');
 
 cot::$db->registerTable('banlist');
-$adminhelp = $L['banlist_help'];
+
 $adminsubtitle = $L['banlist_title'];
 
 list($pg, $d, $durl) = cot_import_pagenav('d', $cfg['maxrowsperpage']);
 
 /* === Hook === */
-foreach (cot_getextensions('banlist.admin.first') as $pl)
+foreach (cot_getextensions('banlist.admin.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -115,9 +115,9 @@ foreach ($sql->fetchAll() as $row)
 	));
 
 	/* === Hook - Part2 : Include === */
-	foreach ($extp as $pl)
+	foreach ($extp as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -140,15 +140,16 @@ $tt->assign(array(
 	'ADMIN_BANLIST_EXPIRE' => cot_selectbox('0', 'nexpire', $time_array, $time_values, false),
 	'ADMIN_BANLIST_IP' => cot_inputbox('text', 'nbanlistip', '', 'size="18" maxlength="16"'),
 	'ADMIN_BANLIST_EMAIL' => cot_inputbox('text', 'nbanlistemail', '', 'size="24" maxlength="64"'),
-	'ADMIN_BANLIST_REASON' => cot_inputbox('text', 'nbanlistreason', '', 'size="48" maxlength="64"')
+	'ADMIN_BANLIST_REASON' => cot_inputbox('text', 'nbanlistreason', '', 'size="48" maxlength="64"'),
+	'ADMIN_BANLIST_BREADCRUMBS' => cot_breadcrumbs($adminpath, false)	
 ));
 
 cot_display_messages($tt);
 
 /* === Hook  === */
-foreach (cot_getextensions('banlist.admin.tags') as $pl)
+foreach (cot_getextensions('banlist.admin.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 

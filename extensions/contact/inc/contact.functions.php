@@ -10,7 +10,7 @@
 
 defined('COT_CODE') or die('Wrong URL');
 
-require_once cot_langfile('contact', 'module');
+require_once cot_langfile('contact');
 require_once cot_incfile('system', 'extrafields');
 require_once cot_incfile('system', 'forms');
 

@@ -48,7 +48,7 @@ if ($cfg['cleaner']['logprune'] > 0)
 	}
 }
 
-if ($cfg['cleaner']['refprune'] > 0 && $cot_extensions['tools']['referers'])
+if ($cfg['cleaner']['refprune'] > 0 && $cot_hooks['tools']['referers'])
 {
 	$timeago = $sys['now'] - ($cfg['cleaner']['refprune'] * 86400);
 	$db->delete($db_referers, "ref_date < $timeago");

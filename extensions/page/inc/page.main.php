@@ -20,9 +20,9 @@ $c = cot_import('c', 'G', 'TXT');
 $pg = cot_import('pg', 'G', 'INT');
 
 /* === Hook === */
-foreach (cot_getextensions('page.first') as $pl)
+foreach (cot_getextensions('page.first') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -79,9 +79,9 @@ elseif (mb_substr($pag['page_text'], 0, 8) == 'include:')
 if ($pag['page_file'] && $a == 'dl' && (($pag['page_file'] == 2 && $usr['auth_download']) || $pag['page_file'] == 1))
 {
 	/* === Hook === */
-	foreach (cot_getextensions('page.download.first') as $pl)
+	foreach (cot_getextensions('page.download.first') as $ext)
 	{
-		include $pl;
+		include $ext;
 	}
 	/* ===== */
 
@@ -140,9 +140,9 @@ $mskin = cot_tplfile(array('page', $cat['tpl']));
 $env['last_modified'] = $pag['page_updated'];
 
 /* === Hook === */
-foreach (cot_getextensions('page.main') as $pl)
+foreach (cot_getextensions('page.main') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 
@@ -274,9 +274,9 @@ if ($pag['page_totaltabs'] > 1)
 }
 
 /* === Hook === */
-foreach (cot_getextensions('page.tags') as $pl)
+foreach (cot_getextensions('page.tags') as $ext)
 {
-	include $pl;
+	include $ext;
 }
 /* ===== */
 if ($usr['isadmin'] || $usr['id'] == $pag['page_ownerid'])

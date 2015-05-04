@@ -1,4 +1,5 @@
 <!-- BEGIN: MAIN -->
+	{ADMIN_BBCODE_BREADCRUMBS}
 		<h2>BBCodes</h2>
 
 		{FILE "{PHP.cfg.themes_dir}/{PHP.cfg.defaulttheme}/warnings.tpl"}
@@ -65,4 +66,11 @@
 				<li><a href="{ADMIN_BBCODE_CONVERT_URL}" onclick="return confirm('{PHP.L.adm_bbcodes_convert_confirm}')">{ADMIN_BBCODE_CONVERT_TITLE}</a></li>
 				<!-- END: ADMIN_BBCODE_CONVERT -->
 			</ul>
+				
+	<div class="block">
+		<div class="help">
+			<h4>{PHP.L.Help}:</h4>
+			<p>{PHP.L.adm_help_bbcodes}</p>
+		</div>
+	</div>				
 <!-- END: MAIN -->

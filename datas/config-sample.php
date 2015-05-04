@@ -43,7 +43,7 @@ $cfg['defaultscheme'] = 'default';	// Default color scheme, only name, not like 
 $cfg['defaulticons'] = 'default';	// Default icon pack
 $cfg['defaultlang'] = 'en';			// Default language code
 $cfg['enablecustomhf'] = FALSE;		// To enable header.$location.tpl and footer.$location.tpl
-$cfg['admintheme'] = '';			// Put custom administration theme name here
+$cfg['admintheme'] = 'default';			// Put custom administration theme name here
 
 // ========================
 // Performance-related settings
@@ -93,10 +93,13 @@ $cfg['extensions_dir'] = 'extensions';
 $cfg['pfs_dir'] = 'datas/users';
 $cfg['photos_dir'] = 'datas/photos';
 $cfg['system_dir'] = 'system';
+$cfg['admin_dir'] = 'admin';
 $cfg['thumbs_dir'] = 'datas/thumbs';
 $cfg['themes_dir'] = 'themes';
 $cfg['extrafield_files_dir'] = 'datas/exflds';
 $cfg['icons_dir'] = 'images/icons';
+$cfg['assets_dir'] = 'assets';
+$cfg['vendor_dir'] = 'vendor';
 
 // ========================
 // Directory and file permissions for uploaded files
