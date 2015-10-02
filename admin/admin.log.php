@@ -16,8 +16,8 @@ cot_block($usr['auth_read']);
 
 $t = new XTemplate(cot_tplfile('admin.log', 'system'));
 
-$adminpath[] = array(cot_url('admin', 'm=other'), $L['Other']);
-$adminpath[] = array(cot_url('admin', 'm=log'), $L['Log']);
+$adminpath[] = array(cot_url('admin', 't=other'), $L['Other']);
+$adminpath[] = array(cot_url('admin', 't=log'), $L['Log']);
 
 $adminsubtitle = $L['Log'];
 
@@ -63,7 +63,7 @@ foreach($log_groups as $grp_code => $grp_name)
 	$selected = ($grp_code == $n) ? " selected=\"selected\"" : "";
 
 	$t->assign(array(
-		'ADMIN_LOG_OPTION_VALUE_URL' => cot_url('admin', 'm=log&n='.$grp_code),
+		'ADMIN_LOG_OPTION_VALUE_URL' => cot_url('admin', 't=log&n='.$grp_code),
 		'ADMIN_LOG_OPTION_GRP_NAME' => $grp_name,
 		'ADMIN_LOG_OPTION_SELECTED' => $selected
 	));
@@ -73,7 +73,7 @@ foreach($log_groups as $grp_code => $grp_name)
 $is_adminwarnings = isset($adminwarnings);
 
 $totalitems = ($n == 'all') ? $totaldblog : $db->query("SELECT COUNT(*) FROM $db_logger WHERE log_group='$n'")->fetchColumn();
-$pagenav = cot_pagenav('admin', 'm=log&n='.$n, $d, $totalitems, $maxrowsperpage, 'd', '', $cfg['jquery'] && $cfg['turnajax']);
+$pagenav = cot_pagenav('admin', 't=log&n='.$n, $d, $totalitems, $maxrowsperpage, 'd', '', $cfg['jquery'] && $cfg['turnajax']);
 
 if($n == 'all')
 {
@@ -95,10 +95,10 @@ foreach ($sql->fetchAll() as $row)
 		'ADMIN_LOG_ROW_DATE' => cot_date('datetime_medium', $row['log_date']),
 		'ADMIN_LOG_ROW_DATE_STAMP' => $row['log_date'],
 		'ADMIN_LOG_ROW_URL_IP_SEARCH' => cot_extension_active('ipsearch') ?
-			cot_url('admin', 'm=other&p=ipsearch&a=search&id='.$row['log_ip'].'&'.cot_xg()) : '',
+			cot_url('admin', 't=other&p=ipsearch&a=search&id='.$row['log_ip'].'&'.cot_xg()) : '',
 		'ADMIN_LOG_ROW_LOG_IP' => $row['log_ip'],
 		'ADMIN_LOG_ROW_LOG_NAME' => $row['log_name'],
-		'ADMIN_LOG_ROW_URL_LOG_GROUP' => cot_url('admin', 'm=log&n='.$row['log_group']),
+		'ADMIN_LOG_ROW_URL_LOG_GROUP' => cot_url('admin', 't=log&n='.$row['log_group']),
 		'ADMIN_LOG_ROW_LOG_GROUP' => $log_groups[$row['log_group']],
 		'ADMIN_LOG_ROW_LOG_TEXT' => htmlspecialchars($row['log_text'])
 	));
@@ -115,7 +115,7 @@ foreach ($sql->fetchAll() as $row)
 $t->assign(array(
 	'ADMIN_LOG_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),
 	'ADMIN_LOG_SUBTITLE' => $adminsubtitle,
-	'ADMIN_LOG_URL_PRUNE' => cot_url('admin', 'm=log&a=purge&'.cot_xg()),
+	'ADMIN_LOG_URL_PRUNE' => cot_url('admin', 't=log&a=purge&'.cot_xg()),
 	'ADMIN_LOG_TOTALDBLOG' => $totaldblog,
 	'ADMIN_LOG_PAGINATION_PREV' => $pagenav['prev'],
 	'ADMIN_LOG_PAGNAV' => $pagenav['main'],

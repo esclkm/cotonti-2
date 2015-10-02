@@ -30,8 +30,8 @@ $totalitems = $db->countRows($db_bbcode);
 
 // FIXME AJAX-based pagination doesn't work because of some strange PHP bug
 // Xtpl_block->text() returns 'str' instead of a long string which it has in $text
-//$pagenav = cot_pagenav('admin', 'm=other&p=bbcode', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
-$pagenav = cot_pagenav('admin', 'm=other&p=bbcode', $d, $totalitems, $cfg['maxrowsperpage'], 'd');
+//$pagenav = cot_pagenav('admin', 't=other&p=bbcode', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
+$pagenav = cot_pagenav('admin', 't=other&p=bbcode', $d, $totalitems, $cfg['maxrowsperpage'], 'd');
 
 
 /* === Hook === */
@@ -256,7 +256,7 @@ foreach ($res->fetchAll() as $row)
 		'ADMIN_BBCODE_ROW_MODE' => cot_selectbox($row['bbc_mode'], 'bbca_mode['.$id.']', $bbc_modes, $bbc_modes, false),
 		'ADMIN_BBCODE_ROW_PRIO' => cot_selectbox($row['bbc_priority'], 'bbca_priority['.$id.']', range(1, 256), range(1, 256), false),
 		'ADMIN_BBCODE_ROW_POSTRENDER' => cot_checkbox($row['bbc_postrender'], 'bbca_postrender['.$id.']'),
-		'ADMIN_BBCODE_ROW_DELETE_URL' => cot_url('admin', 'm=other&p=bbcode&a=del&id='.$id.'&d='.$durl),
+		'ADMIN_BBCODE_ROW_DELETE_URL' => cot_url('admin', 't=other&p=bbcode&a=del&id='.$id.'&d='.$durl),
 		'ADMIN_BBCODE_ROW_ODDEVEN' => cot_build_oddeven($ii)
 	));
 
@@ -278,7 +278,7 @@ $bb_t->assign(array(
 	'ADMIN_BBCODE_PAGINATION_NEXT' => $pagenav['next'],
 	'ADMIN_BBCODE_TOTALITEMS' => $totalitems,
 	'ADMIN_BBCODE_COUNTER_ROW' => $ii,
-	'ADMIN_BBCODE_FORM_ACTION' => cot_url('admin', 'm=other&p=bbcode&a=add&d='.$durl),
+	'ADMIN_BBCODE_FORM_ACTION' => cot_url('admin', 't=other&p=bbcode&a=add&d='.$durl),
 	'ADMIN_BBCODE_NAME' => cot_inputbox('text', 'bbc_name', $bbc['name']),
 	'ADMIN_BBCODE_ENABLED' => cot_checkbox($bbc['enabled'], 'bbc_enabled'),
 	'ADMIN_BBCODE_CONTAINER' => cot_checkbox($bbc['container'], 'bbc_container'),
@@ -287,15 +287,15 @@ $bb_t->assign(array(
 	'ADMIN_BBCODE_MODE' => cot_selectbox(!empty($bbc['mode']) ? $bbc['mode'] : 'pcre', 'bbc_mode', $bbc_modes, $bbc_modes, false),
 	'ADMIN_BBCODE_PRIO' => cot_selectbox(is_numeric($bbc['priority']) ? $bbc['priority'] : '128', 'bbc_priority', range(1, 256), range(1, 256), false),
 	'ADMIN_BBCODE_POSTRENDER' => cot_checkbox($bbc['postrender'], 'bbc_postrender'),
-	'ADMIN_BBCODE_URL_CLEAR_CACHE' => cot_url('admin', 'm=other&p=bbcode&a=clearcache&d='.$durl),
-	'ADMIN_BBCODE_UPDATE_URL' => cot_url('admin', 'm=other&p=bbcode&a=upd&d='.$durl)
+	'ADMIN_BBCODE_URL_CLEAR_CACHE' => cot_url('admin', 't=other&p=bbcode&a=clearcache&d='.$durl),
+	'ADMIN_BBCODE_UPDATE_URL' => cot_url('admin', 't=other&p=bbcode&a=upd&d='.$durl)
 ));
 
 // HTML conversion links
 if (cot_extension_active('page'))
 {
 	$bb_t->assign(array(
-		'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 'm=other&p=bbcode&a=convert&b=page'),
+		'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 't=other&p=bbcode&a=convert&b=page'),
 		'ADMIN_BBCODE_CONVERT_TITLE' => $L['adm_bbcodes_convert_page']
 	));
 	$bb_t->parse('MAIN.ADMIN_BBCODE_CONVERT');
@@ -303,7 +303,7 @@ if (cot_extension_active('page'))
 if (cot_extension_active('forums'))
 {
 	$bb_t->assign(array(
-		'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 'm=other&p=bbcode&a=convert&b=forums'),
+		'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 't=other&p=bbcode&a=convert&b=forums'),
 		'ADMIN_BBCODE_CONVERT_TITLE' => $L['adm_bbcodes_convert_forums']
 	));
 	$bb_t->parse('MAIN.ADMIN_BBCODE_CONVERT');
@@ -311,7 +311,7 @@ if (cot_extension_active('forums'))
 if (cot_extension_active('comments'))
 {
 	$bb_t->assign(array(
-		'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 'm=other&p=bbcode&a=convert&b=comments'),
+		'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 't=other&p=bbcode&a=convert&b=comments'),
 		'ADMIN_BBCODE_CONVERT_TITLE' => $L['adm_bbcodes_convert_comments']
 	));
 	$bb_t->parse('MAIN.ADMIN_BBCODE_CONVERT');
@@ -319,14 +319,14 @@ if (cot_extension_active('comments'))
 if (cot_extension_active('pm'))
 {
 	$bb_t->assign(array(
-		'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 'm=other&p=bbcode&a=convert&b=pm'),
+		'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 't=other&p=bbcode&a=convert&b=pm'),
 		'ADMIN_BBCODE_CONVERT_TITLE' => $L['adm_bbcodes_convert_pm']
 	));
 	$bb_t->parse('MAIN.ADMIN_BBCODE_CONVERT');
 }
 
 $bb_t->assign(array(
-	'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 'm=other&p=bbcode&a=convert&b=users'),
+	'ADMIN_BBCODE_CONVERT_URL' => cot_url('admin', 't=other&p=bbcode&a=convert&b=users'),
 	'ADMIN_BBCODE_CONVERT_TITLE' => $L['adm_bbcodes_convert_users']
 ));
 $bb_t->parse('MAIN.ADMIN_BBCODE_CONVERT');

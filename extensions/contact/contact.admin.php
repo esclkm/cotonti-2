@@ -63,7 +63,7 @@ $tuman = new XTemplate(cot_tplfile('contact.admin'));
 $totallines = $db->query("SELECT COUNT(*) FROM $db_contact")->fetchColumn();
 $sql = $db->query("SELECT * FROM $db_contact ORDER BY contact_val ASC, contact_id DESC LIMIT $d, " . $cfg['maxrowsperpage']);
 
-$pagnav = cot_pagenav('admin', 'm=other&p=contact', $d, $totallines, $cfg['maxrowsperpage']);
+$pagnav = cot_pagenav('admin', 't=other&p=contact', $d, $totallines, $cfg['maxrowsperpage']);
 
 $i = 0;
 foreach ($sql->fetchAll() as $row)
@@ -80,12 +80,12 @@ foreach ($sql->fetchAll() as $row)
 		'CONTACT_USER' => ($row['contact_authorid'] > 0) ? cot_build_user($row['contact_authorid'], $row['contact_author']) : $row['contact_author'],
 		'CONTACT_EMAIL' => $row['contact_email'],
 		'CONTACT_ID' => $row['contact_id'],
-		'CONTACT_DELLINK' => cot_url('admin', 'm=other&p=contact&a=del&id=' . $row['contact_id']),
-		'CONTACT_VIEWLINK' => cot_url('admin', 'm=other&p=contact&id=' . $row['contact_id']),
+		'CONTACT_DELLINK' => cot_url('admin', 't=other&p=contact&a=del&id=' . $row['contact_id']),
+		'CONTACT_VIEWLINK' => cot_url('admin', 't=other&p=contact&id=' . $row['contact_id']),
 		'CONTACT_VAL' => ($row['contact_val'] == 1) ? 'unval' : 'val',
-		'CONTACT_VALLINK' => cot_url('admin', 'm=other&p=contact&a=' . $val . '&id=' . $row['contact_id']),
-		'CONTACT_READLINK' => cot_url('admin', 'm=other&p=contact&a=val&id=' . $row['contact_id']),
-		'CONTACT_UNREADLINK' => cot_url('admin', 'm=other&p=contact&a=unval&id=' . $row['contact_id']),
+		'CONTACT_VALLINK' => cot_url('admin', 't=other&p=contact&a=' . $val . '&id=' . $row['contact_id']),
+		'CONTACT_READLINK' => cot_url('admin', 't=other&p=contact&a=val&id=' . $row['contact_id']),
+		'CONTACT_UNREADLINK' => cot_url('admin', 't=other&p=contact&a=unval&id=' . $row['contact_id']),
 		'CONTACT_SUBJECT' => $row['contact_subject'],
 		'CONTACT_TEXT' => $row['contact_text'],
 		'CONTACT_REPLY' => !empty($row['contact_reply']),
@@ -127,11 +127,11 @@ if (($a == '') && !empty($id))
 		'CONTACT_USER' => ($row['contact_authorid'] > 0) ? cot_build_user($row['contact_authorid'], $row['contact_author']) : $row['contact_author'],
 		'CONTACT_EMAIL' => $row['contact_email'],
 		'CONTACT_ID' => $row['contact_id'],
-		'CONTACT_DELLINK' => cot_url('admin', 'm=other&p=contact&a=del&id=' . $row['contact_id']),
+		'CONTACT_DELLINK' => cot_url('admin', 't=other&p=contact&a=del&id=' . $row['contact_id']),
 		'CONTACT_VAL' => ($row['contact_val'] == 1) ? 'unval' : 'val',
-		'CONTACT_VALLINK' => cot_url('admin', 'm=other&p=contact&a=' . $val . '&id=' . $row['contact_id']),
-		'CONTACT_READLINK' => cot_url('admin', 'm=other&p=contact&a=val&id=' . $row['contact_id']),
-		'CONTACT_UNREADLINK' => cot_url('admin', 'm=other&p=contact&a=unval&id=' . $row['contact_id']),
+		'CONTACT_VALLINK' => cot_url('admin', 't=other&p=contact&a=' . $val . '&id=' . $row['contact_id']),
+		'CONTACT_READLINK' => cot_url('admin', 't=other&p=contact&a=val&id=' . $row['contact_id']),
+		'CONTACT_UNREADLINK' => cot_url('admin', 't=other&p=contact&a=unval&id=' . $row['contact_id']),
 		'CONTACT_SUBJECT' => $row['contact_subject'],
 		'CONTACT_TEXT' => $row['contact_text'],
 		'CONTACT_REPLY' => $row['contact_reply'],

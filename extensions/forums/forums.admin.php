@@ -23,9 +23,9 @@ $t = new XTemplate(cot_tplfile('forums.admin'));
 
 require_once cot_incfile('forums', 'functions');
 
-$adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
-$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
-$adminpath[] = array(cot_url('admin', 'm='.$m), $L['Administration']);
+$adminpath[] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
+$adminpath[] = array(cot_url('admin', 't=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
+$adminpath[] = array(cot_url('admin', 't='.$m), $L['Administration']);
 
 $adminsubtitle = $L['Forums'];
 
@@ -55,8 +55,8 @@ while ($row = $sql_forums->fetch())
 $sql_forums->closeCursor();
 
 $t->assign(array(
-	'ADMIN_FORUMS_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=extension&p=forums'),
-	'ADMIN_FORUMS_URL_STRUCTURE' => cot_url('admin', 'm=structure&n=forums'),
+	'ADMIN_FORUMS_URL_CONFIG' => cot_url('admin', 't=config&n=edit&o=extension&p=forums'),
+	'ADMIN_FORUMS_URL_STRUCTURE' => cot_url('admin', 't=structure&n=forums'),
 	'ADMIN_FORUMS_TOTALTOPICS' => $db->countRows($db_forum_topics),
 	'ADMIN_FORUMS_TOTALPOSTS' => $db->countRows($db_forum_posts),
 	'ADMIN_FORUMS_TOTALVIEWS' => $db->query("SELECT SUM(fs_viewcount) FROM $db_forum_stats")->fetchColumn(),

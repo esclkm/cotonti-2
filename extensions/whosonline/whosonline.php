@@ -127,7 +127,7 @@ foreach ($sql_users->fetchAll() as $row)
 	else
 	{
 		$count_guests++;
-		$url_ipsearch = cot_url('admin', 'm=other&p=ipsearch&a=search&id='.$row['online_ip'].'&'.cot_xg());
+		$url_ipsearch = cot_url('admin', 't=other&p=ipsearch&a=search&id='.$row['online_ip'].'&'.cot_xg());
 		$t->assign(array(
 				'GUEST_LOCATION' => htmlspecialchars($row['online_location']),
 				'GUEST_SUBLOCATION' => htmlspecialchars($row['online_subloc']),

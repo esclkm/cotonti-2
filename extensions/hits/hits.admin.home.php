@@ -52,7 +52,7 @@ if (!$cfg['hits']['disablehitstats'])
 			$tt->parse('MAIN.STAT.ADMIN_HOME_ROW');
 		}
 	}
-	$tt->assign('ADMIN_HOME_MORE_HITS_URL', cot_url('admin', 'm=other&p=hits'));
+	$tt->assign('ADMIN_HOME_MORE_HITS_URL', cot_url('admin', 't=other&p=hits'));
 	$tt->parse('MAIN.STAT');
 }
 
@@ -93,13 +93,13 @@ if (!$cfg['hits']['disableactivitystats'] && cot_extension_active('page'))
 	$tt->assign(array(
 		'ADMIN_HOME_NEWUSERS_URL' => cot_url('users', 'f=all&s=regdate&w=desc'),
 		'ADMIN_HOME_NEWUSERS' => $newusers,
-		'ADMIN_HOME_NEWPAGES_URL' => cot_url('admin', 'm=page'),
+		'ADMIN_HOME_NEWPAGES_URL' => cot_url('admin', 't=page'),
 		'ADMIN_HOME_NEWPAGES' => $newpages,
 		'ADMIN_HOME_NEWTOPICS_URL' => cot_url('forums'),
 		'ADMIN_HOME_NEWTOPICS' => $newtopics,
 		'ADMIN_HOME_NEWPOSTS_URL' => cot_url('forums'),
 		'ADMIN_HOME_NEWPOSTS' => $newposts,
-		'ADMIN_HOME_NEWCOMMENTS_URL' => cot_url('admin', 'm=comments'),
+		'ADMIN_HOME_NEWCOMMENTS_URL' => cot_url('admin', 't=comments'),
 		'ADMIN_HOME_NEWCOMMENTS' => $newcomments,
 		'ADMIN_HOME_NEWPMS' => $newpms
 	));

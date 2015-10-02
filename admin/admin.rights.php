@@ -99,18 +99,18 @@ foreach (cot_getextensions('admin.rights.main') as $ext)
 }
 /* ===== */
 
-$adminpath[] = array(cot_url('admin', 'm=users'), $L['Users']);
-$adminpath[] = array(cot_url('admin', 'm=users&n=edit&g='.$g), $cot_groups[$g]['name']);
-$adminpath[] = array(cot_url('admin', 'm=rights&g='.$g), $L['Rights']);
-($advanced) && $adminpath[] = array(cot_url('admin', 'm=rights&g='.$g.'&advanced=1'), $L['More']);
+$adminpath[] = array(cot_url('admin', 't=users'), $L['Users']);
+$adminpath[] = array(cot_url('admin', 't=users&n=edit&g='.$g), $cot_groups[$g]['name']);
+$adminpath[] = array(cot_url('admin', 't=rights&g='.$g), $L['Rights']);
+($advanced) && $adminpath[] = array(cot_url('admin', 't=rights&g='.$g.'&advanced=1'), $L['More']);
 $adminsubtitle = $L['Rights'];
 
 $adv_columns = ($advanced) ? 8 : 4;
 
 // Common tags
 $t->assign(array(
-	'ADMIN_RIGHTS_FORM_URL' => cot_url('admin', 'm=rights&a=update&g='.$g.$adv_for_url),
-	'ADMIN_RIGHTS_ADVANCED_URL' => cot_url('admin', 'm=rights&g='.$g.'&advanced=1'),
+	'ADMIN_RIGHTS_FORM_URL' => cot_url('admin', 't=rights&a=update&g='.$g.$adv_for_url),
+	'ADMIN_RIGHTS_ADVANCED_URL' => cot_url('admin', 't=rights&g='.$g.'&advanced=1'),
 	'ADMIN_RIGHTS_SELECTBOX_GROUPS' => cot_selectbox_groups(4, 'ncopyrightsfrom', array('5', $g)),
 	'ADMIN_RIGHTS_ADV_COLUMNS' => $adv_columns,
 	'ADMIN_RIGHTS_4ADV_COLUMNS' => 4 + $adv_columns
@@ -146,7 +146,7 @@ while ($row = $sql->fetch())
 	}
 	else
 	{
-		$link = cot_url('admin', "m=extensions&a=details&mod=".$row['auth_code']);
+		$link = cot_url('admin', "t=extensions&a=details&mod=".$row['auth_code']);
 		$title = $cot_extensions[$row['auth_code']]['title'];
 		$ico = $cfg['extensions_dir'] . '/' . $row['auth_code'] . '/' . $row['auth_code'] . '.png';
 	}
@@ -174,7 +174,7 @@ while ($row = $sql->fetch())
 		$t->parse('MAIN.RIGHTS_SECTION');
 	}
 	$area = $row['structure_area'];
-	$link = cot_url('admin', 'm=structure&n='.$area.'&al='.$row['auth_option']);
+	$link = cot_url('admin', 't=structure&n='.$area.'&al='.$row['auth_option']);
 	$title = $structure[$row['structure_area']][$row['auth_option']]['tpath'];
 	$ico = $cfg['extensions_dir'] . '/' . $area . '/' . $area . '.png';
 	cot_rights_parseline($row, $title, $link, $ico);
@@ -268,7 +268,7 @@ function cot_rights_parseline($row, $title, $link, $ico = '')
 		'ADMIN_RIGHTS_ROW_TITLE' => $title,
 		'ADMIN_RIGHTS_ROW_LINK' => $link,
 		'ADMIN_RIGHTS_ROW_ICO' => $ico,
-		'ADMIN_RIGHTS_ROW_RIGHTSBYITEM' => cot_url('admin', 'm=rightsbyitem&ic='.$row['auth_code'].'&io='.$row['auth_option']),
+		'ADMIN_RIGHTS_ROW_RIGHTSBYITEM' => cot_url('admin', 't=rightsbyitem&ic='.$row['auth_code'].'&io='.$row['auth_option']),
 		'ADMIN_RIGHTS_ROW_USER' => cot_build_user($row['auth_setbyuserid'], htmlspecialchars($row['user_name'])),
 	));
 	$t->parse('MAIN.RIGHTS_SECTION.RIGHTS_ROW');

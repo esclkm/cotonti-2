@@ -145,19 +145,19 @@ if (empty($rc) && empty($rd))
 switch ($rc)
 {
 	case '100':
-		$r['100'] = cot_url('admin', 'm=extensions');
+		$r['100'] = cot_url('admin', 't=extensions');
 		break;
 
 	case '101':
-		$r['101'] = cot_url('admin', 'm=hitsperday');
+		$r['101'] = cot_url('admin', 't=hitsperday');
 		break;
 
 	case '102':
-		$r['102'] = cot_url('admin', 'm=polls');
+		$r['102'] = cot_url('admin', 't=polls');
 		break;
 
 	case '103':
-		$r['103'] = cot_url('admin', 'm=forums');
+		$r['103'] = cot_url('admin', 't=forums');
 		break;
 
 	case '200':

@@ -34,8 +34,8 @@ if ($i18n_enabled && $i18n_notmain)
 	if ($cat_i18n)
 	{
 		$cat_url = cot_url('page', 'c=' . $page_data['page_cat'].$append_param);
-		$validate_url = cot_url('admin', "m=page&a=validate&id={$page_data['page_id']}&x={$sys['xk']}$append_param");
-		$unvalidate_url = cot_url('admin', "m=page&a=unvalidate&id={$page_data['page_id']}&x={$sys['xk']}$append_param");
+		$validate_url = cot_url('admin', "t=page&a=validate&id={$page_data['page_id']}&x={$sys['xk']}$append_param");
+		$unvalidate_url = cot_url('admin', "t=page&a=unvalidate&id={$page_data['page_id']}&x={$sys['xk']}$append_param");
 		$edit_url = cot_url('page', "m=edit&id={$page_data['page_id']}$append_param");
 		$pagepath = cot_i18n_build_catpath('page', $page_data['page_cat'], $i18n_locale);
 		$catpath = cot_breadcrumbs($pagepath, $pagepath_home);

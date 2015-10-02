@@ -21,7 +21,7 @@ $adminsubtitle = $L['ipsearch_title'];
 
 $t = new XTemplate(cot_tplfile('ipsearch'));
 $t->assign(array(
-	'IPSEARCH_FORM_URL' => cot_url('admin', 'm=other&p=ipsearch&a=search&'.cot_xg()),
+	'IPSEARCH_FORM_URL' => cot_url('admin', 't=other&p=ipsearch&a=search&'.cot_xg()),
 	'IPSEARCH_ID' => $id
 ));
 

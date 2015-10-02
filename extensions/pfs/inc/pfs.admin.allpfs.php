@@ -13,9 +13,9 @@
 
 $t = new XTemplate(cot_tplfile('pfs.admin.allpfs'));
 
-$adminpath[] = array(cot_url('admin', 'm=other'), $L['Other']);
-$adminpath[] = array(cot_url('admin', 'm=pfs'), $L['PFS']);
-$adminpath[] = array(cot_url('admin', 'm=pfs&s=allpfs'), $L['adm_allpfs']);
+$adminpath[] = array(cot_url('admin', 't=other'), $L['Other']);
+$adminpath[] = array(cot_url('admin', 't=pfs'), $L['PFS']);
+$adminpath[] = array(cot_url('admin', 't=pfs&s=allpfs'), $L['adm_allpfs']);
 
 $adminsubtitle = $L['adm_allpfs'];
 
@@ -31,7 +31,7 @@ foreach (cot_getextensions('admin.pfs.allpfs.first') as $ext)
 unset($disp_list);
 
 $totalitems = $db->query("SELECT COUNT(DISTINCT pfs_userid) FROM $db_pfs WHERE pfs_folderid>=0")->fetchColumn();
-$pagenav = cot_pagenav('admin', 'm=pfs&s=allpfs', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
+$pagenav = cot_pagenav('admin', 't=pfs&s=allpfs', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
 
 $sql_pfs = $db->query("SELECT DISTINCT p.pfs_userid, u.user_name, u.user_id, COUNT(*) FROM $db_pfs AS p
 	LEFT JOIN $db_users AS u ON p.pfs_userid=u.user_id

@@ -52,7 +52,7 @@ if($a == 'wipe')
 	/* ===== */
 	cot_trash_delete($id);
 	cot_message('adm_trashcan_deleted');
-	cot_redirect(cot_url('admin', 'm=other&p=trashcan', '', true));
+	cot_redirect(cot_url('admin', 't=other&p=trashcan', '', true));
 }
 elseif($a == 'wipeall')
 {
@@ -66,7 +66,7 @@ elseif($a == 'wipeall')
 	$sql = $db->query("TRUNCATE $db_trash");
 
 	cot_message('adm_trashcan_prune');
-	cot_redirect(cot_url('admin', 'm=other&p=trashcan', '', true));
+	cot_redirect(cot_url('admin', 't=other&p=trashcan', '', true));
 }
 elseif($a == 'restore')
 {
@@ -80,12 +80,12 @@ elseif($a == 'restore')
 	cot_trash_restore($id);
 
 	cot_message('adm_trashcan_restored');
-	cot_redirect(cot_url('admin', 'm=other&p=trashcan', '', true));
+	cot_redirect(cot_url('admin', 't=other&p=trashcan', '', true));
 }
 
 $tr_t = new XTemplate(cot_tplfile(($info) ? 'trashcan.info.admin' : 'trashcan.admin'));
 $totalitems = (int)$db->query("SELECT COUNT(*) FROM $db_trash WHERE tr_parentid=0")->fetchColumn();
-$pagenav = cot_pagenav('admin', 'm=other&p=trashcan', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
+$pagenav = cot_pagenav('admin', 't=other&p=trashcan', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
 
 $sql_query = ($info) ? "AND tr_id=$id LIMIT 1" : "ORDER by tr_id DESC LIMIT $d, ".$cfg['maxrowsperpage'];
 $sql = $db->query("SELECT t.*, u.user_name FROM $db_trash AS t
@@ -145,9 +145,9 @@ foreach ($sql->fetchAll() as $row)
 		'ADMIN_TRASHCAN_TYPESTR' => $typestr,
 		'ADMIN_TRASHCAN_TITLE' => htmlspecialchars($row['tr_title']),
 		'ADMIN_TRASHCAN_TRASHEDBY' => ($row['tr_trashedby'] == 0) ? $L['System'] : cot_build_user($row['tr_trashedby'], htmlspecialchars($row['user_name'])),
-		'ADMIN_TRASHCAN_ROW_WIPE_URL' => cot_url('admin', 'm=other&p=trashcan&a=wipe&id='.$row['tr_id'].'&d='.$durl.'&'.cot_xg()),
-		'ADMIN_TRASHCAN_ROW_RESTORE_URL' => cot_url('admin', 'm=other&p=trashcan&a=restore&id='.$row['tr_id'].'&d='.$durl.'&'.cot_xg()),
-		'ADMIN_TRASHCAN_ROW_INFO_URL' => cot_url('admin', 'm=other&p=trashcan&a=info&id='.$row['tr_id']),
+		'ADMIN_TRASHCAN_ROW_WIPE_URL' => cot_url('admin', 't=other&p=trashcan&a=wipe&id='.$row['tr_id'].'&d='.$durl.'&'.cot_xg()),
+		'ADMIN_TRASHCAN_ROW_RESTORE_URL' => cot_url('admin', 't=other&p=trashcan&a=restore&id='.$row['tr_id'].'&d='.$durl.'&'.cot_xg()),
+		'ADMIN_TRASHCAN_ROW_INFO_URL' => cot_url('admin', 't=other&p=trashcan&a=info&id='.$row['tr_id']),
 		'ADMIN_TRASHCAN_ROW_RESTORE_ENABLED' => $enabled,
 	));
 
@@ -159,7 +159,7 @@ foreach ($sql->fetchAll() as $row)
 	/* ===== */
 	if($info)
 	{
-		$adminpath[] = array(cot_url('admin', 'm=other&p=trashcan&a=info&id='.$id), $row['tr_title']);
+		$adminpath[] = array(cot_url('admin', 't=other&p=trashcan&a=info&id='.$id), $row['tr_title']);
 		$data = unserialize($row['tr_datas']);
 		{
 			foreach($data as $key => $val)
@@ -183,8 +183,8 @@ if($ii == 0)
 
 
 $tr_t->assign(array(
-	'ADMIN_TRASHCAN_CONF_URL' => cot_url('admin', 'm=config&n=edit&o=extension&p=trashcan'),
-	'ADMIN_TRASHCAN_WIPEALL_URL' => cot_url('admin', 'm=other&p=trashcan&a=wipeall&'.cot_xg()),
+	'ADMIN_TRASHCAN_CONF_URL' => cot_url('admin', 't=config&n=edit&o=extension&p=trashcan'),
+	'ADMIN_TRASHCAN_WIPEALL_URL' => cot_url('admin', 't=other&p=trashcan&a=wipeall&'.cot_xg()),
 	'ADMIN_TRASHCAN_PAGINATION_PREV' => $pagenav['prev'],
 	'ADMIN_TRASHCAN_PAGNAV' => $pagenav['main'],
 	'ADMIN_TRASHCAN_PAGINATION_NEXT' => $pagenav['next'],

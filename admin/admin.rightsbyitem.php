@@ -96,18 +96,18 @@ if($ic == 'message' || $ic == 'admin')
 }
 else
 {
-	$adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
-	$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$ic), $cot_extensions[$ic]['title']);
+	$adminpath[] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
+	$adminpath[] = array(cot_url('admin', 't=extensions&a=details&mod='.$ic), $cot_extensions[$ic]['title']);
 	if($io != 'a')
 	{
-		$adminpath[] = array(cot_url('admin', 'm=structure&n='.$ic), $L['Structure']);
-		$adminpath[] = array(cot_url('admin', 'm=structure&n='.$ic.'&al='.$io), $structure[$ic][$io]['title']);
+		$adminpath[] = array(cot_url('admin', 't=structure&n='.$ic), $L['Structure']);
+		$adminpath[] = array(cot_url('admin', 't=structure&n='.$ic.'&al='.$io), $structure[$ic][$io]['title']);
 	}
 }
 
 //m=extensions&a=details&mod=page
-$adminpath[] = array(cot_url('admin', 'm=rightsbyitem&ic='.$ic.'&io='.$io), $L['Rights']);
-($advanced) && $adminpath[] = array(cot_url('admin', 'm=rightsbyitem&ic='.$ic.'&io='.$io.'&advanced=1'), $L['More']);
+$adminpath[] = array(cot_url('admin', 't=rightsbyitem&ic='.$ic.'&io='.$io), $L['Rights']);
+($advanced) && $adminpath[] = array(cot_url('admin', 't=rightsbyitem&ic='.$ic.'&io='.$io.'&advanced=1'), $L['More']);
 $adminsubtitle = $L['Rights'];
 
 $adv_columns = ($advanced) ? 8 : 3;
@@ -117,7 +117,7 @@ $l_custom1 = ($ic == 'page') ? $L['Download'] : $L['Custom'].' #1';
 
 while ($row = $sql->fetch())
 {
-	$link = cot_url('admin', 'm=rights&g='.$row['auth_groupid']);
+	$link = cot_url('admin', 't=rights&g='.$row['auth_groupid']);
 	$title = htmlspecialchars($row['grp_name']);
 	cot_rights_parseline($row, $title, $link);
 }
@@ -127,8 +127,8 @@ $is_adminwarnings = isset($adminwarnings);
 $adv_for_url = ($advanced) ? '&advanced=1' : '';
 
 $t->assign(array(
-	'ADMIN_RIGHTSBYITEM_FORM_URL' => cot_url('admin', 'm=rightsbyitem&a=update&ic='.$ic.'&io='.$io.$adv_for_url),
-	'ADMIN_RIGHTSBYITEM_ADVANCED_URL' => cot_url('admin', 'm=rightsbyitem&ic='.$ic.'&io='.$io.'&advanced=1'),
+	'ADMIN_RIGHTSBYITEM_FORM_URL' => cot_url('admin', 't=rightsbyitem&a=update&ic='.$ic.'&io='.$io.$adv_for_url),
+	'ADMIN_RIGHTSBYITEM_ADVANCED_URL' => cot_url('admin', 't=rightsbyitem&ic='.$ic.'&io='.$io.'&advanced=1'),
 	'ADMIN_RIGHTSBYITEM_ADV_COLUMNS' => $adv_columns,
 	'ADMIN_RIGHTSBYITEM_4ADV_COLUMNS' => 4 + $adv_columns,
 	'ADMIN_RIGHTSBYITEM_BREADCRUMBS' => cot_breadcrumbs($adminpath, false)	

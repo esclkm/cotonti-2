@@ -22,7 +22,7 @@ if (cot_auth('contact', 'any', 'A'))
 	require_once cot_incfile('contact', 'functions');
 
 	$new_contact = $db->query("SELECT COUNT(*) FROM $db_contact WHERE contact_val=0")->fetchColumn();
-	$notify_contact = ($new_contact > 0) ? array(cot_url('admin', 'm=other&p=contact'), cot_declension($new_contact, $Ls['contact_headercontact'])) : '';
+	$notify_contact = ($new_contact > 0) ? array(cot_url('admin', 't=other&p=contact'), cot_declension($new_contact, $Ls['contact_headercontact'])) : '';
 	if (!empty($notify_contact))
 	{
 		$out['notices_array'][] = $notify_contact;

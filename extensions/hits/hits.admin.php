@@ -37,7 +37,7 @@ foreach (cot_getextensions('hits.admin.first') as $ext)
 
 if($f == 'year' || $f == 'month')
 {
-    $adminpath[] = array(cot_url('admin', 'm=other&p=hits&f='.$f.'&v='.$v), '('.$v.')');
+    $adminpath[] = array(cot_url('admin', 't=other&p=hits&f='.$f.'&v='.$v), '('.$v.')');
     $sql = $db->query("SELECT * FROM $db_stats WHERE stat_name LIKE '".$db->prep($v)."%' ORDER BY stat_name DESC");
 
     while($row = $sql->fetch())
@@ -120,7 +120,7 @@ else
 		{
 			$percentbar = floor(($hits / $hits_y_max) * 100);
 			$tt->assign(array(
-				'ADMIN_HITS_ROW_YEAR_URL' => cot_url('admin', 'm=other&p=hits&f=year&v=' . $year),
+				'ADMIN_HITS_ROW_YEAR_URL' => cot_url('admin', 't=other&p=hits&f=year&v=' . $year),
 				'ADMIN_HITS_ROW_YEAR' => $year,
 				'ADMIN_HITS_ROW_YEAR_HITS' => $hits,
 				'ADMIN_HITS_ROW_YEAR_PERCENTBAR' => $percentbar
@@ -138,7 +138,7 @@ else
 		{
 			$percentbar = floor(($hits / $hits_m_max) * 100);
 			$tt->assign(array(
-				'ADMIN_HITS_ROW_MONTH_URL' => cot_url('admin', 'm=other&p=hits&f=month&v=' . $month),
+				'ADMIN_HITS_ROW_MONTH_URL' => cot_url('admin', 't=other&p=hits&f=month&v=' . $month),
 				'ADMIN_HITS_ROW_MONTH' => $month,
 				'ADMIN_HITS_ROW_MONTH_HITS' => $hits,
 				'ADMIN_HITS_ROW_MONTH_PERCENTBAR' => $percentbar

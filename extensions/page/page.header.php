@@ -25,7 +25,7 @@ if ($usr['id'] > 0 && cot_auth('page', 'any', 'A'))
 
 	if ($sys['pagesqueued'] > 0)
 	{
-		$out['notices_array'][] = array(cot_url('admin', 'm=page'), cot_declension($sys['pagesqueued'], $Ls['unvalidated_pages']));
+		$out['notices_array'][] = array(cot_url('admin', 't=page'), cot_declension($sys['pagesqueued'], $Ls['unvalidated_pages']));
 	}
 }
 elseif ($usr['id'] > 0 && cot_auth('page', 'any', 'W'))

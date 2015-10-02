@@ -50,25 +50,25 @@
 
 			<tr>
 				<td>
-					<p class="strong"><a href="{PHP|cot_url('admin', 'm=cache')}">{PHP.L.adm_internalcache}</a></p>
+					<p class="strong"><a href="{PHP|cot_url('admin', 't=cache')}">{PHP.L.adm_internalcache}</a></p>
 					<p class="small">{PHP.L.adm_internalcache_desc}</p>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<p class="strong"><a href="{PHP|cot_url('admin', 'm=cache&s=disk')}">{PHP.L.adm_diskcache}</a></p>
+					<p class="strong"><a href="{PHP|cot_url('admin', 't=cache&s=disk')}">{PHP.L.adm_diskcache}</a></p>
 					<p class="small">{PHP.L.adm_diskcache_desc}</p>
 				</td>
 			</tr>		
 			<tr>
 				<td>
-					<p class="strong"><a href="{PHP|cot_url('admin', 'm=log')}">{PHP.L.adm_log}</a></p>
+					<p class="strong"><a href="{PHP|cot_url('admin', 't=log')}">{PHP.L.adm_log}</a></p>
 					<p class="small">{PHP.L.adm_log_desc}</p>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<p class="strong"><a href="{PHP|cot_url('admin', 'm=infos')}">{PHP.L.adm_infos}</a></p>
+					<p class="strong"><a href="{PHP|cot_url('admin', 't=infos')}">{PHP.L.adm_infos}</a></p>
 					<p class="small">{PHP.L.adm_infos_desc}</p>
 				</td>
 			</tr>

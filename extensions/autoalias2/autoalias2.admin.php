@@ -35,10 +35,10 @@ if ($a == 'create')
 	}
 	$res->closeCursor();
 	cot_message(cot_rc('aliases_written', $count));
-	cot_redirect(cot_url('admin', 'm=other&p=autoalias2', '', true));
+	cot_redirect(cot_url('admin', 't=other&p=autoalias2', '', true));
 }
 
-$t->assign('AUTOALIAS_CREATE', cot_url('admin', 'm=other&p=autoalias2&a=create'));
+$t->assign('AUTOALIAS_CREATE', cot_url('admin', 't=other&p=autoalias2&a=create'));
 
 cot_display_messages($t);
 

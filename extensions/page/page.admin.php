@@ -24,9 +24,9 @@ $t = new XTemplate(cot_tplfile('page.admin'));
 
 require_once cot_incfile('page', 'functions');
 
-$adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
-$adminpath[] = array(cot_url('admin', 'm=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
-$adminpath[] = array(cot_url('admin', 'm='.$m), $L['Administration']);
+$adminpath[] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
+$adminpath[] = array(cot_url('admin', 't=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
+$adminpath[] = array(cot_url('admin', 't='.$m), $L['Administration']);
 $adminsubtitle = $L['Pages'];
 
 $id = cot_import('id', 'G', 'INT');
@@ -421,10 +421,10 @@ $sql_page_queued = $db->query("SELECT COUNT(*) FROM $db_pages WHERE page_state=1
 $sys['pagesqueued'] = $sql_page_queued->fetchColumn();
 
 $t->assign(array(
-	'ADMIN_PAGE_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=extension&p=page'),
+	'ADMIN_PAGE_URL_CONFIG' => cot_url('admin', 't=config&n=edit&o=extension&p=page'),
 	'ADMIN_PAGE_URL_ADD' => cot_url('page', 'm=add'),
-	'ADMIN_PAGE_URL_EXTRAFIELDS' => cot_url('admin', 'm=extrafields&n='.$db_pages),
-	'ADMIN_PAGE_URL_STRUCTURE' => cot_url('admin', 'm=structure&n=page'),
+	'ADMIN_PAGE_URL_EXTRAFIELDS' => cot_url('admin', 't=extrafields&n='.$db_pages),
+	'ADMIN_PAGE_URL_STRUCTURE' => cot_url('admin', 't=structure&n=page'),
 	'ADMIN_PAGE_FORM_URL' => cot_url('admin', $common_params.'&a=update_checked&d='.$durl),
 	'ADMIN_PAGE_ORDER' => cot_selectbox($sorttype, 'sorttype', array_keys($sort_type), array_values($sort_type), false),
 	'ADMIN_PAGE_WAY' => cot_selectbox($sortway, 'sortway', array_keys($sort_way), array_values($sort_way), false),

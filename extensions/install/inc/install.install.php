@@ -11,8 +11,8 @@ defined('COT_CODE') or die('Wrong URL');
 
 // Extensions checked by default
 $default_extensions = array('index', 'page', 'users', 'rss', 'ckeditor', 'cleaner', 'html', 'htmlpurifier', 'ipsearch', 'mcaptcha', 'news', 'search');
-
-$step = empty($_SESSION['cot_inst_lang']) ? 0 : (int)$cfg['new_install'];
+//unset($_SESSION['cot_inst_lang']);
+$step = empty($_SESSION['cot_inst_lang']) ? 1 : ((int)$cfg['new_install'] == 1 ? 2 : $cfg['new_install']) ;
 
 $mskin = cot_tplfile('install.install');
 
@@ -43,7 +43,7 @@ if ($step > 2)
 // Import section
 switch ($step)
 {
-	case 2:
+	case 3:
 		$db_host = cot_import('db_host', 'P', 'TXT', 0, false, true);
 		$db_port = cot_import('db_port', 'P', 'TXT', 0, false, true);
 		$db_user = cot_import('db_user', 'P', 'TXT', 0, false, true);
@@ -51,7 +51,7 @@ switch ($step)
 		$db_name = cot_import('db_name', 'P', 'TXT', 0, false, true);
 		break;
 
-	case 3:
+	case 4:
 		$cfg['mainurl'] = cot_import('mainurl', 'P', 'TXT', 0, false, true);
 		$user['name'] = cot_import('user_name', 'P', 'TXT', 100, false, true);
 		$user['pass'] = cot_import('user_pass', 'P', 'TXT', 32);
@@ -63,7 +63,7 @@ switch ($step)
 		$rtheme = $rtheme[0];
 		$rlang = cot_import('lang', 'P', 'TXT', 0, false, true);
 		break;
-	case 4:
+	case 5:
 		// Extension selection
 		$install_extensions = cot_import('install_extensions', 'P', 'ARR', 0, false, true);
 		$selected_extensions = array();
@@ -87,13 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	// Form submission handling
 	switch ($step)
 	{
-		case 0:
+		case 1:
 			// Lang selection
 			$_SESSION['cot_inst_lang'] = $lang;
 			$_SESSION['cot_inst_script'] = cot_import('script', 'P', 'TXT');
 			cot_redirect('install.php');
 			break;
-		case 1:
+		case 2:
 			// System info
 			clearstatcache();
 			if (!file_exists($file['sql']))
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				}
 			}
 			break;
-		case 2:
+		case 3:
 			// Database setup
 			$db_x = cot_import('db_x', 'P', 'TXT', 0, false, true);
 
@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				}
 			}
 			break;
-		case 3:
+		case 4:
 			// Misc settings and admin account
 			if (empty($cfg['mainurl']))
 			{
@@ -259,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			}
 
 			break;
-		case 4:
+		case 5:
 			// Dependency check
 			$install = true;
 			foreach ($selected_extensions as $ext)
@@ -300,7 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				}
 			}
 			break;
-		case 5:
+		case 6:
 			// End credits
 			break;
 		default:
@@ -322,7 +322,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		// Step++
 		$step++;
 		$config_contents = file_get_contents($file['config']);
-		if ($step == 5)
+		if ($step == 6)
 		{
 			$config_contents = preg_replace("#^\\\$cfg\['new_install'\]\s*=\s*.*?;#m", "\$cfg['new_install'] = false;", $config_contents);
 		}
@@ -339,7 +339,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 // Display
 switch ($step)
 {
-	case 0:
+	case 1:
 		// Language selection
 		$t->assign(array(
 			'INSTALL_LANG' => cot_selectbox_lang($lang, 'lang')
@@ -361,7 +361,7 @@ switch ($step)
 			$t->parse("MAIN.STEP_$step.SCRIPT");
 		}
 		break;
-	case 1:
+	case 2:
 		// Create missing cache folders
 		if (is_writable($cfg['cache_dir']))
 		{
@@ -496,7 +496,7 @@ switch ($step)
 			'INSTALL_MYSQL' => $status['mysql']
 		));
 		break;
-	case 2:
+	case 3:
 		// Database form
 		$t->assign(array(
 			'INSTALL_DB_HOST' => is_null($db_host) ? $cfg['mysqlhost'] : $db_host,
@@ -512,9 +512,9 @@ switch ($step)
 			'INSTALL_DB_X_INPUT' => cot_inputbox('text', 'db_x', $db_x, 'size="32"'),
 		));
 		break;
-	case 3:
+	case 4:
 		// Settings
-		if ($_POST['step'] != 3 && !cot_check_messages())
+		if ($_POST['step'] != 4 && !cot_check_messages())
 		{
 			$rtheme = $theme;
 			$rscheme = $scheme;
@@ -532,11 +532,22 @@ switch ($step)
 			'INSTALL_PASS2' => cot_inputbox('password', 'user_pass2', '', 'size="32"'),
 			'INSTALL_EMAIL' => cot_inputbox('text', 'user_email', $user['email'], 'size="32"'),
 		));
-	case 4:
-		// Extensions
-		cot_install_parse_extensions($default_extensions, $selected_extensions);
-		break;
 	case 5:
+		// Extensions
+		if($_GET['order'] == "alpha")
+		{
+			cot_install_parse_extensions_alpha($default_extensions, $selected_extensions);
+		}
+		else
+		{
+			cot_install_parse_extensions($default_extensions, $selected_extensions);
+		}
+		$t->assign(array(
+			'INSTALL_ORDER_ALPHA' => "install.php?order=alpha",
+			'INSTALL_ORDER_CAT' => "install.php?order=cat",
+		));
+		break;
+	case 6:
 		// End credits
 		break;
 }
@@ -550,130 +561,10 @@ $t->parse("MAIN.STEP_$step");
 cot_display_messages($t);
 
 $t->assign(array(
-	'INSTALL_STEP' => $step == 5 ? $L['Complete'] : cot_rc('install_step', array('step' => $step, 'total' => 4)),
+	'INSTALL_STEP' => $step == 6 ? $L['Complete'] : cot_rc('install_step', array('step' => $step, 'total' => 5)),
 	'INSTALL_LANG' => cot_selectbox_lang($lang, 'lang')
 ));
 
 
 $t->parse('MAIN');
 $t->out('MAIN');
-
-/**
- * Replaces a sample config with its actual value
- *
- * @param string $file_contents Config file contents
- * @param string $config_name Config option name
- * @param string $config_value Config value to set
- * @return string Modified file contents
- */
-function cot_install_config_replace(&$file_contents, $config_name, $config_value)
-{
-	$file_contents = preg_replace("#^\\\$cfg\['$config_name'\]\s*=\s*'.*?';#m", "\$cfg['$config_name'] = '$config_value';", $file_contents);
-}
-
-/**
- * Parses extensions selection section
- *
- * @param array $default_list A list of recommended extensions (checked by default)
- * @param array $selected_list A list of previously selected extensions
- */
-function cot_install_parse_extensions($default_list = array(), $selected_list = array())
-{
-	global $t, $cfg, $L;
-
-	$ext_list = cot_extension_list_info($cfg["extensions_dir"]);
-
-	uasort($ext_list, 'cot_extension_catcmp');
-
-	$prev_cat = '';
-	foreach ($ext_list as $f => $info)
-	{
-		if (is_array($info))
-		{
-			$code = $f;
-			if ($prev_cat != $info['Category'])
-			{
-				if ($prev_cat != '')
-				{
-					// Render previous category
-					$t->parse("MAIN.STEP_4.EXT_CAT");
-				}
-				// Assign a new one
-				$prev_cat = $info['Category'];
-				$t->assign('EXT_CAT_TITLE', $L['ext_cat_'.$info['Category']]);
-			}
-			$requires = empty($info['Requires']) ? '' : implode(', ', explode(',', $info['Requires']));
-			$recommends = empty($info['Recommends']) ? '' : implode(', ', explode(',', $info['Recommends']));
-
-			if (count($selected_list) > 0)
-			{
-				$checked = in_array($code, $selected_list);
-			}
-			else
-			{
-				$checked = in_array($code, $default_list);
-			}
-			$L['info_name'] = '';
-			$L['info_desc'] = '';
-			$icofile = $cfg['extensions_dir'].'/'.$code.'/'.$code.'.png';
-
-			if (file_exists(cot_langfile($code)))
-			{
-				include cot_langfile($code);
-			}
-			$t->assign(array(
-				"EXT_ROW_CHECKBOX" => cot_checkbox($checked, "install_extensions[$code]"),
-				"EXT_ROW_TITLE" => empty($L['info_name']) ? $info['Name'] : $L['info_name'],
-				"EXT_ROW_DESCRIPTION" => empty($L['info_desc']) ? $info['Description'] : $L['info_desc'],
-				"EXT_ROW_ICO" => (file_exists($icofile)) ? $icofile : '',
-				"EXT_ROW_REQUIRES" => $requires,
-				"EXT_ROW_RECOMMENDS" => $recommends
-			));
-			$t->parse("MAIN.STEP_4.EXT_CAT.EXT_ROW");
-		}
-	}
-	if ($prev_cat != '')
-	{
-		// Render last category
-		$t->parse("MAIN.STEP_4.EXT_CAT");
-	}
-}
-
-/**
- * Sorts selected extensions by their setup order if present
- *
- * @global array $cfg
- * @param array $selected_extensions Unsorted list of extension names
-
- * @return array Sorted list of extension names
- */
-function cot_install_sort_extensions($selected_extensions)
-{
-	global $cfg;
-
-	$ret = array();
-
-	// Split into groups by Order value
-	$extensions = array();
-	foreach ($selected_extensions as $name)
-	{
-		$info = cot_infoget($cfg['extensions_dir']."/$name/$name.setup.php", 'COT_EXT');
-		$order = isset($info['Order']) ? (int)$info['Order'] : COT_EXT_DEFAULT_ORDER;
-		if ($info['Category'] == 'post-install' && $order < 999)
-		{
-			$order = 999;
-		}
-		$extensions[$order][] = $name;
-	}
-
-	// Merge back into a single array
-	foreach ($extensions as $grp)
-	{
-		foreach ($grp as $name)
-		{
-			$ret[] = $name;
-		}
-	}
-
-	return $ret;
-}

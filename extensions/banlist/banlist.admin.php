@@ -88,7 +88,7 @@ elseif ($a == 'delete')
 
 $totalitems = $db->countRows($db_banlist);
 
-$pagenav = cot_pagenav('admin', 'm=other&p=banlist', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
+$pagenav = cot_pagenav('admin', 't=other&p=banlist', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
 
 $sql = $db->query("SELECT * FROM $db_banlist ORDER by banlist_expire DESC, banlist_ip LIMIT $d, ".$cfg['maxrowsperpage']);
 
@@ -104,8 +104,8 @@ foreach ($sql->fetchAll() as $row)
 {
 	$tt->assign(array(
 		'ADMIN_BANLIST_ROW_ID' => $row['banlist_id'],
-		'ADMIN_BANLIST_ROW_URL' => cot_url('admin', 'm=other&p=banlist&a=update&id='.$row['banlist_id'].'&d='.$durl),
-		'ADMIN_BANLIST_ROW_DELURL' => cot_url('admin', 'm=other&p=banlist&a=delete&id='.$row['banlist_id'].'&'.cot_xg()),
+		'ADMIN_BANLIST_ROW_URL' => cot_url('admin', 't=other&p=banlist&a=update&id='.$row['banlist_id'].'&d='.$durl),
+		'ADMIN_BANLIST_ROW_DELURL' => cot_url('admin', 't=other&p=banlist&a=delete&id='.$row['banlist_id'].'&'.cot_xg()),
 		'ADMIN_BANLIST_ROW_EXPIRE' => ($row['banlist_expire'] > 0) ? cot_date('datetime_medium', $row['banlist_expire']) : $L['banlist_neverexpire'],
 		'ADMIN_BANLIST_ROW_EXPIRE_STAMP' => ($row['banlist_expire'] > 0) ? $row['banlist_expire'] : '',
 		'ADMIN_BANLIST_ROW_IP' => cot_inputbox('text', 'rbanlistip', $row['banlist_ip'], 'size="18" maxlength="16"'),
@@ -136,7 +136,7 @@ $tt->assign(array(
 	'ADMIN_BANLIST_PAGINATION_NEXT' => $pagenav['next'],
 	'ADMIN_BANLIST_TOTALITEMS' => $totalitems,
 	'ADMIN_BANLIST_COUNTER_ROW' => $ii,
-	'ADMIN_BANLIST_URLFORMADD' => cot_url('admin', 'm=other&p=banlist&a=add'),
+	'ADMIN_BANLIST_URLFORMADD' => cot_url('admin', 't=other&p=banlist&a=add'),
 	'ADMIN_BANLIST_EXPIRE' => cot_selectbox('0', 'nexpire', $time_array, $time_values, false),
 	'ADMIN_BANLIST_IP' => cot_inputbox('text', 'nbanlistip', '', 'size="18" maxlength="16"'),
 	'ADMIN_BANLIST_EMAIL' => cot_inputbox('text', 'nbanlistemail', '', 'size="24" maxlength="64"'),

@@ -80,7 +80,7 @@ if (is_array($target))
 	{
 		$ext_info = cot_get_extensionparams($ext['ext_code']);
 		$t->assign(array(
-			'ADMIN_OTHER_EXT_URL' => cot_url('admin', 'm=' . $ext['ext_code']),
+			'ADMIN_OTHER_EXT_URL' => cot_url('admin', 't=' . $ext['ext_code']),
 			'ADMIN_OTHER_EXT_ICO' => $ext_info['icon'],
 			'ADMIN_OTHER_EXT_NAME' => $ext_info['name'],
 			'ADMIN_OTHER_EXT_DESC' => $ext_info['desc']

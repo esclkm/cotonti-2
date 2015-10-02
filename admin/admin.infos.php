@@ -16,8 +16,8 @@ cot_block($usr['auth_read']);
 
 $t = new XTemplate(cot_tplfile('admin.infos', 'system'));
 
-$adminpath[] = array(cot_url('admin', 'm=other'), $L['Other']);
-$adminpath[] = array(cot_url('admin', 'm=infos'), $L['adm_infos']);
+$adminpath[] = array(cot_url('admin', 't=other'), $L['Other']);
+$adminpath[] = array(cot_url('admin', 't=infos'), $L['adm_infos']);
 
 $adminsubtitle = $L['adm_infos'];
 

@@ -2,7 +2,7 @@
 /* ====================
 [BEGIN_COT_EXT]
 Name=Polls
-Category=extension
+Category=module
 Description=Lets the user vote for specific options
 Version=0.9.1
 Date=2011-08-19

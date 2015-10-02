@@ -16,8 +16,8 @@ cot_block($usr['isadmin']);
 
 $t = new XTemplate(cot_tplfile('admin.cache', 'system'));
 
-$adminpath[] = array(cot_url('admin', 'm=other'), $L['Other']);
-$adminpath[] = array(cot_url('admin', 'm=cache'), $L['adm_internalcache']);
+$adminpath[] = array(cot_url('admin', 't=other'), $L['Other']);
+$adminpath[] = array(cot_url('admin', 't=cache'), $L['adm_internalcache']);
 $adminsubtitle = $L['adm_internalcache'];
 
 /* === Hook === */
@@ -85,7 +85,7 @@ foreach ($sql->fetchAll() as $row)
 	$row['size'] = mb_strlen($row['c_value']);
 	$cachesize += $row['size'];
 	$t->assign(array(
-		'ADMIN_CACHE_ITEM_DEL_URL' => cot_url('admin', 'm=cache&a=delete&name='.$row['c_name'].'&'.cot_xg()),
+		'ADMIN_CACHE_ITEM_DEL_URL' => cot_url('admin', 't=cache&a=delete&name='.$row['c_name'].'&'.cot_xg()),
 		'ADMIN_CACHE_ITEM_NAME' => $row['c_name'],
 		'ADMIN_CACHE_EXPIRE' => $row['c_expire'] > 0 ? cot_date('datetime_short', $row['c_expire']) : '-',
 		'ADMIN_CACHE_SIZE' => $row['size'],
@@ -105,9 +105,9 @@ foreach ($sql->fetchAll() as $row)
 }
 
 $t->assign(array(
-	'ADMIN_CACHE_URL_REFRESH' => cot_url('admin', 'm=cache'),
-	'ADMIN_CACHE_URL_PURGE' => cot_url('admin', 'm=cache&a=purge&'.cot_xg()),
-	'ADMIN_CACHE_URL_SHOWALL' => cot_url('admin', 'm=cache&a=showall'),
+	'ADMIN_CACHE_URL_REFRESH' => cot_url('admin', 't=cache'),
+	'ADMIN_CACHE_URL_PURGE' => cot_url('admin', 't=cache&a=purge&'.cot_xg()),
+	'ADMIN_CACHE_URL_SHOWALL' => cot_url('admin', 't=cache&a=showall'),
 	'ADMIN_CACHE_CACHESIZE' => $cachesize
 ));
 

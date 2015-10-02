@@ -24,6 +24,7 @@
 	$(document).ready(function() {
 		$("#menu-toggle").click(function(e) {
 			$("#sidebar-wrapper").toggleClass("toggled");
+			return false;
 		});
 	});	
 
@@ -86,21 +87,21 @@
 					<a href="{PHP|cot_url('admin')}">{PHP.L.Adminpanel}</a>
                 </li>
 				<!-- IF {PHP.usr.admin_config} -->
-				<li<!-- IF {PHP.m} == 'extensions' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=extensions')}">
+				<li<!-- IF {PHP.m} == 'extensions' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 't=extensions')}">
 					{PHP.L.Extensions}
 				</a></li>
-				<li<!-- IF {PHP.m} == 'config' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=config')}">
+				<li<!-- IF {PHP.m} == 'config' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 't=config')}">
 					{PHP.L.Configuration}
 				</a></li>
 				<!-- ENDIF -->
 				<!-- IF {PHP.usr.admin_structure} -->
-				<li<!-- IF {PHP.m} == 'structure' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=structure')}">
+				<li<!-- IF {PHP.m} == 'structure' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 't=structure')}">
 					{PHP.L.Structure}
 				</a></li>
 				<!-- ENDIF -->
-				<li<!-- IF {PHP.m} == 'extrafields' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=extrafields')}">{PHP.L.adm_extrafields}</a></li>
+				<li<!-- IF {PHP.m} == 'extrafields' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 't=extrafields')}">{PHP.L.adm_extrafields}</a></li>
 				<!-- IF {PHP.usr.admin_users} -->
-				<li<!-- IF {PHP.m} == 'users' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 'm=users')}">
+				<li<!-- IF {PHP.m} == 'users' --> class="active"<!-- ENDIF -->><a href="{PHP|cot_url('admin', 't=users')}">
 					{PHP.L.Users}
 				</a></li>
 				<!-- ENDIF -->

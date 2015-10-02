@@ -49,7 +49,7 @@ $cfg['admintheme'] = 'default';			// Put custom administration theme name here
 // Performance-related settings
 // ========================
 
-$cfg['cache'] = TRUE;			// Enable data caching
+$cfg['cache'] = FALSE;			// Enable data caching
 $cfg['cache_drv'] = '';			// Cache driver name to use on your server (if available)
 								// Possible values: APC, eAccelerator, Memcache, Xcache
 $cfg['xtpl_cache'] = TRUE;		// Enable XTemplate structure disk cache. Should be TRUE on production sites
@@ -120,7 +120,7 @@ $cfg['file_perms'] = 0664;
  * Set it TRUE when you experiment with something new.
  * Set it FALSE on production sites.
  */
-$cfg['debug_mode'] = FALSE;
+$cfg['debug_mode'] = TRUE;
 
 /**
  * Path to debug log files used by functions which dump debug data into it.

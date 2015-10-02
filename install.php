@@ -84,7 +84,7 @@ if (isset($cfg['new_install']) && $cfg['new_install'])
 		$lang = cot_import('lang', 'P', 'ALP');
 		if (empty($lang))
 		{
-			$lang = 'en';
+			$lang = cot_getlang();
 		}
 	}
 
@@ -124,6 +124,7 @@ require_once cot_langfile('install');
 require_once cot_langfile('users', 'system');
 require_once cot_langfile('admin', 'system');
 
+include cot_incfile('install');
 require_once cot_incfile('install', 'resources');
 
 // Various Generic Vars needed to operate as Normal

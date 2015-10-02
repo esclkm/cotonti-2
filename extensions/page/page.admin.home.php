@@ -23,7 +23,7 @@ require_once cot_incfile('page', 'functions');
 	$pagesqueued = $db->query("SELECT COUNT(*) FROM $db_pages WHERE page_state='1'");
 	$pagesqueued = $pagesqueued->fetchColumn();
 	$tt->assign(array(
-		'ADMIN_HOME_URL' => cot_url('admin', 'm=page'),
+		'ADMIN_HOME_URL' => cot_url('admin', 't=page'),
 		'ADMIN_HOME_PAGESQUEUED' => $pagesqueued
 	));
 

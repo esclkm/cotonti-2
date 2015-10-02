@@ -103,6 +103,7 @@ $found = array();
 if (preg_match('`^\w+$`', $env['ext']) && isset($cot_extensions[$env['ext']]))
 {
 	$exthook = (!empty($_GET['r'])) ? 'ajax' : 'standalone';
+	
 	if (is_array($cot_hooks[$exthook]))
 	{
 		foreach ($cot_hooks[$exthook] as $hook)
@@ -114,6 +115,7 @@ if (preg_match('`^\w+$`', $env['ext']) && isset($cot_extensions[$env['ext']]))
 		}
 	}
 }
+
 
 if (count($found))
 {

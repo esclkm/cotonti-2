@@ -45,7 +45,7 @@ if($a == 'add')
 	{
 		cot_error('userimages_emptycode', 'userimg_code');
 	}
-	cot_redirect(cot_url('admin', 'm=other&p=userimages', '', true));
+	cot_redirect(cot_url('admin', 't=other&p=userimages', '', true));
 }
 if($a == 'edit')
 {
@@ -57,7 +57,7 @@ if($a == 'edit')
 	{
 		cot_error('userimages_emptycode', 'code');
 	}
-	cot_redirect(cot_url('admin', 'm=other&p=userimages', '', true));
+	cot_redirect(cot_url('admin', 't=other&p=userimages', '', true));
 }
 if($a == 'remove')
 {
@@ -66,7 +66,7 @@ if($a == 'remove')
 	{
 		cot_error('userimages_emptycode');
 	}
-	cot_redirect(cot_url('admin', 'm=other&p=userimages', '', true));
+	cot_redirect(cot_url('admin', 't=other&p=userimages', '', true));
 }
 
 $userimg = cot_userimages_config_get(true);
@@ -77,8 +77,8 @@ foreach($userimg as $code => $settings)
 		'WIDTH' => $settings['width'],
 		'HEIGHT' => $settings['height'],
 		'CROP' => $settings['crop'],
-		'EDIT_URL' => cot_url('admin', 'm=other&p=userimages&a=edit&code='.$code),
-		'REMOVE' => cot_rc('userimg_remove', array('url' => cot_url('admin', 'm=other&p=userimages&a=remove&code='.$code)))
+		'EDIT_URL' => cot_url('admin', 't=other&p=userimages&a=edit&code='.$code),
+		'REMOVE' => cot_rc('userimg_remove', array('url' => cot_url('admin', 't=other&p=userimages&a=remove&code='.$code)))
 	));
 	$tt->parse('MAIN.USERIMG_LIST');
 }

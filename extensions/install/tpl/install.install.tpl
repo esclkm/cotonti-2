@@ -11,8 +11,8 @@
 		<meta name="robots" content="noindex" />
 		<link rel="shortcut icon" href="favicon.ico" />
 		<title>{PHP.L.install_title}</title>
-		<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.css" />
-		<script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css" />
+		<script src="assets/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="extensions/install/tpl/style.css" />
 	</head>
 
@@ -20,16 +20,17 @@
 	<body>
 		<div class="container container-fluid">
 			<div class="page-header">
+				
 				<h1>{PHP.L.install_body_title} <small> ver. {PHP.cfg.version}</small>
-					<span class="small pull-right">{INSTALL_STEP}</span>
+				<span class="small pull-right">{INSTALL_STEP}</span>	
 				</h1>
 			</div>
 			{FILE "./themes/{PHP.cfg.defaulttheme}/warnings.tpl"}
 
-			<form action="install.php" method="post">
+			<form action="install.php" class="form-horizontal" method="post">
 
-				<!-- BEGIN: STEP_0 -->
-				<input type="hidden" name="step" value="0" />
+				<!-- BEGIN: STEP_1 -->
+				<input type="hidden" name="step" value="1" />
 
 
 				<div class="form-group row">
@@ -45,16 +46,16 @@
 				<div class="clearfix"></div>
 				<hr/>
 
-				<div class="form-group">
+				<div class="form-group row">
 					<div class="col-sm-offset-3 col-sm-9 text-right">
-						<p><button type="submit" class="btn btn-default">{PHP.L.Next} <span class="glyphicon glyphicon-chevron-right"></span></button></p>
+						<p><button type="submit" class="btn btn-success">{PHP.L.Next} <span class="glyphicon glyphicon-chevron-right"></span></button></p>
 					</div>
 				</div>
 
-				<!-- END: STEP_0 -->
+				<!-- END: STEP_1 -->
 
-				<!-- BEGIN: STEP_1 -->
-				<input type="hidden" name="step" value="1" />
+				<!-- BEGIN: STEP_2 -->
+				<input type="hidden" name="step" value="2" />
 
 				<p>{PHP.L.install_body_message1}</p>
 				<h3>{PHP.L.install_ver}</h3>
@@ -77,7 +78,6 @@
 				<div class="clearfix"></div>
 
 				<h3>{PHP.L.install_permissions}</h3>
-				<p>{PHP.L.install_body_message2}</p>
 
 				<div class="row">
 					<div class="col-sm-6"><span class="glyphicon glyphicon glyphicon-file"></span> {PHP.file.config}</div>
@@ -120,15 +120,15 @@
 				<div class="clearfix"></div>
 				<hr/>
 
-				<div class="form-group">
+				<div class="form-group row">
 					<div class="col-sm-offset-2 col-sm-10 text-right">
-						<p><button type="submit" class="btn btn-default">{PHP.L.Next} <span class="glyphicon glyphicon-chevron-right"></span></button></p>
+						<p><button type="submit" class="btn btn-success">{PHP.L.Next} <span class="glyphicon glyphicon-chevron-right"></span></button></p>
 					</div>
 				</div>
-				<!-- END: STEP_1 -->
+				<!-- END: STEP_2 -->
 
-				<!-- BEGIN: STEP_2 -->
-				<input type="hidden" name="step" value="2" />
+				<!-- BEGIN: STEP_3 -->
+				<input type="hidden" name="step" value="3" />
 				<h2>{PHP.L.install_db}</h2>
 				
 				<div class="form-group row">
@@ -164,16 +164,16 @@
 				<div class="clearfix"></div>
 				<hr/>
 
-				<div class="form-group">
+				<div class="form-group row">
 					<div class="col-sm-offset-2 col-sm-10 text-right">
-						<p><button type="submit" class="btn btn-default">{PHP.L.Next} <span class="glyphicon glyphicon-chevron-right"></span></button></p>
+						<p><button type="submit" class="btn btn-success">{PHP.L.Next} <span class="glyphicon glyphicon-chevron-right"></span></button></p>
 					</div>
 				</div>
 
-				<!-- END: STEP_2 -->
+				<!-- END: STEP_3 -->
 
-				<!-- BEGIN: STEP_3 -->
-				<input type="hidden" name="step" value="3" />
+				<!-- BEGIN: STEP_4 -->
+				<input type="hidden" name="step" value="4" />
 				<h2>{PHP.L.install_misc}</h2>
 				<div class="form-group row">
 					<label class="col-sm-5 control-label">{PHP.L.install_misc_theme}</label>
@@ -209,18 +209,23 @@
 				<div class="clearfix"></div>
 				<hr/>
 
-				<div class="form-group">
+				<div class="form-group row">
 					<div class="col-sm-offset-2 col-sm-10 text-right">
-						<p><button type="submit" class="btn btn-default">{PHP.L.Install} <span class="glyphicon glyphicon-chevron-right"></span></button></p>
+						<p><button type="submit" class="btn btn-success">{PHP.L.Install} <span class="glyphicon glyphicon-chevron-right"></span></button></p>
 					</div>
 				</div>
 
-				<!-- END: STEP_3 -->
+				<!-- END: STEP_4 -->
 
-				<!-- BEGIN: STEP_4 -->
-				<input type="hidden" name="step" value="4" />
+				<!-- BEGIN: STEP_5 -->
+				<input type="hidden" name="step" value="5" />
+				<div class="pull-right">
+					{PHP.L.Order}: 
+					<a href="{INSTALL_ORDER_ALPHA}">{PHP.L.adm_sort_alphabet}</a> 
+					<a href="{INSTALL_ORDER_CAT}">{PHP.L.adm_sort_category}</a>
+				</div>				
 				<h2>{PHP.L.install_extensions}</h2>
-
+		
 					<!-- BEGIN: EXT_CAT -->
 					<h3>{EXT_CAT_TITLE}</h3>
 					<!-- BEGIN: EXT_ROW -->
@@ -242,32 +247,30 @@
 					<hr />
 					<!-- END: EXT_CAT -->
 
-				<div class="form-group">
+				<div class="form-group row">
 					<div class="col-sm-offset-2 col-sm-10 text-right">
-						<p><button type="submit" class="btn btn-default">{PHP.L.Finish} <span class="glyphicon glyphicon-chevron-right"></span></button></p>
+						<p><button type="submit" class="btn btn-success">{PHP.L.Finish} <span class="glyphicon glyphicon-chevron-right"></span></button></p>
 					</div>
 				</div>
 
 
-				<!-- END: STEP_4 -->
+				<!-- END: STEP_5 -->
 
-				<!-- BEGIN: STEP_5 -->
+				<!-- BEGIN: STEP_6 -->
 				<h2>{PHP.L.install_complete}</h2>
 				<p>{PHP.L.install_complete_note}</p>
 				<div class="clearfix"></div>
 				<hr/>
 
-				<div class="form-group">
+				<div class="form-group row">
 					<div class="col-sm-offset-2 col-sm-10 text-right">
 						<a href="{PHP.cfg.mainurl}" class="btn btn-success">{PHP.L.install_view_site}</a>
 					</div>
 				</div>
 
 
-				<!-- END: STEP_5 -->
+				<!-- END: STEP_6 -->
 			</form>
-
-
 		</div>
 	</body>
 </html>

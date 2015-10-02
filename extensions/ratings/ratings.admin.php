@@ -47,7 +47,7 @@ if($a == 'delete')
 
 
 $totalitems = $db->countRows($db_ratings);
-$pagenav = cot_pagenav('admin', 'm=other&p=ratings', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
+$pagenav = cot_pagenav('admin', 't=other&p=ratings', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
 
 $sql = $db->query("SELECT * FROM $db_ratings WHERE 1 ORDER by rating_id DESC LIMIT $d, ".$cfg['maxrowsperpage']);
 
@@ -76,7 +76,7 @@ foreach ($sql->fetchAll() as $row)
 	}
 
 	$t->assign(array(
-		'ADMIN_RATINGS_ROW_URL_DEL' => cot_url('admin', 'm=other&p=ratings&a=delete&id='.$row['rating_code'].'&d='.$durl.'&'.cot_xg()),
+		'ADMIN_RATINGS_ROW_URL_DEL' => cot_url('admin', 't=other&p=ratings&a=delete&id='.$row['rating_code'].'&d='.$durl.'&'.cot_xg()),
 		'ADMIN_RATINGS_ROW_RATING_CODE' => $row['rating_code'],
 		'ADMIN_RATINGS_ROW_RATING_AREA' => $row['rating_area'],
 		'ADMIN_RATINGS_ROW_CREATIONDATE' => cot_date('datetime_medium', $row['rating_creationdate']),
@@ -98,7 +98,7 @@ foreach ($sql->fetchAll() as $row)
 }
 
 $t->assign(array(
-	'ADMIN_RATINGS_URL_CONFIG' => cot_url('admin', 'm=config&n=edit&o=extension&p=ratings'),
+	'ADMIN_RATINGS_URL_CONFIG' => cot_url('admin', 't=config&n=edit&o=extension&p=ratings'),
 	'ADMIN_RATINGS_PAGINATION_PREV' => $pagenav['prev'],
 	'ADMIN_RATINGS_PAGNAV' => $pagenav['main'],
 	'ADMIN_RATINGS_PAGINATION_NEXT' => $pagenav['next'],

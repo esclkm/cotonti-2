@@ -96,16 +96,16 @@ switch ($n)
 
 		if ($o == 'core')
 		{
-			$adminpath[] = array(cot_url('admin', 'm=config'), $L['Configuration']);
-			$adminpath[] = array(cot_url('admin', 'm=config&n=edit&o=' . $o . '&p=' . $p), $L['core_' . $p]);
+			$adminpath[] = array(cot_url('admin', 't=config'), $L['Configuration']);
+			$adminpath[] = array(cot_url('admin', 't=config&n=edit&o=' . $o . '&p=' . $p), $L['core_' . $p]);
 		}
 		else
 		{
-			$adminpath[] = array(cot_url('admin', 'm=extensions'), $L['Extensions']);
+			$adminpath[] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
 			$ext_info = cot_get_extensionparams($p);
-			$adminpath[] = array(cot_url('admin', "m=extensions&a=details&mod=$p"), $ext_info['name']);
+			$adminpath[] = array(cot_url('admin', "t=extensions&a=details&mod=$p"), $ext_info['name']);
 
-			$adminpath[] = array(cot_url('admin', 'm=config&n=edit&o=' . $o . '&p=' . $p), $L['Configuration']);
+			$adminpath[] = array(cot_url('admin', 't=config&n=edit&o=' . $o . '&p=' . $p), $L['Configuration']);
 		}
 
 		if ($o != 'core' && file_exists(cot_langfile($p)))
@@ -148,7 +148,7 @@ switch ($n)
 					'ADMIN_CONFIG_ROW_CONFIG' => cot_config_input($row['config_name'], $row['config_type'], $row['config_value'], $row['config_variants']),
 					'ADMIN_CONFIG_ROW_CONFIG_TITLE' => $title,
 					'ADMIN_CONFIG_ROW_CONFIG_MORE_URL' =>
-					cot_url('admin', "m=config&n=edit&o=$o&p=$p&a=reset&v=" . $row['config_name']),
+					cot_url('admin', "t=config&n=edit&o=$o&p=$p&a=reset&v=" . $row['config_name']),
 					'ADMIN_CONFIG_ROW_CONFIG_MORE' => $hint
 				));
 				/* === Hook - Part2 : Include === */
@@ -164,7 +164,7 @@ switch ($n)
 		}
 
 		$t->assign(array(
-			'ADMIN_CONFIG_FORM_URL' => cot_url('admin', 'm=config&n=edit&o=' . $o . '&p=' . $p . '&a=update')
+			'ADMIN_CONFIG_FORM_URL' => cot_url('admin', 't=config&n=edit&o=' . $o . '&p=' . $p . '&a=update')
 		));
 		/* === Hook  === */
 		foreach (cot_getextensions('admin.config.edit.tags') as $ext)
@@ -176,7 +176,7 @@ switch ($n)
 		break;
 
 	default:
-		$adminpath[] = array(cot_url('admin', 'm=config'), $L['Configuration']);
+		$adminpath[] = array(cot_url('admin', 't=config'), $L['Configuration']);
 		$sql = $db->query("
 			SELECT DISTINCT(config_cat) FROM $db_config
 			WHERE config_owner='system'
@@ -191,7 +191,7 @@ switch ($n)
 			{
 				$icofile = $cfg['system_dir'] . '/admin/img/cfg_' . $row['config_cat'] . '.png';
 				$t->assign(array(
-					'ADMIN_CONFIG_ROW_URL' => cot_url('admin', 'm=config&n=edit&o=core&p=' . $row['config_cat']),
+					'ADMIN_CONFIG_ROW_URL' => cot_url('admin', 't=config&n=edit&o=core&p=' . $row['config_cat']),
 					'ADMIN_CONFIG_ROW_ICO' => (file_exists($icofile)) ? $icofile : '',
 					'ADMIN_CONFIG_ROW_NAME' => $L['core_' . $row['config_cat']],
 					'ADMIN_CONFIG_ROW_DESC' => $L['core_' . $row['config_cat'] . '_desc'],
@@ -216,7 +216,7 @@ switch ($n)
 			$jj++;
 			$ext_info = cot_get_extensionparams($row['config_cat']);
 			$t->assign(array(
-				'ADMIN_CONFIG_ROW_URL' => cot_url('admin', 'm=config&n=edit&p=' . $row['config_cat']),
+				'ADMIN_CONFIG_ROW_URL' => cot_url('admin', 't=config&n=edit&p=' . $row['config_cat']),
 				'ADMIN_CONFIG_ROW_ICO' => $ext_info['icon'],
 				'ADMIN_CONFIG_ROW_NAME' => $ext_info['name'],
 				'ADMIN_CONFIG_ROW_DESC' => $ext_info['desc'],

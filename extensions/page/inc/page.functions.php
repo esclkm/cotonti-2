@@ -147,8 +147,8 @@ function cot_generate_pagetags($page_data, $tag_prefix = '', $textlength = 0, $a
 		$cutted = (mb_strlen($text) > mb_strlen($text_cut)) ? true : false;
 
 		$cat_url = cot_url('page', 'c=' . $page_data['page_cat']);
-		$validate_url = cot_url('admin', "m=page&a=validate&id={$page_data['page_id']}&x={$sys['xk']}");
-		$unvalidate_url = cot_url('admin', "m=page&a=unvalidate&id={$page_data['page_id']}&x={$sys['xk']}");
+		$validate_url = cot_url('admin', "t=page&a=validate&id={$page_data['page_id']}&x={$sys['xk']}");
+		$unvalidate_url = cot_url('admin', "t=page&a=unvalidate&id={$page_data['page_id']}&x={$sys['xk']}");
 		$edit_url = cot_url('page', "m=edit&id={$page_data['page_id']}");
 		$delete_url = cot_url('page', "m=edit&a=update&delete=1&id={$page_data['page_id']}&x={$sys['xk']}");
 

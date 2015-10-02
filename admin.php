@@ -37,11 +37,12 @@ $o = cot_import('o', 'P', 'TXT');
 $w = cot_import('w', 'P', 'TXT');
 $u = cot_import('u', 'P', 'TXT');
 $s = cot_import('s', 'G', 'ALP', 24);
+$t = cot_import('t', 'G', 'TXT');
 
 $standard_admin = array('cache.disk', 'cache', 'config', 'extrafields', 'home', 'infos',
 	'log', 'extensions', 'rights', 'rightsbyitem', 'structure', 'urls', 'users');
 
-$inc_file = (empty($m)) ? 'home' : $m;
+$inc_file = (empty($t)) ? 'home' : $t;
 $inc_file = (empty($s)) ? $inc_file : $inc_file.'.'.$s;
 if (in_array($inc_file, $standard_admin) && file_exists(cot_incfile('admin', $inc_file)))
 {
@@ -49,9 +50,9 @@ if (in_array($inc_file, $standard_admin) && file_exists(cot_incfile('admin', $in
 }
 else // TODO: исправить на учет хуков
 {
-	$env['ext'] = $m;
-	$adminsubtitle = $cot_extensions[$m]['title'];
-	$inc_file = $cfg['extensions_dir'] . "/$m/$m.admin.php";
+	$env['ext'] = $t;
+	$adminsubtitle = $cot_extensions[$t]['title'];
+	$inc_file = $cfg['extensions_dir'] . "/$t/$t.admin.php";
 }
 
 if (!file_exists($inc_file))

@@ -25,7 +25,7 @@ require_once cot_incfile('system', 'uploads');
 
 $t = new XTemplate(cot_tplfile('admin.users', 'system'));
 
-$adminpath[] = array(cot_url('admin', 'm=users'), $L['Users']);
+$adminpath[] = array(cot_url('admin', 't=users'), $L['Users']);
 $adminsubtitle = $L['Users'];
 
 $g = cot_import('g', 'G', 'INT');
@@ -86,7 +86,7 @@ if($n == 'add')
 
 		cot_message('Added');
 	}
-	cot_redirect(cot_url('admin', 'm=users', '', true));
+	cot_redirect(cot_url('admin', 't=users', '', true));
 }
 elseif($n == 'edit')
 {
@@ -164,10 +164,10 @@ elseif($n == 'edit')
 		$row['grp_name'] = htmlspecialchars($row['grp_name']);
 		$row['grp_title'] = htmlspecialchars($row['grp_title']);
 
-		$adminpath[] = array (cot_url('admin', 'm=users&n=edit&g='.$g), $row['grp_name']);
+		$adminpath[] = array (cot_url('admin', 't=users&n=edit&g='.$g), $row['grp_name']);
 
 		$t->assign(array(
-			'ADMIN_USERS_EDITFORM_URL' => cot_url('admin', 'm=users&n=edit&a=update&g='.$g),
+			'ADMIN_USERS_EDITFORM_URL' => cot_url('admin', 't=users&n=edit&a=update&g='.$g),
 			'ADMIN_USERS_EDITFORM_GRP_NAME' => cot_inputbox('text', 'rname', $row['grp_name'], 'size="40" maxlength="64"'),
 			'ADMIN_USERS_EDITFORM_GRP_TITLE' => cot_inputbox('text', 'rtitle', $row['grp_title'], 'size="40" maxlength="64"'),
 			'ADMIN_USERS_EDITFORM_GRP_DESC' => cot_inputbox('text', 'rdesc', htmlspecialchars($row['grp_desc']), 'size="40" maxlength="64"'),
@@ -180,8 +180,8 @@ elseif($n == 'edit')
 			'ADMIN_USERS_EDITFORM_GRP_MEMBERSCOUNT' => $row['grp_memberscount'],
 			'ADMIN_USERS_EDITFORM_GRP_MEMBERSCOUNT_URL' => cot_url('users', 'g='.$g),
 			'ADMIN_USERS_EDITFORM_SKIPRIGHTS' => $row['grp_skiprights'],
-			'ADMIN_USERS_EDITFORM_RIGHT_URL' => cot_url('admin', 'm=rights&g='.$g),
-			'ADMIN_USERS_EDITFORM_DEL_URL' => cot_url('admin', 'm=users&n=edit&a=delete&g='.$g.'&'.cot_xg()),
+			'ADMIN_USERS_EDITFORM_RIGHT_URL' => cot_url('admin', 't=rights&g='.$g),
+			'ADMIN_USERS_EDITFORM_DEL_URL' => cot_url('admin', 't=users&n=edit&a=delete&g='.$g.'&'.cot_xg()),
 		));
 
 		/* === Hook === */
@@ -216,7 +216,7 @@ if(!isset($showdefault) || $showdefault == true)
 			$grp_title = isset($L['users_grp_' . $row['grp_id'] . '_title']) ? $L['users_grp_' . $row['grp_id'] . '_title'] : htmlspecialchars($row['grp_title']);
 			$grp_desc = isset($L['users_grp_' . $row['grp_id'] . '_desc']) ? $L['users_grp_' . $row['grp_id'] . '_desc'] : htmlspecialchars($row['grp_desc']);
 			$t->assign(array(
-				'ADMIN_USERS_ROW_GRP_TITLE_URL' => cot_url('admin', 'm=users&n=edit&g='.$row['grp_id']),
+				'ADMIN_USERS_ROW_GRP_TITLE_URL' => cot_url('admin', 't=users&n=edit&g='.$row['grp_id']),
 				'ADMIN_USERS_ROW_GRP_NAME' => htmlspecialchars($row['grp_name']),
 				'ADMIN_USERS_ROW_GRP_TITLE' => $grp_title,
 				'ADMIN_USERS_ROW_GRP_DESC' => $grp_desc,
@@ -224,7 +224,7 @@ if(!isset($showdefault) || $showdefault == true)
 				'ADMIN_USERS_ROW_GRP_COUNT_MEMBERS' => $members[$row['grp_id']],
 				'ADMIN_USERS_ROW_GRP_DISABLED' => $cot_yesno[!$row['grp_disabled']],
 				'ADMIN_USERS_ROW_GRP_SKIPRIGHTS' => $row['grp_skiprights'],
-				'ADMIN_USERS_ROW_GRP_RIGHTS_URL' => cot_url('admin', 'm=rights&g='.$row['grp_id']),
+				'ADMIN_USERS_ROW_GRP_RIGHTS_URL' => cot_url('admin', 't=rights&g='.$row['grp_id']),
 				'ADMIN_USERS_ROW_GRP_JUMPTO_URL' => cot_url('users', 'g='.$row['grp_id'])
 			));
 			/* === Hook - Part2 : Include === */
@@ -238,7 +238,7 @@ if(!isset($showdefault) || $showdefault == true)
 	}
 
 	$t->assign(array(
-		'ADMIN_USERS_FORM_URL' => cot_url('admin', 'm=users&n=add'),
+		'ADMIN_USERS_FORM_URL' => cot_url('admin', 't=users&n=add'),
 		'ADMIN_USERS_NGRP_NAME' => cot_inputbox('text', 'rname', '', 'size="40" maxlength="64"'),
 		'ADMIN_USERS_NGRP_TITLE' => cot_inputbox('text', 'rtitle', '', 'size="40" maxlength="64"'),
 		'ADMIN_USERS_NGRP_DESC' => cot_inputbox('text', 'rdesc', '', 'size="40" maxlength="64"'),
@@ -261,8 +261,8 @@ if(!isset($showdefault) || $showdefault == true)
 }
 
 $t->assign(array(
-	'ADMIN_USERS_URL' => cot_url('admin', 'm=config&n=edit&o=extension&p=users'),
-	'ADMIN_USERS_EXTRAFIELDS_URL' => cot_url('admin', 'm=extrafields&n='.$db_users)
+	'ADMIN_USERS_URL' => cot_url('admin', 't=config&n=edit&o=extension&p=users'),
+	'ADMIN_USERS_EXTRAFIELDS_URL' => cot_url('admin', 't=extrafields&n='.$db_users)
 ));
 
 

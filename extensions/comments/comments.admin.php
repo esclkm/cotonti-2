@@ -51,7 +51,7 @@ $is_adminwarnings = isset($adminwarnings);
 
 $totalitems = $db->countRows($db_com);
 
-$pagenav = cot_pagenav('admin', 'm=other&p=comments', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
+$pagenav = cot_pagenav('admin', 't=other&p=comments', $d, $totalitems, $cfg['maxrowsperpage'], 'd', '', $cfg['jquery'] && $cfg['turnajax']);
 
 if (cot_extension_active('page'))
 {
@@ -97,7 +97,7 @@ foreach ($sql->fetchAll() as $row)
 	}
 
 	$t->assign(array(
-		'ADMIN_COMMENTS_ITEM_DEL_URL' => cot_url('admin', 'm=other&p=comments&a=delete&id='.$row['com_id'].'&'.cot_xg()),
+		'ADMIN_COMMENTS_ITEM_DEL_URL' => cot_url('admin', 't=other&p=comments&a=delete&id='.$row['com_id'].'&'.cot_xg()),
 		'ADMIN_COMMENTS_ITEM_ID' => $row['com_id'],
 		'ADMIN_COMMENTS_CODE' => $row['com_code'],
 		'ADMIN_COMMENTS_AREA' => $row['com_area'],
@@ -133,7 +133,7 @@ foreach ($sql->fetchAll() as $row)
 }
 
 $t->assign(array(
-	'ADMIN_COMMENTS_CONFIG_URL' => cot_url('admin', 'm=config&n=edit&o=extension&p=comments'),
+	'ADMIN_COMMENTS_CONFIG_URL' => cot_url('admin', 't=config&n=edit&o=extension&p=comments'),
 	'ADMIN_COMMENTS_ADMINWARNINGS' => $adminwarnings,
 	'ADMIN_COMMENTS_PAGINATION_PREV' => $pagenav['prev'],
 	'ADMIN_COMMENTS_PAGNAV' => $pagenav['main'],

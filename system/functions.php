@@ -39,8 +39,8 @@ $R = array();
 $i = explode(' ', microtime());
 $sys['starttime'] = $i[1] + $i[0];
 
-$cfg['version'] = '0.9.16';
-$cfg['dbversion'] = '0.9.16';
+$cfg['version'] = '0.10.1';
+$cfg['dbversion'] = '0.10.1';
 
 // Set default file permissions if not present in config
 if (!isset($cfg['file_perms']))
@@ -1770,7 +1770,7 @@ function cot_build_ipsearch($ip)
 	{
 		if(cot_extension_active('ipsearch'))
 		{
-			return cot_rc_link(cot_url('admin', 'm=other&p=ipsearch&a=search&id='.$ip.'&x='.$sys['xk']), $ip);
+			return cot_rc_link(cot_url('admin', 't=other&p=ipsearch&a=search&id='.$ip.'&x='.$sys['xk']), $ip);
 		}
 		else
 		{
@@ -3205,6 +3205,37 @@ function cot_langfile($name, $type = 'extension', $default = 'en', $lang = null)
 		}
 	}
 	return false;
+}
+
+/**
+ * Returns a enabled language from HTTP_ACCEPT_LANGUAGE
+ *
+ * @return string
+ */
+function cot_getlang()
+{
+	global $cfg;
+	if (($list = strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE']))) 
+	{
+		if (preg_match_all('/([a-z]{1,8}(?:-[a-z]{1,8})?)(?:;q=([0-9.]+))?/', $list, $list)) 
+		{
+			$language = array_combine($list[1], $list[2]);
+			//
+			foreach ($language as $n => $v)
+			{
+				$language[$n] = $v ? $v : 1;
+			}
+			arsort($language, SORT_NUMERIC);
+			foreach ($language as $n => $v)
+			{
+				if (@file_exists($cfg['lang_dir']."/$n/main.$n.lang.php"))
+				{
+					return $n;
+				}
+			}			
+		}
+	}
+	return 'en';
 }
 
 /**

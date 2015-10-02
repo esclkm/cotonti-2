@@ -17,7 +17,7 @@ $L['Install'] = 'Install';
 $L['Next'] = 'Next';
 
 $L['install_adminacc'] = 'Administrator Account';
-$L['install_body_title'] = 'Cotonti Web Installer';
+$L['install_body_title'] = 'Feliz Web Installer';
 $L['install_body_message1'] = 'This script will setup the basic Cotonti installation and configuration for you.';
 $L['install_body_message2'] = 'It is recommended to copy datas/config-sample.php to datas/config.php and set CHMOD 666 on datas/config.php before running this script.';
 $L['install_body_message3'] = 'First you need to <strong>create a blank database</strong> with the above name on your server, if this user has no permission to create new databases.';
