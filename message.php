@@ -199,18 +199,14 @@ $out['head'] .= $R['code_noindex'];
 $out['subtitle'] = $title;
 require_once $cfg['system_dir'] . '/header.php';
 
-$t = new XTemplate(cot_tplfile('message', 'system'));
+$t = new FTemplate(cot_tplfile('message', 'system'));
 
-if (COT_AJAX)
-{
-	$t->assign('AJAX_MODE', true);
-}
-
-$errmsg = $title;
-$title .= ($usr['isadmin']) ? ' (#' . $msg . ')' : '';
-
-$t->assign('MESSAGE_TITLE', $title);
-$t->assign('MESSAGE_BODY', $body);
+$t->assign(array(
+	'MESSAGE_ERROR_CODE' => $msg,
+	'MESSAGE_TITLE' => $title,
+	'MESSAGE_BODY' => $body,
+	'AJAX_MODE' => COT_AJAX
+));
 
 if ($msg == '920')
 {
@@ -223,9 +219,9 @@ if ($msg == '920')
 
 	$t->assign(array(
 		'MESSAGE_CONFIRM_YES' => base64_decode($redirect),
-		'MESSAGE_CONFIRM_NO' => $confirm_no_url
+		'MESSAGE_CONFIRM_NO' => $confirm_no_url,
+		'MESSAGE_CONFIRM' => 1
 	));
-	$t->parse('MAIN.MESSAGE_CONFIRM');
 }
 
 /* === Hook === */
@@ -235,7 +231,6 @@ foreach (cot_getextensions('message.tags') as $ext)
 }
 /* ===== */
 
-$t->parse('MAIN');
-$t->out('MAIN');
+$t->out();
 
 require_once $cfg['system_dir'] . '/footer.php';

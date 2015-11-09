@@ -100,7 +100,7 @@ $tt->assign(array(
 	'ADMIN_REFERERS_PAGINATION_NEXT' => $pagenav['next'],
 	'ADMIN_REFERERS_TOTALITEMS' => $totalitems,
 	'ADMIN_REFERERS_ON_PAGE' => $ii,
-	'ADMIN_REFERERS_BREADCRUMBS' =>  cot_breadcrumbs($adminpath, false),	
+	'ADMIN_REFERERS_BREADCRUMBS' =>  cot_breadcrumbs($out['breadcrumbs'], false),	
 ));
 
 cot_display_messages($tt);

@@ -26,7 +26,7 @@ $maxrowsperpage = (is_int($cfg['maxrowsperpage']) && $cfg['maxrowsperpage'] > 0 
 list($pg, $d, $durl) = cot_import_pagenav('d', $maxrowsperpage);
 $mode = cot_import('mode', 'G', 'ALP');
 
-$t = new XTemplate(cot_tplfile(array('admin', 'structure', $n), 'system'));
+$t = new XTemplate(cot_tplfile(array('admin', 'structure', $e), 'system'));
 
 $adminsubtitle = $L['Structure'];
 
@@ -37,13 +37,13 @@ foreach (cot_getextensions('admin.structure.first') as $ext)
 }
 /* ===== */
 
-if (empty($n))
+if (empty($e))
 {
-	$adminpath[] = array(cot_url('admin', 't=structure'), $L['Structure']);
+	$out['breadcrumbs'][] = array(cot_url('admin', 't=structure'), $L['Structure']);
 	// Show available extension list
 	if (is_array($extension_structure) && count($extension_structure) == 1 && ((cot_extension_active($extension_structure[0]) || cot_extension_active($extension_structure[0]))))
 	{
-		cot_redirect(cot_url('admin', 't=structure&n='.$extension_structure[0], '', true));
+		cot_redirect(cot_url('admin', 't=structure&e='.$extension_structure[0], '', true));
 	}
 	if (is_array($extension_structure) && count($extension_structure) > 0)
 	{
@@ -53,7 +53,7 @@ if (empty($n))
 			{
 				$ext_info = cot_get_extensionparams($code);
 				$t->assign(array(
-					'ADMIN_STRUCTURE_EXT_URL' => cot_url('admin', 't=structure&n='.$code),
+					'ADMIN_STRUCTURE_EXT_URL' => cot_url('admin', 't=structure&e='.$code),
 					'ADMIN_STRUCTURE_EXT_ICO' => $ext_info['icon'],
 					'ADMIN_STRUCTURE_EXT_NAME' => $ext_info['name']
 				));
@@ -68,33 +68,33 @@ if (empty($n))
 
 	$t->assign(array(
 		'ADMIN_STRUCTURE_EXFLDS_URL' => cot_url('admin', 't=extrafields'),
-		'ADMIN_STRUCTURE_BREADCRUMBS' => cot_breadcrumbs($adminpath, false)	
+		'ADMIN_STRUCTURE_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false)	
 	));
 	$t->parse('LIST');
 	$adminmain = $t->text('LIST');
 }
 else
 {
-	if (!cot_extension_active($n))
+	if (!cot_extension_active($e))
 	{
 		cot_redirect(cot_url('admin', 't=structure', '', true));
 	}
 	// Edit structure for a extension
-	if (file_exists(cot_incfile($n)))
+	if (file_exists(cot_incfile($e)))
 	{
-		require_once cot_incfile($n);
+		require_once cot_incfile($e);
 	}
 
 	if ($a == 'reset' && !empty($_POST))
 	{
-		cot_config_reset($n, $v, $structure_code);
+		cot_config_reset($e, $v, $structure_code);
 	}
 	if ($a == 'update' && !empty($_POST))
 	{
 		$editconfig = cot_import('editconfig', 'P', 'TXT');
 		if (!empty($editconfig))
 		{
-			$optionslist = cot_config_list('extension', $n, $editconfig);
+			$optionslist = cot_config_list('extension', $e, $editconfig);
 			foreach ($optionslist as $key => $val)
 			{
 				$data = cot_import($key, 'P', sizeof($cot_import_filters[$key]) ? $key : 'NOC');
@@ -191,7 +191,7 @@ else
 			}
 			if (!cot_error_found())
 			{
-				$res = cot_structure_update($n, $i, $oldrow, $rstructure);
+				$res = cot_structure_update($e, $i, $oldrow, $rstructure);
 				if (is_array($res))
 				{
 					cot_error($res[0], $res[1]);
@@ -220,7 +220,7 @@ else
 		{
 			cot_error('adm_structure_somenotupdated');
 		}
-		cot_redirect(cot_url('admin', 't=structure&n='.$n.'&mode='.$mode.'&d='.$durl, '', true));
+		cot_redirect(cot_url('admin', 't=structure&e='.$e.'&mode='.$mode.'&d='.$durl, '', true));
 	}
 	elseif ($a == 'add' && !empty($_POST))
 	{
@@ -230,7 +230,7 @@ else
 		$rstructure['structure_desc'] = cot_import('rstructuredesc', 'P', 'TXT');
 		$rstructure['structure_icon'] = cot_import('rstructureicon', 'P', 'TXT');
 		$rstructure['structure_locked'] = (cot_import('rstructurelocked', 'P', 'BOL')) ? 1 : 0;
-		$rstructure['structure_area'] = $n;
+		$rstructure['structure_area'] = $e;
 		$rtplmode = cot_import('rtplmode', 'P', 'INT');
 		$rtplquick = cot_import('rtplquick', 'P', 'TXT');
 
@@ -269,7 +269,7 @@ else
 		/* ===== */
 		if (!cot_error_found())
 		{
-			$res = cot_structure_add($n, $rstructure);
+			$res = cot_structure_add($e, $rstructure);
 			if ($res === true)
 			{
 				cot_extrafield_movefiles();
@@ -290,13 +290,13 @@ else
 				cot_error('Error');
 			}
 		}
-		cot_redirect(cot_url('admin', 't=structure&n='.$n.'&mode='.$mode.'&d='.$durl, '', true));
+		cot_redirect(cot_url('admin', 't=structure&e='.$e.'&mode='.$mode.'&d='.$durl, '', true));
 	}
 	elseif ($a == 'delete')
 	{
 		cot_check_xg();
 
-		if (cot_structure_delete($n, $c))
+		if (cot_structure_delete($e, $c))
 		{
 			/* === Hook === */
 			foreach (cot_getextensions('admin.structure.delete.done') as $ext)
@@ -307,22 +307,22 @@ else
 			cot_message('Deleted');
 		}
 
-		cot_redirect(cot_url('admin', 't=structure&n='.$n.'&mode='.$mode.'&d='.$durl, '', true));
+		cot_redirect(cot_url('admin', 't=structure&e='.$e.'&mode='.$mode.'&d='.$durl, '', true));
 	}
 	elseif ($a == 'resyncall')
 	{
 		cot_check_xg();
 		$res = false;
-		$area_sync = 'cot_'.$n.'_sync';
+		$area_sync = 'cot_'.$e.'_sync';
 		if (function_exists($area_sync))
 		{
 			$res = true;
-			$sql = $db->query("SELECT structure_code FROM $db_structure WHERE structure_area='".$db->prep($n)."'");
+			$sql = $db->query("SELECT structure_code FROM $db_structure WHERE structure_area='".$db->prep($e)."'");
 			foreach ($sql->fetchAll() as $row)
 			{
 				$cat = $row['structure_code'];
 				$items = $area_sync($cat);
-				$db->update($db_structure, array("structure_count" => (int)$items), "structure_code='".$db->prep($cat)."' AND structure_area='".$db->prep($n)."'");
+				$db->update($db_structure, array("structure_count" => (int)$items), "structure_code='".$db->prep($cat)."' AND structure_area='".$db->prep($e)."'");
 			}
 			$sql->closeCursor();
 		}
@@ -335,13 +335,13 @@ else
 		/* ===== */
 
 		$res ? cot_message('Resynced') : cot_message("Error: function $area_sync doesn't exist."); // TODO i18n
-		($cache && $cfg['cache_'.$n]) && $cache->page->clear($n);
-		cot_redirect(cot_url('admin', 't=structure&n='.$n.'&mode='.$mode.'&d='.$durl, '', true));
+		($cache && $cfg['cache_'.$e]) && $cache->page->clear($e);
+		cot_redirect(cot_url('admin', 't=structure&e='.$e.'&mode='.$mode.'&d='.$durl, '', true));
 	}
-	$ext_info = cot_get_extensionparams($n);
-	$adminpath[] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
-	$adminpath[] = array(cot_url('admin', 't='.$n), $ext_info['name']);
-	$adminpath[] = array(cot_url('admin', 't=structure&n='.$n), $L['Structure']);
+	$ext_info = cot_get_extensionparams($e);
+	$out['breadcrumbs'][] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
+	$out['breadcrumbs'][] = array(cot_url('admin', 't='.$t), $ext_info['name']);
+	$out['breadcrumbs'][] = array(cot_url('admin', 't=structure&e='.$e), $L['Structure']);
 
 	if ($id > 0 || !empty($al))
 	{
@@ -349,25 +349,25 @@ else
 		$sql = $db->query("SELECT * FROM $db_structure WHERE $where LIMIT 1");
 		cot_die($sql->rowCount() == 0);
 	}
-	elseif ($mode && ($mode == 'all' || $structure[$n][$mode]))
+	elseif ($mode && ($mode == 'all' || $structure[$e][$mode]))
 	{
-		$sqlmask = ($mode == 'all') ? "structure_path NOT LIKE '%.%'" : "structure_path LIKE '".$db->prep($structure[$n][$mode]['rpath']).".%' AND structure_path NOT LIKE '".$db->prep($structure[$n][$mode]['rpath']).".%.%'";
-		$sql = $db->query("SELECT * FROM $db_structure WHERE structure_area='".$db->prep($n)."' AND $sqlmask ORDER BY structure_path ASC, structure_code ASC LIMIT $d, ".$maxrowsperpage);
+		$sqlmask = ($mode == 'all') ? "structure_path NOT LIKE '%.%'" : "structure_path LIKE '".$db->prep($structure[$e][$mode]['rpath']).".%' AND structure_path NOT LIKE '".$db->prep($structure[$e][$mode]['rpath']).".%.%'";
+		$sql = $db->query("SELECT * FROM $db_structure WHERE structure_area='".$db->prep($e)."' AND $sqlmask ORDER BY structure_path ASC, structure_code ASC LIMIT $d, ".$maxrowsperpage);
 
-		$totalitems = $db->query("SELECT COUNT(*) FROM $db_structure WHERE structure_area='".$db->prep($n)."' AND $sqlmask")->fetchColumn();
-		$pagenav = cot_pagenav('admin', 't=structure&n='.$n.'&mode='.$mode, $d, $totalitems, $maxrowsperpage, 'd', '', $cfg['jquery'] && $cfg['turnajax']);
+		$totalitems = $db->query("SELECT COUNT(*) FROM $db_structure WHERE structure_area='".$db->prep($e)."' AND $sqlmask")->fetchColumn();
+		$pagenav = cot_pagenav('admin', 't=structure&n='.$e.'&mode='.$mode, $d, $totalitems, $maxrowsperpage, 'd', '', $cfg['jquery'] && $cfg['turnajax']);
 	}
 	else
 	{
-		$sql = $db->query("SELECT * FROM $db_structure WHERE structure_area='".$db->prep($n)."' ORDER BY structure_path ASC, structure_code ASC LIMIT $d, ".$maxrowsperpage);
+		$sql = $db->query("SELECT * FROM $db_structure WHERE structure_area='".$db->prep($e)."' ORDER BY structure_path ASC, structure_code ASC LIMIT $d, ".$maxrowsperpage);
 
-		$totalitems = $db->query("SELECT COUNT(*) FROM $db_structure WHERE structure_area='".$db->prep($n)."'")->fetchColumn();
-		$pagenav = cot_pagenav('admin', 't=structure&n='.$n, $d, $totalitems, $maxrowsperpage, 'd', '', $cfg['jquery'] && $cfg['turnajax']);
+		$totalitems = $db->query("SELECT COUNT(*) FROM $db_structure WHERE structure_area='".$db->prep($e)."'")->fetchColumn();
+		$pagenav = cot_pagenav('admin', 't=structure&e='.$e, $d, $totalitems, $maxrowsperpage, 'd', '', $cfg['jquery'] && $cfg['turnajax']);
 	}
 
 	$t->assign(array(
-		'ADMIN_STRUCTURE_UPDATE_FORM_URL' => cot_url('admin', 't=structure&n='.$n.'&mode='.$mode.'&a=update&d='.$durl),
-		'ADMIN_PAGE_STRUCTURE_RESYNCALL' => cot_url('admin', 't=structure&n='.$n.'&mode='.$mode.'&a=resyncall&'.cot_xg().'&d='.$durl),
+		'ADMIN_STRUCTURE_UPDATE_FORM_URL' => cot_url('admin', 't=structure&e='.$e.'&mode='.$mode.'&a=update&d='.$durl),
+		'ADMIN_PAGE_STRUCTURE_RESYNCALL' => cot_url('admin', 't=structure&e='.$e.'&mode='.$mode.'&a=resyncall&'.cot_xg().'&d='.$durl),
 		'ADMIN_STRUCTURE_URL_EXTRAFIELDS' => cot_url('admin', 't=extrafields&n='.$db_structure)
 	));
 
@@ -377,8 +377,8 @@ else
 	/* ===== */
 	foreach ($sql->fetchAll() as $row)
 	{
-		($id) && $adminpath[] = array(cot_url('admin', 't=structure&n='.$n.'&mode='.$mode.'&id='.$id), htmlspecialchars($row['structure_title']));
-		($al) && $adminpath[] = array(cot_url('admin', 't=structure&n='.$n.'&mode='.$mode.'&al='.$al), htmlspecialchars($row['structure_title']));
+		($id) && $out['breadcrumbs'][] = array(cot_url('admin', 't=structure&e='.$e.'&mode='.$mode.'&id='.$id), htmlspecialchars($row['structure_title']));
+		($al) && $out['breadcrumbs'][] = array(cot_url('admin', 't=structure&e='.$e.'&mode='.$mode.'&al='.$al), htmlspecialchars($row['structure_title']));
 
 		$ii++;
 		$structure_id = $row['structure_id'];
@@ -408,7 +408,7 @@ else
 			$check_tpl = "3";
 		}
 
-		foreach ($structure[$n] as $i => $x)
+		foreach ($structure[$e] as $i => $x)
 		{
 			if ($i != 'all')
 			{
@@ -418,7 +418,7 @@ else
 		$cat_selectbox = cot_selectbox($row['structure_tpl'], 'rstructuretplforced['.$structure_id.']', array_keys($cat_path), array_values($cat_path), false);
 
 		$t->assign(array(
-			'ADMIN_STRUCTURE_UPDATE_DEL_URL' => cot_confirm_url(cot_url('admin', 't=structure&n='.$n.'&mode='.$mode.'&a=delete&id='.$structure_id.'&c='.$row['structure_code'].'&d='.$durl.'&'.cot_xg()), 'admin'),
+			'ADMIN_STRUCTURE_UPDATE_DEL_URL' => cot_confirm_url(cot_url('admin', 't=structure&e='.$e.'&mode='.$mode.'&a=delete&id='.$structure_id.'&c='.$row['structure_code'].'&d='.$durl.'&'.cot_xg()), 'admin'),
 			'ADMIN_STRUCTURE_ID' => $structure_id,
 			'ADMIN_STRUCTURE_CODE' => cot_inputbox('text', 'rstructurecode['.$structure_id.']', $structure_code, 'size="10" maxlength="255"'),
 			'ADMIN_STRUCTURE_SPACEIMG' => $pathspaceimg,
@@ -434,9 +434,9 @@ else
 			'ADMIN_STRUCTURE_LOCKED' => cot_checkbox($row['structure_locked'], 'rstructurelocked['.$structure_id.']'),
 			'ADMIN_STRUCTURE_SELECT' => $cat_selectbox,
 			'ADMIN_STRUCTURE_COUNT' => $row['structure_count'],
-			/* TODO */ 'ADMIN_STRUCTURE_JUMPTO_URL' => cot_url($n, 'c='.$structure_code),
-			'ADMIN_STRUCTURE_RIGHTS_URL' => cot_url('admin', 't=rightsbyitem&ic='.$n.'&io='.$structure_code),
-			'ADMIN_STRUCTURE_OPTIONS_URL' => cot_url('admin', 't=structure&n='.$n.'&d='.$durl.'&id='.$structure_id.'&'.cot_xg()),
+			/* TODO */ 'ADMIN_STRUCTURE_JUMPTO_URL' => cot_url($e, 'c='.$structure_code),
+			'ADMIN_STRUCTURE_RIGHTS_URL' => cot_url('admin', 't=rightsbyitem&ic='.$e.'&io='.$structure_code),
+			'ADMIN_STRUCTURE_OPTIONS_URL' => cot_url('admin', 't=structure&e='.$e.'&d='.$durl.'&id='.$structure_id.'&'.cot_xg()),
 			'ADMIN_STRUCTURE_ODDEVEN' => cot_build_oddeven($ii)
 		));
 
@@ -463,7 +463,7 @@ else
 		if ($id || !empty($al))
 		{
 			require_once cot_incfile('configuration');
-			$optionslist = cot_config_list('extension', $n, $structure_code);
+			$optionslist = cot_config_list('extension', $e, $structure_code);
 
 			/* === Hook - Part1 : Set === */
 			$extp = cot_getextensions('admin.config.edit.loop');
@@ -482,7 +482,7 @@ else
 					$t->assign(array(
 						'ADMIN_CONFIG_ROW_CONFIG' => cot_config_input($row_c['config_name'], $row_c['config_type'], $row_c['config_value'], $row_c['config_variants']),
 						'ADMIN_CONFIG_ROW_CONFIG_TITLE' => $title,
-						'ADMIN_CONFIG_ROW_CONFIG_MORE_URL' => cot_url('admin', 't=structure&n='.$n.'&d='.$durl.'&id='.$structure_id.'&al='.$structure_code.'&a=reset&v='.$row_c['config_name'].'&'.cot_xg()),
+						'ADMIN_CONFIG_ROW_CONFIG_MORE_URL' => cot_url('admin', 't=structure&e='.$e.'&d='.$durl.'&id='.$structure_id.'&al='.$structure_code.'&a=reset&v='.$row_c['config_name'].'&'.cot_xg()),
 						'ADMIN_CONFIG_ROW_CONFIG_MORE' => $hint
 					));
 					/* === Hook - Part2 : Include === */
@@ -525,7 +525,7 @@ else
 			unset($_SESSION['cot_buffer'][$hash]);
 
 		$t->assign(array(
-			'ADMIN_STRUCTURE_URL_FORM_ADD' => cot_url('admin', 't=structure&n='.$n.'&mode='.$mode.'&a=add&d='.$durl),
+			'ADMIN_STRUCTURE_URL_FORM_ADD' => cot_url('admin', 't=structure&e='.$e.'&mode='.$mode.'&a=add&d='.$durl),
 			'ADMIN_STRUCTURE_CODE' => cot_inputbox('text', 'rstructurecode', null, 'size="16"'),
 			'ADMIN_STRUCTURE_PATH' => cot_inputbox('text', 'rstructurepath', null, 'size="16" maxlength="16"'),
 			'ADMIN_STRUCTURE_TITLE' => cot_inputbox('text', 'rstructuretitle', null, 'size="64" maxlength="100"'),
@@ -551,7 +551,7 @@ else
 		$t->parse('MAIN.NEWCAT');
 	}
 	$t->assign(array(
-				'ADMIN_STRUCTURE_BREADCRUMBS' => cot_breadcrumbs($adminpath, false)	
+				'ADMIN_STRUCTURE_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false)	
 	));
 	cot_display_messages($t);
 

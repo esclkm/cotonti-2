@@ -23,9 +23,9 @@ $t = new XTemplate(cot_tplfile('forums.admin'));
 
 require_once cot_incfile('forums', 'functions');
 
-$adminpath[] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
-$adminpath[] = array(cot_url('admin', 't=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
-$adminpath[] = array(cot_url('admin', 't='.$m), $L['Administration']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't='.$m), $L['Administration']);
 
 $adminsubtitle = $L['Forums'];
 
@@ -60,7 +60,7 @@ $t->assign(array(
 	'ADMIN_FORUMS_TOTALTOPICS' => $db->countRows($db_forum_topics),
 	'ADMIN_FORUMS_TOTALPOSTS' => $db->countRows($db_forum_posts),
 	'ADMIN_FORUMS_TOTALVIEWS' => $db->query("SELECT SUM(fs_viewcount) FROM $db_forum_stats")->fetchColumn(),
-	'ADMIN_FORUMS_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),		
+	'ADMIN_FORUMS_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false),		
 ));
 
 /* === Hook  === */

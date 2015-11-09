@@ -140,7 +140,7 @@ $t->assign(array(
 	'ADMIN_COMMENTS_PAGINATION_NEXT' => $pagenav['next'],
 	'ADMIN_COMMENTS_TOTALITEMS' => $totalitems,
 	'ADMIN_COMMENTS_COUNTER_ROW' => $ii,
-	'ADMIN_COMMENTS_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),	
+	'ADMIN_COMMENTS_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false),	
 ));
 
 /* === Hook  === */

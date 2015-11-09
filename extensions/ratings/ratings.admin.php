@@ -105,7 +105,7 @@ $t->assign(array(
 	'ADMIN_RATINGS_TOTALITEMS' => $totalitems,
 	'ADMIN_RATINGS_ON_PAGE' => $ii,
 	'ADMIN_RATINGS_TOTALVOTES' => $jj,
-	'ADMIN_RATINGS_BREADCRUMBS' =>  cot_breadcrumbs($adminpath, false),	
+	'ADMIN_RATINGS_BREADCRUMBS' =>  cot_breadcrumbs($out['breadcrumbs'], false),	
 ));
 
 cot_display_messages($t);

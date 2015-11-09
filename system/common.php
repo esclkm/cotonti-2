@@ -147,24 +147,21 @@ else
 		{
 			$cfg[$row['config_name']] = $row['config_value'];
 		}
-		elseif ($row['config_owner'] == 'extension')
+		else
 		{
-			if (empty($row['config_subcat']))
+			if (empty($row['config_cat']))
 			{
-				$cfg[$row['config_cat']][$row['config_name']] = $row['config_value'];
+				$cfg[$row['config_owner']][$row['config_name']] = $row['config_value'];
 			}
 			else
 			{
-				$cfg[$row['config_cat']]['cat_' . $row['config_subcat']][$row['config_name']] = $row['config_value'];
+				$cfg[$row['config_owner']]['cat_' . $row['config_cat']][$row['config_name']] = $row['config_value'];
 			}
-		}
-		else
-		{
-			$cfg[$row['config_cat']][$row['config_name']] = $row['config_value'];
 		}
 	}
 	$sql_config->closeCursor();
 }
+
 // Mbstring options
 mb_internal_encoding('UTF-8');
 
@@ -487,10 +484,50 @@ if ($cfg['shieldenabled'] &&
 
 /* ======== Zone variables ======== */
 
+/**
+ * @var string Action
+ */
+$a = cot_import('a', 'G', 'ALP', 24);
+/**
+ * @var string Subaction
+ */
+$b = cot_import('b', 'G', 'ALP', 24);
+/**
+ * @var string Category
+ */
+$c = cot_import('c', 'G', 'TXT');
+/**
+ * @var string Extension name
+ */
+$e = cot_import('e', 'G', 'ALP'); 
+/**
+ * @var string Extension file iclude name
+ */
 $m = cot_import('m', 'G', 'ALP', 24);
 $n = cot_import('n', 'G', 'ALP', 24);
-$a = cot_import('a', 'G', 'ALP', 24);
-$b = cot_import('b', 'G', 'ALP', 24);
+/**
+ * @var string Order column
+ */
+$o = cot_import('o', 'P', 'TXT');
+/**
+ * @var string Extension name for ajax request
+ */
+$r = cot_import('r', 'G', 'ALP');
+/**
+ * @var string way(acs, desc)
+ */
+$w = cot_import('w', 'P', 'TXT');
+
+$p = cot_import('p', 'G', 'TXT');
+$l = cot_import('l', 'G', 'TXT');
+$o = cot_import('o', 'P', 'TXT');
+$w = cot_import('w', 'P', 'TXT');
+$u = cot_import('u', 'P', 'TXT');
+$s = cot_import('s', 'G', 'ALP', 24);
+$t = cot_import('t', 'G', 'TXT');
+
+$id = cot_import('id', 'G', 'TXT');
+$po = cot_import('po', 'G', 'TXT');
 
 /* ======== Language ======== */
 
@@ -582,7 +619,7 @@ else
 	require_once './images/icons/' . $cfg['defaulticons'] . '/resources.php';
 }
 
-$out['copyright'] = "<a href=\"http://www.cotonti.com\">".$L['foo_poweredby']." Cotonti</a>";
+$out['copyright'] = "<a href=\"http://www.littledev.ru\">".$L['foo_poweredby']." Feliz</a>";
 
 /* ======== Various ======== */
 
@@ -630,6 +667,12 @@ if (class_exists('XTemplate'))
 		'debug_output' => (bool)$_GET['tpl_debug']
 	));
 }
+require_once $cfg['system_dir'].'/FTemplate.php';
+FTemplate::init(array(
+	'cache_dir'    => $cfg['cache_dir'].'/fenom',
+	'auto_reload' => true,
+	'force_compile' => true
+));
 
 /* ======== Global hook ======== */
 
@@ -637,3 +680,4 @@ foreach (cot_getextensions('global') as $ext)
 {
 	include $ext;
 }
+

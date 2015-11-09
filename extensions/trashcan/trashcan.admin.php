@@ -159,7 +159,7 @@ foreach ($sql->fetchAll() as $row)
 	/* ===== */
 	if($info)
 	{
-		$adminpath[] = array(cot_url('admin', 't=other&p=trashcan&a=info&id='.$id), $row['tr_title']);
+		$out['breadcrumbs'][] = array(cot_url('admin', 't=other&p=trashcan&a=info&id='.$id), $row['tr_title']);
 		$data = unserialize($row['tr_datas']);
 		{
 			foreach($data as $key => $val)
@@ -191,7 +191,7 @@ $tr_t->assign(array(
 	'ADMIN_TRASHCAN_TOTALITEMS' => $totalitems,
 	'ADMIN_TRASHCAN_COUNTER_ROW' => $ii,
 	'ADMIN_TRASHCAN_PAGESQUEUED' => $pagesqueued,
-	'ADMIN_TRASHCAN_BREADCRUMBS' =>  cot_breadcrumbs($adminpath, false),
+	'ADMIN_TRASHCAN_BREADCRUMBS' =>  cot_breadcrumbs($out['breadcrumbs'], false),
 ));
 
 

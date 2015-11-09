@@ -18,8 +18,8 @@ cot_block($usr['isadmin']);
 
 $t = new XTemplate(cot_tplfile('admin.cache.disk', 'system'));
 
-$adminpath[] = array(cot_url('admin', 't=other'), $L['Other']);
-$adminpath[] = array(cot_url('admin', 't=cache&s=disk'), $L['adm_diskcache']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=other'), $L['Other']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=cache&m=disk'), $L['adm_diskcache']);
 $adminsubtitle = $L['adm_diskcache'];
 
 /* === Hook === */
@@ -75,7 +75,7 @@ foreach ($row as $i => $x)
 	$cachefiles += $x[0];
 	$cachesize += $x[1];
 	$t->assign(array(
-		'ADMIN_DISKCACHE_ITEM_DEL_URL' => cot_url('admin', 't=cache&s=disk&a=delete&id=' . $i . '&' . cot_xg()),
+		'ADMIN_DISKCACHE_ITEM_DEL_URL' => cot_url('admin', 't=cache&m=disk&a=delete&id=' . $i . '&' . cot_xg()),
 		'ADMIN_DISKCACHE_ITEM_NAME' => $i,
 		'ADMIN_DISKCACHE_FILES' => $x[0],
 		'ADMIN_DISKCACHE_SIZE' => $x[1],
@@ -94,8 +94,8 @@ foreach ($row as $i => $x)
 }
 
 $t->assign(array(
-	'ADMIN_DISKCACHE_URL_REFRESH' => cot_url('admin', 't=cache&s=disk'),
-	'ADMIN_DISKCACHE_URL_PURGE' => cot_url('admin', 't=cache&s=disk&a=purge&' . cot_xg()),
+	'ADMIN_DISKCACHE_URL_REFRESH' => cot_url('admin', 't=cache&m=disk'),
+	'ADMIN_DISKCACHE_URL_PURGE' => cot_url('admin', 't=cache&m=disk&a=purge&' . cot_xg()),
 	'ADMIN_DISKCACHE_CACHEFILES' => $cachefiles,
 	'ADMIN_DISKCACHE_CACHESIZE' => $cachesize
 ));

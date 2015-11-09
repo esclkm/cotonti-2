@@ -141,7 +141,7 @@ $tt->assign(array(
 	'ADMIN_BANLIST_IP' => cot_inputbox('text', 'nbanlistip', '', 'size="18" maxlength="16"'),
 	'ADMIN_BANLIST_EMAIL' => cot_inputbox('text', 'nbanlistemail', '', 'size="24" maxlength="64"'),
 	'ADMIN_BANLIST_REASON' => cot_inputbox('text', 'nbanlistreason', '', 'size="48" maxlength="64"'),
-	'ADMIN_BANLIST_BREADCRUMBS' => cot_breadcrumbs($adminpath, false)	
+	'ADMIN_BANLIST_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false)	
 ));
 
 cot_display_messages($tt);

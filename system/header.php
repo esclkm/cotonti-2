@@ -77,8 +77,7 @@ if (!COT_AJAX)
 	{
 		$mtpl_base = 'header';
 	}
-	$t = new XTemplate(cot_tplfile($mtpl_base, 'system'));
-	
+
 	/* === Hook === */
 	foreach (cot_getextensions('header.main') as $ext)
 	{
@@ -99,7 +98,7 @@ if (!COT_AJAX)
 	{
 		$out['canonical_uri'] = COT_ABSOLUTE_URL . $out['canonical_uri'];
 	}
-
+	$t = new FTemplate(cot_tplfile($mtpl_base, 'system'));
 	$t->assign(array(
 		'HEADER_TITLE' => $out['fulltitle'],
 		'HEADER_COMPOPUP' => $out['compopup'],
@@ -120,15 +119,9 @@ if (!COT_AJAX)
 		'HEADER_CANONICAL_URL' => $out['canonical_uri'],
 		'HEADER_PREV_URL' => $out['prev_uri'],
 		'HEADER_NEXT_URL' => $out['next_uri'],
+		'HEADER_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false),
 		'HEADER_COLOR_SCHEME' => cot_schemefile()
 	));
-
-	/* === Hook === */
-	foreach (cot_getextensions('header.body') as $ext)
-	{
-		include $ext;
-	}
-	/* ===== */
 
 	if ($usr['id'] > 0)
 	{
@@ -138,6 +131,7 @@ if (!COT_AJAX)
 		$out['profile'] = cot_rc_link(cot_url('users', 'm=profile'), $L['Profile']);
 
 		$t->assign(array(
+			'HEADER_USER' => 1,
 			'HEADER_USER_NAME' => $usr['name'],
 			'HEADER_USER_ADMINPANEL' => $out['adminpanel'],
 			'HEADER_USER_ADMINPANEL_URL' => cot_url('admin'),
@@ -148,14 +142,6 @@ if (!COT_AJAX)
 			'HEADER_USER_MESSAGES' => $usr['messages']
 		));
 
-		/* === Hook === */
-		foreach (cot_getextensions('header.user.tags') as $ext)
-		{
-			include $ext;
-		}
-		/* ===== */
-
-		$t->parse('HEADER.USER');
 	}
 	else
 	{
@@ -166,6 +152,7 @@ if (!COT_AJAX)
 			: $R['form_guest_remember'];
 
 		$t->assign(array (
+			'HEADER_GUEST' => 1,
 			'HEADER_GUEST_SEND' => cot_url('login', 'a=check&' . $sys['url_redirect']),
 			'HEADER_GUEST_USERNAME' => $out['guest_username'],
 			'HEADER_GUEST_PASSWORD' => $out['guest_password'],
@@ -173,15 +160,6 @@ if (!COT_AJAX)
 			'HEADER_GUEST_REGISTER_URL' => cot_url('users', 'm=register'),
 			'HEADER_GUEST_COOKIETTL' => $out['guest_cookiettl']
 		));
-
-		/* === Hook === */
-		foreach (cot_getextensions('header.guest.tags') as $ext)
-		{
-			include $ext;
-		}
-		/* ===== */
-
-		$t->parse('HEADER.GUEST');
 	}
 
 	/* === Hook === */
@@ -191,7 +169,6 @@ if (!COT_AJAX)
 	}
 	/* ===== */
 
-	$t->parse('HEADER');
-	$t->out('HEADER');
+	$t->out();
 }
 define('COT_HEADER_COMPLETE', TRUE);

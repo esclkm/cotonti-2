@@ -32,8 +32,8 @@ if (!COT_AJAX)
 	{
 		$mtpl_base = 'footer';
 	}
-	$t = new XTemplate(cot_tplfile($mtpl_base, 'system'));
-
+	
+	$t = new FTemplate(cot_tplfile($mtpl_base, 'system'));
 	$t->assign(array(
 		'FOOTER_COPYRIGHT' => $out['copyright'],
 		'FOOTER_LOGSTATUS' => $out['logstatus'],
@@ -70,11 +70,11 @@ if (!COT_AJAX)
 
 	if ($usr['id'] > 0)
 	{
-		$t->parse('FOOTER.USER');
+		$t->assign('FOOTER_USER');
 	}
 	else
 	{
-		$t->parse('FOOTER.GUEST');
+		$t->assign('FOOTER_GUEST');
 	}
 
 	if ($cfg['debug_mode'])
@@ -129,8 +129,7 @@ if (!COT_AJAX)
 		'FOOTER_DEVMODE' => $out['devmode']
 	));
 
-	$t->parse('FOOTER');
-	$t->out('FOOTER');
+	$t->out();
 }
 
 /* === Hook === */

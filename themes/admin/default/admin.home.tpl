@@ -56,7 +56,7 @@
 			</tr>
 			<tr>
 				<td>
-					<p class="strong"><a href="{PHP|cot_url('admin', 't=cache&s=disk')}">{PHP.L.adm_diskcache}</a></p>
+					<p class="strong"><a href="{PHP|cot_url('admin', 't=cache&m=disk')}">{PHP.L.adm_diskcache}</a></p>
 					<p class="small">{PHP.L.adm_diskcache_desc}</p>
 				</td>
 			</tr>		

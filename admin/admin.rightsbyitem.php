@@ -92,22 +92,22 @@ foreach (cot_getextensions('admin.rightsbyitem.case') as $ext)
 /* ===== */
 if($ic == 'message' || $ic == 'admin')
 {
-	$adminpath[] = array(cot_url('admin'), $L['adm_code'][$ic]);
+	$out['breadcrumbs'][] = array(cot_url('admin'), $L['adm_code'][$ic]);
 }
 else
 {
-	$adminpath[] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
-	$adminpath[] = array(cot_url('admin', 't=extensions&a=details&mod='.$ic), $cot_extensions[$ic]['title']);
+	$out['breadcrumbs'][] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
+	$out['breadcrumbs'][] = array(cot_url('admin', 't=extensions&a=details&mod='.$ic), $cot_extensions[$ic]['title']);
 	if($io != 'a')
 	{
-		$adminpath[] = array(cot_url('admin', 't=structure&n='.$ic), $L['Structure']);
-		$adminpath[] = array(cot_url('admin', 't=structure&n='.$ic.'&al='.$io), $structure[$ic][$io]['title']);
+		$out['breadcrumbs'][] = array(cot_url('admin', 't=structure&n='.$ic), $L['Structure']);
+		$out['breadcrumbs'][] = array(cot_url('admin', 't=structure&n='.$ic.'&al='.$io), $structure[$ic][$io]['title']);
 	}
 }
 
 //m=extensions&a=details&mod=page
-$adminpath[] = array(cot_url('admin', 't=rightsbyitem&ic='.$ic.'&io='.$io), $L['Rights']);
-($advanced) && $adminpath[] = array(cot_url('admin', 't=rightsbyitem&ic='.$ic.'&io='.$io.'&advanced=1'), $L['More']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=rightsbyitem&ic='.$ic.'&io='.$io), $L['Rights']);
+($advanced) && $out['breadcrumbs'][] = array(cot_url('admin', 't=rightsbyitem&ic='.$ic.'&io='.$io.'&advanced=1'), $L['More']);
 $adminsubtitle = $L['Rights'];
 
 $adv_columns = ($advanced) ? 8 : 3;
@@ -131,7 +131,7 @@ $t->assign(array(
 	'ADMIN_RIGHTSBYITEM_ADVANCED_URL' => cot_url('admin', 't=rightsbyitem&ic='.$ic.'&io='.$io.'&advanced=1'),
 	'ADMIN_RIGHTSBYITEM_ADV_COLUMNS' => $adv_columns,
 	'ADMIN_RIGHTSBYITEM_4ADV_COLUMNS' => 4 + $adv_columns,
-	'ADMIN_RIGHTSBYITEM_BREADCRUMBS' => cot_breadcrumbs($adminpath, false)	
+	'ADMIN_RIGHTSBYITEM_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false)	
 ));
 
 cot_display_messages($t);

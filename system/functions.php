@@ -2922,39 +2922,35 @@ function cot_display_messages($tpl, $block = 'MAIN')
 	{
 		return;
 	}
-	$block = (!empty($block)) ? $block.'.' : '';
-	$errors = cot_get_messages('', 'error');
+	$errors = cot_get_messages('', 'error');	
 	if (count($errors) > 0)
 	{
+		$error_msg = array();
 		foreach ($errors as $msg)
-		{
-			$text = isset($L[$msg['text']]) ? $L[$msg['text']] : $msg['text'];
-			$tpl->assign('ERROR_ROW_MSG', $text);
-			$tpl->parse($block.'ERROR.ERROR_ROW');
+		{	
+			$error_msg[] = isset($L[$msg['text']]) ? $L[$msg['text']] : $msg['text'];
 		}
-		$tpl->parse($block.'ERROR');
+		$tpl->assign('ERROR_MSG', $error_msg);
 	}
 	$warnings = cot_get_messages('', 'warning');
 	if (count($warnings) > 0)
 	{
+		$warning_msg = array();
 		foreach ($warnings as $msg)
 		{
-			$text = isset($L[$msg['text']]) ? $L[$msg['text']] : $msg['text'];
-			$tpl->assign('WARNING_ROW_MSG', $text);
-			$tpl->parse($block.'WARNING.WARNING_ROW');
+			$warning_msg[] = isset($L[$msg['text']]) ? $L[$msg['text']] : $msg['text'];
 		}
-		$tpl->parse($block.'WARNING');
+		$tpl->assign('WARNING_MSG', $warning_msg);
 	}
-	$okays = cot_get_messages('', 'ok');
-	if (count($okays) > 0)
+	$info = cot_get_messages('', 'ok');
+	if (count($info) > 0)
 	{
-		foreach ($okays as $msg)
+		$info_msg = array();
+		foreach ($info as $msg)
 		{
-			$text = isset($L[$msg['text']]) ? $L[$msg['text']] : $msg['text'];
-			$tpl->assign('DONE_ROW_MSG', $text);
-			$tpl->parse($block.'DONE.DONE_ROW');
+			$info_msg[] = isset($L[$msg['text']]) ? $L[$msg['text']] : $msg['text'];
 		}
-		$tpl->parse($block.'DONE');
+		$tpl->assign('INFO_MSG', $info_msg);
 	}
 	cot_clear_messages();
 }
@@ -3212,7 +3208,7 @@ function cot_langfile($name, $type = 'extension', $default = 'en', $lang = null)
  *
  * @return string
  */
-function cot_getlang()
+function cot_lang_determine()
 {
 	global $cfg;
 	if (($list = strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE']))) 

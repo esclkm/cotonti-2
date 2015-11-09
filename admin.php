@@ -28,31 +28,25 @@ list($usr['auth_read'], $usr['auth_write'], $usr['isadmin']) = cot_auth('admin',
 
 cot_block($usr['auth_read']);
 
-$id = cot_import('id', 'G', 'TXT');
-$po = cot_import('po', 'G', 'TXT');
-$c = cot_import('c', 'G', 'TXT');
-$p = cot_import('p', 'G', 'TXT');
-$l = cot_import('l', 'G', 'TXT');
-$o = cot_import('o', 'P', 'TXT');
-$w = cot_import('w', 'P', 'TXT');
-$u = cot_import('u', 'P', 'TXT');
-$s = cot_import('s', 'G', 'ALP', 24);
-$t = cot_import('t', 'G', 'TXT');
-
-$standard_admin = array('cache.disk', 'cache', 'config', 'extrafields', 'home', 'infos',
+if (!empty($e) && !file_exists($cfg['extensions_dir'] . '/' . $e . '/' . $e . '.setup.php'))
+{
+	unset($e); 
+}
+$standard_admin = array('cache', 'config', 'extrafields', 'home', 'infos',
 	'log', 'extensions', 'rights', 'rightsbyitem', 'structure', 'urls', 'users');
 
 $inc_file = (empty($t)) ? 'home' : $t;
-$inc_file = (empty($s)) ? $inc_file : $inc_file.'.'.$s;
-if (in_array($inc_file, $standard_admin) && file_exists(cot_incfile('admin', $inc_file)))
+$inc_file = (empty($m)) ? $inc_file : $inc_file.'.'.$m;
+
+if(empty($t) && !empty($e)) // TODO: исправить на учет хуков
+{
+	$env['ext'] = $e;
+	$adminsubtitle = $cot_extensions[$e]['title'];
+	$inc_file = $cfg['extensions_dir'] . "/$e/$e.admin.php";
+}
+elseif (in_array($inc_file, $standard_admin) && file_exists(cot_incfile('admin', $inc_file)))
 {
 	$inc_file = cot_incfile('admin', $inc_file);
-}
-else // TODO: исправить на учет хуков
-{
-	$env['ext'] = $t;
-	$adminsubtitle = $cot_extensions[$t]['title'];
-	$inc_file = $cfg['extensions_dir'] . "/$t/$t.admin.php";
 }
 
 if (!file_exists($inc_file))
@@ -64,7 +58,7 @@ $usr['admin_config'] = cot_auth('admin', 'a', 'A');
 $usr['admin_structure'] = cot_auth('structure', 'a', 'A');
 $usr['admin_users'] = cot_auth('users', 'a', 'A') || $usr['maingrp'] == COT_GROUP_SUPERADMINS;
 
-$adminpath = array(array(cot_url('admin'), $L['Adminpanel']));
+$out['breadcrumbs'] = array(array(cot_url('admin'), $L['Adminpanel']));
 
 require $inc_file;
 

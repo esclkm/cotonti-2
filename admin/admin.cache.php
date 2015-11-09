@@ -16,8 +16,8 @@ cot_block($usr['isadmin']);
 
 $t = new XTemplate(cot_tplfile('admin.cache', 'system'));
 
-$adminpath[] = array(cot_url('admin', 't=other'), $L['Other']);
-$adminpath[] = array(cot_url('admin', 't=cache'), $L['adm_internalcache']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=other'), $L['Other']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=cache'), $L['adm_internalcache']);
 $adminsubtitle = $L['adm_internalcache'];
 
 /* === Hook === */

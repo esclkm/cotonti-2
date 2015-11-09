@@ -13,9 +13,9 @@
 
 $t = new XTemplate(cot_tplfile('pfs.admin.allpfs'));
 
-$adminpath[] = array(cot_url('admin', 't=other'), $L['Other']);
-$adminpath[] = array(cot_url('admin', 't=pfs'), $L['PFS']);
-$adminpath[] = array(cot_url('admin', 't=pfs&s=allpfs'), $L['adm_allpfs']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=other'), $L['Other']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=pfs'), $L['PFS']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=pfs&s=allpfs'), $L['adm_allpfs']);
 
 $adminsubtitle = $L['adm_allpfs'];
 
@@ -68,7 +68,7 @@ $t->assign(array(
 	'ADMIN_ALLPFS_PAGINATION_NEXT' => $pagenav['next'],
 	'ADMIN_ALLPFS_TOTALITEMS' => $totalitems,
 	'ADMIN_ALLPFS_ON_PAGE' => $ii,
-	'ADMIN_ALLPFS_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),
+	'ADMIN_ALLPFS_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false),
 ));
 
 /* === Hook  === */

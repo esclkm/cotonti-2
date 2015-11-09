@@ -50,6 +50,100 @@ define('COT_CONFIG_TYPE_RANGE', 7);
  */
 define('COT_CONFIG_TYPE_CUSTOM', 8);
 
+class cot_config implements ArrayAccess
+{
+	private $data = array();
+	private $config = array();
+	
+	function __construct($cfg)
+	{
+		global $db, $db_config;
+		$sql_config = $db->query("SELECT * FROM $db_config ORDER BY config_owner ASC");
+		$this->config = $cfg;
+		while ($row = $sql_config->fetch())
+		{
+			if (empty($row['config_cat']) || $row['config_owner'] == 'system')
+			{
+				$this->data[$row['config_owner']][$row['config_name']] = $row['config_value'];
+			}
+			else
+			{
+				$this->data[$row['config_owner']]['cat_' . $row['config_cat']][$row['config_name']] = $row['config_value'];
+			}
+		}
+		$sql_config->closeCursor();
+	}
+	
+	public function offsetSet($offset, $value) 
+	{
+		if(!is_array($this->data[$offset]) && !is_array($value))
+		{
+			if(!isset($this->config[$offset]))
+			{
+				$this->data['system'][$offset] = $value;
+			}
+		}
+		elseif(is_array($value))
+		{
+			$this->data[$offset] = array_merge($this->data[$offset], $value);
+		}
+    }
+
+    public function offsetExists($offset)
+	{
+        return isset($this->data[$offset]);
+    }
+
+    public function offsetUnset($offset) 
+	{
+        unset($this->data[$offset]);
+    }
+	
+	public function offsetGet($offset) 
+	{	
+        if(!is_array($this->data[$offset]))
+		{
+			if(isset($this->config[$offset]))
+			{
+				return $this->config[$offset];
+			}
+			else
+			{
+				return $this->data['system'][$offset];
+			}
+		}
+		else
+		{
+			//($this->data[$offset]);
+			return $this->data[$offset];//how
+			//TODO: категории
+		}
+		return null;
+    }
+	public function getCatConfig($name, $owner = "system",  $cat = null)
+	{
+		if(is_null($cat))
+		{
+			return $this->data[$owner][$name];
+		}
+		else
+		{
+			
+		}
+	}
+	public function __get($offset)
+	{
+		$this->offsetGet($offset);
+	}
+}
+/*
+$conf = new cot_config(array());
+//$conf['page3'] = array('html'=>'parser');
+$conf['page3']['parser'] = 'html';
+$conf['page2'] = 5;
+
+cot_print($conf['page']['parser'], $conf['page2'], $conf['page3']['parser'],  $conf);
+*/
 /**
  * Registers a set of configuration entries at once.
  *
@@ -113,9 +207,8 @@ function cot_config_add($name, $options, $category = '', $donor = '')
 	{
 		$opt = $options[$i];
 		$option_set[] = array(
-			'config_owner' => 'extension',
-			'config_cat' => $name,
-			'config_subcat' => $category,
+			'config_owner' => $name,
+			'config_cat' => $category,
 			'config_order' => isset($opt['order']) ? $opt['order'] : str_pad($i, 2, 0, STR_PAD_LEFT),
 			'config_name' => $opt['name'],
 			'config_type' => (int) $opt['type'],
@@ -173,7 +266,7 @@ function cot_config_implant($module_name, $options, $into_struct, $donor)
 function cot_config_implanted($acceptor, $donor)
 {
 	global $db, $db_config;
-	return $db->query("SELECT COUNT(*) FROM $db_config WHERE config_owner = 'module' AND config_cat = ? AND config_donor = ?", array($acceptor, $donor))->fetchColumn() > 0;
+	return $db->query("SELECT COUNT(*) FROM $db_config WHERE config_owner = ? AND config_donor = ?", array($acceptor, $donor))->fetchColumn() > 0;
 }
 
 /**
@@ -193,8 +286,8 @@ function cot_config_load($name, $category = '', $donor = '')
 
 	$query = "SELECT config_name, config_type, config_value,
 			config_default, config_variants, config_order
-		FROM $db_config WHERE config_owner = ? AND config_cat = ? AND config_subcat = ? AND config_donor = ?";
-	$params = array('extension', $name, $category, $donor);
+		FROM $db_config WHERE config_owner = ? AND config_cat = ? AND config_donor = ?";
+	$params = array($name, $category, $donor);
 
 	$res = $db->query($query, $params);
 	while ($row = $res->fetch())
@@ -229,11 +322,11 @@ function cot_config_modify($name, $options, $category = '', $donor = '')
 
 	$affected = 0;
 
-	$where = "config_owner = ? AND config_cat = ? AND config_name = ? AND config_donor = ?";
+	$where = "config_owner = ? AND config_name = ? AND config_donor = ?";
 
 	if (!empty($category))
 	{
-		$where .= " AND config_subcat = ?";
+		$where .= " AND config_cat = ?";
 	}
 
 	foreach ($options as $opt)
@@ -245,7 +338,7 @@ function cot_config_modify($name, $options, $category = '', $donor = '')
 		{
 			$opt_row['config_' . $key] = $val;
 		}
-		$params = empty($category) ? array('extension', $name, $config_name, $donor) : array('extension', $name, $config_name, $donor, $category);
+		$params = empty($category) ? array($name, $config_name, $donor) : array($name, $config_name, $donor, $category);
 		$affected += $db->update($db_config, $opt_row, $where, $params);
 	}
 
@@ -328,10 +421,10 @@ function cot_config_remove($name, $option = '', $category = '', $donor = null)
 {
 	global $db, $db_config;
 
-	$where = "config_owner = 'extension' AND config_cat = " . $db->quote($name);
+	$where = "config_owner = " . $db->quote($name);
 	if (!empty($category))
 	{
-		$where .= " AND config_subcat = " . $db->quote($category);
+		$where .= " AND config_cat = " . $db->quote($category);
 	}
 	if (!is_null($donor))
 	{
@@ -388,14 +481,12 @@ function cot_config_set($name, $options, $category = '')
 {
 	global $db, $db_config;
 
-	$type = 'module';
-
 	$upd_cnt = 0;
 
-	$where = 'config_owner = ? AND config_cat = ? AND config_name = ?';
+	$where = 'config_owner = ? AND config_name = ?';
 	if (!empty($category))
 	{
-		$where .= ' AND config_subcat = ?';
+		$where .= ' AND config_cat = ?';
 		if ($category != '__default')
 		{
 			$default_options = cot_config_load($name, '__default');
@@ -406,7 +497,7 @@ function cot_config_set($name, $options, $category = '')
 	{
 		if (empty($category) || $category == '__default' || $val != $default_options[$key])
 		{
-			$params = empty($category) ? array($type, $name, $key) : array($type, $name, $key, $category);
+			$params = empty($category) ? array($name, $key) : array($name, $key, $category);
 			$upd_cnt += $db->update($db_config, array('config_value' => $val), $where, $params);
 		}
 	}
@@ -509,13 +600,12 @@ function cot_config_reset($name, $option, $category = '')
 
 	if (!empty($category))
 	{
-		$db->delete($db_config, "config_name = ? AND config_owner = ? AND config_cat = ?
-					AND config_subcat = ?", array($option, 'module', $name, $category));
+		$db->delete($db_config, "config_name = ? AND config_owner = ? AND config_cat = ?", array($option, $name, $category));
 	}
 	else
 	{
 		$db->query("UPDATE $db_config SET config_value = config_default
-			WHERE config_name = ? AND config_owner = ? AND config_cat = ? AND (config_subcat = '' OR config_subcat IS NULL OR config_subcat = '__default')", array($option, 'module', $name));
+			WHERE config_name = ? AND config_owner = ? AND (config_cat = '' OR config_cat IS NULL OR config_cat = '__default')", array($option, $name));
 	}
 }
 
@@ -526,7 +616,7 @@ function cot_config_reset($name, $option, $category = '')
  * @param string category for modules if exists
  * @return array
  */
-function cot_config_list($owner, $cat, $subcat = "")
+function cot_config_list($owner, $cat)
 {
 	global $db, $db_config;
 
@@ -534,13 +624,12 @@ function cot_config_list($owner, $cat, $subcat = "")
 		'type' => "config_type != '" . COT_CONFIG_TYPE_HIDDEN . "'",
 		'owner' => "config_owner = '" . $db->prep($owner) . "'",
 		'cat' => "config_cat = '" . $db->prep($cat) . "'",
-		'subcat' => empty($subcat) ? "(config_subcat = '' OR config_subcat IS NULL OR config_subcat = '__default')" : "(config_subcat = '" . $db->prep($subcat) . "' OR config_subcat = '__default')"
 	);
 
 	$where_query = implode(" AND ", $where);
 
 	// Attempt to fetch the entire rowset indexed by config_name
-	$sql = $db->query("SELECT * FROM $db_config WHERE $where_query ORDER BY config_subcat ASC, config_order ASC, config_name ASC");
+	$sql = $db->query("SELECT * FROM $db_config WHERE $where_query ORDER BY config_cat ASC, config_order ASC, config_name ASC");
 	$rs = $sql->fetchAll(PDO::FETCH_ASSOC);
 	$rowset = array();
 	$rowset_default = array();
@@ -549,7 +638,7 @@ function cot_config_list($owner, $cat, $subcat = "")
 		$keyx = $row['config_name'];
 		$rowx = array();
 
-		if ($row['config_subcat'] == "'__default'")
+		if ($row['config_cat'] == "'__default'")
 		{
 			$rowset_default[$keyx] = $row;
 		}
@@ -559,7 +648,7 @@ function cot_config_list($owner, $cat, $subcat = "")
 		}
 	}
 	// Заморочка - для правильного слияния массивов и затем правильного их отображения
-	if (!empty($subcat))
+	if (!empty($cat))
 	{
 		foreach ($rowset_default as $key => $row)
 		{

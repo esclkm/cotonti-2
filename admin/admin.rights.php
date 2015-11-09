@@ -99,10 +99,10 @@ foreach (cot_getextensions('admin.rights.main') as $ext)
 }
 /* ===== */
 
-$adminpath[] = array(cot_url('admin', 't=users'), $L['Users']);
-$adminpath[] = array(cot_url('admin', 't=users&n=edit&g='.$g), $cot_groups[$g]['name']);
-$adminpath[] = array(cot_url('admin', 't=rights&g='.$g), $L['Rights']);
-($advanced) && $adminpath[] = array(cot_url('admin', 't=rights&g='.$g.'&advanced=1'), $L['More']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=users'), $L['Users']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=users&n=edit&g='.$g), $cot_groups[$g]['name']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=rights&g='.$g), $L['Rights']);
+($advanced) && $out['breadcrumbs'][] = array(cot_url('admin', 't=rights&g='.$g.'&advanced=1'), $L['More']);
 $adminsubtitle = $L['Rights'];
 
 $adv_columns = ($advanced) ? 8 : 4;
@@ -194,7 +194,7 @@ foreach (cot_getextensions('admin.rights.end') as $ext)
 /* ===== */
 
 $adv_for_url = ($advanced) ? '&advanced=1' : '';
-$t->assign('ADMIN_RIGHTS_BREADCRUMBS', cot_breadcrumbs($adminpath, false));
+$t->assign('ADMIN_RIGHTS_BREADCRUMBS', cot_breadcrumbs($out['breadcrumbs'], false));
 cot_display_messages($t);
 
 /* === Hook === */

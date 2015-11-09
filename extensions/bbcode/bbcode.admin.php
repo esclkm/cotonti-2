@@ -114,7 +114,7 @@ elseif ($a == 'clearcache')
 elseif ($a == 'convert')
 {
 	// Convert from BBcode to HTML
-	if ($b == 'page')
+	if ($a == 'page')
 	{
 		require_once cot_incfile('page');
 		// Attempt to override from HTML cache
@@ -133,7 +133,7 @@ elseif ($a == 'convert')
 		$res->closeCursor();
 		cot_message('adm_bbcodes_convert_complete');
 	}
-	elseif ($b == 'forums')
+	elseif ($a == 'forums')
 	{
 		require_once cot_incfile('forums');
 		// Attempt to override from HTML cache
@@ -163,7 +163,7 @@ elseif ($a == 'convert')
 		}
 		cot_message('adm_bbcodes_convert_complete');
 	}
-	elseif ($b == 'comments')
+	elseif ($a == 'comments')
 	{
 		require_once cot_incfile('comments', 'functions');
 		// Attempt to override from HTML cache
@@ -192,7 +192,7 @@ elseif ($a == 'convert')
 		}
 		cot_message('adm_bbcodes_convert_complete');
 	}
-	elseif ($b == 'pm')
+	elseif ($a == 'pm')
 	{
 		require_once cot_incfile('pm', 'functions');
 		// Attempt to override from HTML cache
@@ -221,7 +221,7 @@ elseif ($a == 'convert')
 		}
 		cot_message('adm_bbcodes_convert_complete');
 	}
-	elseif ($b == 'users')
+	elseif ($a == 'users')
 	{
 		$res = $db->query("SELECT user_text, user_id FROM $db_users");
 		while ($row = $res->fetch())
@@ -333,7 +333,7 @@ $bb_t->parse('MAIN.ADMIN_BBCODE_CONVERT');
 
 
 $bb_t->assign(array(
-	'ADMIN_BBCODE_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),		
+	'ADMIN_BBCODE_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false),		
 ));
 cot_display_messages($bb_t);
 

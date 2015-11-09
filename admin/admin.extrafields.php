@@ -30,8 +30,8 @@ $extra_whitelist = array(
 			)
 	)
 );
-$adminpath[] = array(cot_url('admin', 't=other'), $L['Other']);
-$adminpath[] = array(cot_url('admin', 't=extrafields'), $L['adm_extrafields']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=other'), $L['Other']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=extrafields'), $L['adm_extrafields']);
 $adminsubtitle = $L['adm_extrafields'];
 $maxperpage = (is_int($cfg['maxrowsperpage']) && $cfg['maxrowsperpage'] > 0 || ctype_digit($cfg['maxrowsperpage'])) ? $cfg['maxrowsperpage'] : 15;
 
@@ -64,7 +64,7 @@ if (empty($n) || in_array($n, $extra_blacklist))
 			}
 		}
 	}
-	cot_import('alltables', 'G', 'BOL') && $adminpath[] = array(cot_url('admin', 't=extrafields&alltables=1'), $L['adm_extrafields_all']);
+	cot_import('alltables', 'G', 'BOL') && $out['breadcrumbs'][] = array(cot_url('admin', 't=extrafields&alltables=1'), $L['adm_extrafields_all']);
 	$ii = 0;
 	foreach ($tablelist as $table)
 	{
@@ -107,7 +107,7 @@ else
 	list($pg, $d, $durl) = cot_import_pagenav('d', $maxperpage);
 	$parse_type = array('HTML', 'Text');
 
-	$adminpath[] = array(cot_url('admin', 't=extrafields&n='.$n), $L['adm_extrafields_table'].' '.$n . ((isset($extra_whitelist[$n])) ? ' - ' . $extra_whitelist[$n]['caption'] : ''));
+	$out['breadcrumbs'][] = array(cot_url('admin', 't=extrafields&n='.$n), $L['adm_extrafields_table'].' '.$n . ((isset($extra_whitelist[$n])) ? ' - ' . $extra_whitelist[$n]['caption'] : ''));
 
 	if ($a == 'add' && !empty($_POST))
 	{
@@ -321,7 +321,7 @@ else
 	$t->parse('MAIN.TABLE');
 }
 $t->assign(array(
-	'ADMIN_EXTRAFIELDS_BREADCRUMBS' => cot_breadcrumbs($adminpath, false)
+	'ADMIN_EXTRAFIELDS_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false)
 ));
 $t->parse('MAIN');
 $adminmain = $t->text('MAIN');

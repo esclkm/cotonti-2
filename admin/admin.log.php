@@ -16,8 +16,8 @@ cot_block($usr['auth_read']);
 
 $t = new XTemplate(cot_tplfile('admin.log', 'system'));
 
-$adminpath[] = array(cot_url('admin', 't=other'), $L['Other']);
-$adminpath[] = array(cot_url('admin', 't=log'), $L['Log']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=other'), $L['Other']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=log'), $L['Log']);
 
 $adminsubtitle = $L['Log'];
 
@@ -113,7 +113,7 @@ foreach ($sql->fetchAll() as $row)
 }
 
 $t->assign(array(
-	'ADMIN_LOG_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),
+	'ADMIN_LOG_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false),
 	'ADMIN_LOG_SUBTITLE' => $adminsubtitle,
 	'ADMIN_LOG_URL_PRUNE' => cot_url('admin', 't=log&a=purge&'.cot_xg()),
 	'ADMIN_LOG_TOTALDBLOG' => $totaldblog,

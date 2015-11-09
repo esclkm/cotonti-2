@@ -23,7 +23,7 @@ if (!empty($_SESSION['cot_inst_script']) && file_exists($_SESSION['cot_inst_scri
 
 cot_sendheaders();
 
-$t = new XTemplate($mskin);
+$t = new FTemplate($mskin);
 
 $site_url = (strpos($_SERVER['SERVER_PROTOCOL'], 'HTTPS') === false && $_SERVER['HTTPS'] != 'on' && $_SERVER['SERVER_PORT'] != 443 && $_SERVER['HTTP_X_FORWARDED_PORT'] !== 443 ? 'http://' : 'https://')
 	.$_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI']);
@@ -32,7 +32,7 @@ $site_url = preg_replace('#/$#', '', $site_url);
 $sys['abs_url'] = $site_url.'/';
 define('COT_ABSOLUTE_URL', $site_url.'/');
 
-if ($step > 2)
+if ($step > 3)
 {
 	$dbc_port = empty($cfg['mysqlport']) ? '' : ';port='.$cfg['mysqlport'];
 	$db = new CotDB('mysql:host='.$cfg['mysqlhost'].$dbc_port.';dbname='.$cfg['mysqldb'], $cfg['mysqluser'], $cfg['mysqlpassword']);
@@ -124,15 +124,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		case 3:
 			// Database setup
 			$db_x = cot_import('db_x', 'P', 'TXT', 0, false, true);
-
 			try
 			{
+								
 				$dbс_port = empty($db_port) ? '' : ';port='.$db_port;
 				$db = new CotDB('mysql:host='.$db_host.$dbc_port.';dbname='.$db_name, $db_user, $db_pass);
+
 			}
-			catch (PDOException $e)
+			catch (PDOException $ex)
 			{
-				if ($e->getCode() == 1049 || mb_strpos($e->getMessage(), '[1049]') !== false)
+				if ($ex->getCode() == 1049 || mb_strpos($ex->getMessage(), '[1049]') !== false)
 				{
 					// Attempt to create a new database
 					try
@@ -141,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 						$db->query("CREATE DATABASE `$db_name`");
 						$db->query("USE `$db_name`");
 					}
-					catch (PDOException $e)
+					catch (PDOException $ex)
 					{
 						cot_error('install_error_sql_db', 'db_name');
 					}
@@ -358,14 +359,13 @@ switch ($step)
 			$t->assign(array(
 				'INSTALL_SCRIPT' => cot_selectbox('', 'script', array_keys($install_scripts), array_values($install_scripts))
 			));
-			$t->parse("MAIN.STEP_$step.SCRIPT");
 		}
 		break;
 	case 2:
 		// Create missing cache folders
 		if (is_writable($cfg['cache_dir']))
 		{
-			$cache_subfolders = array('cot', 'static', 'system', 'templates');
+			$cache_subfolders = array('cot', 'static', 'system', 'templates', 'fenom');
 			foreach ($cache_subfolders as $sub)
 			{
 				if (!file_exists($cfg['cache_dir'].'/'.$sub))
@@ -518,7 +518,7 @@ switch ($step)
 		{
 			$rtheme = $theme;
 			$rscheme = $scheme;
-			$rlang = $_SESSION['cot_inst_lang'];
+			$rlang = $lang;
 			$cfg['mainurl'] = $site_url;
 		}
 
@@ -562,9 +562,9 @@ cot_display_messages($t);
 
 $t->assign(array(
 	'INSTALL_STEP' => $step == 6 ? $L['Complete'] : cot_rc('install_step', array('step' => $step, 'total' => 5)),
-	'INSTALL_LANG' => cot_selectbox_lang($lang, 'lang')
+	'INSTALL_LANG' => cot_selectbox_lang($lang, 'lang'),
+	'INSTALL_STEP_'.$step => true
 ));
 
 
-$t->parse('MAIN');
-$t->out('MAIN');
+$t->out();

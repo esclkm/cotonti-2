@@ -25,7 +25,7 @@ require_once cot_incfile('system', 'uploads');
 
 $t = new XTemplate(cot_tplfile('admin.users', 'system'));
 
-$adminpath[] = array(cot_url('admin', 't=users'), $L['Users']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=users'), $L['Users']);
 $adminsubtitle = $L['Users'];
 
 $g = cot_import('g', 'G', 'INT');
@@ -164,7 +164,7 @@ elseif($n == 'edit')
 		$row['grp_name'] = htmlspecialchars($row['grp_name']);
 		$row['grp_title'] = htmlspecialchars($row['grp_title']);
 
-		$adminpath[] = array (cot_url('admin', 't=users&n=edit&g='.$g), $row['grp_name']);
+		$out['breadcrumbs'][] = array (cot_url('admin', 't=users&n=edit&g='.$g), $row['grp_name']);
 
 		$t->assign(array(
 			'ADMIN_USERS_EDITFORM_URL' => cot_url('admin', 't=users&n=edit&a=update&g='.$g),

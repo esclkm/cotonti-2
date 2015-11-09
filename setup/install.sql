@@ -62,7 +62,6 @@ DROP TABLE IF EXISTS `cot_config`;
 CREATE TABLE `cot_config` (
   `config_owner` varchar(24) collate utf8_unicode_ci NOT NULL default 'core',
   `config_cat` varchar(64) collate utf8_unicode_ci NOT NULL default '',
-  `config_subcat` varchar(255) collate utf8_unicode_ci NOT NULL default '',
   `config_order` char(3) collate utf8_unicode_ci NOT NULL default '00',
   `config_name` varchar(64) collate utf8_unicode_ci NOT NULL default '',
   `config_type` tinyint NOT NULL default '0',

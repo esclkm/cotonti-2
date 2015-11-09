@@ -83,20 +83,22 @@ require_once $cfg['system_dir'].'/cotemplate.php';
 require_once $cfg['system_dir'].'/common.php';
 
 // Support for ajax and popup hooked extensions
-if (empty($_GET['e']) && !empty($_GET['r']))
+
+
+if (empty($e) && !empty($r))
 {
-	$_GET['e'] = $_GET['r'];
+	$e = $r;
 }
 
 // Detect selected extension
 $env['ext'] = 'index';
-if (!empty($_GET['e']))
+if (!empty($e))
 {
-	$env['ext'] = $_GET['e'];
+	$env['ext'] = $e;
 }
-elseif (!empty($_GET['r']))
+elseif (!empty($r))
 {
-	$env['ext'] = $_GET['r'];
+	$env['ext'] = $r;
 }
 
 $found = array();
@@ -135,7 +137,7 @@ if (count($found))
 		require_once $file;
 	}
 	define('COT_MODULE', true);
-	$env['ext'] = $_GET['e'];
+	$env['ext'] = $e;
 }
 else
 {

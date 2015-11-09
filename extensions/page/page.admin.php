@@ -24,9 +24,9 @@ $t = new XTemplate(cot_tplfile('page.admin'));
 
 require_once cot_incfile('page', 'functions');
 
-$adminpath[] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
-$adminpath[] = array(cot_url('admin', 't=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
-$adminpath[] = array(cot_url('admin', 't='.$m), $L['Administration']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=extensions&a=details&e='.$e), $cot_extensions[$e]['title']);
+$out['breadcrumbs'][] = array(cot_url('admin', 'e='.$e), $L['Administration']);
 $adminsubtitle = $L['Pages'];
 
 $id = cot_import('id', 'G', 'INT');
@@ -438,7 +438,7 @@ $t->assign(array(
 ));
 
 $t->assign(array(
-	'ADMIN_PAGE_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),		
+	'ADMIN_PAGE_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false),		
 ));
 cot_display_messages($t);
 

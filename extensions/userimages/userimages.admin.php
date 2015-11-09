@@ -83,7 +83,7 @@ foreach($userimg as $code => $settings)
 	$tt->parse('MAIN.USERIMG_LIST');
 }
 $tt->assign(array(
-	'ADMIN_USERIMAGES_BREADCRUMBS' =>  cot_breadcrumbs($adminpath, false)
+	'ADMIN_USERIMAGES_BREADCRUMBS' =>  cot_breadcrumbs($out['breadcrumbs'], false)
 ));
 cot_display_messages($tt); // use cot_message()
 

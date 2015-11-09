@@ -16,8 +16,8 @@ cot_block($usr['auth_read']);
 
 $t = new XTemplate(cot_tplfile('admin.infos', 'system'));
 
-$adminpath[] = array(cot_url('admin', 't=other'), $L['Other']);
-$adminpath[] = array(cot_url('admin', 't=infos'), $L['adm_infos']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=other'), $L['Other']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=infos'), $L['adm_infos']);
 
 $adminsubtitle = $L['adm_infos'];
 
@@ -41,7 +41,7 @@ $t->assign(array(
 	'ADMIN_INFOS_GMTTIME' => $usr['gmttime'],
 	'ADMIN_INFOS_USRTIME' => $usr['localtime'],
 	'ADMIN_INFOS_TIMETEXT' => $usr['timetext'],
-	'ADMIN_INFOS_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),
+	'ADMIN_INFOS_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false),
 ));
 
 /* === Hook === */

@@ -42,7 +42,12 @@ $cfg['cache'] = false;
 $cfg['xtpl_cache'] = false;
 
 require_once $cfg['system_dir'].'/functions.php';
-require_once $cfg['system_dir'] . '/cotemplate.php';
+require_once $cfg['system_dir'] . '/FTemplate.php';
+FTemplate::init(array(
+	'cache_dir'    => $cfg['cache_dir'].'/fenom',
+	'auto_reload' => true,
+	'force_compile' => true
+));
 require_once 'system/debug.php';
 
 if (isset($cfg['new_install']) && $cfg['new_install'])
@@ -84,7 +89,7 @@ if (isset($cfg['new_install']) && $cfg['new_install'])
 		$lang = cot_import('lang', 'P', 'ALP');
 		if (empty($lang))
 		{
-			$lang = cot_getlang();
+			$lang = cot_lang_determine();
 		}
 	}
 

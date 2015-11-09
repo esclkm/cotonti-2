@@ -25,9 +25,9 @@ require_once cot_incfile('polls', 'resources');
 
 $t = new XTemplate(cot_tplfile('polls.admin'));
 
-$adminpath[] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
-$adminpath[] = array(cot_url('admin', 't=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
-$adminpath[] = array(cot_url('admin', 't='.$m), $L['Administration']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't=extensions&a=details&mod='.$m), $cot_extensions[$m]['title']);
+$out['breadcrumbs'][] = array(cot_url('admin', 't='.$m), $L['Administration']);
 
 $adminsubtitle = $L['Polls'];
 
@@ -159,7 +159,7 @@ if ($ii == 0)
 if ($n == 'options')
 {
 	$poll_id = cot_import('id', 'G', 'INT');
-	$adminpath[] = array(cot_url('admin', 't=polls'.$poll_filter.'&n=options&id='.(int)$poll_id.'&d='.$durl), $L['Options']." (#$poll_id)");
+	$out['breadcrumbs'][] = array(cot_url('admin', 't=polls'.$poll_filter.'&n=options&id='.(int)$poll_id.'&d='.$durl), $L['Options']." (#$poll_id)");
 	$formname = $L['editdeleteentries'];
 	$send_button = $L['Update'];
 }
@@ -167,7 +167,7 @@ elseif (cot_error_found())
 {
 	if ((int)$poll_id > 0)
 	{
-		$adminpath[] = array(cot_url('admin', 't=polls'.$poll_filter.'&n=options&id='.(int)$poll_id.'&d='.$durl), $L['Options']." (#$poll_id)");
+		$out['breadcrumbs'][] = array(cot_url('admin', 't=polls'.$poll_filter.'&n=options&id='.(int)$poll_id.'&d='.$durl), $L['Options']." (#$poll_id)");
 		$formname = $L['editdeleteentries'];
 		$send_button = $L['Update'];
 	}
@@ -214,7 +214,7 @@ $t->assign(array(
 	'ADMIN_POLLS_FORM_URL' => ((int)$poll_id > 0) ? cot_url('admin', 't=polls'.$poll_filter.'&d='.$durl) : cot_url('admin', 't=polls'),
 	'ADMIN_POLLS_EDIT_FORM' => $poll_text,
 	'ADMIN_POLLS_SEND_BUTTON' => $send_button,
-	'ADMIN_POLLS_BREADCRUMBS' =>  cot_breadcrumbs($adminpath, false),	
+	'ADMIN_POLLS_BREADCRUMBS' =>  cot_breadcrumbs($out['breadcrumbs'], false),	
 ));
 
 cot_display_messages($t);

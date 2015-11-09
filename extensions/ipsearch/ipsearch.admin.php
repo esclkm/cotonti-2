@@ -100,7 +100,7 @@ if ($a == 'search')
 	$t->parse('MAIN.IPSEARCH_RESULTS');
 }
 $t->assign(array(
-	'IPSEARCH_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),	
+	'IPSEARCH_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false),	
 ));
 $t->parse('MAIN');
 $adminmain = $t->text('MAIN');

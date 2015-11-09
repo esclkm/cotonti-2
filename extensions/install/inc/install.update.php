@@ -24,7 +24,7 @@ if (!file_exists($mskin))
 {
 	cot_diefatal($L['install_update_template_not_found']);
 }
-$t = new XTemplate($mskin);
+$t = new FTemplate($mskin);
 
 // Check for new config options
 if (is_writable($file['config']) && file_exists($file['config_sample']))
@@ -206,7 +206,6 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 	{
 		// Success
 		$t->assign('UPDATE_COMPLETED_NOTE', $L['install_upgrade_success_note']);
-		$t->parse('MAIN.COMPLETED');
 		$db->update($db_updates,  array('upd_value' => $branch), "upd_param = 'branch'");
 		$t->assign('UPDATE_TITLE', cot_rc('install_upgrade_success', array('ver' => $branch)));
 	}
@@ -284,7 +283,6 @@ elseif (!cot_error_found())
 	{
 		$t->assign('UPDATE_TITLE', $L['install_update_nothing']);
 		$t->assign('UPDATE_COMPLETED_NOTE', '');
-		$t->parse('MAIN.COMPLETED');
 	}
 	else
 	{
@@ -298,7 +296,6 @@ elseif (!cot_error_found())
 		}
 		$t->assign('UPDATE_TITLE', cot_rc('install_update_success', array('rev' => $new_rev)));
 		$t->assign('UPDATE_COMPLETED_NOTE', $L['install_complete_note']);
-		$t->parse('MAIN.COMPLETED');
 	}
 
 	$t->assign(array(

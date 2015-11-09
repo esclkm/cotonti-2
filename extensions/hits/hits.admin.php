@@ -37,7 +37,7 @@ foreach (cot_getextensions('hits.admin.first') as $ext)
 
 if($f == 'year' || $f == 'month')
 {
-    $adminpath[] = array(cot_url('admin', 't=other&p=hits&f='.$f.'&v='.$v), '('.$v.')');
+    $out['breadcrumbs'][] = array(cot_url('admin', 't=other&p=hits&f='.$f.'&v='.$v), '('.$v.')');
     $sql = $db->query("SELECT * FROM $db_stats WHERE stat_name LIKE '".$db->prep($v)."%' ORDER BY stat_name DESC");
 
     while($row = $sql->fetch())
@@ -184,7 +184,7 @@ foreach (cot_getextensions('hits.admin.tags') as $ext)
 }
 /* ===== */
 $tt->assign(array(
-	'ADMIN_HITS_BREADCRUMBS' => cot_breadcrumbs($adminpath, false),	
+	'ADMIN_HITS_BREADCRUMBS' => cot_breadcrumbs($out['breadcrumbs'], false),	
 ));
 $tt->parse('MAIN');
 $adminmain = $tt->text('MAIN');

@@ -273,14 +273,16 @@ $out['subtitle'] = $L['aut_logintitle'];
 $out['head'] .= $R['code_noindex'];
 require_once $cfg['system_dir'] . '/header.php';
 $mskin = cot_tplfile('login', 'system');
-$t = new XTemplate($mskin);
+$t = new FTemplate($mskin);
 
 require_once cot_incfile('system', 'forms');
 
 if ($cfg['maintenance'])
 {
-	$t->assign(array('USERS_AUTH_MAINTENANCERES' => $cfg['maintenancereason']));
-	$t->parse('MAIN.USERS_AUTH_MAINTENANCE');
+	$t->assign(array(
+		'USERS_AUTH_MAINTENANCERES' => $cfg['maintenancereason'],
+		'USERS_AUTH_MAINTENANCE' => $cfg['maintenance']
+	));
 }
 
 $t->assign(array(
@@ -299,7 +301,6 @@ foreach (cot_getextensions('users.auth.tags') as $ext)
 }
 /* ===== */
 
-$t->parse('MAIN');
-$t->out('MAIN');
+$t->out();
 
 require_once $cfg['system_dir'] . '/footer.php';

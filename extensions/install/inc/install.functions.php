@@ -42,17 +42,8 @@ function cot_install_parse_extensions_alpha($default_list = array(), $selected_l
 		if (is_array($info))
 		{
 			$code = $f;
-			$requires = empty($info['Requires']) ? '' : implode(', ', explode(',', $info['Requires']));
-			$recommends = empty($info['Recommends']) ? '' : implode(', ', explode(',', $info['Recommends']));
-
-			if (count($selected_list) > 0)
-			{
-				$checked = in_array($code, $selected_list);
-			}
-			else
-			{
-				$checked = in_array($code, $default_list);
-			}
+			$checked = in_array($code, (count($selected_list) > 0) ? $selected_list : $default_list);
+			
 			$L['info_name'] = '';
 			$L['info_desc'] = '';
 			$icofile = $cfg['extensions_dir'].'/'.$code.'/'.$code.'.png';
@@ -61,19 +52,19 @@ function cot_install_parse_extensions_alpha($default_list = array(), $selected_l
 			{
 				include cot_langfile($code);
 			}
-			$t->assign(array(
-				"EXT_ROW_CHECKBOX" => cot_checkbox($checked, "install_extensions[$code]"),
-				"EXT_ROW_TITLE" => empty($L['info_name']) ? $info['Name'] : $L['info_name'],
-				"EXT_ROW_DESCRIPTION" => empty($L['info_desc']) ? $info['Description'] : $L['info_desc'],
-				"EXT_ROW_ICO" => (file_exists($icofile)) ? $icofile : '',
-				"EXT_ROW_REQUIRES" => $requires,
-				"EXT_ROW_RECOMMENDS" => $recommends
-			));
-			$t->parse("MAIN.STEP_5.EXT_CAT.EXT_ROW");
+			$cats['all'] = '';
+			$ext['all'][] = array(
+				"CHECKBOX" => cot_checkbox($checked, "install_extensions[$code]"),
+				"TITLE" => empty($L['info_name']) ? $info['Name'] : $L['info_name'],
+				"ESCRIPTION" => empty($L['info_desc']) ? $info['Description'] : $L['info_desc'],
+				"ICO" => (file_exists($icofile)) ? $icofile : '',
+				"REQUIRES" => array_filter(explode(',', $info['Requires'])),
+				"RECOMMENDS" => array_filter(explode(',', $info['Recommends']))
+			);
+			$t->assign("INSTALL_CATEGORIES", $cats);
+			$t->assign("INSTALL_EXTENSIONS", $ext);
 		}
 	}
-	// Render last category
-	$t->parse("MAIN.STEP_5.EXT_CAT");
 }
 
 /**
@@ -96,28 +87,8 @@ function cot_install_parse_extensions($default_list = array(), $selected_list = 
 		if (is_array($info))
 		{
 			$code = $f;
-			if ($prev_cat != $info['Category'])
-			{
-				if ($prev_cat != '')
-				{
-					// Render previous category
-					$t->parse("MAIN.STEP_5.EXT_CAT");
-				}
-				// Assign a new one
-				$prev_cat = $info['Category'];
-				$t->assign('EXT_CAT_TITLE', $L['ext_cat_'.$info['Category']]);
-			}
-			$requires = empty($info['Requires']) ? '' : implode(', ', explode(',', $info['Requires']));
-			$recommends = empty($info['Recommends']) ? '' : implode(', ', explode(',', $info['Recommends']));
+			$checked = in_array($code, (count($selected_list) > 0) ? $selected_list : $default_list);
 
-			if (count($selected_list) > 0)
-			{
-				$checked = in_array($code, $selected_list);
-			}
-			else
-			{
-				$checked = in_array($code, $default_list);
-			}
 			$L['info_name'] = '';
 			$L['info_desc'] = '';
 			$icofile = $cfg['extensions_dir'].'/'.$code.'/'.$code.'.png';
@@ -126,21 +97,19 @@ function cot_install_parse_extensions($default_list = array(), $selected_list = 
 			{
 				include cot_langfile($code);
 			}
-			$t->assign(array(
-				"EXT_ROW_CHECKBOX" => cot_checkbox($checked, "install_extensions[$code]"),
-				"EXT_ROW_TITLE" => empty($L['info_name']) ? $info['Name'] : $L['info_name'],
-				"EXT_ROW_DESCRIPTION" => empty($L['info_desc']) ? $info['Description'] : $L['info_desc'],
-				"EXT_ROW_ICO" => (file_exists($icofile)) ? $icofile : '',
-				"EXT_ROW_REQUIRES" => $requires,
-				"EXT_ROW_RECOMMENDS" => $recommends
-			));
-			$t->parse("MAIN.STEP_5.EXT_CAT.EXT_ROW");
+
+			$cats[$info['Category']] = empty($L['ext_cat_'.$info['Category']]) ? $info['Category'] : $L['ext_cat_'.$info['Category']];
+			$ext[$info['Category']][] = array(
+				"CHECKBOX" => cot_checkbox($checked, "install_extensions[$code]"),
+				"TITLE" => empty($L['info_name']) ? $info['Name'] : $L['info_name'],
+				"ESCRIPTION" => empty($L['info_desc']) ? $info['Description'] : $L['info_desc'],
+				"ICO" => (file_exists($icofile)) ? $icofile : '',
+				"REQUIRES" => array_filter(explode(',', $info['Requires'])),
+				"RECOMMENDS" => array_filter(explode(',', $info['Recommends']))
+			);
+			$t->assign("INSTALL_CATEGORIES", $cats);
+			$t->assign("INSTALL_EXTENSIONS", $ext);
 		}
-	}
-	if ($prev_cat != '')
-	{
-		// Render last category
-		$t->parse("MAIN.STEP_5.EXT_CAT");
 	}
 }
 
