@@ -3,10 +3,10 @@
 /**
  * Configuration Management API
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2010-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2010-2014
  * @license BSD
  */
 defined('COT_CODE') or die('Wrong URL');
@@ -619,7 +619,7 @@ function cot_config_reset($name, $option, $category = '')
 function cot_config_list($owner, $cat)
 {
 	global $db, $db_config;
-
+	$owner = empty($owner) ? 'system' : $owner;
 	$where = array(
 		'type' => "config_type != '" . COT_CONFIG_TYPE_HIDDEN . "'",
 		'owner' => "config_owner = '" . $db->prep($owner) . "'",

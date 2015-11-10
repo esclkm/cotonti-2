@@ -7,12 +7,12 @@ Tags=page.tpl:{PAGE_COMMENTS},{PAGE_COMMENTS_DISPLAY},{PAGE_COMMENTS_COUNT},{PAG
 ==================== */
 
 /**
- * Comments system for Cotonti
+ * Comments system for Feliz
  *
  * @package comments
  * @version 0.7.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

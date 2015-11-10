@@ -3,8 +3,8 @@
  * English Language File for HTML
  *
  * @package html
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2012
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2012
  * @license BSD
  */
 

@@ -3,10 +3,10 @@
 /**
  * Extension Management API
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.12
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2010-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2010-2014
  * @license BSD
  */
 
@@ -155,9 +155,9 @@ function cot_extension_dependencies_statisfied($name, $selected_extensionss = ar
 }
 
 /**
- * Installs or updates a Cotonti extension: module or extension.
+ * Installs or updates a Feliz extension: module or extension.
  * Messages emitted during installation can be received through standard
- * Cotonti messages interface.
+ * Feliz messages interface.
  * @param string $name Extension code
  * @param bool $update Perform update rather than new install
  * @param bool $force_update Forces extension update even if version has not changed

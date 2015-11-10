@@ -1,10 +1,10 @@
 <?php
 /**
- * Comments system for Cotonti
+ * Comments system for Feliz
  *
  * @package comments
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2009-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2009-2014
  * @license BSD
  */
 

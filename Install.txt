@@ -1,7 +1,7 @@
 REQUIREMENTS
 ------------
 
-To install Cotonti you need the following server software pre-installed:
+To install Feliz you need the following server software pre-installed:
 
 * WWW Server (Apache, nginx, etc)
 * PHP 5.2 or higher
@@ -20,7 +20,7 @@ You MUST ensure that PHP has been compiled with support for:
 * PDO and PDO_MySQL
 * Sessions
 * Zlib
-in order to successfully run Cotonti.
+in order to successfully run Feliz.
 
 
 OPTIONAL COMPONENTS

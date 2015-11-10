@@ -1,4 +1,4 @@
-Since Cotonti Siena 0.9.4 updates are organized this way:
+Since Feliz Siena 0.9.4 updates are organized this way:
 - This setup folder has subfolders for each branch (major version)
 - Within each branch patches have minor version and patch number
 - SQL patches are named patch_{ver}-{patch_num}.sql

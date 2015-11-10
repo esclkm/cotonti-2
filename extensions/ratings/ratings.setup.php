@@ -6,8 +6,8 @@ Category=community-social
 Description=Ratings extension with jQuery stars
 Version=0.9.17
 Date=2014-05-04
-Author=Cotonti Team
-Copyright=Copyright (c) Cotonti Team 2008-2014
+Author=Feliz Team
+Copyright=Copyright (c) Feliz Team 2008-2014
 Notes=BSD License
 Auth_guests=R
 Lock_guests=12345A
@@ -27,8 +27,8 @@ css=99:radio:0,1:1:Enable extension CSS
  *
  * @package ratings
  * @version 0.9.17
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

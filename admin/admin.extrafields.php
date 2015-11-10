@@ -3,10 +3,10 @@
 /**
  * Administration panel - Extra fields editor for structure part
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 (defined('COT_CODE') && defined('COT_ADMIN')) or die('Wrong URL.');

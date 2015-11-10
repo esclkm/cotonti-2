@@ -1,21 +1,29 @@
-<!-- BEGIN: MAIN -->
-{FILE "{PHP.cfg.themes_dir}/admin/default/warnings.tpl"}
 
+{include $PHP.cfg.themes_dir~"/admin/"~$PHP.cfg.admintheme~"/warnings.tpl"}
+<div class="row text-center"> 
 
-<!-- BEGIN: ADMIN_CONFIG_COL -->
-<h3 class="clear">{ADMIN_CONFIG_COL_CAPTION}:</h3>
-<div class="row">
-<!-- BEGIN: ADMIN_CONFIG_ROW -->
-	<a href="{ADMIN_CONFIG_ROW_URL}" class="ajax1 thumbicons col-lg-2 col-md-3 col-sm-6">
-		<!-- IF {ADMIN_CONFIG_ROW_ICO} -->
-		<img src="{ADMIN_CONFIG_ROW_ICO}"/>
-		<!-- ELSE -->
-		{PHP.R.admin_icon_extension}
-		<!-- ENDIF -->
-		{ADMIN_CONFIG_ROW_NAME}
-	</a>
-<!-- END: ADMIN_CONFIG_ROW -->
+		<div class="">
+		{foreach $ADMIN_CONFIG_MAIN as $CFG}
+			<a href="{$CFG.URL}" class="ajax1 icon col-lg-2 col-md-2 col-sm-3 col-xs-4">
+				{if $CFG.ICO }
+				<img src="{$CFG.ICO}"/>
+				{else}
+				{$PHP.R.admin_icon_extension}
+				{/if}
+				<h5>{$CFG.NAME}</h5>
+			</a>
+		{/foreach}
+
+		{foreach $ADMIN_CONFIG_EXT as $CFG}
+			<a href="{$CFG.URL}" class="ajax1 icon col-lg-2 col-md-2 col-sm-3 col-xs-4">
+				{if $CFG.ICO }
+				<img src="{$CFG.ICO}"/>
+				{else}
+				{$PHP.R.admin_icon_extension}
+				{/if}
+				<h5>{$CFG.NAME}</h5>
+			</a>
+		{/foreach}
+		</div>
+	</div>	
 </div>
-<!-- END: ADMIN_CONFIG_COL -->
-
-<!-- END: MAIN -->

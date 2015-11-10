@@ -7,9 +7,9 @@ Schemes=default:Default
 ==================== */
 
 /**
- * Cotonti Model Theme
+ * Feliz Model Theme
  *
- * @package Cotonti
+ * @package Feliz
  * @version 1.00
  * @author esclkm
  * @copyright 

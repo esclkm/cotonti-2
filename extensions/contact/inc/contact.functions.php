@@ -3,8 +3,8 @@
  * Contact Extension API
  *
  * @package contact
- * @author Cotonti Team
- * @copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

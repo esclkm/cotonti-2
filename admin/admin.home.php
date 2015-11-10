@@ -3,15 +3,15 @@
 /**
  * Administration panel - Home page for administrators
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 (defined('COT_CODE') && defined('COT_ADMIN')) or die('Wrong URL.');
 
-$t = new XTemplate(cot_tplfile('admin.home', 'system'));
+$t = new FTemplate(cot_tplfile('admin.home', 'system'));
 
 if (!$cfg['debug_mode'] && file_exists('install.php') && is_writable('datas/config.php'))
 {
@@ -55,7 +55,6 @@ if ($cfg['check_updates'] && $cache)
 			'ADMIN_HOME_UPDATE_REVISION' => sprintf($L['home_update_revision'], $cfg['version'], htmlspecialchars($update_info['update_ver'])),
 			'ADMIN_HOME_UPDATE_MESSAGE' => cot_parse($update_info['update_message']),
 		));
-		$t->parse('MAIN.UPDATE');
 	}
 }
 
@@ -79,22 +78,16 @@ if (is_array($target))
 	foreach ($target as $ext)
 	{
 		$ext_info = cot_get_extensionparams($ext['ext_code']);
-		$t->assign(array(
-			'ADMIN_OTHER_EXT_URL' => cot_url('admin', 't=' . $ext['ext_code']),
-			'ADMIN_OTHER_EXT_ICO' => $ext_info['icon'],
-			'ADMIN_OTHER_EXT_NAME' => $ext_info['name'],
-			'ADMIN_OTHER_EXT_DESC' => $ext_info['desc']
-		));
-		$t->parse('MAIN.SECTION.ROW');
+		$extensions[] = array(
+			'URL' => cot_url('admin', 'e=' . $ext['ext_code']),
+			'ICO' => $ext_info['icon'],
+			'NAME' => $ext_info['name'],
+			'DESC' => $ext_info['desc']
+		);
+		
 	}
+	$t->assign('ADMIN_EXT', $extensions);
 }
-else
-{
-	$t->parse('MAIN.SECTION.EMPTY');
-}
-$t->assign('ADMIN_OTHER_SECTION', $title);
-$t->parse('MAIN.SECTION');
-
 
 $sql = $db->query("SHOW TABLES");
 foreach ($sql->fetchAll(PDO::FETCH_NUM) as $row)
@@ -134,26 +127,28 @@ $t->assign(array(
 foreach (cot_getextensions('admin.home.mainpanel', 'R') as $ext)
 {
 	$line = '';
+	$lines = array();
 	include $ext;
 	if (!empty($line))
 	{
-		$t->assign('ADMIN_HOME_MAINPANEL', $line);
-		$t->parse('MAIN.MAINPANEL');
+		$lines[] = $line;
 	}
 }
+$t->assign('ADMIN_HOME_MAINPANEL', $lines);
 /* ===== */
 
 /* === Hook === */
 foreach (cot_getextensions('admin.home.sidepanel', 'R') as $ext)
 {
 	$line = '';
+	$lines = array();
 	include $ext;
 	if (!empty($line))
 	{
-		$t->assign('ADMIN_HOME_SIDEPANEL', $line);
-		$t->parse('MAIN.SIDEPANEL');
+		$lines[] = $line;
 	}
 }
+$t->assign('ADMIN_HOME_SIDEPANEL', $lines);
 /* ===== */
 
 /* === Hook === */
@@ -165,5 +160,5 @@ foreach (cot_getextensions('admin.home', 'R') as $ext)
 
 cot_display_messages($t);
 
-$t->parse('MAIN');
-$adminmain = $t->text('MAIN');
+$t->parse();
+$adminmain = $t->text();

@@ -7,7 +7,7 @@ Description=Autocomplete for user names in some forms
 Version=0.8.3
 Date=2011-jan-8
 Author=esclkm
-Copyright=Copyright (c) Cotonti Team 2008-2014
+Copyright=Copyright (c) Feliz Team 2008-2014
 Notes=BSD License
 SQL=
 Auth_guests=R
@@ -28,8 +28,8 @@ css=99:radio:0,1:1:Enable extension CSS
  *
  * @package autocomplete
  * @version 0.8.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2010-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2010-2014
  * @license BSD
  */
 

@@ -10,8 +10,8 @@ Hooks=rc
  *
  * @package autocomplete
  * @version 0.8.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2010-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2010-2014
  * @license BSD
  */
 

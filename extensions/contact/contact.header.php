@@ -11,8 +11,8 @@
  *
  * @package contact
  * @version 2.1.0
- * @author Cotonti Team
- * @copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 defined('COT_CODE') or die('Wrong URL');

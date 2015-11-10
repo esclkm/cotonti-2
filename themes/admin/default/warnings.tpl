@@ -1,32 +1,32 @@
-<!-- BEGIN: ERROR -->
-<div class="error">
-	<h4>{PHP.L.Error}</h4>
+{if $ERROR_MSG}
+<div class="alert alert-danger" role="alert">
+	<strong>{$PHP.L.Error}</strong>
 	<ul>
-		<!-- BEGIN: ERROR_ROW -->
-		<li>{ERROR_ROW_MSG}</li>
-		<!-- END: ERROR_ROW -->
+		{foreach $ERROR_MSG as $MSG}
+		<li>{$MSG}</li>
+		{/foreach}
 	</ul>
 </div>
-<!-- END: ERROR -->
+{/if}
 
-<!-- BEGIN: WARNING -->
-<div class="warning">
-	<h4>{PHP.L.Warning}</h4>
+{if $WARNING_MSG}
+<div class="alert alert-warning" role="alert">
+	<strong>{$PHP.L.Warning}</strong>
 	<ul>
-		<!-- BEGIN: WARNING_ROW -->
-		<li>{WARNING_ROW_MSG}</li>
-		<!-- END: WARNING_ROW -->
+		{foreach $WARNING_MSG as $MSG}
+		<li>{$MSG}</li>
+		{/foreach}
 	</ul>
 </div>
-<!-- END: WARNING -->
+{/if}
 
-<!-- BEGIN: DONE -->
-<div class="done">
-	<h4>{PHP.L.Done}</h4>
+{if $INFO_MSG}
+<div class="alert alert-success" role="alert">
+	<strong>{$PHP.L.Done}</strong>
 	<ul>
-		<!-- BEGIN: DONE_ROW -->
-		<li>{DONE_ROW_MSG}</li>
-		<!-- END: DONE_ROW -->
+		{foreach $INFO_MSG as $MSG}
+		<li>{$MSG}</li>
+		{/foreach}
 	</ul>
 </div>
-<!-- END: DONE -->
+{/if}

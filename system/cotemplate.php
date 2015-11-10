@@ -3,17 +3,17 @@
  * CoTemplate class library. Fast and lightweight block template engine.
  * - Compatible with XTemplate (http://www.phpxtemplate.org)
  * - Compiling into PHP objects
- * - Cotonti special
+ * - Feliz special
  *
- * @package Cotonti
+ * @package Feliz
  * @version 2.8.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2009-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2009-2014
  * @license BSD
  */
 
 /**
- * Minimalistic XTemplate implementation for Cotonti
+ * Minimalistic XTemplate implementation for Feliz
  */
 class XTemplate
 {

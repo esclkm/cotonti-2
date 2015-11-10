@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Contact Extension for Cotonti CMF (English Localization)
+ * Contact Extension for Feliz CMF (English Localization)
  * @version 2.00
- * @author Cotonti Team
- * @copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

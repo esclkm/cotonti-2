@@ -1,4 +1,4 @@
-/* CKEditor toolbar sets for Cotonti */
+/* CKEditor toolbar sets for Feliz */
 
 CKEDITOR.editorConfig = function( config )
 {

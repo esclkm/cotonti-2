@@ -174,7 +174,7 @@ class FTemplate
 	 */	
 	public function text($block = null)
 	{
-		self::$fenom->fetch($this->templateFile, $this->getVariables($block));
+		return self::$fenom->fetch($this->templateFile, $this->getVariables($block));
 	}
 	/**
 	 * Prints a parsed block

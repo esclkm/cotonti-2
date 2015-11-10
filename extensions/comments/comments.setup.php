@@ -3,11 +3,11 @@
 [BEGIN_COT_EXT]
 Name=Comments system
 Category=community-social
-Description=Comments system for Cotonti
+Description=Comments system for Feliz
 Version=0.9.17
 Date=2014-05-04
-Author=Cotonti Team
-Copyright=Partial copyright (c) Cotonti Team 2008-2014
+Author=Feliz Team
+Copyright=Partial copyright (c) Feliz Team 2008-2014
 Notes=BSD License
 Auth_guests=R
 Lock_guests=12345A
@@ -37,8 +37,8 @@ order=14:select:Chronological,Recent:Recent:Comment sorting order
  *
  * @package comments
  * @version 0.9.17
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

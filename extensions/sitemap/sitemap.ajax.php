@@ -9,8 +9,8 @@
  * XML sitemap generator
  *
  * @package sitemap
- * @author Cotonti Team
- * @copyright Copyright (c) 2012-2014, Cotonti Team
+ * @author Feliz Team
+ * @copyright Copyright (c) 2012-2014, Feliz Team
  * @license BSD
  */
 

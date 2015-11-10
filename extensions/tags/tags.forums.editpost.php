@@ -10,8 +10,8 @@ Hooks=forums.editpost.update.done
  *
  * @package tags
  * @version 0.7.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

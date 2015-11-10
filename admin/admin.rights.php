@@ -2,10 +2,10 @@
 /**
  * Administration panel - Rights editor
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 
@@ -126,10 +126,10 @@ foreach ($cot_extensions as $code => $mod)
 }
 
 // The core and Extensions top-level
-$sql = $db->query("SELECT a.*, u.user_name FROM $db_core AS c
-LEFT JOIN $db_auth AS a ON c.ct_code=a.auth_code
+$sql = $db->query("SELECT a.*, u.user_name FROM $db_auth AS a 
+LEFT JOIN $db_core AS c ON c.ct_code=a.auth_code
 LEFT JOIN $db_users AS u ON u.user_id=a.auth_setbyuserid
-WHERE auth_groupid='$g' AND auth_option = 'a' AND c.ct_extension = 0
+WHERE auth_groupid='$g' AND auth_option = 'a' AND (c.ct_plug = 0 || c.ct_plug IS NULL)
 ORDER BY auth_code ASC");
 while ($row = $sql->fetch())
 {
@@ -143,6 +143,11 @@ while ($row = $sql->fetch())
 	{
 		$link = '#';
 		$title = $L['Messages'];
+	}
+	elseif ($row['auth_code'] == 'structure')
+	{
+		$link = '#';
+		$title = $L['Structure'];
 	}
 	else
 	{

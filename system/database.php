@@ -4,18 +4,18 @@
  *
  * @see http://www.php.net/manual/en/book.pdo.php
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.15
- * @author Cotonti Team
- * @copyright (c) Cotonti Team 2010-2014
+ * @author Feliz Team
+ * @copyright (c) Feliz Team 2010-2014
  * @license BSD
  */
 
 defined('COT_CODE') or die('Wrong URL');
 
 /**
- * Cotonti Database Connection class.
- * A compact extension to standard PHP PDO class with slight Cotonti-specific needs,
+ * Feliz Database Connection class.
+ * A compact extension to standard PHP PDO class with slight Feliz-specific needs,
  * handy functions and query builder.
  *
  * @see http://www.php.net/manual/en/class.pdo.php
@@ -577,7 +577,7 @@ class CotDB extends PDO {
 			}
 		}
 		$this->_stopTimer($query);
-		// In Cotonti we use PDO::FETCH_ASSOC by default to save memory
+		// In Feliz we use PDO::FETCH_ASSOC by default to save memory
 		$result->setFetchMode(PDO::FETCH_ASSOC);
 		$this->_affected_rows = $result->rowCount();
 		return $result;

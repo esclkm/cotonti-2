@@ -4,8 +4,8 @@
  *
  * @package users
  * @version 0.9.4
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2011-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2011-2014
  * @license BSD
  */
 

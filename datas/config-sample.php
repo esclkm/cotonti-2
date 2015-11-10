@@ -2,10 +2,10 @@
 /**
  * Configuration
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 
@@ -75,9 +75,8 @@ $cfg['xmlclient'] = FALSE;  		// For testing-purposes only, else keep it off.
 $cfg['ipcheck'] = FALSE;  			// Will kill the logged-in session if the IP has changed
 $cfg['authcache'] = TRUE;			// Auth cache in SQL tables. Set it FALSE if your huge database
 									// goes down because of that
-$cfg['customfuncs'] = FALSE;		// Includes file named functions.custom.php
 $cfg['new_install'] = 1;			// This setting denotes a new install step and redirects you to the install page
-									// If you already have Cotonti installed then set it to FALSE or remove it
+									// If you already have Feliz installed then set it to FALSE or remove it
 $cfg['useremailduplicate'] = FALSE;     // Allow users to register new accounts with duplicate email. DO NOT ENABLE this setting unless you know for sure that you need it or it may make your database inconsistent.
 
 // ========================

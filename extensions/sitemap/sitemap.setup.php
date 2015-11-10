@@ -6,8 +6,8 @@
  * Description=Simple XML sitemap for the site
  * Version=1.0
  * Date=2012-05-29
- * Author=Cotonti Team
- * Copyright=Copyright (c) 2012-2014, Cotonti Team
+ * Author=Feliz Team
+ * Copyright=Copyright (c) 2012-2014, Feliz Team
  * Notes=BSD License
  * Auth_guests=R
  * Lock_guests=W12345A

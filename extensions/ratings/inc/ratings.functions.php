@@ -3,8 +3,8 @@
  * Ratings API
  *
  * @package ratings
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2009-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2009-2014
  * @license BSD
  */
 

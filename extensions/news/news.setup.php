@@ -7,8 +7,8 @@ Category=publications-events
 Description=Pick up pages from a category and display the newest in the home page
 Version=0.9
 Date=2012-05-28
-Author=Cotonti Team
-Copyright=Partial copyright (c) Cotonti Team 2008-2014
+Author=Feliz Team
+Copyright=Partial copyright (c) Feliz Team 2008-2014
 Notes=BSD License
 SQL=
 Auth_guests=R
@@ -31,8 +31,8 @@ cache_ttl=04:select:0,60,180,300,600,1800,3600:0:Cache lifetime in seconds, 0 di
  *
  * @package news
  * @version 0.7.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

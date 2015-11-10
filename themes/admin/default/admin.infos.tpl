@@ -1,49 +1,48 @@
-<!-- BEGIN: MAIN -->
-{ADMIN_INFOS_BREADCRUMBS}
+
+{$ADMIN_INFOS_BREADCRUMBS}
 	<h2>Info</h2>
 	<table class="table table-striped">
 		<tr>
-			<td class="width60">{PHP.L.adm_phpver}</td>
-			<td class="textcenter width40">{ADMIN_INFOS_PHPVER}</td>
+			<td class="width60">{$PHP.L.adm_phpver}</td>
+			<td class="textcenter width40">{$ADMIN_INFOS_PHPVER}</td>
 		</tr>
 		<tr>
-			<td>{PHP.L.adm_zendver}</td>
-			<td class="textcenter">{ADMIN_INFOS_ZENDVER}</td>
+			<td>{$PHP.L.adm_zendver}</td>
+			<td class="textcenter">{$ADMIN_INFOS_ZENDVER}</td>
 		</tr>
         <tr>
-			<td>{PHP.L.adm_interface}</td>
-			<td class="textcenter">{ADMIN_INFOS_INTERFACE}</td>
+			<td>{$PHP.L.adm_interface}</td>
+			<td class="textcenter">{$ADMIN_INFOS_INTERFACE}</td>
 		</tr>
         <tr>
-			<td>{PHP.L.adm_cachedrivers}</td>
-			<td class="textcenter">{ADMIN_INFOS_CACHEDRIVERS}</td>
+			<td>{$PHP.L.adm_cachedrivers}</td>
+			<td class="textcenter">{$ADMIN_INFOS_CACHEDRIVERS}</td>
 		</tr>
 		<tr>
-			<td>{PHP.L.adm_os}</td>
-			<td class="textcenter">{ADMIN_INFOS_OS}</td>
+			<td>{$PHP.L.adm_os}</td>
+			<td class="textcenter">{$ADMIN_INFOS_OS}</td>
 		</tr>
 		<tr>
-			<td>{PHP.L.adm_time1}</td>
-			<td class="textcenter">{ADMIN_INFOS_DATE}</td>
+			<td>{$PHP.L.adm_time1}</td>
+			<td class="textcenter">{$ADMIN_INFOS_DATE}</td>
 		</tr>
 		<tr>
-			<td>{PHP.L.adm_time2}</td>
-			<td class="textcenter">{ADMIN_INFOS_GMDATE} GMT</td>
+			<td>{$PHP.L.adm_time2}</td>
+			<td class="textcenter">{$ADMIN_INFOS_GMDATE} GMT</td>
 		</tr>
 		<tr>
-			<td>{PHP.L.adm_time3}</td>
-			<td class="textcenter">{ADMIN_INFOS_GMTTIME}</td>
+			<td>{$PHP.L.adm_time3}</td>
+			<td class="textcenter">{$ADMIN_INFOS_GMTTIME}</td>
 		</tr>
 		<tr>
-			<td>{PHP.L.adm_time4}</td>
-			<td class="textcenter">{ADMIN_INFOS_USRTIME} {ADMIN_INFOS_TIMETEXT}</td>
+			<td>{$PHP.L.adm_time4}</td>
+			<td class="textcenter">{$ADMIN_INFOS_USRTIME} {$ADMIN_INFOS_TIMETEXT}</td>
 		</tr>
 	</table>
 		
 	<div class="block">
 		<div class="help">
-			<h4>{PHP.L.Help}:</h4>
-			<p>{PHP.L.adm_help_versions}</p>
+			<h4>{$PHP.L.Help}:</h4>
+			<p>{$PHP.L.adm_help_versions}</p>
 		</div>
 	</div>
-<!-- END: MAIN -->

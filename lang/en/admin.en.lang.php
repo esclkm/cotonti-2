@@ -3,10 +3,10 @@
 /**
  * English Language File for the Admin Module (admin.en.lang.php)
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 
@@ -256,7 +256,7 @@ $L['ext_dependency_uninstall_error'] = 'Extension &quot;{$name}&quot; requires t
 $L['ext_executed_php'] = 'Executed PHP handler part: {$ret}';
 $L['ext_executed_sql'] = 'Executed SQL handler part: {$ret}';
 $L['ext_installing'] = 'Installing extension &quot;{$name}&quot;';
-$L['ext_invalid_format'] = 'This is not a valid Cotonti >= 0.9 extension. Please contact the developer';
+$L['ext_invalid_format'] = 'This is not a valid Feliz >= 0.9 extension. Please contact the developer';
 $L['ext_patch_applied'] = 'Applied patch {$f}: {$msg}';
 $L['ext_patch_error'] = 'Error applying patch {$f}: {$msg}';
 $L['ext_requires_modules'] = 'Requires modules';
@@ -445,9 +445,9 @@ $L['adm_os'] = 'Operating system';
 $L['adm_clocks'] = 'Clocks';
 $L['adm_time1'] = '#1: Raw server time';
 $L['adm_time2'] = '#2: GMT time returned by the server';
-$L['adm_time3'] = '#3: GMT time + server offset (Cotonti reference)';
+$L['adm_time3'] = '#3: GMT time + server offset (Feliz reference)';
 $L['adm_time4'] = '#4: Your local time, adjusted from your profile';
-$L['adm_help_versions'] = "Adjust the server time zone to have clock #3 properly set.<br />\nClock #4 depends on the time zone setting in your profile.<br />\nClocks #1 and #2 are being ignored by Cotonti.";
+$L['adm_help_versions'] = "Adjust the server time zone to have clock #3 properly set.<br />\nClock #4 depends on the time zone setting in your profile.<br />\nClocks #1 and #2 are being ignored by Feliz.";
 
 /**
  * Common Entries

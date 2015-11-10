@@ -8,10 +8,10 @@ Hooks=admin.home.sidepanel
 /**
  * Pages manager & Queue of pages
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.4
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 defined('COT_CODE') or die('Wrong URL');

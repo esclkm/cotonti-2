@@ -3,10 +3,10 @@
 /**
  * Index loader
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.17
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 if (php_sapi_name() == 'cli-server')
@@ -64,7 +64,7 @@ if (!file_exists('./datas/config.php'))
 	exit;
 }
 
-// Let the include files know that we are Cotonti
+// Let the include files know that we are Feliz
 define('COT_CODE', true);
 
 // Load vital core configuration from file

@@ -9,8 +9,8 @@ Hooks=users.edit.tags,users.profile.tags
  * PM user edit profile tags
  *
  * @package pm
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

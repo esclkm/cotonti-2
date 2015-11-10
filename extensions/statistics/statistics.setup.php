@@ -6,8 +6,8 @@ Category=performance-seo
 Description=All kind of statistics about the site
 Version=0.7.0
 Date=2010-jan-03
-Author=Neocrome & Cotonti Team
-Copyright=Partial copyright (c) Cotonti Team 2008-2014
+Author=Neocrome & Feliz Team
+Copyright=Partial copyright (c) Feliz Team 2008-2014
 Notes=BSD License
 SQL=
 Auth_guests=R
@@ -23,8 +23,8 @@ Requires=hits,whosonline
  *
  * @package statistics
  * @version 0.7.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

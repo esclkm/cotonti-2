@@ -6,8 +6,8 @@ Category=forms-feedback
 Description=Contact form for user feedback delivered by e-mail and recorded in database
 Version=2.7.0
 Date=2011-05-24
-Author=Cotonti Team
-Copyright=&copy; Cotonti Team 2008-2014
+Author=Feliz Team
+Copyright=&copy; Feliz Team 2008-2014
 Notes=
 Auth_guests=RW
 Lock_guests=12345A
@@ -26,11 +26,11 @@ template=15:textarea:::Email template
 ==================== */
 
 /**
- * Contact Extension for Cotonti CMF
+ * Contact Extension for Feliz CMF
  *
  * @package contact
  * @version 2.1
- * @author Cotonti Team
- * @copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright (c) Feliz Team 2008-2014
  * @license BSD
  */

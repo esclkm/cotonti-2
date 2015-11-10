@@ -1,4 +1,3 @@
-<!-- BEGIN: HEADER -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
@@ -6,7 +5,7 @@
 	<meta name="description" content="{$HEADER_META_DESCRIPTION}" />
 	<meta name="keywords" content="{$HEADER_META_KEYWORDS}" />
 	
-	<meta name="generator" content="Cotonti http://www.cotonti.com" />
+	<meta name="generator" content="Feliz http://www.cotonti.com" />
 	<meta http-equiv="expires" content="Fri, Apr 01 1974 00:00:00 GMT" />
 	<meta http-equiv="pragma" content="no-cache" />
 	<meta http-equiv="cache-control" content="no-cache" />
@@ -113,7 +112,7 @@
 			</ul>
 			<div class="clear"></div>			
 			<div id="footer">
-				<a href="http://cotonti.com" target="_blank" title="Cotonti {$PHP.cfg.version}">Feliz {$PHP.cfg.version}</a>
+				<a href="http://cotonti.com" target="_blank" title="Feliz {$PHP.cfg.version}">Feliz {$PHP.cfg.version}</a>
 			</div>
 		</div>
 		<div id="navshade"></div>
@@ -122,4 +121,3 @@
 			<div id="header">{$HEADER_BREADCRUMBS}</div>
 			<div id="ajaxBlock">
 					<div id="main" class="container-fluid{if $PHP.m } mode_{$PHP.m}{/if}">
-<!-- END: HEADER -->

@@ -18,7 +18,12 @@
 </footer>
 
 
-
+{if $PHP.usr.is_admin}
+	{$FOOTER_CREATIONTIME}
+	{$FOOTER_SQLSTATISTICS}
+	{$FOOTER_DEVMODE}	
+	
+{/if}
 
 
 {$FOOTER_RC}

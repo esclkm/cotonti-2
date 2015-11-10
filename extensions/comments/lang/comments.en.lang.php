@@ -4,8 +4,8 @@
  *
  * @package comments
  * @version 0.7.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 
@@ -40,7 +40,7 @@ $L['cfg_parsebbcodecom_hint'] = '';
 $L['cfg_parsesmiliescom'] = 'Parse smilies in comments';
 $L['cfg_parsesmiliescom_hint'] = '';
 
-$L['info_desc'] = 'Comments system for Cotonti with API and integration with pages, lists, polls, RSS and other extensions';
+$L['info_desc'] = 'Comments system for Feliz with API and integration with pages, lists, polls, RSS and other extensions';
 
 /**
  *  Extension Body

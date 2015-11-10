@@ -4,8 +4,8 @@
  *
  * @package install
  * @version 0.7.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 
@@ -18,11 +18,11 @@ $L['Next'] = 'Далее';
 
 $L['install_adminacc'] = 'Данные администратора';
 $L['install_body_title'] = 'Установка Feliz';
-$L['install_body_message1'] = 'Этот скрипт поможет вам осуществить первичную установку и настройку Cotonti.';
+$L['install_body_message1'] = 'Этот скрипт поможет вам осуществить первичную установку и настройку Feliz.';
 $L['install_body_message2'] = 'Рекомендуем создать в папке datas файл config.php, скопировать в него содержимое файла config-sample.php и установить на него права CHMOD 666.';
 $L['install_body_message3'] = 'Вам необходимо <strong>предварительно создать пустую базу данных</strong> с указанным выше именем на вашем сервере, если у данного пользователя нет прав на создание новых БД.';
 $L['install_chmod_value'] = 'CHMOD {$chmod}';
-$L['install_complete'] = 'Установка Cotonti успешно завершена!';
+$L['install_complete'] = 'Установка Feliz успешно завершена!';
 $L['install_complete_note'] = 'Удалите install.php и установите на datas/config.php права CHMOD 644. Это необходимо для повышения безопасности вашего сайта.';
 $L['install_db'] = 'Настройки базы данных MySQL';
 $L['install_db_host'] = 'Сервер СУБД';
@@ -36,13 +36,13 @@ $L['install_dir_not_found'] = 'Каталог установки не найде
 $L['install_error_config'] = 'Не удаётся создать или отредактировать файл конфигурации. Скопируйте содержимое файла config-sample.php в config.php. Установите на файл config.php права CHMOD 777.';
 $L['install_error_sql'] = 'Не удалось подключиться к базе MySQL. Проверьте настройки подключения.';
 $L['install_error_sql_db'] = 'Не удалось выбрать базу MySQL. Проверьте настройки подключения.';
-$L['install_error_sql_ext'] = 'Для запуска Cotonti необходимо PHP-расширение pdo_mysql';
+$L['install_error_sql_ext'] = 'Для запуска Feliz необходимо PHP-расширение pdo_mysql';
 $L['install_error_sql_script'] = 'Выполнение SQL-скрипта завершилось неудачно: {$msg}';
-$L['install_error_sql_ver'] = 'Cotonti требуется версия MySQL 5.0.7 и выше. Ваша версия {$ver}';
+$L['install_error_sql_ver'] = 'Feliz требуется версия MySQL 5.0.7 и выше. Ваша версия {$ver}';
 $L['install_error_mainurl'] = 'Укажите основной URL вашего сайта';
-$L['install_error_mbstring'] = 'Для запуска Cotonti необходимо расширение PHP mbstring';
+$L['install_error_mbstring'] = 'Для запуска Feliz необходимо расширение PHP mbstring';
 $L['install_error_missing_file'] = 'Отсутствует файл {$file}. Загрузите его для продолжения установки.';
-$L['install_error_php_ver'] = 'Для запуска Cotonti необходим PHP 5.2.3 и выше. Ваша версия {$ver}';
+$L['install_error_php_ver'] = 'Для запуска Feliz необходим PHP 5.2.3 и выше. Ваша версия {$ver}';
 $L['install_misc'] = 'Дополнительные настройки';
 $L['install_misc_lng'] = 'Основной язык';
 $L['install_misc_theme'] = 'Основная тема оформления';
@@ -54,8 +54,8 @@ $L['install_recommends'] = 'Рекомендуется';
 $L['install_requires'] = 'Требуется';
 $L['install_retype_password'] = 'Повторите пароль';
 $L['install_step'] = 'Шаг {$step} из {$total}';
-$L['install_title'] = 'Установка Cotonti';
-$L['install_update'] = 'Обновление Cotonti';
+$L['install_title'] = 'Установка Feliz';
+$L['install_update'] = 'Обновление Feliz';
 $L['install_update_config_error'] = 'Невозможно обновить datas/config.php. Пожалуйста, установите CHMOD 664 или 666 на этот файл и попробуйте снова. Если это не помогло, убедитесь, что файл datas/config-sample.php существует.';
 $L['install_update_config_success'] = 'Файл datas/config.php обновлен';
 $L['install_update_error'] = 'Обновление не выполнено';
@@ -66,8 +66,8 @@ $L['install_update_patches'] = 'Установленные патчи:';
 $L['install_update_success'] = 'Успешное обновление до версии {$rev}';
 $L['install_update_template_not_found'] = 'Не найден файл шаблона обновления';
 $L['install_upgrade'] = 'Система готова к глобальному апгрейду...';
-$L['install_upgrade_error'] = 'Ошибка обновления Cotonti до версии {$ver}';
-$L['install_upgrade_success'] = 'Успешное обновление Cotonti до версии {$ver}';
+$L['install_upgrade_error'] = 'Ошибка обновления Feliz до версии {$ver}';
+$L['install_upgrade_success'] = 'Успешное обновление Feliz до версии {$ver}';
 $L['install_upgrade_success_note'] = 'Во избежание проблем с совместимостью все старые расширения были деинсталлированы. Вы можете обновить их позже самостоятельно.';
 $L['install_ver'] = 'Информация о сервере';
 $L['install_ver_invalid'] = '{$ver} &mdash; неудачно!';

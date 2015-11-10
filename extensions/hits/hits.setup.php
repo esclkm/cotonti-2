@@ -3,11 +3,11 @@
 [BEGIN_COT_EXT]
 Name=Hits
 Category=performance-seo
-Description=Simple Stat for Cotonti
+Description=Simple Stat for Feliz
 Version=0.9.2
 Date=2012-02-24
-Author=Cotonti Team
-Copyright=Copyright (c) Cotonti Team 2008-2014
+Author=Feliz Team
+Copyright=Copyright (c) Feliz Team 2008-2014
 Notes=BSD License
 Auth_guests=R
 Lock_guests=12345A

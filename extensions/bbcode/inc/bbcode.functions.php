@@ -3,7 +3,7 @@
  * BBcode parsing and management API
  *
  * @package bbcode
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD License
  */
 

@@ -9,8 +9,8 @@ Hooks=usertags.main
  * Online user tags
  *
  * @package whosonline
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

@@ -3,8 +3,8 @@
  * Russian Language File for the PM Module (pm.ru.lang.php)
  *
  * @package pm
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 

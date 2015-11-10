@@ -2,9 +2,9 @@
 /**
  * Main function library.
  *
- * @package Cotonti
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @package Feliz
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD License
  */
 
@@ -13,8 +13,8 @@ defined('COT_CODE') or die('Wrong URL');
 // System requirements check
 if (!defined('COT_INSTALL'))
 {
-	(function_exists('version_compare') && version_compare(PHP_VERSION, '5.4.0', '>=')) or die('Cotonti system requirements: PHP 5.4.0 or above.'); // TODO: Need translate
-	extension_loaded('mbstring') or die('Cotonti system requirements: mbstring PHP extension must be loaded.'); // TODO: Need translate
+	(function_exists('version_compare') && version_compare(PHP_VERSION, '5.4.0', '>=')) or die('Feliz system requirements: PHP 5.4.0 or above.'); // TODO: Need translate
+	extension_loaded('mbstring') or die('Feliz system requirements: mbstring PHP extension must be loaded.'); // TODO: Need translate
 }
 
 // Group constants
@@ -95,17 +95,17 @@ $cot_url_appendix = array();
 $structure = array();
 
 /**
- * Facade class to access key Cotonti globals regardless of scope
+ * Facade class to access key Feliz globals regardless of scope
  */
 class cot
 {
 	/**
-	 * Cotonti cache
+	 * Feliz cache
 	 * @var Cache
 	 */
 	public static $cache;
 	/**
-	 * Cotonti configuration
+	 * Feliz configuration
 	 * @var array
 	 */
 	public static $cfg;
@@ -1309,7 +1309,7 @@ function cot_structure_parents($area, $cat, $type = 'full')
 /**
  * Returns specific access permissions
  *
- * @param string $area Cotonti area
+ * @param string $area Feliz area
  * @param string $option Option to access
  * @param string $mask Access mask
  * @return mixed
@@ -3512,7 +3512,7 @@ function cot_stamp2date($stamp)
  * Unsupported date formats : S, n, t, L, B, G, u, e, I, P, Z, c, r
  * Unsupported strftime formats : %U, %W, %C, %g, %r, %R, %T, %X, %c, %D, %F, %x
  *
- * @author Cotonti Team
+ * @author Feliz Team
  * @see http://php.net/manual/en/function.strftime.php
  * @param string $format A format for date().
  * @return string Format usable for strftime().
@@ -5110,7 +5110,7 @@ function cot_hash_sha1($data, $salt)
 }
 
 /**
- * SHA256 hash func for use with cot_hash(). Default since Cotonti 0.9.11.
+ * SHA256 hash func for use with cot_hash(). Default since Feliz 0.9.11.
  *
  * @param  string $data Data to be hashed
  * @param  string $salt Hashing salt, usually a random value
@@ -5696,13 +5696,4 @@ function cot_get_plural($plural, $lang, $is_frac = false)
 		default:
 			return 0;
 	}
-}
-
-/*
- * ============================================================================
-*/
-
-if (isset($cfg['customfuncs']) && $cfg['customfuncs'])
-{
-	require_once $cfg['system_dir'] . '/functions.custom.php';
 }

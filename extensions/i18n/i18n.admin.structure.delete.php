@@ -10,8 +10,8 @@ Hooks=admin.structure.delete.done
  *
  * @package i18n
  * @version 0.9.4
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2010-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2010-2014
  * @license BSD License
  */
 

@@ -10,8 +10,8 @@ Hooks=admin.extensions.install.tags
  *
  * @package i18n
  * @version 0.9.2
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2011-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2011-2014
  * @license BSD License
  */
 

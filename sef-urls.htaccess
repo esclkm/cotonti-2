@@ -1,4 +1,4 @@
-################ Cotonti Handy URLs for Apache #######################
+################ Feliz Handy URLs for Apache #######################
 
 # Below are the rules to be included in your main .htaccess file or httpd.conf
 
@@ -6,7 +6,7 @@
 Options -Indexes
 RewriteEngine On
 
-# Server-relative path to Cotonti. Replace it with your path if you run Cotonti
+# Server-relative path to Feliz. Replace it with your path if you run Feliz
 # in a subfolder
 RewriteBase "/"
 

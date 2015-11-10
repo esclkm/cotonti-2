@@ -3,9 +3,9 @@
  * GZIP-compressed resource output and cache control utility
  * Used by static resource consolidation and cache
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.4
- * @author Julien Lecomte, massively modified by Cotonti Team
+ * @author Julien Lecomte, massively modified by Feliz Team
  * @link http://www.julienlecomte.net/blog/2007/08/13/
  * @license BSD
  */
@@ -89,7 +89,7 @@ if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && stripslashes($_SERVER['HTTP_IF_NONE
 }
 
 /*
- *  Cotonti Static Resources Cache
+ *  Feliz Static Resources Cache
  */
 header('Content-Type: '.$content_type);
 readfile($src_uri);

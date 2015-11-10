@@ -1,9 +1,9 @@
 <?php
 /**
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.8
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 
@@ -497,6 +497,10 @@ $b = cot_import('b', 'G', 'ALP', 24);
  */
 $c = cot_import('c', 'G', 'TXT');
 /**
+ * @var integer page numder
+ */
+$d = cot_import('d', 'G', 'INT');
+/**
  * @var string Extension name
  */
 $e = cot_import('e', 'G', 'ALP'); 
@@ -656,7 +660,7 @@ if (!isset($cot_rc_html[$theme]) || !$cache || !$cfg['headrc_consolidate'] || de
 }
 $cot_rc_skip_minification = true;
 
-// Cotonti-specific XTemplate initialization
+// Feliz-specific XTemplate initialization
 if (class_exists('XTemplate'))
 {
 	XTemplate::init(array(

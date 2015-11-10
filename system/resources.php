@@ -2,10 +2,10 @@
 /**
  * Static and dynamic resource (e.g. HTML) strings. Can be overriden by skin files and other code.
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2009-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2009-2014
  * @license BSD
  */
 

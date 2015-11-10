@@ -3,11 +3,11 @@
 [BEGIN_COT_EXT]
 Name=Forums
 Category=module
-Description=Cotonti Bulletin Board Module
+Description=Feliz Bulletin Board Module
 Version=0.9.15
 Date=2011-08-19
-Author=Neocrome & Cotonti Team
-Copyright=(c) Cotonti Team 2008-2011
+Author=Neocrome & Feliz Team
+Copyright=(c) Feliz Team 2008-2011
 Notes=BSD License
 Auth_guests=R
 Lock_guests=A
@@ -55,7 +55,7 @@ metadesc=08:string:::
  *
  * @package forums
  * @version 0.9.0
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */

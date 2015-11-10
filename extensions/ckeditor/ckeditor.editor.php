@@ -6,14 +6,14 @@ Hooks=editor
 ==================== */
 
 /**
- * CKEditor connector for Cotonti.
+ * CKEditor connector for Feliz.
  * Uses direct header output rather than consolidated cache
  * because CKEditor uses dynamic AJAX component loading and
  * does not support consolidation.
  *
  * @package ckeditor
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2010-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2010-2014
  * @license BSD
  */
 

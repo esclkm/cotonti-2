@@ -1,5 +1,5 @@
 /**
- * MarkItUp! extended settings for Cotonti (BBcode)
+ * MarkItUp! extended settings for Feliz (BBcode)
  */
 
 var mySettings = {

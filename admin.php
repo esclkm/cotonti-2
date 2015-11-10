@@ -2,10 +2,10 @@
 /**
  * Administration panel loader
  *
- * @package Cotonti
+ * @package Feliz
  * @version 0.9.15
- * @author Cotonti Team
- * @copyright Copyright (c) Cotonti Team 2008-2014
+ * @author Feliz Team
+ * @copyright Copyright (c) Feliz Team 2008-2014
  * @license BSD
  */
 
@@ -32,11 +32,6 @@ if (!empty($e) && !file_exists($cfg['extensions_dir'] . '/' . $e . '/' . $e . '.
 {
 	unset($e); 
 }
-$standard_admin = array('cache', 'config', 'extrafields', 'home', 'infos',
-	'log', 'extensions', 'rights', 'rightsbyitem', 'structure', 'urls', 'users');
-
-$inc_file = (empty($t)) ? 'home' : $t;
-$inc_file = (empty($m)) ? $inc_file : $inc_file.'.'.$m;
 
 if(empty($t) && !empty($e)) // TODO: исправить на учет хуков
 {
@@ -44,9 +39,17 @@ if(empty($t) && !empty($e)) // TODO: исправить на учет хуков
 	$adminsubtitle = $cot_extensions[$e]['title'];
 	$inc_file = $cfg['extensions_dir'] . "/$e/$e.admin.php";
 }
-elseif (in_array($inc_file, $standard_admin) && file_exists(cot_incfile('admin', $inc_file)))
+else
 {
-	$inc_file = cot_incfile('admin', $inc_file);
+	$inc_file = cot_incfile('admin', 'home');	
+	if(file_exists(cot_incfile('admin', $t)))
+	{
+		$inc_file = cot_incfile('admin', $t);
+	}
+	if(!empty($m) && file_exists(cot_incfile('admin', $t.'.'.$m)))
+	{
+		$inc_file = cot_incfile('admin', $t.'.'.$m);
+	}	
 }
 
 if (!file_exists($inc_file))

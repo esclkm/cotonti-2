@@ -5,7 +5,7 @@
 		<title>{RSS_TITLE}</title>
 		<link>{RSS_LINK}</link>
 		<description>{RSS_DESCRIPTION}</description>
-		<generator>Cotonti</generator>
+		<generator>Feliz</generator>
 		<language>{RSS_LANG}</language>
 		<pubDate>{RSS_DATE}</pubDate>
 
