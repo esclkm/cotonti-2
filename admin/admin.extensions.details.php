@@ -22,18 +22,17 @@ $out['breadcrumbs'][] = array (cot_url('admin', 't=extensions'), $L['Extensions'
 $adminsubtitle = $L['Extensions'];
 
 $part = cot_import('part', 'G', 'TXT');
-$sort = cot_import('sort', 'G', 'ALP');
 
 if (empty($e))
 {
 	cot_die();
 }
 
-$status[0] = $R['admin_code_paused'];
-$status[1] = $R['admin_code_running'];
-$status[2] = $R['admin_code_partrunning'];
-$status[3] = $R['admin_code_notinstalled'];
-$status[4] = $R['admin_code_missing'];
+$status[0] = 'paused';
+$status[1] = 'running';
+$status[2] = 'partrunning';
+$status[3] = 'notinstalled';
+$status[4] = 'missing';
 $found_txt[0] = $R['admin_code_missing'];
 $found_txt[1] = $R['admin_code_present'];
 unset($disp_errors);
@@ -50,14 +49,11 @@ $ext_info = $cfg['extensions_dir'] . '/' . $e . '/' . $e . '.setup.php';
 $exists = file_exists($ext_info);
 if ($exists)
 {
-	$old_ext_format = false;
-	$info = cot_infoget($ext_info, 'COT_EXT');
+	$ext_info = cot_infoget($ext_info, 'COT_EXT');
 }
 else
 {
-	$info = array(
-		'Name' => $e
-	);
+	$ext_info = ['Name' => $e];
 }
 switch($a)
 {
@@ -154,19 +150,19 @@ if ($exists)
 	}
 	closedir($handle);
 
-	$info['Auth_members'] = cot_auth_getvalue($info['Auth_members']);
-	$info['Lock_members'] = cot_auth_getvalue($info['Lock_members']);
-	$info['Auth_guests'] = cot_auth_getvalue($info['Auth_guests']);
-	$info['Lock_guests'] = cot_auth_getvalue($info['Lock_guests']);
+	$ext_info['Auth_members'] = cot_auth_getvalue($ext_info['Auth_members']);
+	$ext_info['Lock_members'] = cot_auth_getvalue($ext_info['Lock_members']);
+	$ext_info['Auth_guests'] = cot_auth_getvalue($ext_info['Auth_guests']);
+	$ext_info['Lock_guests'] = cot_auth_getvalue($ext_info['Lock_guests']);
 }
 else
 {
 	$row = $db->query("SELECT * FROM $db_core WHERE ct_code = '$e'")->fetch();
-	$info['Name'] = $row['ct_title'];
-	$info['Version'] = $row['ct_version'];
+	$ext_info['Name'] = $row['ct_title'];
+	$ext_info['Version'] = $row['ct_version'];
 }
 
-$out['breadcrumbs'][] = array(cot_url('admin', "t=extensions&m=details&e=$e"), $info['Name']);
+$out['breadcrumbs'][] = array(cot_url('admin', "t=extensions&m=details&e=$e"), $ext_info['Name']);
 
 $isinstalled = cot_extension_installed($e);
 
@@ -396,14 +392,14 @@ $installed_ver = $db->query("SELECT ct_version FROM $db_core WHERE ct_code = '$e
 
 // Universal tags
 $t->assign(array(
-	'ADMIN_EXTENSIONS_NAME' => empty($L['info_name']) ? $info['Name'] : $L['info_name'],
+	'ADMIN_EXTENSIONS_NAME' => empty($L['info_name']) ? $ext_info['Name'] : $L['info_name'],
 	'ADMIN_EXTENSIONS_CODE' => $e,
 	'ADMIN_EXTENSIONS_ICO' => (file_exists($icofile)) ? $icofile : '',
-	'ADMIN_EXTENSIONS_DESCRIPTION' => empty($L['info_desc']) ? $info['Description'] : $L['info_desc'],
-	'ADMIN_EXTENSIONS_VERSION' => $info['Version'],
+	'ADMIN_EXTENSIONS_DESCRIPTION' => empty($L['info_desc']) ? $ext_info['Description'] : $L['info_desc'],
+	'ADMIN_EXTENSIONS_VERSION' => $ext_info['Version'],
 	'ADMIN_EXTENSIONS_VERSION_INSTALLED' => $installed_ver,
-	'ADMIN_EXTENSIONS_VERSION_COMPARE' => version_compare($info['Version'], $installed_ver),
-	'ADMIN_EXTENSIONS_DATE' => $info['Date'],
+	'ADMIN_EXTENSIONS_VERSION_COMPARE' => version_compare($ext_info['Version'], $installed_ver),
+	'ADMIN_EXTENSIONS_DATE' => $ext_info['Date'],
 	'ADMIN_EXTENSIONS_CONFIG_URL' => cot_url('admin', "t=config&n=edit&o=extension&p=$e"),
 	'ADMIN_EXTENSIONS_JUMPTO_URL_TOOLS' => $tools,
 	'ADMIN_EXTENSIONS_JUMPTO_URL' => $standalone,
@@ -422,30 +418,30 @@ if ($exists)
 	// Tags for existing exts
 	$t->assign(array(
 		'ADMIN_EXTENSIONS_RIGHTS' => cot_url('admin', "t=rightsbyitem&ic=$e&io=a"),
-		'ADMIN_EXTENSIONS_ADMRIGHTS_AUTH_GUESTS' => cot_auth_getmask($info['Auth_guests']),
-		'ADMIN_EXTENSIONS_AUTH_GUESTS' => $info['Auth_guests'],
-		'ADMIN_EXTENSIONS_ADMRIGHTS_LOCK_GUESTS' => cot_auth_getmask($info['Lock_guests']),
-		'ADMIN_EXTENSIONS_LOCK_GUESTS' => $info['Lock_guests'],
-		'ADMIN_EXTENSIONS_ADMRIGHTS_AUTH_MEMBERS' => cot_auth_getmask($info['Auth_members']),
-		'ADMIN_EXTENSIONS_AUTH_MEMBERS' => $info['Auth_members'],
-		'ADMIN_EXTENSIONS_ADMRIGHTS_LOCK_MEMBERS' => cot_auth_getmask($info['Lock_members']),
-		'ADMIN_EXTENSIONS_LOCK_MEMBERS' => $info['Lock_members'],
-		'ADMIN_EXTENSIONS_AUTHOR' => $info['Author'],
-		'ADMIN_EXTENSIONS_COPYRIGHT' => $info['Copyright'],
-		'ADMIN_EXTENSIONS_NOTES' => empty($L['info_notes']) ? $info['Notes'] : $L['info_notes'],
+		'ADMIN_EXTENSIONS_ADMRIGHTS_AUTH_GUESTS' => cot_auth_getmask($ext_info['Auth_guests']),
+		'ADMIN_EXTENSIONS_AUTH_GUESTS' => $ext_info['Auth_guests'],
+		'ADMIN_EXTENSIONS_ADMRIGHTS_LOCK_GUESTS' => cot_auth_getmask($ext_info['Lock_guests']),
+		'ADMIN_EXTENSIONS_LOCK_GUESTS' => $ext_info['Lock_guests'],
+		'ADMIN_EXTENSIONS_ADMRIGHTS_AUTH_MEMBERS' => cot_auth_getmask($ext_info['Auth_members']),
+		'ADMIN_EXTENSIONS_AUTH_MEMBERS' => $ext_info['Auth_members'],
+		'ADMIN_EXTENSIONS_ADMRIGHTS_LOCK_MEMBERS' => cot_auth_getmask($ext_info['Lock_members']),
+		'ADMIN_EXTENSIONS_LOCK_MEMBERS' => $ext_info['Lock_members'],
+		'ADMIN_EXTENSIONS_AUTHOR' => $ext_info['Author'],
+		'ADMIN_EXTENSIONS_COPYRIGHT' => $ext_info['Copyright'],
+		'ADMIN_EXTENSIONS_NOTES' => empty($L['info_notes']) ? $ext_info['Notes'] : $L['info_notes'],
 	));
 
 	// Check and display dependencies
 	$dependencies_satisfied = true;
 	foreach (array('Requires', 'Recommends') as $dep_type)
 	{
-		if (!empty($info[$dep_type]))
+		if (!empty($ext_info[$dep_type]))
 		{
 			$dep_obligatory = strpos($dep_type, 'Requires') === 0;
 			$dep_module = strpos($dep_type, 'modules') !== false;
 
 
-			foreach (explode(',', $info[$dep_type]) as $ext)
+			foreach (explode(',', $ext_info[$dep_type]) as $ext)
 			{
 				$ext = trim($ext);
 				$dep_installed = cot_extension_installed($ext);

@@ -159,10 +159,10 @@ if (defined('COT_UPGRADE') && !cot_error_found())
 	{
 		$code = $row[0];
 		$setup_file = $cfg['extensions_dir'] . '/' . $code . '/' . $code . '.setup.php';
-		if (file_exists($setup_file) && $info = cot_infoget($setup_file))
+		if (file_exists($setup_file) && $ext_info = cot_infoget($setup_file))
 		{
 			// Update
-			cot_extension_add($code, $info['Name'], '0.0.0', true);
+			cot_extension_add($code, $ext_info['Name'], '0.0.0', true);
 			cot_extension_install($code, true);
 		}
 		else

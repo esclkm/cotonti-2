@@ -16,29 +16,9 @@ cot_block($usr['isadmin']);
 
 require_once cot_incfile('system', 'auth');
 
-$t = new XTemplate(cot_tplfile('admin.extensions', 'system'));
-
 $out['breadcrumbs'][] = array(cot_url('admin', 't=extensions'), $L['Extensions']);
 $adminsubtitle = $L['Extensions'];
 
-$part = cot_import('part', 'G', 'TXT');
-$sort = cot_import('sort', 'G', 'ALP');
-
-if (empty($e))
-{
-	if (!empty($m) && $m != 'hooks')
-	{
-		cot_die();
-	}
-}
-
-$status[0] = $R['admin_code_paused'];
-$status[1] = $R['admin_code_running'];
-$status[2] = $R['admin_code_partrunning'];
-$status[3] = $R['admin_code_notinstalled'];
-$status[4] = $R['admin_code_missing'];
-$found_txt[0] = $R['admin_code_missing'];
-$found_txt[1] = $R['admin_code_present'];
 unset($disp_errors);
 
 /* === Hook === */
@@ -65,19 +45,10 @@ else
 	$only_installed_urlp = $only_installed ? '&inst=1' : '';
 	$only_installed_toggle = $only_installed ? '' : '&inst=1';
 }
-$sort_urlp = $sort == 'cat' ? '&sort=cat' : '';
+$sort_urlp = $s == 'cat' ? '&s=cat' : '';
 
 // Filter/sort tags
-$t->assign(array(
-	'ADMIN_EXTENSIONS_HOOKS_URL' => cot_url('admin', 't=extensions&m=hooks'),
-	'ADMIN_EXTENSIONS_SORT_ALP_URL' => cot_url('admin', 't=extensions'.$only_installed_urlp),
-	'ADMIN_EXTENSIONS_SORT_ALP_SEL' => $sort != 'cat',
-	'ADMIN_EXTENSIONS_SORT_CAT_URL' => cot_url('admin', 't=extensions&sort=cat'.$only_installed_urlp),
-	'ADMIN_EXTENSIONS_SORT_CAT_SEL' => $sort == 'cat',
-	'ADMIN_EXTENSIONS_ALL_EXTENSIONS_URL' => cot_url('admin', 't=extensions'.$sort_urlp),
-	'ADMIN_EXTENSIONS_ONLY_INSTALLED_URL' => cot_url('admin', 't=extensions'.$sort_urlp.$only_installed_toggle),
-	'ADMIN_EXTENSIONS_ONLY_INSTALLED_SEL' => $only_installed
-));
+
 
 // Prefetch common data to save SQL queries
 $totalconfigs = array();
@@ -85,7 +56,7 @@ foreach ($db->query("SELECT COUNT(*) AS cnt, config_owner, config_cat
 		FROM $db_config WHERE config_type != ".COT_CONFIG_TYPE_HIDDEN."
 		GROUP BY config_owner, config_cat")->fetchAll() as $row)
 {
-	$totalconfigs[$row['config_owner']][$row['config_cat']] = (int)$row['cnt'];
+	$totalconfigs[$row['config_owner']] = (int)$row['cnt'];
 }
 
 $totalactives = array();
@@ -101,14 +72,6 @@ foreach ($db->query("SELECT ct_version, ct_code FROM $db_core")->fetchAll() as $
 {
 	$installed_vers[$row['ct_code']] = $row['ct_version'];
 }
-
-$sql = $db->query("SELECT DISTINCT(config_cat), COUNT(*) FROM $db_config
-	WHERE config_owner='extension' GROUP BY config_cat");
-while ($row = $sql->fetch(PDO::FETCH_NUM))
-{
-	$cfgentries[$row['config_cat']] = $row[0];
-}
-$sql->closeCursor();
 
 $extensions = cot_extension_list_info($cfg['extensions_dir']);
 
@@ -145,7 +108,7 @@ foreach ($sql->fetchAll() as $row)
 	);
 }
 
-if ($sort == 'cat')
+if ($s == 'cat')
 {
 	uasort($extensions, 'cot_extension_catcmp');
 }
@@ -154,144 +117,112 @@ else
 	uasort($extensions, 'cot_extension_namecmp');
 }
 
-$cnt_extp = count($extensions);
-$cnt_parts = 0;
-
 $standalone = array();
-$sql3 = $db->query("SELECT ext_code FROM $db_extension_hooks WHERE ext_hook='standalone' OR ext_hook='module'");
-while ($row3 = $sql3->fetch())
-{
-	$standalone[$row3['ext_code']] = TRUE;
-}
-$sql3->closeCursor();
-
 $tools = array();
-$sql3 = $db->query("SELECT ext_code FROM $db_extension_hooks WHERE ext_hook='admin'");
-while ($row3 = $sql3->fetch())
-{
-	$tools[$row3['ext_code']] = TRUE;
-}
-$sql3->closeCursor();
-
 $struct = array();
-$sql3 = $db->query("SELECT ext_code FROM $db_extension_hooks WHERE ext_hook='admin.structure.first'");
+$sql3 = $db->query("SELECT ext_code, ext_hook FROM $db_extension_hooks 
+	WHERE ext_hook='standalone' OR ext_hook='admin' OR ext_hook='admin.structure.first'");
 while ($row3 = $sql3->fetch())
 {
-	$struct[$row3['ext_code']] = TRUE;
+	$row3['ext_hook'] == 'standalone' && $standalone[$row3['ext_code']] = TRUE;
+	$row3['ext_hook'] == 'admin' && $tools[$row3['ext_code']] = TRUE;
+	$row3['ext_hook'] == 'admin.structure.first' && $struct[$row3['ext_code']] = TRUE;
 }
-
 $sql3->closeCursor();
 
-$prev_cat = '';
+$t = new FTemplate(cot_tplfile('admin.extensions', 'system'));
+
+$ext_cat = array();
+$ext_list = array();
+
 /* === Hook - Part1 : Set === */
 $extp = cot_getextensions("admin.extensions.extensions.list.loop");
 /* ===== */
-foreach ($extensions as $e => $info)
+foreach ($extensions as $ext_code => $ext_info)
 {
-	if ($sort == 'cat' && $prev_cat != $info['Category'])
-	{
-		// Render category heading
-		$t->assign('ADMIN_EXTENSIONS_CAT_TITLE', $L['ext_cat_'.$info['Category']]);
-		$t->parse('MAIN.DEFAULT.SECTION.ROW.ROW_CAT');
-		// Assign a new one
-		$prev_cat = $info['Category'];
-	}
+	$category = ($s == 'cat') ? $ext_info['Category'] : 'all';
 
-	$exists = !isset($info['NotFound']);
+	$totalactive = $totalactives[$ext_code];
+	$totalinstalled = $totalinstalleds[$ext_code];
 
-	if (!empty($info['Error']))
+	if (!isset($installed_vers[$ext_code]))
 	{
-		$t->assign(array(
-			'ADMIN_EXTENSIONS_X_ERR' => $e,
-			'ADMIN_EXTENSIONS_ERROR_MSG' => $info['Error']
-		));
-		$t->parse('MAIN.ROW.ROW_ERROR_EXT');
-		$t->parse('MAIN.ROW');
+		$part_status = 'notinstalled';
 	}
 	else
 	{
-		$totalactive = $totalactives[$e];
-		$totalinstalled = $totalinstalleds[$e];
-
-		$cnt_parts += $totalinstalled;
-
-		if (!isset($installed_vers[$e]))
+		$ext_info['Partscount'] = $totalinstalled;
+		if (isset($ext_info['NotFound']))
 		{
-			$part_status = 3;
-			$info['Partscount'] = '?';
+			$part_status = 'missing';
+		}
+		elseif ($totalinstalled > $totalactive && $totalactive > 0)
+		{
+			$part_status = 'partrunning';
+		}
+		elseif ($totalactive == 0 && $totalinstalled > 0)
+		{
+			$part_status = 'paused';
 		}
 		else
 		{
-			$info['Partscount'] = $totalinstalled;
-			if (!$exists)
-			{
-				$part_status = 4;
-			}
-			elseif ($totalinstalled > $totalactive && $totalactive > 0)
-			{
-				$part_status = 2;
-			}
-			elseif ($totalactive == 0 && $totalinstalled > 0)
-			{
-				$part_status = 0;
-			}
-			else
-			{
-				$part_status = 1;
-			}
+			$part_status = 'running';
 		}
-
-		$totalconfig = $totalconfigs['module'][$e];
-
-		$ifthistools = $tools[$e];
-		$ent_code = $cfgentries[$e];
-		$if_plg_standalone = $standalone[$e];
-		$ifstruct = $struct[$e];
-
-		$icofile = $cfg['extensions_dir'].'/'.$e.'/'.$e.'.png';
-
-		$installed_ver = $installed_vers[$e];
-
-		$L['info_name'] = '';
-		$L['info_desc'] = '';
-		if (file_exists(cot_langfile($e)))
-		{
-			include cot_langfile($e);
-		}
-
-		$t->assign(array(
-			'ADMIN_EXTENSIONS_DETAILS_URL' => cot_url('admin', "t=extensions&m=details&e=$e"),
-			'ADMIN_EXTENSIONS_NAME' => empty($L['info_name']) ? $info['Name'] : $L['info_name'],
-			'ADMIN_EXTENSIONS_CODE_X' => $e,
-			'ADMIN_EXTENSIONS_DESCRIPTION' => empty($L['info_desc']) ? $info['Description'] : $L['info_desc'],
-			'ADMIN_EXTENSIONS_ICO' => (file_exists($icofile)) ? $icofile : '',
-			'ADMIN_EXTENSIONS_EDIT_URL' => cot_url('admin', "t=config&n=edit&o=extension&e=$e"),
-			'ADMIN_EXTENSIONS_TOTALCONFIG' => $totalconfig,
-			'ADMIN_EXTENSIONS_PARTSCOUNT' => $info['Partscount'],
-			'ADMIN_EXTENSIONS_STATUS' => $status[$part_status],
-			'ADMIN_EXTENSIONS_VERSION' => $info['Version'],
-			'ADMIN_EXTENSIONS_VERSION_INSTALLED' => $installed_ver,
-			'ADMIN_EXTENSIONS_VERSION_COMPARE' => version_compare($info['Version'], $installed_ver),
-			'ADMIN_EXTENSIONS_RIGHTS_URL' => cot_url('admin', "t=rightsbyitem&e=$e&io=a"),
-			'ADMIN_EXTENSIONS_JUMPTO_URL_TOOLS' => cot_url('admin', "e=$e"),
-			'ADMIN_EXTENSIONS_JUMPTO_URL' => cot_url('index', 'e='.$e),
-			'ADMIN_EXTENSIONS_JUMPTO_URL_STRUCT' => cot_url('admin', "t=structure&e=$e"),
-			'ADMIN_EXTENSIONS_ODDEVEN' => cot_build_oddeven($i)
-		));
-		/* === Hook - Part2 : Include === */
-		foreach ($extp as $ext)
-		{
-			include $ext;
-		}
-		/* ===== */
-		$t->parse('MAIN.SECTION.ROW');
 	}
-}
-$t->assign(array(
-	'ADMIN_EXTENSIONS_CNT_EXTP' => $cnt_extp
-));
-$t->parse('MAIN.SECTION');
 
+	$icofile = $cfg['extensions_dir'].'/'.$ext_code.'/'.$ext_code.'.png';
+
+
+	$L['info_name'] = '';
+	$L['info_desc'] = '';
+	if (file_exists(cot_langfile($ext_code)))
+	{
+		require_once cot_langfile($ext_code);
+	}
+	$ext_tags = [
+
+		'NAME' => empty($L['info_name']) ? $ext_info['Name'] : $L['info_name'],
+		'CODE' => $ext_code,
+		'DESCRIPTION' => empty($L['info_desc']) ? $ext_info['Description'] : $L['info_desc'],
+		'ICO' => (file_exists($icofile)) ? $icofile : '',	
+		'TOTALCONFIG' => $totalconfigs[$ext_code],
+		'PARTSCOUNT' => (int)$ext_info['Partscount'],
+		'STATUS' => $part_status,
+		'VERSION' => $ext_info['Version'],
+		'VERSION_INSTALLED' => $installed_vers[$ext_code],
+		'VERSION_COMPARE' => version_compare($ext_info['Version'], $installed_vers[$ext_code]),
+		'URL_CONFIG' => $totalconfigs[$ext_code] ? cot_url('admin', "t=config&n=edit&o=extension&e=$ext_code") : '',
+		'URL_DETAILS' => cot_url('admin', "t=extensions&m=details&e=$ext_code"),		
+		'URL_RIGHTS' => cot_url('admin', "t=rightsbyitem&e=$ext_code&io=a"),
+		'URL_ADMIN' => $tools[$ext_code] ? cot_url('admin', "e=$ext_code") : '',
+		'URL_OPEN' => $standalone[$ext_code] ? cot_url('index', 'e='.$ext_code) : '',
+		'URL_STRUCT' => $struct[$ext_code] ? cot_url('admin', "t=structure&e=$ext_code") : '',
+		'ERROR_MSG' => $ext_info['Error']
+	];
+	/* === Hook - Part2 : Include === */
+	foreach ($extp as $ext)
+	{
+		include $ext;
+	}
+	/* ===== */
+	$ext_cat[$category] = $L['ext_cat_'.$ext_info['Category']];
+	$ext_list[$category][] = $ext_tags;
+}
+
+$t->assign(array(
+	'ADMIN_EXT_HOOKS_URL' => cot_url('admin', 't=extensions&m=hooks'),
+	'ADMIN_EXT_SORT_ALP_URL' => cot_url('admin', 't=extensions'.$only_installed_urlp),
+	'ADMIN_EXT_SORT_ALP_SEL' => $s != 'cat',
+	'ADMIN_EXT_SORT_CAT_URL' => cot_url('admin', 't=extensions&s=cat'.$only_installed_urlp),
+	'ADMIN_EXT_SORT_CAT_SEL' => $s == 'cat',
+	'ADMIN_EXT_ALL_EXTENSIONS_URL' => cot_url('admin', 't=extensions'.$sort_urlp),
+	'ADMIN_EXT_ONLY_INSTALLED_URL' => cot_url('admin', 't=extensions'.$sort_urlp.$only_installed_toggle),
+	'ADMIN_EXT_ONLY_INSTALLED_SEL' => $only_installed,
+	'ADMIN_EXT_CATEGORIES' => $ext_cat,
+	'ADMIN_EXT_EXTENSIONS' => $ext_list,
+	'ADMIN_EXT_CNT_EXTP' => count($extensions),
+	'ADMIN_EXT_CAT_ORDER' => ($s == 'cat')
+));
 cot_display_messages($t);
 
 /* === Hook  === */
@@ -300,5 +231,5 @@ foreach (cot_getextensions('admin.extensions.tags') as $ext)
 	include $ext;
 }
 /* ===== */
-$t->parse('MAIN');
-$adminmain = $t->text('MAIN');
+$t->parse();
+$adminmain = $t->text();
