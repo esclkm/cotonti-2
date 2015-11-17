@@ -27,6 +27,19 @@ class FTemplate
 	private $templateFile = "";
 	
 	/**
+	 * @var array Stores debug data
+	 */
+	protected static $debug_data = array();
+	/**
+	 * @var boolean Enables debug dumping
+	 */
+	protected static $debug_mode = false;
+	/**
+	 * @var boolean Prints debug mode screen
+	 */
+	protected static $debug_output = false;
+	
+	/**
 	 * @var object Fenom class
 	 */
 	protected static $fenom = '';
@@ -49,6 +62,10 @@ class FTemplate
 			));
 		}
 	}
+	public function __toString()
+    {
+        return '';
+    }
 	
 	/**
 	 * Initializes static class configuration.
@@ -73,12 +90,19 @@ class FTemplate
 		$defaults = array(
 			'cache_dir'    => '',
 			'auto_reload' => true,
-			'force_compile' => true
+			'force_compile' => true,
+			'debug'        => false,
+			'debug_output' => false,
 		);
 
 		$options = array_merge($defaults, $options);
 		$cache = $options['cache_dir'];
+		self::$debug_mode    = $options['debug'];
+		self::$debug_output  = $options['debug_output'];
+		
 		unset($options['cache_dir']);
+		unset($options['debug']);
+		unset($options['debug_output']);
 		
 		self::$fenom = Fenom::factory('', $cache, $options);
 		self::$inicialized = true;
@@ -91,6 +115,9 @@ class FTemplate
 		self::$fenom->addModifier('date', function ($timestamp, $format='date_text') {
 			return cot_date($format, $timestamp);
 		});
+		self::$fenom->addModifier('dump', function ($var) {
+			return self::dump($var);
+		});		
 	}
 
 	/**
@@ -166,6 +193,145 @@ class FTemplate
 	{
 		return array_merge($this->blockVars, $this->vars,  array('PHP' => &$GLOBALS));		
 	}
+
+	
+	/**
+	 * Variable debug output handler for {var_name|dump}
+	 *
+	 * @param mixed $val Var value
+	 * @return string
+	 */
+	private static function dump($val)
+	{
+		if(self::$debug_mode)
+		{
+			if($val == $GLOBALS)
+			{
+				//$val = '$GLOBALS array()';
+			}
+			echo '<ul class="dump">' . self::debugVar("dump", $val) . '</ul>';
+			die();
+		}
+		return $val;
+	}
+
+	/**
+	 * Debugging output of a tag name and current value
+	 *
+	 * @param string $name Tag name
+	 * @param mixed $value Tag value, will be casted to string
+	 * @param string $preffix Tag preffix
+	 * @param int $level Current nesting level
+	 * @return string A list elemented for debug output
+	 */
+	public static function debugVar($name, $value, $preffix = '', $level =0)
+	{
+		if(!empty($preffix))
+		{
+		//	$name = $preffix.'.'.$name;
+		}
+		if(is_null($value))
+		{
+			return false;
+		}
+		if (is_bool($value))
+		{
+			$val_disp = '<em>[bool] '.($value ? 'TRUE' : 'FALSE').'</em>';
+		}
+		elseif (is_numeric($value))
+		{
+			$val_disp = '<em>[int] '.(string) $value.'</em>';
+		}
+		elseif(is_object($value))
+		{
+			if(method_exists($value, '__toString'))
+			{
+				$text = (string)$value;
+			}
+			$val_disp = '<em>[object] ' . get_class ($value). ' '  .$text.'</em>';
+		}
+		elseif(is_array($value))
+		{
+			$array_debug = '';
+			if($level < 7)
+			{
+				foreach($value as $key => $val)
+				{
+					$print = true;
+					if(is_numeric($key) && $key > 0)
+					{
+						$print = false;
+					}
+					if(is_numeric($key))
+					{
+						$key = '[0 .. '.count($value).']';
+					}				
+					if($print)
+					{
+						$array_debug.= self::debugVar($key, $val, $name, $level++);
+					}
+				}
+			}
+			$val_disp = '<em>array('.count($value).')</em> <ul>'.$array_debug.'</ul>';
+		}
+		else
+		{
+			if (!is_string($value))
+			{
+				$value = (string) $value;
+			}
+			$val_disp = '<em>&quot;' . htmlspecialchars($value) . '&quot;</em>';
+		}
+
+		return  '<li>{' . htmlspecialchars($name) . '} =&gt; ' . $val_disp . '</li>';
+	}
+	
+	public function debug()
+	{
+			// Print debug stuff for current file
+			if(!in_array($this->templateFile, self::$debug_data))
+			{
+				self::$debug_data[] = $this->templateFile;
+				echo "<h1>".$this->templateFile."</h1>";
+				echo "<ul>";
+				foreach($this->vars as $key => $val)
+				{
+					echo self::debugVar($key, $val);
+				}
+				echo "</ul>";
+				if(count($this->blockVars))
+				{
+					echo "<ul>";
+					foreach($this->vars as $key => $val)
+					{
+						echo self::debugVar($key, $val);
+					}
+					echo "</ul>";
+				}
+			}
+			/*foreach ($this->blockVars as $block => $tags) {
+				$block_name = $file . ' / ' . str_replace('.', ' / ', $block);
+				echo "<h2>$block_name</h2>";
+				echo "<ul>";
+				foreach ($tags as $key => $val)
+				{
+					if (is_array($val))
+					{
+						// One level of nesting is supported
+						foreach ($val as $key2 => $val2)
+						{
+							echo self::debugVar($key . '.' . $key2, $val2);
+						}
+					}
+					else
+					{
+						echo self::debugVar($key, $val);
+					}
+				}
+				echo "</ul>";
+			}*/		
+	}	
+
 	/**
 	 * Returns parsed block HTML
 	 *
@@ -174,6 +340,11 @@ class FTemplate
 	 */	
 	public function text($block = null)
 	{
+		if(self::$debug_mode && self::$debug_output)
+		{
+			$this->debug();
+			return $this;
+		}
 		return self::$fenom->fetch($this->templateFile, $this->getVariables($block));
 	}
 	/**
@@ -184,6 +355,10 @@ class FTemplate
 	 */	
 	public function out($block = null)
 	{
+		if(self::$debug_mode && self::$debug_output)
+		{
+			return $this->debug();
+		}
 		return self::$fenom->display($this->templateFile, $this->getVariables($block));
 	}
 }

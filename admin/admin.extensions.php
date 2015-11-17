@@ -191,7 +191,7 @@ foreach ($extensions as $ext_code => $ext_info)
 		'VERSION' => $ext_info['Version'],
 		'VERSION_INSTALLED' => $installed_vers[$ext_code],
 		'VERSION_COMPARE' => version_compare($ext_info['Version'], $installed_vers[$ext_code]),
-		'URL_CONFIG' => $totalconfigs[$ext_code] ? cot_url('admin', "t=config&n=edit&o=extension&e=$ext_code") : '',
+		'URL_CONFIG' => $totalconfigs[$ext_code] ? cot_url('admin', "t=config&m=edit&e=$ext_code") : '',
 		'URL_DETAILS' => cot_url('admin', "t=extensions&m=details&e=$ext_code"),		
 		'URL_RIGHTS' => cot_url('admin', "t=rightsbyitem&e=$ext_code&io=a"),
 		'URL_ADMIN' => $tools[$ext_code] ? cot_url('admin', "e=$ext_code") : '',

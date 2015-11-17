@@ -675,7 +675,9 @@ require_once $cfg['system_dir'].'/FTemplate.php';
 FTemplate::init(array(
 	'cache_dir'    => $cfg['cache_dir'].'/fenom',
 	'auto_reload' => true,
-	'force_compile' => true
+	'force_compile' => true,
+	'debug'        => $cfg['debug_mode'],
+	'debug_output' => (bool)$_GET['tpl_debug']
 ));
 
 /* ======== Global hook ======== */
