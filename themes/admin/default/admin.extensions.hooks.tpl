@@ -1,7 +1,7 @@
 
 {include $PHP.cfg.themes_dir~"/admin/"~$PHP.cfg.admintheme~"/warnings.tpl"}
 
-	<h2>{$PHP.L.Hooks} ({$ADMIN_EXT_CNT_HOOK}):</h2>
+	<h1>{$PHP.L.Hooks} ({$ADMIN_EXT_CNT_HOOK}):</h1>
 	<table class="table table-striped">
 		<tr>
 			<td class="coltop width40">{$PHP.L.Hooks}</td>

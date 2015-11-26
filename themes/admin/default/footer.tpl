@@ -12,7 +12,7 @@
 
 </footer>
 {if $FOOTER_DEVMODE}
-<div class="container-fluid">			
+<div class="container-fluid devmode">			
 	<div class="alert alert-warning" role="alert">{$FOOTER_DEVMODE}</div>
 </div>
 {/if}

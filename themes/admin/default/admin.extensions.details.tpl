@@ -1,188 +1,201 @@
+{include $PHP.cfg.themes_dir~"/admin/"~$PHP.cfg.admintheme~"/warnings.tpl"}
 
-	{include $PHP.cfg.themes_dir~"/admin/"~$PHP.cfg.admintheme~"/warnings.tpl"}
-
-	<h2>{if $ADMIN_EXTENSIONS_ICO }
-					<img src="{$ADMIN_EXTENSIONS_ICO}" />
-					{else}
-					{$PHP.R.admin_icon_extension}
-					{/if}{$PHP.L.Extension} {$ADMIN_EXTENSIONS_NAME}:</h2>
-	<div class="block">
+<h1>{$PHP.L.Extension} {$ADMIN_EXT_NAME}</h1>
+<div class="row">
+	<div class="col-xs-1 hidden-xs">
+		{if $ADMIN_EXT_ICO }
+		<img src="{$ADMIN_EXT_ICO}" />
+		{else}
+		{$PHP.R.admin_icon_extension}
+		{/if}
+	</div>
+	<div class="col-xs-11">
 		<table class="table table-striped info">
 			<tr>
-				<td class="width25">{$PHP.L.Code}:</td>
-				<td class="width75">{$ADMIN_EXTENSIONS_CODE}</td>
+				<td class="col-xs-3">{$PHP.L.Code}:</td>
+				<td class="col-xs-9">{$ADMIN_EXT_CODE}</td>
 			</tr>
 			<tr>
 				<td>{$PHP.L.Description}:</td>
-				<td>{$ADMIN_EXTENSIONS_DESCRIPTION}</td>
+				<td>{$ADMIN_EXT_DESCRIPTION}</td>
 			</tr>
 			<tr>
 				<td>{$PHP.L.Version}:</td>
 				<td>
-					{if $PHP.isinstalled AND $ADMIN_EXTENSIONS_VERSION_COMPARE > 0 }
-					<span class="highlight_red">{$ADMIN_EXTENSIONS_VERSION_INSTALLED}</span> / <span class="highlight_green">{$ADMIN_EXTENSIONS_VERSION}</span>
+					{if $ADMIN_EXT_VERSION_INSTALLED AND $ADMIN_EXT_VERSION_COMPARE > 0 }
+					<span class="highlight_red">{$ADMIN_EXT_VERSION_INSTALLED}</span> / <span class="highlight_green">{$ADMIN_EXT_VERSION}</span>
 					{else}
-					{$ADMIN_EXTENSIONS_VERSION}
+					{$ADMIN_EXT_VERSION}
 					{/if}
 				</td>
 			</tr>
 			<tr>
 				<td>{$PHP.L.Date}:</td>
-				<td>{$ADMIN_EXTENSIONS_DATE}</td>
+				<td>{$ADMIN_EXT_DATE}</td>
 			</tr>
-<!--//<tr>
-	<td>{$PHP.L.adm_defauth_guests}:</td>
-	<td>{$ADMIN_EXTENSIONS_ADMRIGHTS_AUTH_GUESTS} ({$ADMIN_EXTENSIONS_AUTH_GUESTS})</td>
-</tr>
-<tr>
-	<td>{$PHP.L.adm_deflock_guests}:</td>
-	<td>{$ADMIN_EXTENSIONS_ADMRIGHTS_LOCK_GUESTS} ({$ADMIN_EXTENSIONS_LOCK_GUESTS})</td>
-</tr>
-<tr>
-	<td>{$PHP.L.adm_defauth_members}:</td>
-	<td>{$ADMIN_EXTENSIONS_ADMRIGHTS_AUTH_MEMBERS} ({$ADMIN_EXTENSIONS_AUTH_MEMBERS})</td>
-</tr>
-<tr>
-	<td>{$PHP.L.adm_deflock_members}:</td>
-	<td>{$ADMIN_EXTENSIONS_ADMRIGHTS_LOCK_MEMBERS} ({$ADMIN_EXTENSIONS_LOCK_MEMBERS})</td>
-</tr>//-->
 			<tr>
 				<td>{$PHP.L.Author}:</td>
-				<td>{$ADMIN_EXTENSIONS_AUTHOR}</td>
+				<td>{$ADMIN_EXT_AUTHOR}</td>
 			</tr>
 			<tr>
 				<td>{$PHP.L.Copyright}:</td>
-				<td>{$ADMIN_EXTENSIONS_COPYRIGHT}</td>
+				<td>{$ADMIN_EXT_COPYRIGHT}</td>
 			</tr>
 			<tr>
 				<td>{$PHP.L.Notes}:</td>
-				<td>{$ADMIN_EXTENSIONS_NOTES}</td>
+				<td>{$ADMIN_EXT_NOTES}</td>
 			</tr>
-			{foreach \$1 as $row}
+			{if $ADMIN_EXT_REQUIRES}
 			<tr>
-				<td>{$ADMIN_EXTENSIONS_DEPENDENCIES_TITLE}:</td>
+				<td>{$PHP.L.ext_requires_ext}:</td>
 				<td>
-					<ul>
-					{foreach \$1 as $row}
+					<ul  class="list-inline">
+					{foreach $ADMIN_EXT_REQUIRES as $EXT}
 						<li>
-							<a href="{$ADMIN_EXTENSIONS_DEPENDENCIES_ROW_URL}" class="{$ADMIN_EXTENSIONS_DEPENDENCIES_ROW_CLASS}">{$ADMIN_EXTENSIONS_DEPENDENCIES_ROW_NAME}</a>
+							<a href="{$EXT.URL}" class="label label-{$EXT.CLASS}">{$EXT.NAME}</a>
 						</li>
 					{/foreach}
 					</ul>
 				</td>
 			</tr>
-			{/foreach}
-		</table>
-	</div>
-	{if $PHP.isinstalled AND $PHP.exists }
-	<div class="block">
-
-		<h3>{$PHP.L.Action}:</h3>
-		<div class="button-toolbar">
-		{if $ADMIN_EXTENSIONS_JUMPTO_URL }
-		<a title="{$PHP.L.Open}" href="{$ADMIN_EXTENSIONS_JUMPTO_URL}" class="button special large">{$PHP.L.Open}</a>
-		{/if}
-		{if $ADMIN_EXTENSIONS_JUMPTO_URL_TOOLS }
-		<a title="{$PHP.L.Administration}" href="{$ADMIN_EXTENSIONS_JUMPTO_URL_TOOLS}" class="button special large">{$PHP.L.Administration}</a>
-		{/if}
-		{if $ADMIN_EXTENSIONS_TOTALCONFIG > 0 }
-		<a title="{$PHP.L.Configuration}" href="{$ADMIN_EXTENSIONS_CONFIG_URL}" class="button large">{$PHP.L.Configuration} ({$ADMIN_EXTENSIONS_TOTALCONFIG})</a>
-		{/if}
-		<a title="{$PHP.L.Rights}" href="{$ADMIN_EXTENSIONS_RIGHTS}" class="button large">{$PHP.L.short_rights}</a>
-		{if $ADMIN_EXTENSIONS_JUMPTO_URL_STRUCT }
-		<a title="{$PHP.L.Structure}" href="{$ADMIN_EXTENSIONS_JUMPTO_URL_STRUCT}" class="button large">{$PHP.L.Structure}</a>
-		{/if}
-
-			</div>
-	</div>
-{/if}
-
-	<div class="block">
-		<h3>{$PHP.L.Options}:</h3>
-		<div class="button-toolbar">
-{if !$PHP.isinstalled AND $PHP.dependencies_satisfied }
-
-					<a title="{$PHP.L.adm_opt_install_explain}" href="{$ADMIN_EXTENSIONS_INSTALL_URL}" class="ajax button special large">{$PHP.L.adm_opt_install}</a>
-{/if}
-{if $PHP.isinstalled }
-			{if $PHP.exists }
-
-					<a title="{$PHP.L.adm_opt_install_explain}" href="{$ADMIN_EXTENSIONS_UPDATE_URL}" class="ajax button special large">{$PHP.L.adm_opt_update}</a>
 			{/if}
-					<a title="{$PHP.L.adm_opt_uninstall_explain}" href="{$ADMIN_EXTENSIONS_UNINSTALL_URL}" class="ajax button large">{$PHP.L.adm_opt_uninstall}</a>
-					<a title="{$PHP.L.adm_opt_pauseall_explain}" href="{$ADMIN_EXTENSIONS_PAUSE_URL}" class="ajax button large">{$PHP.L.adm_opt_pauseall}</a>
-
-			{if $PHP.exists }
-
-					<a title="{$PHP.L.adm_opt_unpauseall_explain}" href="{$ADMIN_EXTENSIONS_UNPAUSE_URL}" class="ajax button large">{$PHP.L.adm_opt_unpauseall}</a>
-
-			{/if}
-{/if}
-</div>
-	</div>
-	<div class="block">
-		<h3>{$PHP.L.Parts}:</h3>
-		<table class="table table-striped">
+			{if $ADMIN_EXT_RECOMMENDS}
 			<tr>
-				<td class="coltop width5">#</td>
-				<td class="coltop width15">{$PHP.L.Part}</td>
-				<td class="coltop width20">{$PHP.L.File}</td>
-				<td class="coltop width20">{$PHP.L.Hooks}</td>
-				<td class="coltop width10">{$PHP.L.Order}</td>
-				<td class="coltop width15">{$PHP.L.Status}</td>
-				<td class="coltop width15">{$PHP.L.Action}</td>
-			</tr>
-{foreach \$1 as $row}
-			<tr>
-				<td colspan="3">{$ADMIN_EXTENSIONS_DETAILS_ROW_X}</td>
-				<td colspan="4">{$ADMIN_EXTENSIONS_DETAILS_ROW_ERROR}</td>
-			</tr>
-{/foreach}
-{foreach \$1 as $row}
-			<tr>
-				<td class="centerall">{$ADMIN_EXTENSIONS_DETAILS_ROW_I_1}</td>
-				<td class="centerall">{$ADMIN_EXTENSIONS_DETAILS_ROW_PART}</td>
-				<td class="centerall">{$ADMIN_EXTENSIONS_DETAILS_ROW_FILE}</td>
-				<td class="centerall">{$ADMIN_EXTENSIONS_DETAILS_ROW_HOOKS}</td>
-				<td class="centerall">{$ADMIN_EXTENSIONS_DETAILS_ROW_ORDER}</td>
-				<td class="centerall">{$ADMIN_EXTENSIONS_DETAILS_ROW_STATUS}</td>
-				<td class="centerall">
-{foreach \$1 as $row}
-					&ndash;
-{/foreach}
-{foreach \$1 as $row}
-					<a href="{$ADMIN_EXTENSIONS_DETAILS_ROW_PAUSEPART_URL}" class="ajax button">{$PHP.L.adm_opt_pause}</a>
-{/foreach}
-{foreach \$1 as $row}
-					<a href="{$ADMIN_EXTENSIONS_DETAILS_ROW_UNPAUSEPART_URL}" class="ajax button">{$PHP.L.adm_opt_unpause}</a>
-{/foreach}
+				<td>{$PHP.L.ext_recommends_ext}:</td>
+				<td>
+					<ul  class="list-inline">
+					{foreach $ADMIN_EXT_RECOMMENDS as $EXT}
+						<li>
+							<a href="{$EXT.URL}" class="label label-{$EXT.CLASS}">{$EXT.NAME}</a>
+						</li>
+					{/foreach}
+					</ul>
 				</td>
 			</tr>
-{/foreach}
+			{/if}
 		</table>
+		<div class="text-right">
+		{if !$ADMIN_EXT_ISINSTALLED AND $PHP.dependencies_satisfied }
+			<a title="{$PHP.L.adm_opt_install_explain}" class="btn btn-primary" href="{$ADMIN_EXT_INSTALL_URL}" class="ajax button special large">{$PHP.L.adm_opt_install}</a>
+		{/if}
+		{if $ADMIN_EXT_ISINSTALLED }
+			{if $ADMIN_EXT_EXIST }
+			<a title="{$PHP.L.adm_opt_install_explain}" class="btn btn-primary" href="{$ADMIN_EXT_UPDATE_URL}" class="ajax button special large">{$PHP.L.adm_opt_update}</a>
+			{/if}
+			<a title="{$PHP.L.adm_opt_uninstall_explain}"  class="btn btn-danger" href="{$ADMIN_EXT_UNINSTALL_URL}" class="ajax button large">{$PHP.L.adm_opt_uninstall}</a>
+		{/if}
+		</div>
 	</div>
-	<div class="block">
-		<h3>{$PHP.L.Tags}:</h3>
-		<table class="table table-striped">
-			<tr>
-				<td class="coltop width5">#</td>
-				<td class="coltop width25">{$PHP.L.Part}</td>
-				<td class="coltop width70">{$PHP.L.Files} / {$PHP.L.Tags}</td>
-			</tr>
-{foreach \$1 as $row}
-			<tr>
-				<td class="centerall">{$ADMIN_EXTENSIONS_DETAILS_ROW_I_1}</td>
-				<td class="centerall">{$ADMIN_EXTENSIONS_DETAILS_ROW_PART}</td>
-				<td class="centerall">{$PHP.L.None}</td>
-			</tr>
-{/foreach}
-{foreach \$1 as $row}
-			<tr>
-				<td class="centerall">{$ADMIN_EXTENSIONS_DETAILS_ROW_I_1}</td>
-				<td class="centerall">{$ADMIN_EXTENSIONS_DETAILS_ROW_PART}</td>
-				<td>{$ADMIN_EXTENSIONS_DETAILS_ROW_LISTTAGS}</td>
-			</tr>
-{/foreach}
-		</table>
-	</div>
+</div>
+<div class="block">
 
+</div>
+{if $ADMIN_EXT_ISINSTALLED AND $ADMIN_EXT_EXIST}
+<div class="block">
+
+	<h3>{$PHP.L.Action}:</h3>
+	<div class="button-toolbar">
+	{if $ADMIN_EXT_JUMPTO_URL }
+		<a title="{$PHP.L.Open}" href="{$ADMIN_EXT_JUMPTO_URL}" target="_blank" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-share-alt"></span> {$PHP.L.Open}</a>
+	{/if}
+	{if $ADMIN_EXT_JUMPTO_URL_TOOLS }
+	<a title="{$PHP.L.Administration}" href="{$ADMIN_EXT_JUMPTO_URL_TOOLS}"  class="btn btn-lg btn-default"><span class="glyphicon glyphicon-edit"></span> {$PHP.L.Administration}</a>
+	{/if}
+	{if $ADMIN_EXT_TOTALCONFIG > 0 }
+		<a title="{$PHP.L.Configuration}" href="{$ADMIN_EXT_CONFIG_URL}" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-cog"></span> {$PHP.L.Configuration} ({$ADMIN_EXT_TOTALCONFIG})</a>
+	{/if}
+	<a title="{$PHP.L.Rights}" href="{$ADMIN_EXT_RIGHTS}"  class="btn btn-lg btn-default"><span class="glyphicon glyphicon-lock"></span> {$PHP.L.short_rights}</a>
+	{if $ADMIN_EXT_JUMPTO_URL_STRUCT }
+	<a title="{$PHP.L.Structure}" href="{$ADMIN_EXT_JUMPTO_URL_STRUCT}" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-list-alt"></span> {$PHP.L.Structure}</a>
+	{/if}
+	{if $ADMIN_EXT_JUMPTO_EXFLDS}
+		{foreach $ADMIN_EXT_JUMPTO_EXFLDS as $EXFLD}
+			<a title="{$PHP.L.Extrafield}" href="{$EXFLD.url}" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-hdd"></span> {$PHP.L.adm_extrafields_table} {$EXFLD.name}</a>
+		{/foreach}
+	{/if}
+		</div>
+</div>
+{/if}
+
+{if $ADMIN_EXT_PARTS}
+<div class="block">
+	<h3>{$PHP.L.Parts}:</h3>
+	<table class="table table-striped">
+		<tr>
+			<td class="coltop width5">#</td>
+			<td class="coltop width15">{$PHP.L.Part}</td>
+			<td class="coltop width20">{$PHP.L.File}</td>
+			<td class="coltop width20">{$PHP.L.Hooks}</td>
+			<td class="coltop width10">{$PHP.L.Order}</td>
+			<td class="coltop width15">{$PHP.L.Status}</td>
+			<td class="coltop width15">{$PHP.L.Action}</td>
+		</tr>
+
+{foreach $ADMIN_EXT_PARTS as $PART index=$index}
+{if $PART.ERROR}
+		<tr>
+			<td class="text-center">{$index+1}</td>
+			<td colspan="2" class="text-center">{$PART.FILE}</td>
+			<td colspan="4" class="text-center">{$PART.ERROR}</td>
+		</tr>
+{else}
+		<tr>
+			<td class="text-center">{$index+1}</td>
+			<td class="text-center">{$PART.PART}</td>
+			<td class="text-center">{$PART.FILE}</td>
+			<td class="text-center">{$PART.HOOKS}</td>
+			<td class="text-center">{$PART.ORDER}</td>
+			<td class="text-center">{$PART.STATUS}</td>
+			<td class="text-center">
+{if $PART.NOTINSTALLED}
+				&ndash;
+{/if}
+{if $PART.PAUSEPART_URL}
+				<a href="{$PART.PAUSEPART_URL}" class="ajax button">{$PHP.L.adm_opt_pause}</a>
+{/if}
+{if $PART.UNPAUSEPART_URL}
+				<a href="{$PART.UNPAUSEPART_URL}" class="ajax button">{$PHP.L.adm_opt_unpause}</a>
+{/if}
+			</td>
+		</tr>
+{/if}
+{/foreach}
+	</table>
+	{if $ADMIN_EXT_ISINSTALLED AND $ADMIN_EXT_EXIST }
+	<div class="text-right">
+		<a title="{$PHP.L.adm_opt_pauseall_explain}" class="btn btn-default"  href="{$ADMIN_EXT_PAUSE_URL}" class="ajax button large">{$PHP.L.adm_opt_pauseall}</a>
+		<a title="{$PHP.L.adm_opt_unpauseall_explain}"  class="btn btn-default" href="{$ADMIN_EXT_UNPAUSE_URL}" class="ajax button large">{$PHP.L.adm_opt_unpauseall}</a>
+	</div>
+	{/if}
+</div>
+{/if}
+{if $ADMIN_EXT_TAGS}
+<div class="block">
+	<h3>{$PHP.L.Tags}:</h3>
+	<table class="table table-striped">
+		<tr>
+			<td class="coltop width5">#</td>
+			<td class="coltop width25">{$PHP.L.Part}</td>
+			<td class="coltop width70">{$PHP.L.Files} / {$PHP.L.Tags}</td>
+		</tr>
+
+{foreach $ADMIN_EXT_TAGS as $TAG index=$index}
+		<tr>
+			<td class="centerall">{$index+1}</td>
+			<td class="centerall">{$TAG.PART}</td>
+			<td>
+				{foreach $TAG.LISTTAGS as $TPL_FILE => $TPL_TAGS}
+					<strong>{$TPL_FILE}</strong>
+					<div>
+					{foreach $TPL_TAGS as $TPL_TAG first=$first}
+						{if !$first}, {/if}{$TPL_TAG}
+					{/foreach}
+					</div>
+				{/foreach}	
+				{$ADMIN_EXT_DETAILS_ROW_LISTTAGS}
+			</td>
+		</tr>
+{/foreach}
+	</table>
+</div>
+{/if}

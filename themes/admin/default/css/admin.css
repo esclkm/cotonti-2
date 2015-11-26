@@ -75,3 +75,5 @@
 		clear:both;
 	}
 }
+
+.devmode td {word-wrap: break-word;word-break: break-all; padding: 3px; font-size:0.8em;color:#000; border-bottom:1px solid #ccc;}

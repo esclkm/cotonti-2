@@ -3299,7 +3299,7 @@ function cot_schemefile()
  * @param string $type Extension type: 'extension' or 'system'
  * @return string
  */
-function cot_tplfile($base, $type = 'extension')
+function cot_tplfile($base, $type = 'extension', $theme = null)
 {
 	global $usr, $cfg, $env, $sys;
 	
@@ -3316,13 +3316,9 @@ function cot_tplfile($base, $type = 'extension')
 	$scan_dirs = array();
 
 	// Possible search directories depending on extension type
-	if ($type != 'extension' && in_array($base[0], array('admin', 'header', 'footer', 'message', 'login')))
+	$scan_dirs[] = $sys['theme_dir'].'/';
+	if ($type == 'extension' && !in_array($base[0], array('admin', 'header', 'footer', 'message', 'login')))
 	{
-		$scan_dirs[] = $sys['theme_dir'].'/';
-	}
-	else
-	{
-		$scan_dirs[] = $sys['theme_dir'].'/';
 		$scan_dirs[] = $sys['theme_dir']."/{$base[0]}/";
 		$scan_dirs[] = "{$cfg['extensions_dir']}/{$base[0]}/tpl/";
 	}

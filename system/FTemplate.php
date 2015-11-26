@@ -23,6 +23,7 @@ class FTemplate
 
 	//добавляем новые методы
 	private $blockVars = array();
+	private static $globals = array();
 	private $vars = array();
 	private $templateFile = "";
 	
@@ -119,6 +120,21 @@ class FTemplate
 			return self::dump($var);
 		});		
 	}
+	public static function assignGlobal($name, $val = NULL, $prefix = '')
+	{
+		if (is_array($name))
+		{
+			foreach ($name as $key => $val)
+			{
+				self::$globals[$prefix.$key] = $val;
+			}
+		}
+		else
+		{
+			self::$globals[$prefix.$name] = $val;
+		}
+		return $this;
+	}
 
 	/**
 	 * Assigns a template variable or an array of them
@@ -191,7 +207,7 @@ class FTemplate
 	 */		
 	public function getVariables($block = null)
 	{
-		return array_merge($this->blockVars, $this->vars,  array('PHP' => &$GLOBALS));		
+		return array_merge(array('PHP' => &$GLOBALS), self::$globals,$this->blockVars, $this->vars);		
 	}
 
 	
@@ -293,6 +309,7 @@ class FTemplate
 			{
 				self::$debug_data[] = $this->templateFile;
 				echo "<h1>".$this->templateFile."</h1>";
+				
 				echo "<ul>";
 				foreach($this->vars as $key => $val)
 				{
@@ -308,6 +325,16 @@ class FTemplate
 					}
 					echo "</ul>";
 				}
+				if(count(self::$globals))
+				{
+					echo "<ul>";
+					foreach(self::$globals as $key => $val)
+					{
+						echo self::debugVar($key, $val);
+					}
+					echo "</ul>";
+				}
+				
 			}
 			/*foreach ($this->blockVars as $block => $tags) {
 				$block_name = $file . ' / ' . str_replace('.', ' / ', $block);
